@@ -5,6 +5,7 @@
 #pragma warning(disable:4005)
 
 //KEYCODES
+//VollDieKrasseÄnderung
 #define MOUSE_LEFT		1
 #define MOUSE_RIGHT		2
 #define KEY_RIGHT		3
