@@ -1,0 +1,42 @@
+# Blender MTL File: 'Dragon_2.5_For_Animations(1).blend'
+# Material Count: 3
+
+newmtl EYES
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\Dyrax\Desktop\AppData\Local\Temp\Rar$DIa0.078\New_texture\Nor.jpg
+map_Bump  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Nor_mirror2.jpg
+map_Ke  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Bump_Col2.jpg
+map_Ks  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Bump_Col2.jpg
+
+newmtl Game_dragon
+Ns 76.470588
+Ka 1.000000 1.000000 1.000000
+Kd 0.122992 0.041593 0.017175
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\Dyrax\Desktop\AppData\Local\Temp\Rar$DIa0.078\New_texture\Nor.jpg
+map_Bump  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Nor_mirror2.jpg
+map_Ks  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Bump_Col2.jpg
+
+newmtl Game_dragon.001
+Ns 76.470588
+Ka 1.000000 1.000000 1.000000
+Kd 0.165674 0.165674 0.165674
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\Dyrax\Desktop\AppData\Local\Temp\Rar$DIa0.078\New_texture\Nor.jpg
+map_Bump  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Nor_mirror2.jpg
+map_Ks  C:\\Users\\Dyrax\\Desktop\\Black Dragon Rigged and Game Ready\\textures\\Dragon_Bump_Col2.jpg

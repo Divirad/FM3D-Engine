@@ -1,0 +1,616 @@
+﻿<dc:RibbonWindow x:Class="RibbonPad.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:de="clr-namespace:DevComponents.WpfEditors;assembly=DevComponents.WpfEditors"
+    xmlns:dc="clr-namespace:DevComponents.WpfRibbon;assembly=DevComponents.WpfRibbon"
+    xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
+    xmlns:rp="clr-namespace:RibbonPad"
+    xmlns:WinTheme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Luna"
+    Loaded="RibbonWindow_Loaded"
+    Title="RibbonPad" Height="700" Width="980"
+    Icon="Document2.ico"
+    TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
+    ResizeMode="CanResizeWithGrip">
+    <dc:RibbonWindow.Resources>
+        <rp:MruFiles x:Key="MruFilesList"/>
+        <rp:MruFolders x:Key="MruFoldersList"/>
+        <rp:DocTemplates x:Key="TemplatesList"/>
+        <rp:SupportItems x:Key="SupportList"/>
+        <Style x:Key="AppMenuCommandButton" TargetType="{x:Type dc:ButtonDropDown}">
+            <Setter Property="Padding" Value ="4,2,4,2"/>
+        </Style>
+        <Style x:Key="AppMenuSeparator" TargetType="{x:Type Separator}">
+            <Setter Property="Margin" Value ="40,0,0,0"/>
+        </Style>
+        <DataTemplate x:Key="MruItemTemplate">
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <dc:ButtonDropDown ImageSource="images/Unpinned.png" DockPanel.Dock="Right" />
+                <dc:ButtonDropDown ImageSource="{Binding ImageSource}">
+                    <dc:ButtonDropDown.Header>
+                        <TextBlock>
+                            <TextBlock Text="{Binding FileName}" Foreground="Black" />
+                            <LineBreak />
+                            <TextBlock Text="{Binding Folder}" Foreground="DimGray" />
+                        </TextBlock>
+                    </dc:ButtonDropDown.Header>
+                </dc:ButtonDropDown>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DocumentTemplate">
+            <dc:ButtonDropDown ImageSource="{Binding ImageSource}" Header="{Binding FileName}" ImagePosition="Top" />
+        </DataTemplate>
+        <DataTemplate x:Key="HelpItemTemplate">
+            <dc:ButtonDropDown ImageSource="{Binding ImageSource}" Command="{Binding Command}">
+                <dc:ButtonDropDown.Header>
+                    <TextBlock>
+                        <TextBlock Text="{Binding FileName}" Foreground="Black" />
+                        <LineBreak />
+                        <TextBlock Text="{Binding Folder}" Foreground="DimGray" />
+                    </TextBlock>
+                </dc:ButtonDropDown.Header>
+            </dc:ButtonDropDown>
+        </DataTemplate>
+    </dc:RibbonWindow.Resources>
+    <DockPanel LastChildFill="True">
+        <dc:Ribbon DockPanel.Dock="Top"  Name="AppRibbon" VisualStyle="Office2016">
+            <!--Define Application Menu-->
+            <dc:Ribbon.ApplicationMenu>
+                <dc:ApplicationMenu dc:Ribbon.KeyTip="F" Header="FILE" Name="AppMenu" Color="Orange">
+                    <dc:ApplicationMenu.BackstageTab>
+                        <dc:Backstage FontFamily="Segoe UI">
+                            <dc:ButtonDropDown Header="Save" dc:Ribbon.KeyTip="S" Command="ApplicationCommands.Save" />
+                            <dc:ButtonDropDown Header="Save As" dc:Ribbon.KeyTip="A" Command="ApplicationCommands.SaveAs"/>
+                            <dc:BackstageTab Header="Recent" PanelBackground="Orange" dc:Ribbon.KeyTip="R">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <DockPanel LastChildFill="True" Grid.Column="0" Margin="16">
+                                        <Label Foreground="DimGray" Content="Recent Documents" FontWeight="Bold" FontSize="14" DockPanel.Dock="Top" />
+                                        <Rectangle Height="1" DockPanel.Dock="Top" Stroke="DimGray" StrokeThickness="1" StrokeDashArray="2.5 2.5" SnapsToDevicePixels="True"/>
+                                        <ItemsControl Margin="0,2,0,0" ItemsSource="{Binding Source={StaticResource MruFilesList}}" ItemTemplate="{DynamicResource MruItemTemplate}" Background="#60FFFFFF" TextElement.FontSize="12" />
+                                    </DockPanel>
+                                    <DockPanel LastChildFill="True" Grid.Column="1" Margin="16">
+                                        <Label Foreground="DimGray" Content="Recent Places" FontWeight="Bold" FontSize="14" DockPanel.Dock="Top" />
+                                        <Rectangle Height="1" DockPanel.Dock="Top" Stroke="DimGray" StrokeThickness="1" StrokeDashArray="2.5 2.5" SnapsToDevicePixels="True"/>
+                                        <ItemsControl Margin="0,2,0,0" ItemsSource="{Binding Source={StaticResource MruFoldersList}}" ItemTemplate="{DynamicResource MruItemTemplate}" Background="#60FFFFFF" TextElement.FontSize="12" />
+                                    </DockPanel>
+                                </Grid>
+                            </dc:BackstageTab>
+                            <dc:BackstageTab Header="New" PanelBackground="Green" dc:Ribbon.KeyTip="N">
+                                <DockPanel LastChildFill="True" Margin="16">
+                                    <Label Foreground="DimGray" Content="Available Templates" FontWeight="Bold" FontSize="14" DockPanel.Dock="Top" />
+                                    <Rectangle Height="1" DockPanel.Dock="Top" Stroke="DimGray" StrokeThickness="1" StrokeDashArray="3 3" SnapsToDevicePixels="True"/>
+                                    <ItemsControl Margin="0,2,0,0" ItemsSource="{Binding Source={StaticResource TemplatesList}}" ItemTemplate="{DynamicResource DocumentTemplate}" Background="#60FFFFFF" TextElement.FontSize="12">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </DockPanel>
+                            </dc:BackstageTab>
+                            <dc:BackstageTab Header="Help" dc:Ribbon.KeyTip="H">
+                                <DockPanel LastChildFill="True" Margin="16">
+                                    <Label Foreground="DimGray" Content="Support" FontWeight="Bold" FontSize="14" DockPanel.Dock="Top" />
+                                    <Rectangle Height="1" DockPanel.Dock="Top" Stroke="DimGray" StrokeThickness="1" StrokeDashArray="3 3" SnapsToDevicePixels="True"/>
+                                    <ItemsControl 
+                                        Margin="0,2,0,0" 
+                                        ItemsSource="{Binding Source={StaticResource SupportList}}" 
+                                        ItemTemplate="{DynamicResource HelpItemTemplate}" 
+                                        Background="#60FFFFFF" 
+                                        TextElement.FontSize="12" />
+                                </DockPanel>
+                            </dc:BackstageTab>
+                            <dc:ButtonDropDown Header="Options" dc:Ribbon.KeyTip="O" StaysOpenOnClick="False" ImageSource="images/Options.png" />
+                            <dc:ButtonDropDown Header="Exit" dc:Ribbon.KeyTip="X" StaysOpenOnClick="False" Command="ApplicationCommands.Close" />
+                        </dc:Backstage>
+                    </dc:ApplicationMenu.BackstageTab>
+                    <dc:ApplicationMenu.Image>
+                        <Image Source="images/Component.png" Width="24" Height="24" Visibility="Collapsed"/>
+                    </dc:ApplicationMenu.Image>
+                    <!-- Application Commands -->
+                    <dc:ApplicationMenu.AppItems>
+                        <dc:ButtonDropDown ImageSource="images/Options.png" ColorClass="ButtonWithBackground" dc:Ribbon.KeyTip="T" Command="rp:MyCommands.Options" Header="Options" />
+                        <dc:ButtonDropDown ImageSource="images/Exit.png"  ColorClass="ButtonWithBackground" Margin="6,0,0,0" dc:Ribbon.KeyTip="X" Command="ApplicationCommands.Close" Header="Exit RibbonPad" />
+                    </dc:ApplicationMenu.AppItems>
+                    <!-- Most Recently Used Items -->
+                    <dc:ApplicationMenu.MruItems>
+                        <TextBlock MinWidth="200" FontWeight="Bold">Recent Documents</TextBlock>
+                        <Separator Padding="0"/>
+                        <dc:ButtonDropDown Header="_1. ThemeAware.doc" dc:Ribbon.KeyTip="1" Command="rp:MyCommands.MostRecentlyUsed" CommandParameter="themeaware.doc" />
+                        <dc:ButtonDropDown Header="_2. ShortNews.doc" dc:Ribbon.KeyTip="2" Command="rp:MyCommands.MostRecentlyUsed" CommandParameter="shortnews.doc" />
+                        <dc:ButtonDropDown Header="_3. DevComponents.doc" dc:Ribbon.KeyTip="3" Command="rp:MyCommands.MostRecentlyUsed" CommandParameter="devcomponents.doc" />
+                        <dc:ButtonDropDown Header="_4. WpfRibbon.doc" dc:Ribbon.KeyTip="4" Command="rp:MyCommands.MostRecentlyUsed" CommandParameter="wpfribbon.doc" />
+                    </dc:ApplicationMenu.MruItems>
+                    <!-- Document Commands etc.-->
+                    <dc:ButtonDropDown ImageSource="images/Document32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="N" Command="ApplicationCommands.New" Header="New" />
+                    <dc:ButtonDropDown ImageSource="images/FolderOpen32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="O" Command="ApplicationCommands.Open" Header="Open" />
+                    <dc:ButtonDropDown ImageSource="images/Save32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="S" Command="ApplicationCommands.Save" Header="Save" />
+                    <dc:ButtonDropDown ImageSource="images/SaveAs32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="A" Command="ApplicationCommands.SaveAs" Header="Save As..." />
+                    <Separator Style="{DynamicResource AppMenuSeparator}"/>
+                    <dc:ButtonDropDown ImageSource="images/Print32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="P" Command="ApplicationCommands.Print" Header="Print..." />
+                    <Separator Style="{DynamicResource AppMenuSeparator}"/>
+                    <dc:ButtonDropDown ImageSource="images/FolderClosed32.png" Style="{DynamicResource AppMenuCommandButton}" dc:Ribbon.KeyTip="C" Command="rp:MyCommands.CloseDocument" Header="Close" />
+                </dc:ApplicationMenu>
+            </dc:Ribbon.ApplicationMenu>
+
+            <!-- Define Quick Access Toolbar-->
+            <dc:Ribbon.QuickAccessToolbar>
+                <dc:Qat>
+                    <dc:ButtonDropDown ImageSource="images/Save.png" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1" Command="ApplicationCommands.Save" />
+                    <dc:ButtonDropDown ImageSource="images/NewDocument.png" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="2" Command="ApplicationCommands.New" />
+                    <dc:QatCustomizeButton />
+                </dc:Qat>
+            </dc:Ribbon.QuickAccessToolbar>
+
+            <!-- Defined Contextual Groups -->
+            <dc:Ribbon.ContextGroups>
+                <dc:ContextGroup Name="cgGroup1" StockColor="Orange" FontSize="7.5pt">
+                    Context Group
+                </dc:ContextGroup>
+            </dc:Ribbon.ContextGroups>
+
+            <dc:RibbonTab Header="HOME" dc:Ribbon.KeyTip="H">
+                <dc:RibbonBarPanel Height="89">
+                    <dc:RibbonBar Header="Clipboard" Name="ribbonBarClipboard" Padding="3" LaunchDialog="DialogLauncherClicked" ResizeOrderIndex="1" dc:Ribbon.KeyTip="FO">
+                        <dc:RibbonBar.CollapsedImage>
+                            <Image Source="images/Paste16.png" />
+                        </dc:RibbonBar.CollapsedImage>
+                        <dc:ButtonDropDown ImagePosition="Top" dc:RibbonBar.MinAutoSizeHint="Medium" ExpandPosition="Bottom"
+            InlineExpand="False" PopupType="Menu" ContentExpands="true" VerticalContentAlignment="Center"
+            dc:Ribbon.KeyTip="V" Command="ApplicationCommands.Paste"
+            ToolTipService.PlacementTarget="{Binding ElementName=AppRibbon}" Header="Paste">
+                            <dc:ButtonDropDown.ToolTip>
+                                <dc:SuperToolTip Header="Paste (Ctrl+V)" Footer="Press F1 for help...">
+                                    <TextBlock TextWrapping="Wrap" Width="180">Paste the contents of the Clipboard</TextBlock>
+                                </dc:SuperToolTip>
+                            </dc:ButtonDropDown.ToolTip>
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/Paste32.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                            <dc:ButtonDropDown Role="MenuItem" dc:Ribbon.KeyTip="P" Command="ApplicationCommands.Paste" Header="Paste">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Paste16.png" Stretch="None"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Paste Special..." Role="MenuItem" dc:Ribbon.KeyTip="S"/>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="X" Command="ApplicationCommands.Cut" Header="Cut">
+                            <dc:ButtonDropDown.ToolTip>
+                                <dc:SuperToolTip Header="Cut (Ctrl+X)">
+                                    <TextBlock TextWrapping="Wrap" Width="180">Cut the selection from the document and put it on the Clipboard.</TextBlock>
+                                </dc:SuperToolTip>
+                            </dc:ButtonDropDown.ToolTip>
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/Cut.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="C" Command="ApplicationCommands.Copy" Header="Copy">
+                            <dc:ButtonDropDown.ToolTip>
+                                <dc:SuperToolTip Header="Copy (Ctrl+C)">
+                                    <TextBlock TextWrapping="Wrap" Width="180">Copy the selection and put it on the Clipboard.</TextBlock>
+                                </dc:SuperToolTip>
+                            </dc:ButtonDropDown.ToolTip>
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/Copy.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown Header="Format Painter" dc:Ribbon.KeyTip="FP">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/StyleSet.png" />
+                            </dc:ButtonDropDown.Image>
+                            <dc:ButtonDropDown.ToolTip>
+                                <dc:SuperToolTip Header="Format Painter (Ctrl+Shift+C)">
+                                    <TextBlock TextWrapping="Wrap" Width="180">
+                    Copy formatting from one place and apply it to another.
+                    <LineBreak/><LineBreak/>
+                    Double-click this button to apply same formatting to multiple places in the document.
+                                    </TextBlock>
+                                    <dc:SuperToolTip.FooterImage>
+                                        <Image Source="images/Help.png"/>
+                                    </dc:SuperToolTip.FooterImage>
+                                    <dc:SuperToolTip.Footer>
+                                        <TextBlock FontWeight="Bold" Margin="3,0,0,0">Press F1 for more help.</TextBlock>
+                                    </dc:SuperToolTip.Footer>
+                                </dc:SuperToolTip>
+                            </dc:ButtonDropDown.ToolTip>
+                        </dc:ButtonDropDown>
+                    </dc:RibbonBar>
+                    <dc:RibbonBar Header="Font" Name="ribbonBarFont" Padding="3" ResizeOrderIndex="2" VerticalContentAlignment="Center" dc:Ribbon.KeyTip="FN">
+                        <dc:RibbonBar.CollapsedImage>
+                            <Image Source="images/FontColor.png" />
+                        </dc:RibbonBar.CollapsedImage>
+                        <dc:ButtonPanel Orientation="Horizontal">
+                            <ComboBox Width="100" Margin="2" IsEditable="true" dc:Ribbon.KeyTip="FF" Style="{DynamicResource ResourceKey={ComponentResourceKey ResourceId=ComboBox, TypeInTargetAssembly={x:Type dc:Ribbon}}}">
+                                <ComboBoxItem>Arial</ComboBoxItem>
+                                <ComboBoxItem>Tahoma</ComboBoxItem>
+                                <ComboBoxItem>Verdana</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Width="40" Margin="2" dc:Ribbon.KeyTip="FS" Style="{DynamicResource ResourceKey={ComponentResourceKey ResourceId=ComboBox, TypeInTargetAssembly={x:Type dc:Ribbon}}}">
+                                <ComboBoxItem>6</ComboBoxItem>
+                                <ComboBoxItem>7</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
+                                <ComboBoxItem>9</ComboBoxItem>
+                                <ComboBoxItem>10</ComboBoxItem>
+                                <ComboBoxItem>11</ComboBoxItem>
+                                <ComboBoxItem>12</ComboBoxItem>
+                            </ComboBox>
+                            <dc:GroupPanel Margin="2">
+                                <dc:ButtonDropDown Header="Increase Font Size" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1" Command="EditingCommands.IncreaseFontSize">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/FontSizeInc.png"/>
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Decrease Font Size" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1" Command="EditingCommands.DecreaseFontSize">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/FontSizeDec.png"/>
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                            </dc:GroupPanel>
+                        </dc:ButtonPanel>
+                        <dc:ButtonPanel Orientation="Horizontal">
+                            <dc:GroupPanel Margin="2">
+                                <dc:ButtonDropDown Header="Bold" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1" Command="EditingCommands.ToggleBold">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Bold.png"/>
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Italic"  PartVisibility="ImageOnly" dc:Ribbon.KeyTip="2">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Italic.png" />
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Underline"  PartVisibility="ImageOnly" dc:Ribbon.KeyTip="3">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Underline.png" />
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Strikethrough"  PartVisibility="ImageOnly" dc:Ribbon.KeyTip="4">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Strike.png" />
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Subscript"  PartVisibility="ImageOnly" dc:Ribbon.KeyTip="5">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Subscript.png" />
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                                <dc:ButtonDropDown Header="Superscript"  PartVisibility="ImageOnly" dc:Ribbon.KeyTip="6">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/Superscript.png" />
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                            </dc:GroupPanel>
+                            <dc:GroupPanel Margin="2">
+                                <dc:ColorPickerButton ImageSource="images/FontColorPart.png" ColorSwatchPosition="Bottom" ColorSwatchHeight="4" ColorSwatchBorder="False" Header="Font Color" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1">
+                                    <de:ColorItemSelector SelectedColor="{Binding Path=SelectedColor, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dc:ColorPickerButton}}}" />
+                                </dc:ColorPickerButton>
+                                <dc:ButtonDropDown Header="Text Highlight" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="1" ExpandVisibility="Visible">
+                                    <dc:ButtonDropDown.Image>
+                                        <Image Source="images/TextHighlight.png"/>
+                                    </dc:ButtonDropDown.Image>
+                                </dc:ButtonDropDown>
+                            </dc:GroupPanel>
+                        </dc:ButtonPanel>
+                    </dc:RibbonBar>
+                    <dc:RibbonBar Header="Editing" Name="ribbonBarEditing" Padding="3" ResizeOrderIndex="3" HorizontalContentAlignment="Stretch" dc:Ribbon.KeyTip="E">
+                        <dc:RibbonBar.CollapsedImage>
+                            <Image Source="images/Find.png" />
+                        </dc:RibbonBar.CollapsedImage>
+                        <dc:ButtonDropDown Header="Find" dc:Ribbon.KeyTip="FD">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/Find.png"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown Header="Find Next" dc:Ribbon.KeyTip="N">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/FindNext.png"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown Header="Select" dc:Ribbon.KeyTip="S">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/Select.png" />
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                    </dc:RibbonBar>
+                    <dc:RibbonBar Header="Ribbon Colors" Name="ribbonColors" Padding="3" ResizeOrderIndex="2" dc:Ribbon.KeyTip="RC">
+                        <dc:RibbonBar.CollapsedImage>
+                            <Image Source="images/SchemeBlue16.png" />
+                        </dc:RibbonBar.CollapsedImage>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="TL" ImagePosition="Top" Command="rp:MyCommands.Office2013Theme">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/SchemeBlue2013.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="TL" ImagePosition="Top" Command="rp:MyCommands.Office2010BlueTheme">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/SchemeBlue.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="TB" ImagePosition="Top" Command="rp:MyCommands.Office2010BlackTheme">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/SchemeBlack.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown dc:Ribbon.KeyTip="TI" ImagePosition="Top" Command="rp:MyCommands.Office2010SilverTheme">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/SchemeSilver.png" Stretch="None"/>
+                            </dc:ButtonDropDown.Image>
+                        </dc:ButtonDropDown>
+                        <dc:ButtonDropDown Header="Custom" dc:Ribbon.KeyTip="TC" ImagePosition="Top" Role="DropDown" ExpandPosition="Bottom" InlineExpand="False" PopupType="Menu">
+                            <dc:ButtonDropDown.Image>
+                                <Image Source="images/SchemeCustom.png"/>
+                            </dc:ButtonDropDown.Image>
+                            <dc:ButtonDropDown.ImageSmall>
+                                <Image Source="images/SchemeCustom16.png"/>
+                            </dc:ButtonDropDown.ImageSmall>
+                            <dc:ButtonDropDown Role="MenuItem" Command="rp:MyCommands.OrangeTheme" />
+                            <dc:ButtonDropDown Role="MenuItem" Command="rp:MyCommands.MagentaTheme" />
+                            <dc:ButtonDropDown Role="MenuItem" Command="rp:MyCommands.GreenTheme" />
+                            <dc:ButtonDropDown Role="MenuItem" Command="rp:MyCommands.DarkBlueTheme" />
+                        </dc:ButtonDropDown>
+
+                        <dc:Gallery Header="Quick Styles" SuggestedContainerWidth="250" Height="56">
+                            <dc:Gallery.Image>
+                                <Image Source="images/ChangeStyles32.png"/>
+                            </dc:Gallery.Image>
+                            <dc:Gallery.MenuItems>
+                                <dc:ButtonDropDown Header="More Themes Online..." Role="MenuItem"/>
+                                <dc:ButtonDropDown Header="Browse for Themes" Role="MenuItem"/>
+                                <dc:ButtonDropDown Header="Save Current Theme..." Role="MenuItem"/>
+                            </dc:Gallery.MenuItems>
+                            <dc:ButtonDropDown Header="Apex" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Apex.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Aspect" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Aspect.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Civic" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Civic.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Concourse" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Concourse.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Currency" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Currency.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Deluxe" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Deluxe.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Equity" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Equity.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Flow" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Flow.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Foundry" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Foundry.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Median" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Median.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Metro" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Metro.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Metro" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Standard">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Metro.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Office" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Office">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Office.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Opulent" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Office">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Opulent.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Oriel" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Office">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Oriel.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Origin" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Office">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Origin.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Solistice" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Office">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Solistice.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Technic" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Technical">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Technic.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Trek" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Technical">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Trek.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Urban" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Technical">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Urban.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                            <dc:ButtonDropDown Header="Verve" ImagePosition="Top" PartVisibility="ImageOnly" dc:Gallery.Category="Technical">
+                                <dc:ButtonDropDown.Image>
+                                    <Image Source="images/Verve.png"/>
+                                </dc:ButtonDropDown.Image>
+                            </dc:ButtonDropDown>
+                        </dc:Gallery>
+                    </dc:RibbonBar>
+                </dc:RibbonBarPanel>
+            </dc:RibbonTab>
+
+            <dc:RibbonTab Header="INSERT" dc:Ribbon.KeyTip="N">
+                <dc:RibbonBarPanel Height="85">
+                </dc:RibbonBarPanel>
+            </dc:RibbonTab>
+            <dc:RibbonTab Header="PAGE LAYOUT" ContextGroup="{Binding ElementName=cgGroup1}" dc:Ribbon.KeyTip="P" Color="Orange">
+                <dc:RibbonBarPanel Height="85">
+                </dc:RibbonBarPanel>
+            </dc:RibbonTab>
+
+            <dc:ButtonDropDown ImageSource="images/Help.png" Header="Help"  dc:RibbonTabPanel.PanelAlignment="Right" PartVisibility="ImageOnly" dc:Ribbon.KeyTip="H" />
+        </dc:Ribbon>
+        <StatusBar Name="statusBar" DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel LastChildFill="True"/>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem DockPanel.Dock="Left">
+                <TextBlock>Page: 1 of 1</TextBlock>
+            </StatusBarItem>
+            <Separator Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly=dc:Ribbon, ResourceId=StatusBarSeparator}}" DockPanel.Dock="Left"/>
+            <StatusBarItem DockPanel.Dock="Left">
+                Words: Not available
+            </StatusBarItem>
+            <Separator Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly=dc:Ribbon, ResourceId=StatusBarSeparator}}" DockPanel.Dock="Left"/>
+            <StatusBarItem Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly=dc:Ribbon, ResourceId=StatusBarItemAlt}}" DockPanel.Dock="Right" Padding="6,0,32,0" Name="StatusItem1">
+                Special status style
+            </StatusBarItem>
+            <StatusBarItem />
+        </StatusBar>
+
+        <!-- Note that each DockWindow must have unique name if you plan on saving/loading the docking layout using Layout property -->
+        <dd:DockSite  Name="AppDock" Margin="4,0,4,0" VisualStyle="Office2016"
+                 dd:DockWindow.Activated="DockWindowActivated" dd:DockWindow.Deactivated="DockWindowDeactivated"
+                 dd:DockWindow.Closing="DockWindowClosing" dd:DockWindow.Closed="DockWindowClosed">
+            <!-- Notice the order in which split panels are added. That determines their docking order in relation to each other -->
+            <dd:DockSite.SplitPanels>
+                <!-- Split panel arranges any number of dock windows in single line split layout and allows resizing -->
+                <dd:SplitPanel dd:DockSite.Dock="Right" dd:DockSite.DockSize="170">
+                    <!-- DockWindowGroup displays the dock windows it contains, provides the window chrome and dock tabs -->
+                    <dd:DockWindowGroup>
+                        <!-- Dock window defines actual docking window, its header and content -->
+                        <dd:DockWindow Header="Restrictions" ImageSource="images/Restrictions16.png" Name="dockRestrictions">
+                            <FlowDocumentScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <FlowDocumentScrollViewer.Document>
+                                    <FlowDocument FontFamily="Calibri" FontSize="13.5" TextAlignment="Left">
+                                        <Paragraph>
+                                            <Bold>Saving and Loading Dock Window Layout</Bold>
+                                            <LineBreak/>
+                                            Click
+                                            <Hyperlink Click="SaveDockLayout">Save</Hyperlink> to save
+                      layout, then re-arrange windows and click
+                                            <Hyperlink Click="LoadDockLayout">Load</Hyperlink> to load the saved
+                      layout for quick demo of this functionality.
+                                        </Paragraph>
+                                    </FlowDocument>
+                                </FlowDocumentScrollViewer.Document>
+                            </FlowDocumentScrollViewer>
+                        </dd:DockWindow>
+                        <dd:DockWindow Header="XML Structure" ImageSource="images/Structure16.png" Name="dockStructure"></dd:DockWindow>
+                    </dd:DockWindowGroup>
+                </dd:SplitPanel>
+                <dd:SplitPanel dd:DockSite.Dock="Left" dd:DockSite.DockSize="170">
+                    <dd:DockWindowGroup>
+                        <dd:DockWindow Header="My Files" ImageSource="images/MyFiles16.png" Name="dockMyFiles" IsAutoHide="True"></dd:DockWindow>
+                    </dd:DockWindowGroup>
+                </dd:SplitPanel>
+                <!-- Notice how 2 dock window groups are docked on single line using split container. 
+        Notice how split size is specified. 
+        The size specified is relative to the size of other elements in split container-->
+                <dd:SplitPanel dd:DockSite.Dock="Bottom" dd:DockSite.DockSize="150">
+                    <dd:DockWindowGroup dd:SplitPanel.RelativeSize="35,100">
+                        <dd:DockWindow Header="Layout" ImageSource="images/MyFiles16.png" Name="dockLayout">
+                            <TextBox/>
+                        </dd:DockWindow>
+                        <dd:DockWindow Header="Revisions" ImageSource="images/MyFiles16.png" Name="dockRevisions">
+                            <TextBox/>
+                        </dd:DockWindow>
+                    </dd:DockWindowGroup>
+                    <dd:DockWindowGroup dd:SplitPanel.RelativeSize="65,100">
+                        <dd:DockWindow Header="Find Results 1" ImageSource="images/MyFiles16.png" Name="dockFindResults1">
+                            <TextBox Name="FindResults1"  IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                        </dd:DockWindow>
+                        <dd:DockWindow Header="Find Results 2" ImageSource="images/MyFiles16.png" Name="dockFindResults2">
+                            <TextBox Name="FindResults2" />
+                        </dd:DockWindow>
+                    </dd:DockWindowGroup>
+                </dd:SplitPanel>
+            </dd:DockSite.SplitPanels>
+            <!-- Here is the document content defined. It is assigned to DockSite.Content property. It is completely optional and you can assign any other type of content here -->
+            <dd:SplitPanel>
+                <dd:DockWindowGroup>
+                    <dd:DockWindow CanDockLeft="False" CanDockRight="False" CanDockTop="False" CanDockBottom="False" CanFloat="False" Header="Document 1" Description="Here provide description of the document." Name="document1" CloseButtonVisibility="Visible">
+                        <FlowDocumentScrollViewer >
+                            <FlowDocumentScrollViewer.Document>
+                                <FlowDocument FontFamily="Calibri" FontSize="14.5" TextAlignment="Left" Background="White">
+                                    <Paragraph FontSize="22" FontWeight="Bold">DotNetBar for WPF</Paragraph>
+                                    <Paragraph>
+                                        DotNetBar for WPF is designed to help you create professional WPF applications with ease.
+                    You can see lot of functionality that is included with DotNetBar in this demo application. Please
+                    explore the XAML file behind this window for a great primer on how to use our controls. Our online
+                                        <Hyperlink NavigateUri="http://www.devcomponents.com/kb2/" RequestNavigate="NavigateHyperlink">Knowledge Base</Hyperlink> is
+                    also great source of information as well.
+                                    </Paragraph>
+                                    <Paragraph>
+                                        <Bold>Ribbon Control</Bold>
+                                        <LineBreak/>
+                                        Wpf-Ribbon Control included with DotNetBar for WPF is fully compliant Ribbon control that implements all required Office 2007
+                    Design guidelines and most optional elements. Make sure to take advantage of
+                                        <Hyperlink NavigateUri="http://www.devcomponents.com/kb2/?p=562" RequestNavigate="NavigateHyperlink">Commands</Hyperlink> model
+                    which is designed to integrate and improve upon the stock WPF command model.
+                                    </Paragraph>
+                                    <Paragraph>
+                                        <Bold>AdvWindow control</Bold> provides an advanced Window with
+                                        <Hyperlink Click="ShowOffice2007Window">Office 2007 style</Hyperlink>
+                                        and high-performance
+                                        <Hyperlink Click="ShowCustomStyleWindow">Custom Styling</Hyperlink> functionality.
+                                    </Paragraph>
+                                    <Paragraph>
+                                        <Bold>Saving and Loading Dock Window Layout</Bold>
+                                        <LineBreak/>
+                                        Wpf-Dock control which provides fully featured Visual Studio inspired docking provides an easy way to
+                    save the layout of the docking windows and load it later using just single property. Click
+                                        <Hyperlink Click="SaveDockLayout">Save</Hyperlink> to save
+                    layout, then re-arrange windows and click
+                                        <Hyperlink Click="LoadDockLayout">Load</Hyperlink> to load the saved layout for quick demo of this functionality.
+                                    </Paragraph>
+                                    <Paragraph>
+                                        Also try using
+                                        <Bold>Ctrl+Tab</Bold> keys to see the functionality provided by the Wpf-Dock control for window switching.
+                                    </Paragraph>
+                                </FlowDocument>
+                            </FlowDocumentScrollViewer.Document>
+                        </FlowDocumentScrollViewer>
+                    </dd:DockWindow>
+                    <dd:DockWindow CanDockLeft="False" CanDockRight="False" CanDockTop="False" CanDockBottom="False" CanFloat="False" Header="Document 2" Description="Description for Document 2."  Name="document2" CloseButtonVisibility="Visible">
+                        <RichTextBox Name="EditBox2" />
+                    </dd:DockWindow>
+                </dd:DockWindowGroup>
+            </dd:SplitPanel>
+        </dd:DockSite>
+    </DockPanel>
+</dc:RibbonWindow>

@@ -1,0 +1,2905 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevComponents.WpfDock</name>
+    </assembly>
+    <members>
+        <member name="T:DevComponents.WpfDock.AutoHidePanel">
+            <summary>
+            Represents the panel that shows dock windows that are in auto-hide state, unpinned.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.AutoHidePanel.TabOrientationProperty">
+            <summary>
+            Identifies the TabOrientation property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.AutoHidePanel.IsBeginGroupProperty">
+            <summary>
+            Identifies the IsBeginGroup attached property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.AutoHidePanel.GetIsBeginGroup(System.Windows.UIElement)">
+            <summary>
+            Gets whether an UIElement is first in dock window group.
+            </summary>
+            <param name="element">UIElement to return setting for.</param>
+            <returns>true if element is first element in dock window group otherwise false.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.AutoHidePanel.SetIsBeginGroup(System.Windows.UIElement,System.Boolean)">
+            <summary>
+            Sets whether an UIElement is first element in dock window group.
+            </summary>
+            <param name="element">Reference to an UIElement</param>
+            <param name="doc">Value for the IsBeginGroup property.</param>
+        </member>
+        <member name="P:DevComponents.WpfDock.AutoHidePanel.TabOrientation">
+            <summary>
+            Gets the orientation of the tabs on the panel.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.ColorFactory">
+            <summary>
+            Represents the class used to create Color objects.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.ColorFactory.#ctor">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.ColorBlendFactory">
+            <summary>
+            Represents the class used to create Color objects blended based on base color.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.ColorBlendFactory.#ctor(System.Windows.Media.Color)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.ColorBlendFactory.GetColor(System.Int32)">
+            <summary>
+            Converts integer color representation to Color type.
+            </summary>
+            <param name="rgb">Color representation as 32-bit RGB value.</param>
+            <returns>Reference to Color object.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.ColorBlendFactory.GetColor(System.Windows.Media.Color)">
+            <summary>
+            Converts integer color representation to Color type.
+            </summary>
+            <param name="c">Color value.</param>
+            <returns>Reference to Color object.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Construct with values for h, s and v.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.ToRgb">
+            <summary>
+            Convert the instance of HsvColor to an instance of Color.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.FromRgb(System.Windows.Media.Color)">
+            <summary>
+            Convert a standard Color to an HsvColor
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.FromRgb(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates an HsvColor instance from provided RGB values.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HslColor.ToRgb(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a Color from provided HSV values. h is between 0 and 360, s and l are between 0 and 1.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HslColor.H">
+            <summary>
+            Get or set the Hue component of the color. This is a value from 0 to 360.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HslColor.S">
+            <summary>
+            Get or set the Saturation component of the color. This is a value from 0 to 1.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HslColor.L">
+            <summary>
+            Get or set the Value component of the color. This is a value from 0 to 1.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.HsvColor">
+            <summary>
+            Encapsulate an HSV color structure, supporting conversion methods to and from the standard Rgb based Color.
+            This class is inspired by and all the code for the conversion methods is copied from the ColorPicker sample found in the Windows SDK.
+            http://msdn.microsoft.com/en-us/library/ms771620.aspx
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Construct with values for h, s and v.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.ToRgb">
+            <summary>
+            Convert the instance of HsvColor to an instance of Color.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.FromRgb(System.Windows.Media.Color)">
+            <summary>
+            Convert a standard Color to an HsvColor
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.FromRgb(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates an HsvColor instance from provided RGB values.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.HsvColor.ToRgb(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a Color from provided HSV values.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HsvColor.H">
+            <summary>
+            Get or set the Hue component of the color. This is a value from 0 to 360.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HsvColor.S">
+            <summary>
+            Get or set the Saturation component of the color.  This is a value from 0 to 1.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.HsvColor.V">
+            <summary>
+            Get or set the Value component of the color. This is a value from 0 to 1.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.Primitives.EmptyWindow">
+            <summary>
+            Defines an empty window for internal use.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockLocalization">
+            <summary>
+            Represents the class that stores text used by ribbon control only for localization purposes.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.OptionsMenuAutoHideText">
+            <summary>
+            Gets or sets text used on options menu to place dock window into auto-hide mode.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.OptionsMenuHideText">
+            <summary>
+            Gets or sets text used on options menu to hide dock window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.OptionsMenuFloatingText">
+            <summary>
+            Gets or sets text used on options menu to place dock window into floating mode.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.OptionsMenuTabbedDocumentText">
+            <summary>
+            Gets or sets text used on options menu to dock dock window as tabbed document.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.OptionsMenuDockableText">
+            <summary>
+            Gets or sets text used on options menu to dock dock window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.DockSelectorActiveToolWindowsText">
+            <summary>
+            Gets or sets text used on dock selector label to indicates Active Tool Windows.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockLocalization.DockSelectorActiveFilesText">
+            <summary>
+            Gets or sets text used on dock selector label to indicates Active Files.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockTabCloseButton.IsActiveProperty">
+            <summary>
+            Identifies IsActive property.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockTabCloseButton.IsActive">
+            <summary>
+            Gets or sets whether close button is on tab that is selected.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.IDockOperations">
+            <summary>
+            Defines the dock operations performed by DockSite.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSiteDesignExtension.#ctor(DevComponents.WpfDock.DockSite)">
+            <summary>
+            Initializes a new instance of the DockSiteDesignExtension class.
+            </summary>
+            <param name="dockSite"></param>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowInfo.ImageProperty">
+            <summary>
+            Indicates the image displayed on the dock window.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowInfo.HeaderProperty">
+            <summary>
+            Indicates the header of the dock window.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:DevComponents.WpfDock.DockWindowInfo.DescriptionProperty" -->
+        <!-- Badly formed XML comment ignored for member "F:DevComponents.WpfDock.DockWindowInfo.DockWindowProperty" -->
+        <member name="F:DevComponents.WpfDock.DockWindowInfo.IsSelectedProperty">
+            <summary>
+            Gets or sets whether dock window is selected.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowInfo.FromDockWindow(DevComponents.WpfDock.DockWindow)">
+            <summary>
+            Creates new instance of object from DockWindow.
+            </summary>
+            <param name="dw">Reference to DockWindow instance</param>
+            <returns>New instance of DockWindowInfo object</returns>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowInfo.Image">
+            <summary>
+            Gets or sets the image displayed on the dock window tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowInfo.Description">
+            <summary>
+            Gets or sets description of the window used to provide more information about window on for example dock window switcher invoked using Ctrl+Tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowInfo.Header">
+            <summary>
+            Gets or sets the header displayed on the dock window tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowInfo.DockWindow">
+            <summary>
+            Gets or sets the DockWindow this control is describing.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowInfo.IsSelected">
+            <summary>
+            Gets or sets whether control is selected.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:DevComponents.WpfDock.DockWindowSelector.ToolWindowsProperty" -->
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.SelectedImageProperty">
+            <summary>
+            Gets the content of the selected tab.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.SelectedDockWindowProperty">
+            <summary>
+            Identifies the SelectedDockWindow property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.SelectedHeaderProperty">
+            <summary>
+            Gets the content of the selected content header.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.SelectedDescriptionProperty">
+            <summary>
+            Gets the content of the selected content description.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.ActiveToolWindowsLabelProperty">
+            <summary>
+            Gets the Active Tool Windows Label.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.ActiveFilesLabelProperty">
+            <summary>
+            Gets the Active Files Label.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowSelector.CycleAllWindowsProperty">
+            <summary>
+            Identifies CycleAllWindows property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowSelector.NavigateBack">
+            <summary>
+            Selects previous document from active files list.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.CycleAllWindows">
+            <summary>
+            Gets or sets whether all windows are cycled through or just document windows. Default value is false which indicates that only document windows are cycled.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.ToolWindows">
+            <summary>
+            Gets collection of tool windows (non-document dockable windows) that are visible on dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.SelectedImage">
+            <summary>
+            Gets the selected dock window info image.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.SelectedHeader">
+            <summary>
+            Gets the header of the selected dock window info.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.SelectedDescription">
+            <summary>
+            Gets the description of the selected dock window info.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.SelectedDockWindow">
+            <summary>
+            Gets the selected DockWindow.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.ActiveFilesLabel">
+            <summary>
+            Gets or sets text used for the Active Files label displayed on the selector. This text will be taken from DockSite.SystemText localization object.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowSelector.ActiveToolWindowsLabel">
+            <summary>
+            Gets or sets text used for the Active Tool Windows label displayed on the selector. This text will be taken from DockSite.SystemText localization object.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.CancelSourceRoutedEventHandler">
+            <summary>
+            Defines the delegate for the Cancelable events.
+            </summary>
+            <param name="sender">Identifies the sender</param>
+            <param name="e">Provides data for the event handler</param>
+        </member>
+        <member name="T:DevComponents.WpfDock.CancelSourceRoutedEventArgs">
+            <summary>
+            Represents cancelable routed event arguments.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.SourceRoutedEventArgs">
+            <summary>
+            Represents event arguments that include information on eventSource of the event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.SourceRoutedEventArgs.EventActionSource">
+            <summary>
+            Gets the eventSource of the event like Mouse, Keyboard or Code.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.SourceRoutedEventArgs.#ctor">
+            <summary>
+            Creates new instance of the class.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.SourceRoutedEventArgs.#ctor(System.Windows.RoutedEvent)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.SourceRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.CancelSourceRoutedEventArgs.Cancel">
+            <summary>
+            Gets or sets whether processing after the event handler returns is cancelled.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.CancelSourceRoutedEventArgs.#ctor">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.CancelSourceRoutedEventArgs.#ctor(System.Windows.RoutedEvent)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.CancelSourceRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockHint.EffectiveStyleProperty">
+            <summary>
+            Identifies EffectiveStyle property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockHint.DockHintSideProperty">
+            <summary>
+            Identifies the DockHintSide attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockHint.PartHitTestSizeProperty">
+            <summary>
+            Identifies the PartHitTestSize attached property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockHint.HitTest(System.Windows.Point)">
+            <summary>
+            Returns which part of docking hint from the point.
+            </summary>
+            <param name="p">Point to use for hit testing in DockHint client coordinates.</param>
+            <returns>The hit test value.</returns>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockHint.EffectiveStyle">
+            <summary>
+            Gets the effective DockSite style.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockHint.DockHintSide">
+            <summary>
+            Gets or sets the dock side the dock hint is displayed for.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockHint.PartHitTestSize">
+            <summary>
+            Gets or sets the size of the dock hint part when DockHintSide is set to AllSides or AllSidesAndCenter. This size is used to determine
+            which part of the docking hint mouse is over during hit-test docking testing. Default value is 29x31.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.IDockSiteLayoutSerializer">
+            <summary>
+            Represent the DockSite layout serialization interface.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.IDockSiteLayoutSerializer.SaveLayout(DevComponents.WpfDock.DockSite)">
+            <summary>
+            Returns layout of specified DockSite as string. DockWindow controls with DockSite.SaveLayout=true are serialized only. Only controls with Name property set
+            can be serialized.
+            </summary>
+            <param name="ds">DockSite to save layout for.</param>
+            <returns>Layout of dock-site as string.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.IDockSiteLayoutSerializer.LoadLayout(DevComponents.WpfDock.DockSite,System.String)">
+            <summary>
+            Loads the layout of specified DockSite from string generated by SaveLayout method.
+            </summary>
+            <param name="ds">DockSite to load layout for.</param>
+            <param name="layout">DockSite layout.</param>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockSplitter">
+            <summary>
+            Defines the dock splitter control.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSplitter.OrientationProperty">
+            <summary>
+            Identifies the Orientation attached property.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSplitter.Orientation">
+            <summary>
+            Gets or sets the orientation of the panel.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockWindowGroup">
+            <summary>
+            Represents control that host one or more dockable windows or documents and displays the tabbed selection which represents contained dock windows.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.VisualStyleProperty">
+            <summary>
+            Identifies VisualStyle property. VisualStyle should never be set on this control rather on Ribbon control only.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.EffectiveStyleProperty">
+            <summary>
+            Identifies EffectiveStyle property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.SelectedContentProperty">
+            <summary>
+            Gets the content of the selected tab.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.SelectedDockWindowProperty">
+            <summary>
+            Identifies the SelectedDockWindow property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.SelectedContentTemplateProperty">
+            <summary>
+            Identifies the SelectedContentTemplate Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.SelectedContentTemplateSelectorProperty">
+            <summary>
+            Identifies the SelectedContentTemplateSelector Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.SelectedContentHeaderProperty">
+            <summary>
+            Gets the content of the selected content header.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.ContentTemplateSelectorProperty">
+            <summary>
+            Identifies the ContentTemplateSelector Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.ContentTemplateProperty">
+            <summary>
+            Identifies the ContentTemplate Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.IsFloatingProperty">
+            <summary>
+            Identifies the IsFloating property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.TabVisibilityProperty">
+            <summary>
+            Identifies the TabVisibility property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.CanCloseProperty">
+            <summary>
+            Identifies the CanClose property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.CanMaximizeProperty">
+            <summary>
+            Identifies the CanMaximize property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.IsMaximizedProperty">
+            <summary>
+            Identifies the IsMaximized property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.CanAutoHideProperty">
+            <summary>
+            Identifies the CanAutoHide property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.IsAutoHideProperty">
+            <summary>
+            Identifies the IsAutoHide property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindowGroup.OptionsMenuProperty">
+            <summary>
+            Identifies the OptionsMenu property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowGroup.GetDockSite">
+            <summary>
+            Gets reference to the DockSite control is part of.
+            </summary>
+            <returns>Reference to DockSite or null if DockSite cannot be found.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowGroup.UpdateTabVisibility">
+            <summary>
+            Updates the TabVisibility property to reflect current DockWindow state.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowGroup.UpdateVisibility">
+            <summary>
+            Updates the groups visibility and the visibility of its parent split panel based on the group content. If group does not have
+            any dock windows visible it will be hidden otherwise it will be made visible.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindowGroup.SelectDifferentTab">
+            <summary>
+            Select previous tab if possible otherwise selects next tab. If neither is possible method selects nothing (SelectedIndex=-1)
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.VisualStyle">
+            <summary>
+            Gets or sets effective VisualStyle. Note that this property must be set on Ribbon control.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.EffectiveStyle">
+            <summary>
+            Gets the effective ribbon style.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.OwnerSite">
+            <summary>
+            Gets or sets the Owner Dock Site of this group. Valid only when group is internally created as auto-hide group by dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.SelectedDockWindow">
+            <summary>
+            Gets the selected DockWindow.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.SelectedContent">
+            <summary>
+            Gets the content of the selected tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.SelectedContentHeader">
+            <summary>
+            Gets the header of the selected tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.ContentTemplate">
+            <summary>
+            Gets or sets the data template used to display the content of the ContentControl. This is a dependency property. 
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.ContentTemplateSelector">
+            <summary>
+            Gets or sets a template selector that enables an application writer to provide custom template-selection logic. This is a dependency property. 
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.CanDockAsDocument">
+            <summary>
+            Gets whether group can be docked as document.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.IsFloating">
+            <summary>
+            Gets whether DockWindowGroup is on floating window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.TabVisibility">
+            <summary>
+            Gets whether DockWindowGroup tabs are visible that allow selection of dock windows.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.CanClose">
+            <summary>
+            Gets whether current DockWindow can be closed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.CanMaximize">
+            <summary>
+            Gets whether current DockWindow can be maximized when floating.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.IsMaximized">
+            <summary>
+            Gets whether current group is on maximized floating window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.CanAutoHide">
+            <summary>
+            Gets whether current DockWindow can be placed into the auto-hide mode.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.IsAutoHide">
+            <summary>
+            Gets whether current DockWindow is in auto-hide mode.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.OptionsMenu">
+            <summary>
+            Gets the visibility of OptionsMenu button.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.Id">
+            <summary>
+            Gets the unique control identifier.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.LastDockSide">
+            <summary>
+            Gets the side this group was previously docked to if any.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.LastDockReference">
+            <summary>
+            Gets the side group was previously docked to in relation to LastDockReferenceId.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindowGroup.LastDockReferenceId">
+            <summary>
+            Gets the ID of the previous docked element this group was docked to if any.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockSite">
+            <summary>
+            Represents the dock site control which hosts all dockable windows and documents.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.MinimumDockWindowSizeProperty">
+            <summary>
+            Identifies MinimumDockWindowSize Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.CanAutoHideDockWindowPopupProperty">
+            <summary>
+            Identifies CanAutoHideDockWindowPopup property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.MinimumDocumentAreaSizeProperty">
+            <summary>
+            Identifies MinumumDocumentAreaSize property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.VisualStyleProperty">
+            <summary>
+            Identifies the VisualStyle property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetVisualStyle(System.Windows.DependencyObject)">
+            <summary>
+            Gets the VisualStyle property value for specified object.
+            </summary>
+            <param name="target">Object to return value for.</param>
+            <returns>DockSite style.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SetVisualStyle(System.Windows.DependencyObject,DevComponents.WpfDock.eDockVisualStyle)">
+            <summary>
+            Sets the VisualStyle property on specified object.
+            </summary>
+            <param name="target">Target object.</param>
+            <param name="value">DockSite style value.</param>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.EffectiveStyleProperty">
+            <summary>
+            Identifies EffectiveStyle property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.KeyboardNavigationEnabledProperty">
+            <summary>
+            Identifies KeyboardNavigationEnabled property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.DockProperty">
+            <summary>
+            Identifies the Dock attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.IsDocumentProperty">
+            <summary>
+            Identifies the IsDocument attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.SaveLayoutProperty">
+            <summary>
+            Identifies the SaveLayout attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.DockSizeProperty">
+            <summary>
+            Identifies the DockSize attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.SplitPanelsPropertyKey">
+            <summary>
+            Identifies the key for SplitPanels property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.ActiveDockWindowPropertyKey">
+            <summary>
+            Identifies the key for ActiveDockWindow property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.DockChangedEvent">
+            <summary>
+            Identifies the DockChanged routed event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.BeforeDockingStartsEvent">
+            <summary>
+            Identifies BeforeDockingStarts event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.BeforeDockedEvent">
+            <summary>
+            Identifies BeforeDocked event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.AfterDockedEvent">
+            <summary>
+            Identifies BeforeDocked event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.DockHintOverlayProperty">
+            <summary>
+            Identifies the DockHintOverlay property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.DockSelectorOverlayProperty">
+            <summary>
+            Identifies the DockSelectorOverlay property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.IsDocumentChangedEvent">
+            <summary>
+            Identifies IsDocumentChanged event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.AutoHidePopupOverlayProperty">
+            <summary>
+            Identifies AutoHidePopupOverlay Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.SelectorCycleAllWindowsProperty">
+            <summary>
+            Identifies SelectorCycleAllWindows property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockSite.IsAnimationEnabledProperty">
+            <summary>
+            Identifies IsAnimationEnabled property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDock(System.Windows.UIElement)">
+            <summary>
+            Gets the Dock side element is docked to.
+            </summary>
+            <param name="element">Reference to the UI element</param>
+            <returns>Return the Dock side assigned to the element.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SetDock(System.Windows.UIElement,System.Windows.Controls.Dock)">
+            <summary>
+            Assigns the Dock side element is docked to.
+            </summary>
+            <param name="element">Reference to the UI Element.</param>
+            <param name="d">Specifies the Dock side for the element</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDockSize(System.Windows.UIElement)">
+            <summary>
+            Gets the docked size of the element docked inside of the dock site. The property should be applied to the SplitPanel controls to indicate their inital docking size.
+            Size specified depends on the docking side of the SplitPanel. If docked to top or bottom size specified indicates height. If docked to left or right the size specified indicates width.
+            </summary>
+            <param name="element">Reference to the UI element</param>
+            <returns>Return the Dock size assigned to the element.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SetDockSize(System.Windows.UIElement,System.Double)">
+            <summary>
+            Assigns the docked size to element docked inside of the dock site. The property should be applied to the SplitPanel controls to indicate their inital docking size.
+            Size specified depends on the docking side of the SplitPanel. If docked to top or bottom size specified indicates height. If docked to left or right the size specified indicates width.
+            </summary>
+            <param name="element">Reference to the UI Element.</param>
+            <param name="d">Specifies the docked element size.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetIsDocument(System.Windows.UIElement)">
+            <summary>
+            Gets whether an UIElement is document docked. Control is marked with this property when it gets assigned to the DockSite.Content property only.
+            </summary>
+            <param name="element">UIElement to return setting for.</param>
+            <returns>true if element is docked as document otherwise false.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SetIsDocument(System.Windows.UIElement,System.Boolean)">
+            <summary>
+            Sets whether an UIElement is docked as document. Control is docked as document if it is assigned to the DockSite.Content property. This is managed automatically.
+            </summary>
+            <param name="element">Reference to an UIElement</param>
+            <param name="doc">Value for the IsDocument property.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetSaveLayout(System.Windows.UIElement)">
+            <summary>
+            Gets whether layout is saved for specified supported control. Supported controls are DockWindow, SplitPanel and DockWindowGroup. Default value is true.
+            </summary>
+            <param name="element">Control to return setting for.</param>
+            <returns>true if layout is saved for the element otherwise false.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SetSaveLayout(System.Windows.UIElement,System.Boolean)">
+            <summary>
+            Sets whether layout is saved for an supported control. Supported controls are DockWindow, SplitPanel and DockWindowGroup.
+            </summary>
+            <param name="element">Reference to an supported Control.</param>
+            <param name="doc">Value for the SaveLayout property.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.OnBeforeDockingStarts(DevComponents.WpfDock.DockRoutedEventArgs)">
+            <summary>
+            Raises the BeforeDockingStarts event.
+            </summary>
+            <param name="e">Provides event arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetIsDocumentElement(System.Windows.UIElement)">
+            <summary>
+            Gets whether the UIElement is docked as document. Applies to the nested documents as well.
+            </summary>
+            <param name="elem">Reference to an element.</param>
+            <returns>True if element or one of its parents is docked as document otherwise false</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.ReleaseDockSelectorAdorner(System.Boolean)">
+            <summary>
+            Closes the DockWindow Selector window if it is open and optionally applies the selection made.
+            </summary>
+            <param name="applySelection"></param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CancelWindowDocking">
+            <summary>
+            Cancels the window docking if it is in progress.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.OnAfterDocked(DevComponents.WpfDock.DockRoutedEventArgs)">
+            <summary>
+            Raises the OnAfterDocking event.
+            </summary>
+            <param name="dockRoutedEventArgs">Provides event arguments</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.OnBeforeDocked(DevComponents.WpfDock.BeforeDockedRoutedEventArgs)">
+            <summary>
+            Raises the BeforeDocked event.
+            </summary>
+            <param name="dockEndsArgs">Provides event arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindow)">
+            <summary>
+            Floats the specified DockWindow. If DockWindow is part of DockWindowGroup with multiple DockWindows the
+            DockWindow specified is removed from DockWindowGroup and placed into the floating state alone. If DockWindow is the
+            only window inside of parent DockWindowGroup the DockWindowGroup is placed into the floating state.
+            </summary>
+            <param name="dw">Reference to the DockWindow to place into the floating state.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindow,System.Boolean)">
+            <summary>
+            Floats the specified DockWindow. If DockWindow is part of DockWindowGroup with multiple DockWindows the
+            DockWindow specified is removed from DockWindowGroup and placed into the floating state alone. If DockWindow is the
+            only window inside of parent DockWindowGroup the DockWindowGroup is placed into the floating state.
+            </summary>
+            <param name="dw">Reference to the DockWindow to place into the floating state.</param>
+            <param name="focusContent">Indicates whether to focus content of the window once it is displayed.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Floats the specified DockWindow. If DockWindow is part of DockWindowGroup with multiple DockWindows the
+            DockWindow specified is removed from DockWindowGroup and placed into the floating state alone. If DockWindow is the
+            only window inside of parent DockWindowGroup the DockWindowGroup is placed into the floating state.
+            </summary>
+            <param name="dw">Reference to the DockWindow to place into the floating state.</param>
+            <param name="eventSource">Indicates the action event source passed into the events.</param>
+            <param name="raiseDockEvents">Indicates whether docking events are raised.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.eEventActionSource,System.Boolean,System.Boolean)">
+            <summary>
+            Floats the specified DockWindow. If DockWindow is part of DockWindowGroup with multiple DockWindows the
+            DockWindow specified is removed from DockWindowGroup and placed into the floating state alone. If DockWindow is the
+            only window inside of parent DockWindowGroup the DockWindowGroup is placed into the floating state.
+            </summary>
+            <param name="dw">Reference to the DockWindow to place into the floating state.</param>
+            <param name="eventSource">Indicates the action event source passed into the events.</param>
+            <param name="raiseDockEvents">Indicates whether docking events are raised.</param>
+            <param name="focusContent">Indicates whether to focus content of the window once it is displayed.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or canceled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Places the specified DockWindowGroup into the floating state.
+            </summary>
+            <param name="dg">DockWindowGroup to place into the floating state.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindowGroup,System.Windows.Rect,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Places the specified DockWindowGroup into the floating state and sets is positions and size.
+            </summary>
+            <param name="dg">DockWindowGroup to place into the floating state.</param>
+            <param name="floatingRect">Location and Size of the Floating Window.</param>
+            <param name="eventSource">Indicates the eventSource for the dock events that are raised.</param>
+            <param name="raiseDockEvents">Indicates whether method raises the docking events.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or canceled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FloatWindow(DevComponents.WpfDock.DockWindowGroup,System.Windows.Rect,DevComponents.WpfDock.eEventActionSource,System.Boolean,System.Boolean)">
+            <summary>
+            Places the specified DockWindowGroup into the floating state and sets is positions and size.
+            </summary>
+            <param name="dg">DockWindowGroup to place into the floating state.</param>
+            <param name="floatingRect">Location and Size of the Floating Window.</param>
+            <param name="eventSource">Indicates the eventSource for the dock events that are raised.</param>
+            <param name="raiseDockEvents">Indicates whether method raises the docking events.</param>
+            <param name="focusWindowContent">Indicates whether to focus floating window content after window is shown.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or canceled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CreateSplitPanel(DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Creates SplitPanel for the DockWindowGroup and adds the DockWindowGroup to the panel.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to add to SplitPanel.</param>
+            <returns>Returns reference to the new instance of SplitPanel.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CreateSplitPanel(DevComponents.WpfDock.DockWindowGroup,System.Double)">
+            <summary>
+            Creates SplitPanel for the DockWindowGroup and adds the DockWindowGroup to the panel.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to add to SplitPanel.</param>
+            <param name="size">DockSize for the SplitPanel or double.NaN for default size.</param>
+            <returns>Returns reference to the new instance of SplitPanel.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CreateSplitPanel(DevComponents.WpfDock.SplitPanel)">
+            <summary>
+            Creates SplitPanel for the DockWindowGroup and adds the DockWindowGroup to the panel.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to add to SplitPanel.</param>
+            <returns>Returns reference to the new instance of SplitPanel.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CreateSplitPanel(DevComponents.WpfDock.SplitPanel,System.Double)">
+            <summary>
+            Creates SplitPanel for the SplitPanel and adds the SplitPanel to the panel.
+            </summary>
+            <param name="sp">Reference to SplitPanel to add to SplitPanel.</param>
+            <param name="size">DockSize for the SplitPanel or double.NaN for default size.</param>
+            <returns>Returns reference to the new instance of SplitPanel.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.RestoreLastDockPosition(DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Restores last recorded dock position. This method should be used only if DockWindowGroup was previously docked so the last dock position information is stored.
+            </summary>
+            <param name="dg">Reference to DockWindowGroup.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.RestoreLastDockPosition(DevComponents.WpfDock.DockWindowGroup,System.Boolean)">
+            <summary>
+            Restores last recorded dock position. This method should be used only if DockWindowGroup was previously docked so the last dock position information is stored.
+            </summary>
+            <param name="dg">Reference to DockWindowGroup.</param>
+            <param name="focusSelectedDockWindow">Indicates whether selected DockWindow is focused after docking position is restored.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.RestoreLastDockPosition(DevComponents.WpfDock.DockWindowGroup,System.Boolean,DevComponents.WpfDock.eEventActionSource)">
+            <summary>
+            Restores last recorded dock position. This method should be used only if DockWindowGroup was previously docked so the last dock position information is stored.
+            </summary>
+            <param name="dg">Reference to DockWindowGroup.</param>
+            <param name="focusSelectedDockWindow">Indicates whether selected DockWindow is focused after docking position is restored.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.RestoreLastDockPosition(DevComponents.WpfDock.DockWindow)">
+            <summary>
+            Restores last recorded dock position. This method should be used only if DockWindow was previously docked so the last dock position information is stored.
+            </summary>
+            <param name="dw">Reference to DockWindow.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup to specified side and optionally allows docking the window at the full size. Windows docked at full-size
+            will consume the full width (top or bottom dock) or height (left or right dock) of the dock site. Otherwise the dock window is docked as the inner dock window.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <param name="fullSize">True if DockWindowGroup is docked so it consumes full width or height of the dock site.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide,System.Boolean,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup to specified side and optionally allows docking the window at the full size. Windows docked at full-size
+            will consume the full width (top or bottom dock) or height (left or right dock) of the dock site. Otherwise the dock window is docked as the inner dock window.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <param name="fullSize">True if DockWindowGroup is docked so it consumes full width or height of the dock site.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.eDockSide)">
+            <summary>
+            Docks the DockWindow to specified side as the inner dock window. New DockWindowGroup will be created to dock the window if necessary.
+            </summary>
+            <param name="dw">Reference to DockWindow to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindow to specified side as the inner dock window. New DockWindowGroup will be created to dock the window if necessary.
+            </summary>
+            <param name="dw">Reference to DockWindow to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide)">
+            <summary>
+            Docks the DockWindow control on the side of the referenced group. New DockWindowGroup will be created to dock the window if necessary.
+            </summary>
+            <param name="dw">Reference to the control to be docked.</param>
+            <param name="referenceGroup">Reference to the group to dock the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindow control on the side of the referenced group. New DockWindowGroup will be created to dock the window if necessary.
+            </summary>
+            <param name="dw">Reference to the control to be docked.</param>
+            <param name="referenceGroup">Reference to the group to dock the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindow,DevComponents.WpfDock.eDockSide,System.Boolean,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindow to specified side and optionally allows docking the window at the full size. New DockWindowGroup will be created to dock the window if necessary. Windows docked at full-size
+            will consume the full width (top or bottom dock) or height (left or right dock) of the dock site. Otherwise the dock window is docked as the inner dock window.
+            </summary>
+            <param name="dw">Reference to DockWindow to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <param name="fullSize">True if DockWindowGroup is docked so it consumes full width or height of the dock site.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide)">
+            <summary>
+            Docks the DockWindowGroup to specified side as the inner dock window.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup to specified side as the inner dock window.
+            </summary>
+            <param name="group">Reference to DockWindowGroup to dock.</param>
+            <param name="dockSide">Side to dock window to. Valid sides are Left, Top, Right and Bottom.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide)">
+            <summary>
+            Docks the DockWindowGroup control on the side of the referenced group.
+            </summary>
+            <param name="group">Reference to the control to be docked.</param>
+            <param name="referenceGroup">Reference to the group to dock the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup control on the side of the referenced group.
+            </summary>
+            <param name="group">Reference to the control to be docked.</param>
+            <param name="referenceGroup">Reference to the group to dock the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.SplitPanel,DevComponents.WpfDock.eDockSide)">
+            <summary>
+            Docks the DockWindowGroup control on the side of the referenced SplitPanel. This method should be used only for advanced docking scenarios.
+            </summary>
+            <param name="group">Reference to the control to be docked.</param>
+            <param name="sp">Reference to the SplitPanel the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindow(DevComponents.WpfDock.DockWindowGroup,DevComponents.WpfDock.SplitPanel,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup control on the side of the referenced SplitPanel. This method should be used only for advanced docking scenarios.
+            </summary>
+            <param name="group">Reference to the control to be docked.</param>
+            <param name="sp">Reference to the SplitPanel the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.DockWindowInternal(DevComponents.WpfDock.DockWindowGroup,System.Windows.UIElement,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Docks the DockWindowGroup control on the side of the referenced group.
+            </summary>
+            <param name="group">Reference to the control to be docked.</param>
+            <param name="referenceElem">Reference to the group to dock the control next to.</param>
+            <param name="dockSide">Dock side for docking.</param>
+            <returns>Returns true if operation was performed or false if it was not performed or cancelled.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.UpdateIsDocument">
+            <summary>
+            Updates the IsDocument attached property on child objects.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.UpdateIsDocument(DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Updates the IsDocument attached property for DockWindowGroup based on its dock context.
+            </summary>
+            <param name="group">Reference to DockWindowGroup</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.Detach(DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Separates the DockWindowGroup from its parent but it does not perfrom any additional docking. This method prepares the DockWindowGroup to be docked elsewhere or completely removed
+            and cleans up the empty SplitPanels resulted from removal of the group.
+            </summary>
+            <param name="group">DockWindowGroup to be removed.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.Detach(DevComponents.WpfDock.SplitPanel)">
+            <summary>
+            Separates the SplitPanel from its parent but it does not perform any additional processing. This method prepares the SplitPanel to be docked elsewhere or completely removed
+            and cleans up the empty SplitPanels resulted from removal of the panel.
+            </summary>
+            <param name="sp"></param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.Detach(DevComponents.WpfDock.DockWindow)">
+            <summary>
+            Separates the DockWindow from its parent DockWindowGroup and ensures appropriate selection state of DockWindowGroup. If DockWindow is parent to control other than
+            DockWindowGroup function does not perform any processing.
+            </summary>
+            <param name="dw">DockWindow to detach from its parent DockWindowGroup.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.FindTargetDockDocumentGroup">
+            <summary>
+            Finds target DockWindowGroup for document docking. Internal use method.
+            </summary>
+            <returns>Instance of DockWindowGroup or null if nothing found.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDocuments">
+            <summary>
+            Returns all DockWindow controls that are docked as documents. This list is current snapshot of documents. Changing the list does not have any effect on docking.
+            </summary>
+            <returns>Array of DockWindow controls docked to this dock site.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDockWindows">
+            <summary>
+            Returns all DockWindow controls that are part of this dock site. This list is current snapshot of DockWindow controls docked. Changing the list does not have any effect on docking.
+            </summary>
+            <returns>Array of DockWindow controls docked to this dock site.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDockWindows(DevComponents.WpfDock.eDockList)">
+            <summary>
+            Return DockWindow controls that are part of this dock site. This list is current snapshot of DockWindow controls docked. Changing the list does not have any effect on docking.
+            </summary>
+            <param name="dockWindowsToReturn">Specifies the dock windows to return by their dock state.</param>
+            <returns>Array of DockWindow controls docked to this dock site.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetFloatingWindows">
+            <summary>
+            Returns read-only list of floating windows.
+            </summary>
+            <returns>List of floating windows. Note that you should not modify this list in any circumstances.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.GetDockSite(System.Windows.DependencyObject)">
+            <summary>
+            Gets reference to the DockSite control is part of.
+            </summary>
+            <returns>Reference to DockSite or null if DockSite cannot be found.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.ChangeColorScheme(DevComponents.WpfDock.eDockVisualStyle)">
+            <summary>
+            Changes current color table used by dock control. This method will work only if Application.Current has valid value.
+            </summary>
+            <param name="colorTable">Color table to change the scheme to.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.MergeDictionary(System.Windows.ResourceDictionary)">
+            <summary>
+            Merges the color table dictionary into either Application.Current.Resources if available or DockSite.Resources.
+            </summary>
+            <param name="rd">Color table resources.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.ChangeColorScheme(DevComponents.WpfDock.eDockVisualStyle,System.Windows.Media.Color)">
+            <summary>
+            Changes current color table used by dock control. This method will work only if Application.Current has valid value.
+            </summary>
+            <param name="baseColorTable">Color table to use as basis for the new color scheme to be created.</param>
+            <param name="baseColor">Base color to use to create new color table.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.CreateColorScheme(DevComponents.WpfDock.eDockVisualStyle,System.Windows.Media.Color)">
+            <summary>
+            Creates new dock control color scheme based on the existing color table and single specified base color.
+            </summary>
+            <param name="baseColorTable">Color table identifier.</param>
+            <param name="baseColor">Base color to use to create the new color scheme.</param>
+            <returns>New ResourceDictionary object that you can merge into the application resources.</returns>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.MinimumDockWindowSize">
+            <summary>
+            Gets or sets the suggested minimum size for the dock windows when resized. Note that this is recommendation and due to constraint of the parent window size the minimum size might not be always obeyed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.CanAutoHideDockWindowPopup">
+            <summary>
+            Gets or sets whether any open auto-hide dock window popups are automatically closed when their content loses input focus. You may set this property to false when
+            showing modal dialogs and want to keep popup open.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.MinimumDocumentAreaSize">
+            <summary>
+            Gets or sets the minimum size of the Document area of docking control. Default value is 32,32.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.VisualStyle">
+            <summary>
+            Gets or sets the DockSite style.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.EffectiveStyle">
+            <summary>
+            Gets the effective DockSite style.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.KeyboardNavigationEnabled">
+            <summary>
+            Gets whether Ctrl+Tab keyboard navigation is enabled. Default value is true.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.AutoHidePopupOverlay">
+            <summary>
+            Gets or sets whether auto-hide dock window popup is displayed on top-level window. Default value is false.
+            If you are using Windows Forms or other Windowed controls and auto-hide popup is showing below these controls, set this property
+            to true to use popup overlay so popups display on top of Windows.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.SelectorCycleAllWindows">
+            <summary>
+            Gets or sets whether all windows are cycled through on dock window selector invoked using Ctrl+Tab keys or just document windows. 
+            Default value is false which indicates that only document windows are cycled.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.IsAnimationEnabled">
+            <summary>
+            Gets or sets whether animation between states of the control is enabled. Default value is true. You can set this property to false to
+            disable the animation between control states.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.DockHintOverlay">
+            <summary>
+            Indicates whether docking hint overlay is used to display the docking hints. Setting this property to true will allow docking hints to
+            overlay the Windows Forms controls on the dock site but it might slighlty degrade the performance. Default value is false.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.DockSelectorOverlay">
+            <summary>
+            Indicates whether a translucent overlay window is used to display the dock selector. Setting this property to true will allow docking hints to
+            overlay the Windows Forms controls on the dock site but it might slighlty degrade the performance. Default value is false.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.IgnoreLoadLayoutElementNotFoundErrors">
+            <summary>
+            Gets or sets whether control ignores the errors when loading layout due to the DockWindow controls not found by name. Default value
+            is false which indicates that control will throw exceptions indicating that DockWindow controls are not found if presented in layout
+            but not part of DockSite.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockSite.DockChanged">
+            <summary>
+            Occurs after attached Dock property for an UIElement has been changed using the DockSite.SetDock call or through the XAML.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockSite.IsDocumentChanged">
+            <summary>
+            Occurs when IsDocument property for an child UIElement has changed.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockSite.BeforeDockingStarts">
+            <summary>
+            Occurs before docking operation for a DockWindow or DockWindowGroup starts and allows you to cancel the operation.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockSite.BeforeDocked">
+            <summary>
+            Occurs before docking operation for a DockWindow or DockWindowGroup is complete and allows you to cancel the docking.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockSite.AfterDocked">
+            <summary>
+            Occurs after an docking operation for a DockWindow or DockWindowGroup is completed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.SystemText">
+            <summary>
+            Gets the reference to the localization object which holds all system text used by the component.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.SplitPanels">
+            <summary>
+            Gets the reference to the collection of SplitPanel controls that host dockable windows. Each SplitPanel control depending on the setting
+            of the attached property DockSite.Dock will layout its content in single line horizontally (docked to top or bottom) or vertically (docked to left or right side).
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.DocumentRect">
+            <summary>
+            Gets the rectangle used by document area of the site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.IsDockingInProgress">
+            <summary>
+            Gets whether docking is currently being performed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.Layout">
+            <summary>
+            Gets or sets the layout for all DockWindow controls that have DockSite.SaveLayout=true and Name property assigned. Layout will save size and position of the
+            DockWindow controls that are associated with this DockSite. Note that unique Name property must be assigned for each DockWindow in order for layout to be saved.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.ActiveDockWindow">
+            <summary>
+            Gets the currently active DockWindow. You can handle DockWindow.Activated and Deactivated events to be notified when active window changes.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockSite.DefaultOffice2013ThemeSeed">
+            <summary>
+            Specifies default Office 2013 theme seed colors. Default value is Office2013ThemeSeed.Default
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SimpleRect.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the SimpleRect structure.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SimpleRect.#ctor(System.Windows.Rect)">
+            <summary>
+            Initializes a new instance of the SimpleRect structure.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockSite.SimpleRect.#cctor">
+            <summary>
+            Initializes a new instance of the SimpleRect structure.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockWindow">
+            <summary>
+            Represents single dockable window. Dockable windows are parented to the DockWindowGroup controls which provide hosting capabilities for multiple dock windows.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.VisualStyleProperty">
+            <summary>
+            Identifies VisualStyle property. VisualStyle should never be set on this control rather on Ribbon control only.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.EffectiveStyleProperty">
+            <summary>
+            Identifies EffectiveStyle property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.SelectedEvent">
+            <summary>
+            Identifies Selected event which occurs when tab is selected.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.UnselectedEvent">
+            <summary>
+            Identifies Unselected event which occurs when tab is unselected.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.IsSelectedProperty">
+            <summary>
+            Gets or sets whether dock window is selected.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanAutoHideProperty">
+            <summary>
+            Identifies the CanAutoHide property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanCloseProperty">
+            <summary>
+            Identifies the CanClose property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanFloatProperty">
+            <summary>
+            Identifies the CanFloat property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanTearOffProperty">
+            <summary>
+            Identifies the CanTearOff property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanDockLeftProperty">
+            <summary>
+            Identifies the CanDockLeft property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanDockRightProperty">
+            <summary>
+            Identifies the CanDockRight property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanDockTopProperty">
+            <summary>
+            Identifies the CanDockTop property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanDockBottomProperty">
+            <summary>
+            Identifies the CanDockBottom property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CanDockAsDocumentProperty">
+            <summary>
+            Identifies the CanDockAsDocument property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.IsAutoHideProperty">
+            <summary>
+            Identifies the IsAutoHide property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.AutoHideOpenProperty">
+            <summary>
+            Identifies the AutoHideOpen property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.OptionsMenuProperty">
+            <summary>
+            Identifies the OptionsMenu property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CustomOptionsMenuProperty">
+            <summary>
+            Identifies the CustomOptionsMenu property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ImageProperty">
+            <summary>
+            Indicates the image displayed on the button.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ImageSourceProperty">
+            <summary>
+            Indicates the string based image source for the image displayed on the button.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:DevComponents.WpfDock.DockWindow.DescriptionProperty" -->
+        <member name="F:DevComponents.WpfDock.DockWindow.FloatingRectProperty">
+            <summary>
+            Identifies the FloatingRect property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ToggleAutoHide">
+            <summary>
+            Defines the routed command that toggles the IsAutoHide property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.OpenAutoHide">
+            <summary>
+            Defines the routed command that opens the window on popup when in auto-hide state.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CloseAutoHide">
+            <summary>
+            Defines the routed command that closes the window popup when in auto-hide state.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CloseWindow">
+            <summary>
+            Defines the routed command that closes the window.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.MaximizeToggleWindow">
+            <summary>
+            Defines the routed command that toggles maximized state of floating dock window.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.FloatWindow">
+            <summary>
+            Defines the routed command that places the window into floating state.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ReDockWindow">
+            <summary>
+            Defines the routed command that docks the window if it is in floating state.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.DockAsDocumentWindow">
+            <summary>
+            Defines the routed command that docks the window as document if it is docked elsewhere.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.SelectWindow">
+            <summary>
+            Defines the routed command that selects the dock window.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.AutoHideChangedEvent">
+            <summary>
+            Identifies AutoHideChanged event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.AutoHideOpenChangedEvent">
+            <summary>
+            Identifies AutoHideOpenChanged event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ClosingEvent">
+            <summary>
+            Identifies Closing event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ClosedEvent">
+            <summary>
+            Identifies Closed event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.ActivatedEvent">
+            <summary>
+            Identifies Activated event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.DeactivatedEvent">
+            <summary>
+            Identifies Activated event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.TabVisibilityChangedEvent">
+            <summary>
+            Identifies TabVisibilityChanged event.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.TabToolTipProperty">
+            <summary>
+            Identifies TabToolTip property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.AutoCloseProperty">
+            <summary>
+            Identifies AutoClose property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockWindow.CloseButtonVisibilityProperty">
+            <summary>
+            Identifies CloseButtonVisibility property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnTabVisibilityChanged(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the TabVisibilityChanged Event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.FocusContent">
+            <summary>
+            Sets the focus to the content of the control.
+            </summary>
+            <returns>Returns true if content has received input focus</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnAutoHideChanged(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the AutoHideChanged event.
+            </summary>
+            <param name="e">Provides event arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnActivated(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the Activated event.
+            </summary>
+            <param name="e">Provides event arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnDeactivated(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the Deactivated event.
+            </summary>
+            <param name="e">Provides event arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnAutoHideOpenChanged(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the AutoHideOpenChanged event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.ToggleMaximize">
+            <summary>
+            Toggles maximized state of the window. If dock window is not floating method does nothing.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.GetDockSite">
+            <summary>
+            Gets reference to the DockSite control is part of.
+            </summary>
+            <returns>Reference to DockSite or null if DockSite cannot be found.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.Close">
+            <summary>
+            Closes the DockWindow. Closing the DockWindow will hide the DockWindow as well as associated DockWindowGroup if the DockWindow was the only visible window.
+            Closing and Closed events will be fired and allow you to cancel the event.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.Close(DevComponents.WpfDock.eEventActionSource,System.Boolean)">
+            <summary>
+            Closes the DockWindow. Closing the DockWindow will hide the DockWindow as well as associated DockWindowGroup if the DockWindow was the only visible window.
+            Closing and Closed events will be fired and allow you to cancel the event.
+            </summary>
+            <param name="actionSource">Specify the action which is source of the event.</param>
+            <returns>Returns true if window was closed otherwise false.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnClosed(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the Closed event.
+            </summary>
+            <param name="e">Provides event parameters.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.OnClosing(DevComponents.WpfDock.CancelSourceRoutedEventArgs)">
+            <summary>
+            Raises the Closing event.
+            </summary>
+            <param name="ce">Provides event parameters.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockWindow.Open">
+            <summary>
+            Shows DockWindow that was previously hidden using the Close method.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.VisualStyle">
+            <summary>
+            Gets or sets effective VisualStyle. Note that this property must be set on Ribbon control.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.HeaderString">
+            <summary>
+            Gets or sets the plain text used as dock window header. Set this property if Header is set to complex
+            object which cannot be cloned.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanMaximize">
+            <summary>
+            Gets or sets whether dock window when floating can be maximized. Default value is true.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.EffectiveStyle">
+            <summary>
+            Gets the effective ribbon style.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Selected">
+            <summary>
+            Occurs when dock window is selected.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Unselected">
+            <summary>
+            Occurs when dock window is unselected.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.DockParentChanged">
+            <summary>
+            Occurs when Parent of the DockWindow has changed. Applies only when parent is DockWindowGroup.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.TabToolTip">
+            <summary>
+            Gets or sets the tooltip for DockWindow Tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.AutoClose">
+            <summary>
+            Gets or sets whether DockWindow is automatically removed from its parent DockWindowGroup when Close button is used.
+            Default value is false which will only hide DockWindow (Visibility=Collapsed).
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CloseButtonVisibility">
+            <summary>
+            Gets or sets the visibility of close button that is displayed on the tab. Default value is Collapsed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.FloatingPriorToClosing">
+            <summary>
+            Indicates whether dock window was floating prior to closing. Do not set this property directly, its used internally by DotNetBar.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.AutoHideChanged">
+            <summary>
+            Occurs after AutoHide property has changed on DockWindow.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.AutoHideOpenChanged">
+            <summary>
+            Occurs after AutoHideOpen property has changed on DockWindow.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.TabVisibilityChanged">
+            <summary>
+            Occurs when DockWindow tab visibility has changed.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Closing">
+            <summary>
+            Occurs before window is closed and provides you with opportunity to cancel the closing of the window.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Closed">
+            <summary>
+            Occurs after window is closed.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Activated">
+            <summary>
+            Occurs when window has been activated and it has input focus.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.DockWindow.Deactivated">
+            <summary>
+            Occurs when window has been deactivated and it has lost input focus.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.IsSelected">
+            <summary>
+            Gets or sets whether DockWindow is selected as part of the DockWindowGroup.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.ParentGroup">
+            <summary>
+            Gets or sets the DockWindowGroup control belongs to.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanAutoHide">
+            <summary>
+            Gets or sets whether DockWindow can be placed into the auto-hide state.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanClose">
+            <summary>
+            Gets or sets whether DockWindow can be closed by end-user.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanDockAsDocument">
+            <summary>
+            Gets or sets whether DockWindow can be docked as document window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanDockBottom">
+            <summary>
+            Gets or sets whether DockWindow can be docked to the bottom of dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanDockLeft">
+            <summary>
+            Gets or sets whether DockWindow can be docked on the left side of dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanDockRight">
+            <summary>
+            Gets or sets whether DockWindow can be docked on the right side of dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanDockTop">
+            <summary>
+            Gets or sets whether DockWindow can be docked on the top side of dock site.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanFloat">
+            <summary>
+            Gets or sets whether DockWindow can be placed into the floating state.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CanTearOff">
+            <summary>
+            Gets or sets whether DockWindow can be torn-off from parent DockWindowGroup. Default value is true.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.IsAutoHide">
+            <summary>
+            Gets or sets whether DockWindow is in auto-hide state. When in auto-hide state the window is collapsed and tab is displayed on the side of the dock site which
+            when clicked displays the content of the window on the fly out 
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.AutoHideOpen">
+            <summary>
+            Gets or sets whether DockWindow while in auto-hide state is opened. When DockWindow in auto-hide state is open it is displayed on fly-out window which closes when DockWindow loses input focus.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.OptionsMenu">
+            <summary>
+            Gets or sets whether button that displays menu with dock window options is visible inside of the dock window caption. Default value is true.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.CustomOptionsMenu">
+            <summary>
+            Gets or sets custom ContextMenu displayed when Options button in dock window title bar is clicked.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.Image">
+            <summary>
+            Gets or sets the image displayed on the dock window tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.ImageSource">
+            <summary>
+            Gets or sets the string that represents the image source that will be loaded and assigned to the Image property.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.Description">
+            <summary>
+            Gets or sets description of the window used to provide more information about window on for example dock window switcher invoked using Ctrl+Tab.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.FloatingRect">
+            <summary>
+            Gets or sets default floating rectangle for the dock window. The location part of the rectangle specified will be used only
+            when window is floated by your code or by end-user double-clicking the dock window group caption. Size part of the rectangle
+            will be always used as default floating size for the dock window. Size part will also be updated if end-user resizes the floating window.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.DockWindow.IsFloating">
+            <summary>
+            Gets whether DockWindow is in DockWindowGroup in floating state.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DragWindow">
+            <summary>
+            Defines drag-window uses for drag preview during docking.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockTabElementAlignment">
+            <summary>
+            Defines the alignment for the controls added to the Dock Tab area.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockTabElementAlignment.Left">
+            <summary>
+            Element is aligned to the left. Default.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockTabElementAlignment.Right">
+            <summary>
+            Element is aligned to the right.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockHintSide">
+            <summary>
+            Defines the dock hint sides
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockHintHitTest">
+            <summary>
+            Defines the dock hint hit test values.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockSide">
+            <summary>
+            Defines the dock hint hit test values.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eEventActionSource">
+            <summary>
+            Specifies the action that raised a event
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEventActionSource.Keyboard">
+            <summary>
+            The event was caused by a keystroke.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEventActionSource.Mouse">
+            <summary>
+            The event was caused by a mouse operation.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEventActionSource.Code">
+            <summary>
+            The event is caused programmatically from user code.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eEffectiveDockVisualStyle">
+            <summary>
+            Specifies the effective visual style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEffectiveDockVisualStyle.Office2007">
+            <summary>
+            Indicates Office 2007 style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEffectiveDockVisualStyle.Office2010">
+            <summary>
+            Indicates Office 2010 style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eEffectiveDockVisualStyle.Office2013">
+            <summary>
+            Indicates Office 2013 style.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockVisualStyle">
+            <summary>
+            Specifies predefined visual styles for dock control.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2007Blue">
+            <summary>
+            Indicates Office 2007 Blue Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2007Silver">
+            <summary>
+            Indicates Office 2007 Silver Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2007Black">
+            <summary>
+            Indicates Office 2007 Black Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2010Silver">
+            <summary>
+            Indicates Office 2010 Silver Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2010Blue">
+            <summary>
+            Indicates Office 2010 Blue Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2010Black">
+            <summary>
+            Indicates Office 2010 Black Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2013">
+            <summary>
+            Indicates Office 2013 Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2013LightGray">
+            <summary>
+            Indicates Office 2013 Light Gray Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2013DarkGray">
+            <summary>
+            Indicates Office 2013 Dark Gray Style.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockVisualStyle.Office2016">
+            <summary>
+            Indicates Office 2016 Style.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.eDockList">
+            <summary>
+            Specifies windows returned by GetDockWindow method. Members of this enum can be combined.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockList.Docked">
+            <summary>
+            Returns docked windows only.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockList.AutoHide">
+            <summary>
+            Returns dock window in auto-hide state only.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockList.Floating">
+            <summary>
+            Returns floating dock windows.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockList.Documents">
+            <summary>
+            Returns dock windows that are docked as documents i.e in DockSite.Content.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.eDockList.All">
+            <summary>
+            Returns all dock windows.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.BeforeDockedRoutedEventHandler">
+            <summary>
+            Defines the delegate for the Dock events.
+            </summary>
+            <param name="sender">Identifies the sender</param>
+            <param name="e">Provides data for the event handler</param>
+        </member>
+        <member name="T:DevComponents.WpfDock.BeforeDockedRoutedEventArgs">
+            <summary>
+            Represents the arguments for BeforeDocked event and provides detailed information about docking that will be performed and allows the action to be canceled.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockRoutedEventArgs">
+            <summary>
+            Represents event arguments for docking events.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.DockRoutedEventArgs.DockControl">
+            <summary>
+            Gets the dock control docking is performed on. It can be instance of the DockWindowGroup or DockWindow.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockRoutedEventArgs.#ctor(System.Windows.RoutedEvent)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.DockRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object,System.Object,DevComponents.WpfDock.eEventActionSource)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.IsFloating">
+            <summary>
+            Gets whether dock control will be floating if docking is not cancelled.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.DockSide">
+            <summary>
+            Gets the dock side dock control will be docked to. This value is not valid if IsFloating is true.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.ReferenceDockGroup">
+            <summary>
+            Get the reference DockWindowGroup in relation to which docked control is docked. Can be null.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.#ctor(System.Windows.RoutedEvent)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.BeforeDockedRoutedEventArgs.#ctor(System.Windows.RoutedEvent,System.Object,System.Object,DevComponents.WpfDock.eEventActionSource,System.Boolean,DevComponents.WpfDock.eDockSide,DevComponents.WpfDock.DockWindowGroup)">
+            <summary>
+            Creates new instance of the object.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.DockRoutedEventHandler">
+            <summary>
+            Defines the delegate for the Dock events.
+            </summary>
+            <param name="sender">Identifies the sender</param>
+            <param name="e">Provides data for the event handler</param>
+        </member>
+        <member name="T:DevComponents.WpfDock.FloatingWindow">
+            <summary>
+            Represents a floating window container for DockWindow controls in floating state.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.FloatingWindow.DockSite">
+            <summary>
+            Gets the DockSite which is eventSource of the FloatingWindow.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.LayoutHelpers.GetBounds(System.Windows.UIElement,System.Windows.UIElement)">
+            <summary>
+            Gets bounds of an element inside of the reference parent element.
+            </summary>
+            <param name="elem"></param>
+            <param name="referenceParent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DevComponents.WpfDock.Primitives.DockTabPanel">
+            <summary>
+            Represents the panel that displays the docking tabs.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DockTabPanel.PanelAlignmentProperty">
+            <summary>
+            Gets or sets the value that indicates the alignment of the child item.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DockTabPanel.BorderInnerBrushProperty">
+            <summary>
+            Identifies the BorderInnerBrush property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DockTabPanel.BackgroundInnerProperty">
+            <summary>
+            Identifies the BorderInnerBrush property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DockTabPanel.BorderBrushProperty">
+            <summary>
+            Identifies the BorderBrush property.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Primitives.DockTabPanel.BorderInnerBrush">
+            <summary>
+            Gets or sets the inner border brush.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Primitives.DockTabPanel.BorderBrush">
+            <summary>
+            Gets or sets the border brush.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Primitives.DockTabPanel.BackgroundInner">
+            <summary>
+            Gets or sets the background for the area just above or below tab.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DocumentTabBorder.BackgroundProperty">
+            <summary>
+            Identifies the Background property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DocumentTabBorder.BorderBrushProperty">
+            <summary>
+            Identifies the BorderBrush property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DocumentTabBorder.BorderInnerBrushProperty">
+            <summary>
+            Identifies the BorderInnerBrush property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.Primitives.DocumentTabBorder.BottomBorderBrushProperty">
+            <summary>
+            Identifies the BottomBorderBrush property.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:DevComponents.WpfDock.Primitives.DocumentTabBorder.Background" -->
+        <member name="P:DevComponents.WpfDock.Primitives.DocumentTabBorder.BorderBrush">
+            <summary>
+            Gets or sets the border brush.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Primitives.DocumentTabBorder.BorderInnerBrush">
+            <summary>
+            Gets or sets the inner border brush.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Primitives.DocumentTabBorder.BottomBorderBrush">
+            <summary>
+            Gets or sets the bottom border brush.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.Primitives.SnapshotImage.TakeSnapshot(System.Windows.UIElement)">
+            <summary>
+            Take visual snapshot of the specified visual.
+            </summary>
+            <param name="elem"></param>
+        </member>
+        <member name="T:DevComponents.WpfDock.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.SplitPanel">
+            <summary>
+            Represents the split container for DockGroup controls which hosts contained groups in a single line with splitters between them to allow resizing of the group.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.SplitPanel.MinimumDockWindowSizeProperty">
+            <summary>
+            Identifies MinimumDockWindowSize Property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.SplitPanel.RelativeSizeProperty">
+            <summary>
+            Identifies the RelativeSize attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.SplitPanel.OrientationProperty">
+            <summary>
+            Identifies the Orientation attached property.
+            </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.SplitPanel.BackgroundProperty">
+            <summary>
+            Identifies the Background attached property.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.GetRelativeSize(System.Windows.UIElement)">
+            <summary>
+            Gets the relative docked size of the element docked inside of the split panel.
+            </summary>
+            <param name="element">Reference to the UI element</param>
+            <returns>Return the relative docked size assigned to the element.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.SetRelativeSize(System.Windows.UIElement,System.Windows.Size)">
+            <summary>
+            Assigns the relative docked size to element inside of the split panel. Relative size indicates the size of the element in relation to the other elements inside of split panel.
+            It does not indicate the absolute size. It is used by docking layout to determine the final size of the element.
+            </summary>
+            <param name="element">Reference to the UI Element.</param>
+            <param name="d">Specifies the docked element relative size.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.OnSplittersUpdating(System.EventArgs)">
+            <summary>
+            Raises the SplittersUpdating event.
+            </summary>
+            <param name="e">Provides events arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.OnSplittersRecreated(System.EventArgs)">
+            <summary>
+            Raises the SplittersRecreated event.
+            </summary>
+            <param name="e">Provides events arguments.</param>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.GetDockSite">
+            <summary>
+            Gets reference to the DockSite control is part of.
+            </summary>
+            <returns>Reference to DockSite or null if DockSite cannot be found.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.GetDockedElementAt(System.Windows.Point)">
+            <summary>
+            Returns UIElement that contains Point.
+            </summary>
+            <param name="p">Point in client coordinates for this element.</param>
+            <returns>UIElement that contains point or null.</returns>
+        </member>
+        <member name="M:DevComponents.WpfDock.SplitPanel.UpdateAutoVisibility">
+            <summary>
+            Updates the visibilty of the panel based on its content.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.MinimumDockWindowSize">
+            <summary>
+            Gets or sets the suggested minimum size for the dock windows contained by this panel. Note that this is recommendation and due to constraint of the parent window size the minimum size might not be always obeyed.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.Orientation">
+            <summary>
+            Gets or sets the orientation for the controls that are arranged by panel.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.SplitPanel.SplittersUpdating">
+            <summary>
+            Occurs before SplitPanel splitters are created.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.Splitters">
+            <summary>
+            Gets the collection of splitters used by the panel. This collection or its content should not be modified and this property is provided for internal use only.
+            </summary>
+        </member>
+        <member name="E:DevComponents.WpfDock.SplitPanel.SplittersRecreated">
+            <summary>
+            Occurs after SplitPanel splitters have been recreated.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.Children">
+            <summary>
+            Gets a UIElementCollection of child elements of the split panel. 
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.Background">
+            <summary>
+            Gets or sets a Brush that is used to fill the split panel. Default value is null.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.VisibleItemsCount">
+            <summary>
+            Gets the visible item count.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.SplitPanel.Id">
+            <summary>
+            Gets the unique control identifier.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.SplitPanelChildrenCollection">
+            <summary>
+            Represents collection for the SplitPanel control children.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.SplitPanelCollection">
+            <summary>
+            Represents the collection of SplitPanel controls.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2007BlackSkin">
+            <summary>
+            Office2007BlackSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2007BlackSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2007BlueSkin">
+            <summary>
+            Office2007BlueSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2007BlueSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2007SilverSkin">
+            <summary>
+            Office2007SilverSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2007SilverSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2010BlackSkin">
+            <summary>
+            Office2010BlackSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2010BlackSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2010BlueSkin">
+            <summary>
+            Office2010BlueSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2010BlueSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2010SilverSkin">
+            <summary>
+            Office2010SilverSkin
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2010SilverSkin.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2013Theme">
+            <summary>
+            Office2013Theme
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2013Theme.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanvasColor">
+            <summary>
+            Gets or sets the base canvas color, like form background.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.TextColor">
+            <summary>
+            Gets or sets the text color displayed over the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.TextInactiveColor">
+            <summary>
+            Gets or sets the lighter text color used for example for inactive non selected tab text etc.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.TextDisabledColor">
+            <summary>
+            Gets or sets the text color used for disabled text.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanvasDarkColor">
+            <summary>
+            Gets or sets the color that is in darker shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanvasLightColor">
+            <summary>
+            Gets or sets the color that is in light shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanavasLighterColor">
+            <summary>
+            Gets or sets the color that is in lighter shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseColor">
+            <summary>
+            Gets or sets the chrome base color, used for window border, selection marking etc.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseTextColor">
+            <summary>
+            Gets or sets the text color for text displayed over the BaseColor.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseLightColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseLighterColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseLightestColor">
+            <summary>
+            Gets or sets the lightest base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseLight1Color">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseLightTextColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseDarkColor">
+            <summary>
+            Gets or sets the dark base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.BaseDarkerColor">
+            <summary>
+            Gets or sets the darker base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementColor">
+            <summary>
+            Gets or sets the complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementLightColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementDarkColor">
+            <summary>
+            Gets or sets the dark complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementDarkerColor">
+            <summary>
+            Gets or sets the darker complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementTextColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.ComplementLightTextColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanvasGradientStartColor">
+            <summary>
+            Gets or sets the off base color button gradient start.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013Theme.CanvasGradientEndColor">
+            <summary>
+            Gets or sets the off base color button gradient start.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2013DockThemeSeed">
+            <summary>
+            A wrapper for the Canvas and Base colors used in generating Metro colors, with a display name for UI.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2013DockThemeSeed.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Construct using standard color strings for defining canvas and base colors.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2013DockThemeSeed.#ctor(System.Windows.Media.Color,System.Windows.Media.Color,System.String)">
+            <summary>
+            Construct with canvas and base colors along with the display name for this theme.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013DockThemeSeed.DisplayName">
+            <summary>
+            Access the display name.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013DockThemeSeed.BaseColor">
+            <summary>
+            Gets or sets the "Base" color used to generate Metro colors.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013DockThemeSeed.CanvasColor">
+            <summary>
+            Gets or sets the "Canvas" color used to generate Metro colors.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2013DockThemeSeed.PreDefinedThemes">
+            <summary>
+            Return a list of the pre-defined Office2013ThemeSeeds
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2016Theme">
+            <summary>
+            Office2016Theme
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2016Theme.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanvasColor">
+            <summary>
+            Gets or sets the base canvas color, like form background.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.TextColor">
+            <summary>
+            Gets or sets the text color displayed over the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.TextInactiveColor">
+            <summary>
+            Gets or sets the lighter text color used for example for inactive non selected tab text etc.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.TextDisabledColor">
+            <summary>
+            Gets or sets the text color used for disabled text.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanvasDarkColor">
+            <summary>
+            Gets or sets the color that is in darker shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanvasLightColor">
+            <summary>
+            Gets or sets the color that is in light shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanavasLighterColor">
+            <summary>
+            Gets or sets the color that is in lighter shade off of the canvas color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseColor">
+            <summary>
+            Gets or sets the chrome base color, used for window border, selection marking etc.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseTextColor">
+            <summary>
+            Gets or sets the text color for text displayed over the BaseColor.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseLightColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseLighterColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseLightestColor">
+            <summary>
+            Gets or sets the lightest base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseLight1Color">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseLightTextColor">
+            <summary>
+            Gets or sets the light base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseDarkColor">
+            <summary>
+            Gets or sets the dark base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.BaseDarkerColor">
+            <summary>
+            Gets or sets the darker base color shade.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementColor">
+            <summary>
+            Gets or sets the complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementLightColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementDarkColor">
+            <summary>
+            Gets or sets the dark complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementDarkerColor">
+            <summary>
+            Gets or sets the darker complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementTextColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.ComplementLightTextColor">
+            <summary>
+            Gets or sets the light complement color.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanvasGradientStartColor">
+            <summary>
+            Gets or sets the off base color button gradient start.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016Theme.CanvasGradientEndColor">
+            <summary>
+            Gets or sets the off base color button gradient start.
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.themes.Office2016DockThemeSeed">
+            <summary>
+            A wrapper for the Canvas and Base colors used in generating Metro colors, with a display name for UI.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2016DockThemeSeed.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Construct using standard color strings for defining canvas and base colors.
+            </summary>
+        </member>
+        <member name="M:DevComponents.WpfDock.themes.Office2016DockThemeSeed.#ctor(System.Windows.Media.Color,System.Windows.Media.Color,System.String)">
+            <summary>
+            Construct with canvas and base colors along with the display name for this theme.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016DockThemeSeed.DisplayName">
+            <summary>
+            Access the display name.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016DockThemeSeed.BaseColor">
+            <summary>
+            Gets or sets the "Base" color used to generate Metro colors.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016DockThemeSeed.CanvasColor">
+            <summary>
+            Gets or sets the "Canvas" color used to generate Metro colors.
+            </summary>
+        </member>
+        <member name="P:DevComponents.WpfDock.themes.Office2016DockThemeSeed.PreDefinedThemes">
+            <summary>
+            Return a list of the pre-defined Office2016ThemeSeeds
+            </summary>
+        </member>
+        <member name="T:DevComponents.WpfDock.WinApi.WindowHitTestRegions">
+            <summary>Options available when a form is tested for mouse positions.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.Error">
+            <summary>HTERROR: On the screen background or on a dividing line between windows 
+            (same as HTNOWHERE, except that the DefWindowProc function produces a system 
+            beep to indicate an error).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.TransparentOrCovered">
+            <summary>HTTRANSPARENT: In a window currently covered by another window in the 
+            same thread (the message will be sent to underlying windows in the same thread 
+            until one of them returns a code that is not HTTRANSPARENT).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.NoWhere">
+            <summary>HTNOWHERE: On the screen background or on a dividing line between 
+            windows.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.ClientArea">
+            <summary>HTCLIENT: In a client area.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.TitleBar">
+            <summary>HTCAPTION: In a title bar.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.SystemMenu">
+            <summary>HTSYSMENU: In a window menu or in a Close button in a child window.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.GrowBox">
+            <summary>HTGROWBOX: In a size box (same as HTSIZE).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.Menu">
+            <summary>HTMENU: In a menu.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.HorizontalScrollBar">
+            <summary>HTHSCROLL: In a horizontal scroll bar.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.VerticalScrollBar">
+            <summary>HTVSCROLL: In the vertical scroll bar.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.MinimizeButton">
+            <summary>HTMINBUTTON: In a Minimize button. </summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.MaximizeButton">
+            <summary>HTMAXBUTTON: In a Maximize button.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.LeftSizeableBorder">
+            <summary>HTLEFT: In the left border of a resizable window (the user can click 
+            the mouse to resize the window horizontally).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.RightSizeableBorder">
+            <summary>HTRIGHT: In the right border of a resizable window (the user can click 
+            the mouse to resize the window horizontally).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.TopSizeableBorder">
+            <summary>HTTOP: In the upper-horizontal border of a window.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.TopLeftSizeableCorner">
+            <summary>HTTOPLEFT: In the upper-left corner of a window border.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.TopRightSizeableCorner">
+            <summary>HTTOPRIGHT: In the upper-right corner of a window border.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.BottomSizeableBorder">
+            <summary>HTBOTTOM: In the lower-horizontal border of a resizable window (the 
+            user can click the mouse to resize the window vertically).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.BottomLeftSizeableCorner">
+            <summary>HTBOTTOMLEFT: In the lower-left corner of a border of a resizable 
+            window (the user can click the mouse to resize the window diagonally).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.BottomRightSizeableCorner">
+            <summary>HTBOTTOMRIGHT: In the lower-right corner of a border of a resizable 
+            window (the user can click the mouse to resize the window diagonally).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.NonSizableBorder">
+            <summary>HTBORDER: In the border of a window that does not have a sizing 
+            border.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.Object">
+            <summary>HTOBJECT: Unknown...No Documentation Found</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.CloseButton">
+            <summary>HTCLOSE: In a Close button.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.HelpButton">
+            <summary>HTHELP: In a Help button.</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.SizeBox">
+            <summary>HTSIZE: In a size box (same as HTGROWBOX). (Same as GrowBox).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.ReduceButton">
+            <summary>HTREDUCE: In a Minimize button. (Same as MinimizeButton).</summary>
+        </member>
+        <member name="F:DevComponents.WpfDock.WinApi.WindowHitTestRegions.ZoomButton">
+            <summary>HTZOOM: In a Maximize button. (Same as MaximizeButton).</summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

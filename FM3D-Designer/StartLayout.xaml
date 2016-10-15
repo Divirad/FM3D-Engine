@@ -1,0 +1,37 @@
+﻿<local:WindowLayout x:Class="FM3D_Designer.StartLayout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
+             xmlns:local="clr-namespace:FM3D_Designer"
+             mc:Ignorable="d" 
+             IsMainLayout="True">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu x:Name="menu" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+            <MenuItem Header="_Project" />
+            <MenuItem Header="_View" />
+            <MenuItem Header="_Window" />
+            <MenuItem Header="_Help" />
+        </Menu>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <TextBox x:Name="textBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Margin="10, 0">Path</TextBox>
+                <Button x:Name="button" Content="Start Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="button_Click"/>
+            </StackPanel>                        
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" Grid.Column="0" VerticalAlignment="Stretch"/>
+            <Button x:Name="testButton" Grid.Column="0" Content="Test Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click"/>
+        </Grid>
+
+    </Grid>
+</local:WindowLayout>

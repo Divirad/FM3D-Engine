@@ -1,0 +1,39 @@
+﻿<m:MetroAppWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FM3D_Designer"
+        xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
+        xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
+        xmlns:dt="clr-namespace:FM3D_Designer.Themes.Dark_Theme"
+        x:Class="FM3D_Designer.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        m:MetroUI.Theme="{x:Static dt:DarkMetroTheme.MetroStyle}"
+        Height="720" Width="1280">
+
+    <m:MetroShell ShowBackstageButton="False">
+        <m:MetroShell.Chrome>
+            <m:MetroChrome>
+            </m:MetroChrome>
+        </m:MetroShell.Chrome>
+        <m:MetroShell.Items>
+            <DockPanel LastChildFill="True">
+                <dd:DockSite  Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">
+                    <dd:SplitPanel>
+                        <dd:DockWindowGroup Name="dockingGroup" >
+
+                        </dd:DockWindowGroup>
+                    </dd:SplitPanel>
+                </dd:DockSite>
+            </DockPanel>
+        </m:MetroShell.Items>
+        <m:MetroShell.StatusBar>
+            <m:MetroStatusBar>
+                <TextBlock Text="CONNECTED TO SERVER - ALL DATA IS UP TO DATE" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" />
+                <TextBlock Text="READY" Margin="10,0,0,0" HorizontalAlignment="Right" />
+            </m:MetroStatusBar>
+        </m:MetroShell.StatusBar>
+    </m:MetroShell>
+</m:MetroAppWindow>
