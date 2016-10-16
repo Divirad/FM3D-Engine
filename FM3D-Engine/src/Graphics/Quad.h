@@ -4,7 +4,7 @@
 namespace ENGINE_NAME {
 
 	class ENGINE_DLL Quad {
-	private:
+	protected:
 		Vector3f m_position0;
 		Vector2f m_position1;
 		uint m_color;

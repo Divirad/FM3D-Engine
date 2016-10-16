@@ -4,13 +4,13 @@
 
 using namespace Engine;
 
-void FPS2D(HINSTANCE hInstance);
+void TestButton(HINSTANCE hInstance);
 void StarwarsScene(HINSTANCE hInstance);
 
 
 ///////////////////////////////////////////////////////////////
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	StarwarsScene(hInstance);
+	TestButton(hInstance);
 }
 ///////////////////////////////////////////////////////////////
 
@@ -160,23 +160,65 @@ void StarwarsScene(HINSTANCE hInstance) {
 	renderSystem->Shutdown();
 }
 
-void FPS2D(HINSTANCE hInstance) {
+
+
+
+void TestButton(HINSTANCE hInstance) {
 	Window::StartConsole();
+	FileManager::Initialize("res/", "", "fm3d");
+	ExternFileManager::Initialize();
+	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
+	win->Start(1280, 720, L"JOOONGE");
+	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
 
-	DynamicArray<uint> arr(15);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceCapBy(2);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceBy(3);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceCapTo(20);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceTo(19);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceBy(3);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
-	arr.AdvanceCapTo(5);
-	std::cout << "S: " << arr.Size() << " C: " << arr.Capacity() << std::endl;
+	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), false, ((Win32Window*)win)->GetHwnd(), false)) {
+		std::cout << "Rendersystem Initializing Error!" << std::endl;
+	}
+	Renderer2D* renderer = renderSystem->CreateRenderer2D();	Matrix4f projectionMatrix = Matrix4f::Identity();
+	renderer->Initialize(projectionMatrix);	Texture* Test_Tex = renderSystem->CreateTexture(NULL);	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
+	Button MyFirstButton(Test_Tex, Vector2f(0.0f, 0.0f));
+	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
+	MyFirstButton.AutoSize();
+	Engine::Font* f;
+	ExternFileManager::ReadFontFile("fontilein.ttf", 20, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
+	unsigned long long times[100];
+	uint counter = 0;
+	uint waiting = 30000;
+	while (!win->ShouldClose()) {
+		if (!win->HasMessage()) {
+			std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+			//VOLL DIE SCHLEIFE UND SOO
+			renderSystem->BeginRendering(new float[4]{ 0.2f, 0.5f, 0.5f, 1.0f });
+			renderer->Begin();
+			renderer->Submit(&MyFirstButton);
+			if (MyFirstButton.Click(MOUSE_LEFT))
+			{
+				MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
+				Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
+				MyFirstButton.AutoSize();
+				MyFirstButton.VStretch();
+				//MyFirstButton.AutoCenter();
+			}
+			renderer->End();
+			renderer->Flush();
+			renderSystem->EndRendering();
+			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+			//Window::SetConsolePosition(0, 1);
+			//std::cout << std::setw(7) << duration << "   " << std::endl << std::setw(7) << 1000000 / duration << "   ";
+			/*if (waiting == 0) {
+				times[counter++] = 1000000 / duration;
+				if (counter >= 100) {
+					unsigned long long x = 0;
+					for (int i = 0; i < 100; i++) {
+						x += times[i];
+					}
+					x /= 100;
+					std::cout << "FPS: " << x;
+				}
+			}			else waiting--;*/
+		}
+	};
+	renderSystem->Shutdown();
+}
 
-	while (true) {};
-}

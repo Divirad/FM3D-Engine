@@ -162,7 +162,7 @@ namespace ENGINE_NAME
 		#pragma endregion
 
 		#pragma region Options
-		void SetWindow(Window*window) { win = window; }
+		//void SetWindow(Window*window) { win = window; }
 		void SetMouseOption(COORDS_MODE mode);
 		#pragma endregion
 
