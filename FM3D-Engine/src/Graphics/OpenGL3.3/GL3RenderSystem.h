@@ -36,7 +36,7 @@ namespace ENGINE_NAME {
 		void EndRendering() override;
 		void Shutdown() override;
 
-		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, SharedArray<Mesh::Part>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
+		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<Mesh::Part>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
 		Texture* CreateTexture(const char* filename) override { return new GL3Texture(); }
 		Renderer2D* CreateRenderer2D() override { return new GL3Renderer2D(); }
 		Renderer3D* CreateRenderer3D(Matrix4f& projectionMatrix, uint width, uint height) override { return new GL3Renderer3D(projectionMatrix, width, height, this); }

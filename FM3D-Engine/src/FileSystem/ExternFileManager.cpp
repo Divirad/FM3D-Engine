@@ -92,7 +92,7 @@ namespace ENGINE_NAME {
 		}
 	}
 
-	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, vector<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation) {
+	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
 		if (useAnimation) {
 			for (unsigned int j = 0; j < mesh->mNumBones; j++) {
@@ -101,7 +101,8 @@ namespace ENGINE_NAME {
 				unsigned int jointIndex = boneIndex.size();
 				if (it == boneIndex.end()) {
 					boneIndex[bone->mName.data] = jointIndex;
-					boneOffsetMatrices.push_back(CreateMatrix4f(bone->mOffsetMatrix));
+					boneOffsetMatrices.AdvanceBy(1);
+					boneOffsetMatrices[boneOffsetMatrices.Size()-1] = CreateMatrix4f(bone->mOffsetMatrix);
 				} else {
 					jointIndex = it->second;
 					if (boneOffsetMatrices[jointIndex] != CreateMatrix4f(bone->mOffsetMatrix)) {
@@ -200,12 +201,12 @@ namespace ENGINE_NAME {
 #define UNUSEDCHANNEL 0xffffffff
 	};
 
-	static void CalcMatricesWithNodes(vector<vector<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
+	static void CalcMatricesWithNodes(RawArray<Array<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
 		for (uint c = 0; c < numChannels; c++) {
 			uint bone = channels[c].bone;
 			if (bone == UNUSEDCHANNEL) continue;
 			uint numKeys = channels[c].mat.size();
-			matrices[bone] = vector<Matrix4f>(numKeys);
+			new (&matrices[bone]) Array<Matrix4f>(numKeys);
 			for (uint key = 0; key < numKeys; key++) {
 				Matrix4f mat = Matrix4f::Identity();
 				for (Channel* node = &channels[c]; node; node = node->parent) {
@@ -217,7 +218,7 @@ namespace ENGINE_NAME {
 		}
 	}
 
-	static void InitializeAnimation(Animation** inAnimation, const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation) {
+	static void InitializeAnimation(Animation* inAnimation, const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation) {
 		aiAnimation *animation = scene->mAnimations[animationIndex];
 		uint numChannels = animation->mNumChannels;
 		if (numChannels == 0)
@@ -272,7 +273,7 @@ namespace ENGINE_NAME {
 		vector<uint> keyIndices(numChannels);
 		for (uint i = 0; i < numChannels; i++) keyIndices[i] = 0u;
 		vector<uint> channelIndices;
-		vector<double> times;
+		DynamicRawArray<double> times(0);
 		double time = -1.0;
 		double startTime = channels[0].node->mPositionKeys[0].mTime;
 		double endTime = channels[0].node->mPositionKeys[channels[0].node->mNumPositionKeys - 1].mTime;
@@ -305,7 +306,7 @@ namespace ENGINE_NAME {
 					cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Channel " << c << " Keys " << keyIndices[c] << " have different times" << endl;
 				}
 			}
-			times.push_back(time - startTime);
+			times.Push_Back(time - startTime);
 			if (time == endTime) break;
 			for (uint i : channelIndices) keyIndices[i]++;
 
@@ -331,10 +332,10 @@ namespace ENGINE_NAME {
 			channels[c].mat.push_back(CreateMatrix4f(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
 		}
 
-		vector<vector<Matrix4f>> matrices(boneCount);
+		RawArray<Array<Matrix4f>> matrices(boneCount);
 		CalcMatricesWithNodes(matrices, channels, numChannels, globalInverseTransformation);
 
-		*inAnimation = new Animation(animation->mName.data, matrices, times, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
+		new (inAnimation) Animation(animation->mName.data, matrices, RawArray<double>(times), animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
 	}
 	
 	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation) {
@@ -366,7 +367,7 @@ namespace ENGINE_NAME {
 
 		//MESH SECTION
 		map<string, unsigned int> boneIndex;
-		vector<Matrix4f> boneOffsetMatrices;
+		DynamicRawArray<Matrix4f> boneOffsetMatrices(0);
 		Array<Mesh::Part> parts(meshIds.size());
 		uint c = 0;
 		for (uint meshIndex : meshIds) {
@@ -375,22 +376,20 @@ namespace ENGINE_NAME {
 		}
 
 		//ANIMATION SECTION
-		vector<Animation> animations;
+		DynamicRawArray<Animation> animations(0);
 		for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
-			Animation* animation;
-			InitializeAnimation(&animation, scene, i, filename, boneOffsetMatrices.size(), boneIndex, globalInverseTransformation);
-			animations.push_back(*animation);
-			delete animation;
+			animations.AdvanceBy(1);
+			InitializeAnimation(&animations[animations.Size() - 1], scene, i, filename, boneOffsetMatrices.Size(), boneIndex, globalInverseTransformation);
 		}
 
 		for (Matrix4f& offset : boneOffsetMatrices) {
 			offset *= Matrix4f::Invert(meshMatrices[0]);
 		}
-		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(SharedArray<Matrix4f>(boneOffsetMatrices), SharedArray<Animation>(animations)) : nullptr, supportsInstancing, parts.Share());
+		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(RawArray<Matrix4f>(boneOffsetMatrices), RawArray<Animation>(animations)) : nullptr, supportsInstancing, parts);
 		for (Mesh::Part& p : parts) {
 			delete[] (uint*) p.indices;
 		}
-		*result = new Model(mesh, SharedArray<const Material*>(parts.Size()));
+		*result = new Model(mesh, RawArray<const Material*>(parts.Size()));
 	}
 
 	/*void ExternFileManager::ReadModelFile(const char* filename, StaticModel* model) {

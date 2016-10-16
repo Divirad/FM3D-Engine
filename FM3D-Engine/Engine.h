@@ -36,12 +36,17 @@ namespace ENGINE_NAME {
 	};
 }
 
+
+#include <src/Memory/ArrayBase.h>
+#include <src/Memory/DynamicArrayBase.h>
+#include <src/Memory/DynamicRawArray.h>
+#include <src/Memory/RawArray.h>
+#include <src/Memory/Array.h>
+#include <src/Memory/DynamicArray.h>
+
 #include <src/Math/Math.h>
 
-#include <src/Utilities/SharedArray.h>
-#include <src/Utilities/Array.h>
 #include <src/Utilities/StringUtilities.h>
-#include <src/Utilities/CompCoords.h>
 #include <src/EventSystem.h>
 
 #include <src/Window.h>

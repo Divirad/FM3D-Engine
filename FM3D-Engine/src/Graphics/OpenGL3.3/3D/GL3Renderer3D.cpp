@@ -2,8 +2,8 @@
 
 namespace ENGINE_NAME {
 
-	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem): m_projectionMatrix(projectionMatrix), m_gbuffer(width, height),
-	m_width(width), m_height(height), m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)), m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))) {
+	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem) : m_projectionMatrix(projectionMatrix), m_gbuffer(width, height),
+		m_width(width), m_height(height), m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)), m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))) {
 		m_shader3D.Bind();
 		m_shader3D.SetColorTextureUnit(0);
 
@@ -60,14 +60,21 @@ namespace ENGINE_NAME {
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
 		for (std::map<const Mesh*, std::map<const Model*, std::vector<const Entity*>>>::iterator it = m_meshModelEntityMap.begin(); it != m_meshModelEntityMap.end(); ++it) {
-			for(uint i = 0; i < it->first->GetCountOfParts(); i++) {
+			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
 				((const GL3Mesh*)it->first)->Bind(i);
-				if (it->first->IsAnimated()) {
-					//m_shader3D.SetBones(it->first->GetSkeleton()->GetOffsetMatrices());
-				}
 				for (std::map<const Model*, std::vector<const Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
 					((GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
 					for (const Entity*& e : it2->second) {
+						//if (it->first->IsAnimated()) {
+						//	if (it2->first->IsAnimated()) {
+						//		AnimatedModel* a = (AnimatedModel*)it2->first;
+						//		Array<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
+						//		m_shader3D.SetBones(bones);
+						//	} else {
+						//		m_shader3D.SetBones(it->first->GetSkeleton()->GetOffsetMatrices());
+						//	}
+						//}
+						m_shader3D.SetBones(it->first->GetSkeleton()->GetOffsetMatrices());
 						Matrix4f modelMatrix = e->GetModelMatrix();
 						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * modelMatrix));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));

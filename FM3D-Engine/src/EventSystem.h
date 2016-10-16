@@ -30,10 +30,10 @@ namespace ENGINE_NAME {
 		void (*m_target)(E*);
 	public:
 		void FireEvent(E* e) override {
-			((*m_handler).*m_target)(e);
+			m_target(e);
 		}
 
-		FuncEventHandler(void (*target)(E*)) : m_handler(handler), m_target(target) {
+		FuncEventHandler(void (*target)(E*)) : m_target(target) {
 
 		}
 	};

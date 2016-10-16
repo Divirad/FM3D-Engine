@@ -411,11 +411,15 @@
     <ClInclude Include="src\Math\Vector2.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Math\Vector4.h" />
+    <ClInclude Include="src\Memory\Array.h" />
+    <ClInclude Include="src\Memory\ArrayBase.h" />
+    <ClInclude Include="src\Memory\DynamicArray.h" />
+    <ClInclude Include="src\Memory\DynamicArrayBase.h" />
+    <ClInclude Include="src\Memory\DynamicRawArray.h" />
+    <ClInclude Include="src\Memory\RawArray.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Test.h" />
-    <ClInclude Include="src\Utilities\Array.h" />
     <ClInclude Include="src\Utilities\CompCoords.h" />
-    <ClInclude Include="src\Utilities\SharedArray.h" />
     <ClInclude Include="src\Utilities\StringUtilities.h" />
     <ClInclude Include="src\Win32Window.h" />
     <ClInclude Include="src\Window.h" />

@@ -5,19 +5,19 @@ namespace ENGINE_NAME {
 
 	class Animation {
 	private:
-		std::vector<std::vector<Matrix4f>> m_bones;
+		Array<Array<Matrix4f>> m_bones;
 		std::string m_name;
-		std::vector<double> m_times;
+		Array<double> m_times;
 		double m_keysPerSecond;
 		double m_duration;
 		friend class ExternFileManager;
 	public:
-		Animation(std::string, std::vector<std::vector<Matrix4f>>, std::vector<double>, double, double);
+		Animation(std::string, RawArray<Array<Matrix4f>>&, RawArray<double>&, double, double);
 
 		inline const Matrix4f& GetBone(int bone, int key) const {
 			return m_bones[bone][key];
 		}
 
-		std::vector<Matrix4f> GetBonePositions(double runningTime, const std::vector<Matrix4f>& offsetMatrices) const;
+		RawArray<Matrix4f> GetBonePositions(double runningTime, const Array<Matrix4f>& offsetMatrices) const;
 	};
 }

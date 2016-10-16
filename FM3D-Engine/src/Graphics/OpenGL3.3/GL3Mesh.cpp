@@ -2,11 +2,11 @@
 
 namespace ENGINE_NAME {
 
-	GL3Mesh::GL3Mesh(const Skeleton* skeleton, bool supportsInstancing, SharedArray<Part>& parts): Mesh(skeleton, supportsInstancing, parts.Size()), m_glBuffers(parts.Size()) {
+	GL3Mesh::GL3Mesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<Part>& parts): Mesh(skeleton, supportsInstancing, parts.Size()), m_glBuffers(parts.Size()) {
 		bool isAnimated = skeleton != nullptr;
 
 		for (uint p = 0; p < parts.Size(); p++) {
-			Part& part = parts[p];
+			const Part& part = parts[p];
 			if (supportsInstancing && !part.supportsInstancing) throw new std::exception("Part of the mesh does not support instancing but whole mesh does");
 			if (!isAnimated && part.vertices.HasBoneData()) throw std::exception("Part of the mesh is animated but the whole mesh is not");
 

@@ -2,7 +2,7 @@
 
 namespace ENGINE_NAME {
 
-	Skeleton::Skeleton(SharedArray<Matrix4f>& boneOffsetMatrices, SharedArray<Animation>& animations): m_boneOffsetMatrices(boneOffsetMatrices), m_animations(animations) {
+	Skeleton::Skeleton(RawArray<Matrix4f>& boneOffsetMatrices, RawArray<Animation>& animations): m_boneOffsetMatrices(boneOffsetMatrices), m_animations(animations) {
 
 	}
 
