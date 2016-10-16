@@ -5,6 +5,7 @@
 #pragma warning(disable:4005)
 
 //KEYCODES
+//VollDieKrasseÄnderung 2.0
 #define MOUSE_LEFT		1
 #define MOUSE_RIGHT		2
 #define KEY_RIGHT		3
@@ -111,14 +112,12 @@
 
 #pragma warning(pop)
 
-//undefined
-
 namespace ENGINE_NAME 
 {
-	//yxc
 	class ENGINE_DLL Inputsystem
 	{
 	public:
+		//Enum for Mousetracking system
 		enum COORDS_MODE{
 			CNULL,
 			CLICK,
@@ -127,20 +126,19 @@ namespace ENGINE_NAME
 			INSTANT
 		};
 
-		
-
 	private:
+		//Static Object
 		static Inputsystem s_instance;
+		//Array for Key-Checking (using the makros from above) 
+		//Each Array field has the same Char-ID like the keys
+		//Except the Mouse
 		bool pressed[121]{ 0 };
+		//Mode for Mousetracking
 		COORDS_MODE m_mode;
+		//Vector for tracking the last position of mouse
 		Vector2f lastpos;
 
-		Vector3f vec;
-		short wheel;
-
-		Window* win;
-		
-		
+		short wheel;		
 
 	public:
 		static Inputsystem* GetInstance() { return &s_instance; }
