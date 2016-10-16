@@ -117,7 +117,7 @@ namespace ENGINE_NAME
 		}
 	}
 
-	void Inputsystem::setKey(int ID, bool tof)
+	void Inputsystem::setKey(int ID, bool tof)		//trueorFalse
 	{
 		pressed[ID] = tof;
 	}

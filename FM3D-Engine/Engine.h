@@ -41,7 +41,6 @@ namespace ENGINE_NAME {
 #include <src/Utilities/SharedArray.h>
 #include <src/Utilities/Array.h>
 #include <src/Utilities/StringUtilities.h>
-#include <src/Utilities/CompCoords.h>
 #include <src/EventSystem.h>
 
 #include <src/Window.h>
