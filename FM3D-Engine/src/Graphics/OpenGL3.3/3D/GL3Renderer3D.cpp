@@ -57,6 +57,8 @@ namespace ENGINE_NAME {
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
 
+		GLCall(glActiveTexture(GL_TEXTURE0));
+
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
 		for (std::map<const Mesh*, std::map<const Model*, std::vector<const Entity*>>>::iterator it = m_meshModelEntityMap.begin(); it != m_meshModelEntityMap.end(); ++it) {
@@ -65,16 +67,19 @@ namespace ENGINE_NAME {
 				for (std::map<const Model*, std::vector<const Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
 					((GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
 					for (const Entity*& e : it2->second) {
-						//if (it->first->IsAnimated()) {
-						//	if (it2->first->IsAnimated()) {
-						//		AnimatedModel* a = (AnimatedModel*)it2->first;
-						//		Array<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
-						//		m_shader3D.SetBones(bones);
-						//	} else {
-						//		m_shader3D.SetBones(it->first->GetSkeleton()->GetOffsetMatrices());
-						//	}
-						//}
-						m_shader3D.SetBones(it->first->GetSkeleton()->GetOffsetMatrices());
+						if (it->first->IsAnimated()) {
+							if (it2->first->IsAnimated()) {
+								AnimatedModel* a = (AnimatedModel*)it2->first;
+								if (a->GetAnimation() != nullptr) {
+									Array<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
+									m_shader3D.SetBones(bones);
+								} else {
+									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().Size());
+								}
+							} else {
+								m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().Size());
+							}
+						}
 						Matrix4f modelMatrix = e->GetModelMatrix();
 						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * modelMatrix));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
@@ -84,6 +89,8 @@ namespace ENGINE_NAME {
 			}
 			GL3Mesh::Unbind();
 		}
+
+		m_meshModelEntityMap.clear();
 
 		// When we get here the depth buffer is already populated and the stencil pass
 		// depends on it, but it does not write to it.

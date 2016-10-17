@@ -94,20 +94,19 @@ namespace ENGINE_NAME {
 
 	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
-		if (useAnimation) {
-			for (unsigned int j = 0; j < mesh->mNumBones; j++) {
-				aiBone *bone = mesh->mBones[j];
-				map<string, unsigned int>::iterator it = boneIndex.find(bone->mName.data);
-				unsigned int jointIndex = boneIndex.size();
-				if (it == boneIndex.end()) {
-					boneIndex[bone->mName.data] = jointIndex;
-					boneOffsetMatrices.AdvanceBy(1);
-					boneOffsetMatrices[boneOffsetMatrices.Size()-1] = CreateMatrix4f(bone->mOffsetMatrix);
-				} else {
-					jointIndex = it->second;
-					if (boneOffsetMatrices[jointIndex] != CreateMatrix4f(bone->mOffsetMatrix)) {
-						cout << "FATAL PROGRAMMING ERROR: Same Bones have different Matrices!" << endl;
-					}
+
+		for (unsigned int j = 0; j < mesh->mNumBones; j++) {
+			aiBone *bone = mesh->mBones[j];
+			map<string, unsigned int>::iterator it = boneIndex.find(bone->mName.data);
+			unsigned int jointIndex = boneIndex.size();
+			if (it == boneIndex.end()) {
+				boneIndex[bone->mName.data] = jointIndex;
+				boneOffsetMatrices.AdvanceBy(1);
+				boneOffsetMatrices[boneOffsetMatrices.Size()-1] = CreateMatrix4f(bone->mOffsetMatrix);
+			} else {
+				jointIndex = it->second;
+				if (boneOffsetMatrices[jointIndex] != CreateMatrix4f(bone->mOffsetMatrix)) {
+					cout << "FATAL PROGRAMMING ERROR: Same Bones have different Matrices!" << endl;
 				}
 			}
 		}
@@ -132,8 +131,8 @@ namespace ENGINE_NAME {
 
 		for (uint i = 0; i < vertices.GetVertexCount(); i++) {
 			aiVector3D pos = mesh->mVertices[i];
-			//if(!isAnimated) vertices.SetPosition(meshMatrix * Vector3f(pos.x, pos.y, pos.z), i);
-			vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
+			if(isAnimated) vertices.SetPosition(meshMatrix * Vector3f(pos.x, pos.y, pos.z), i);
+			else vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
 			aiVector3D uv = mesh->mTextureCoords[0][i];
 			vertices.SetTexCoord(Vector2f(uv.x, 1.0f - uv.y), i);
 			aiVector3D norm = mesh->mNormals[i];
@@ -356,7 +355,6 @@ namespace ENGINE_NAME {
 				meshIds.push_back(i);
 			}
 		}
-		isAnimated = isAnimated && useAnimation;
 
 		Matrix4f* meshMatrices = new Matrix4f[scene->mNumMeshes];
 		FindMeshTransformations(meshMatrices, Matrix4f::Identity(), scene->mRootNode);
@@ -389,7 +387,8 @@ namespace ENGINE_NAME {
 		for (Mesh::Part& p : parts) {
 			delete[] (uint*) p.indices;
 		}
-		*result = new Model(mesh, RawArray<const Material*>(parts.Size()));
+		if(isAnimated && useAnimation) *result = new AnimatedModel(mesh, RawArray<const Material*>(parts.Size()), nullptr, 0.0);
+		else *result = new Model(mesh, RawArray<const Material*>(parts.Size()));
 	}
 
 	/*void ExternFileManager::ReadModelFile(const char* filename, StaticModel* model) {

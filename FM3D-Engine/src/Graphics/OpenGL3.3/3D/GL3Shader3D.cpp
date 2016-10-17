@@ -7,11 +7,17 @@ namespace ENGINE_NAME {
 #define PATH "src/Graphics/OpenGL3.3/3D/Shader/"
 #define MAX_BONES 128
 
-	GL3Shader3D::GL3Shader3D() : GL3Shader(StringUtilities::StringWithDefines(FileManager::ReadShaderFile(PATH + string("Geometry.vert")), { StringUtilities::Define {"MAX_BONES", std::to_string(MAX_BONES) } }).c_str(), FileManager::ReadShaderFile(PATH + string("Geometry.frag")).c_str()) {
+	GL3Shader3D::GL3Shader3D()
+		: GL3Shader(StringUtilities::StringWithDefines(FileManager::ReadShaderFile(PATH + string("Geometry.vert")),
+		{ StringUtilities::Define {"MAX_BONES", std::to_string(MAX_BONES) } }).c_str(),
+		FileManager::ReadShaderFile(PATH + string("Geometry.frag")).c_str()),
+		m_boneBegin(0u), m_boneEnd(MAX_BONES-1) {
+		
 		m_WVPLocation = GetUniformLocation("gWVP");
 		m_WorldMatrixLocation = GetUniformLocation("gWorld");
 		m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 		m_bonesLocation = GetUniformLocation("gBones");
+
 
 		GLCall(glVertexAttrib4f(GL3MESH_ATTRIBUTE_COLOR, 1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glVertexAttribI4i(GL3MESH_ATTRIBUTE_BONE_INDICES, 0, 0, 0, 0));
@@ -38,6 +44,14 @@ namespace ENGINE_NAME {
 	void GL3Shader3D::SetBones(const Array<Matrix4f>& bones) {
 		for (uint i = 0; i < bones.Size(); i ++) {
 			SetUniformMat4(m_bonesLocation + i, Matrix4f::Transpose(bones[i]));
+		}
+		if (bones.Size() > m_boneEnd) m_boneEnd = bones.Size();
+		m_boneBegin = 0;
+	}
+
+	void GL3Shader3D::ReSetBones(uint i) {
+		for (uint b = m_boneBegin; b < m_boneEnd && b < i; b++) {
+			SetUniformMat4(m_bonesLocation + b, Matrix4f::Transpose(Matrix4f::Identity()));
 		}
 	}
 }

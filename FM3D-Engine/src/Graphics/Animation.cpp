@@ -16,7 +16,8 @@ namespace ENGINE_NAME {
 			for (uint b = 0; b < m_bones.Size(); b++) {
 				result[b] = m_bones[b][numKeys-1];
 			}
-			return Matrix4f::MassMultiplication(result, offsetMatrices);
+			Matrix4f::MassMultiplication(result, offsetMatrices);
+			return result;
 		}
 
 		RawArray<Matrix4f> result(m_bones.Size());
@@ -25,6 +26,7 @@ namespace ENGINE_NAME {
 		for (uint b = 0; b < m_bones.Size(); b++) {
 			result[b] = Matrix4f::Interpolate(m_bones[b][time - 1], m_bones[b][time], m_times[time - 1], runningTime, m_times[time]);
 		}
-		return Matrix4f::MassMultiplication(result, offsetMatrices);
+		Matrix4f::MassMultiplication(result, offsetMatrices);
+		return result;
 	}
 }

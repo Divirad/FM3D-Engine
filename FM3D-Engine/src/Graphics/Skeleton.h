@@ -3,7 +3,7 @@
 
 namespace ENGINE_NAME {
 
-	class Skeleton {
+	class ENGINE_DLL Skeleton {
 	private:
 		Array<Matrix4f> m_boneOffsetMatrices;
 		Array<Animation> m_animations;

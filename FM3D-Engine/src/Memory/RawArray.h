@@ -19,6 +19,9 @@ namespace ENGINE_NAME {
 		RawArray(RawArray<T>& other) : m_isCreated(other.m_isCreated), ArrayBase<T>(other.m_data, other.m_size) {
 			other.m_isCreated = true;
 		};
+		RawArray(RawArray<T>&& other) : m_isCreated(other.m_isCreated), ArrayBase<T>(other.m_data, other.m_size) {
+			other.m_isCreated = true;
+		};
 		RawArray<T>& operator=(const RawArray<T>&) = delete;
 		~RawArray() {
 			if (!m_isCreated) {

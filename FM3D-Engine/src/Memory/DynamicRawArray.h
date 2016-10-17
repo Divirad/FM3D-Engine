@@ -16,6 +16,7 @@ namespace ENGINE_NAME {
 		DynamicRawArray(const std::initializer_list<T>& data);
 
 		DynamicRawArray(const DynamicRawArray<T>&) = delete;
+		DynamicRawArray(DynamicRawArray<T>&&) = delete;
 		DynamicRawArray<T>& operator=(const DynamicRawArray<T>&) = delete;
 		~DynamicRawArray() { 
 			if (!m_isCreated) {

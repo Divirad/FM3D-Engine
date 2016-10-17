@@ -26,9 +26,11 @@ namespace ENGINE_NAME {
 	public:
 		AnimatedModel(const Mesh* mesh, RawArray<const Material*>& materials, const Animation* animation, double animationStartTime = 0.0);
 
-		double& GetAnimationTime() { return m_animationTime; }
-		const double& GetAnimationTime() const { return m_animationTime; }
-
 		const Animation* GetAnimation() const { return m_animation; }
+		double GetAnimationTime() const { return m_animationTime; }
+
+		void SetAnimation(const Animation* animation) { m_animation = animation; }
+		void SetAnimationTime(double time) { m_animationTime = time; }
+		void AddToAnimationTime(double time) { m_animationTime += time; }
 	};
 }

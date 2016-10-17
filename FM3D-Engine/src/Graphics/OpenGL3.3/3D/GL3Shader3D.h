@@ -9,6 +9,8 @@ namespace ENGINE_NAME {
 		GLuint m_WorldMatrixLocation;
 		GLuint m_colorTextureUnitLocation;
 		GLuint m_bonesLocation;
+		uint m_boneBegin;
+		uint m_boneEnd;
 	public:
 		GL3Shader3D();
 
@@ -16,5 +18,6 @@ namespace ENGINE_NAME {
 		void SetWorldMatrix(const Matrix4f& WVP);
 		void SetColorTextureUnit(unsigned int TextureUnit);
 		void SetBones(const Array<Matrix4f>& bones);
+		void ReSetBones(uint i);
 	};
 }

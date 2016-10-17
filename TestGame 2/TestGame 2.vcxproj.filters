@@ -19,4 +19,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Fett_body_D.tga" />
+    <Image Include="res\Fett_display_D.tga" />
+    <Image Include="res\Fett_helmet_D.tga" />
+    <Image Include="res\Fett_jetpak_D.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\bobaFett.dae" />
+  </ItemGroup>
 </Project>

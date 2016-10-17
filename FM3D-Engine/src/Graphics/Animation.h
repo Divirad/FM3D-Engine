@@ -19,5 +19,6 @@ namespace ENGINE_NAME {
 		}
 
 		RawArray<Matrix4f> GetBonePositions(double runningTime, const Array<Matrix4f>& offsetMatrices) const;
+		double GetDuration() const { return m_duration; }
 	};
 }

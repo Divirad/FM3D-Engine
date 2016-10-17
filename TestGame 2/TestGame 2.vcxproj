@@ -153,6 +153,15 @@
       <Project>{5f89c230-cda6-42f8-99f7-48bbfbf90425}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Fett_body_D.tga" />
+    <Image Include="res\Fett_display_D.tga" />
+    <Image Include="res\Fett_helmet_D.tga" />
+    <Image Include="res\Fett_jetpak_D.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\bobaFett.dae" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

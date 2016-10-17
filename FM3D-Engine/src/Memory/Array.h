@@ -11,6 +11,7 @@ namespace ENGINE_NAME {
 		Array(RawArray<T>& rawArray);
 
 		Array(const Array<T>&) = delete;
+		Array(Array<T>&&) = delete;
 		Array<T>& operator=(const Array<T>&) = delete;
 		~Array() { free(m_data); }
 	};

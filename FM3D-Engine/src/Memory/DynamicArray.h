@@ -11,6 +11,7 @@ namespace ENGINE_NAME {
 		DynamicArray(RawArray<T>& rawArray);
 
 		DynamicArray(const DynamicArray<T>&) = delete;
+		DynamicArray(DynamicArray<T>&&) = delete;
 		DynamicArray<T>& operator=(const DynamicArray<T>&) = delete;
 		~DynamicArray() { free(m_data); }
 	};
