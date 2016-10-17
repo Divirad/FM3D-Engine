@@ -25,13 +25,49 @@ namespace ENGINE_NAME {
 	}
 
 	void BasicItem2D::AutoSize(){
+		
 		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(GetPos0().xy);
-		SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPos0().xy)));
-		//std::cout << "\n\nAUTOSIZE\nPos 0: " << m_box.GetPos0() << "\nPos1: " << m_box.GetPos1() << "\nUV0: " << m_box.GetUV0() << "\nUV1: " << m_box.GetUV1();
+		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth()+ pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPos0().xy)));
+
+		SetSize(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y);
+
+		std::cout << "\nAUTOSIZE\nPos 0: " << GetPos0() << "\nPos1: " << GetPos1() << "\nUV0: " << GetUV0() << "\nUV1: " << GetUV1();
 	}
 
-	void BasicItem2D::AutoDock(){
-		Vector2f pos0center;
+	void BasicItem2D::AutoDock(AUTODOCK ad){
+		switch (ad)
+		{
+		case Engine::BasicItem2D::VERTICAL_TOP:
+			VTop();
+			break;
+		case Engine::BasicItem2D::VERTICAL_BOTTOM:
+			VBottom();
+			break;
+		case Engine::BasicItem2D::VERTICAL_STRETCH:
+			VStretch();
+			break;
+		case Engine::BasicItem2D::VERTICAL_CENTER:
+			VCenter();
+			break;
+		case Engine::BasicItem2D::HORIZONTAL_TOP:
+			HTop();
+			break;
+		case Engine::BasicItem2D::HORIZONTAL_BOTTOM:
+			HBottom();
+			break;
+		case Engine::BasicItem2D::HORIZONTAL_STRETCH:
+			HStretch();
+			break;
+		case Engine::BasicItem2D::HORIZONTAL_CENTER:
+			HCenter();
+			break;
+		case Engine::BasicItem2D::STRETCH:
+			Stretch();
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	void BasicItem2D::VTop(){}
@@ -48,7 +84,13 @@ namespace ENGINE_NAME {
 		SetPosition0(-1.0f, GetPos0().y, GetPos0().z);
 		SetPosition1(1.0f, GetPos1().y);
 	}
-	void BasicItem2D::HCenter(){}
+	void BasicItem2D::HCenter(){
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth(), 0.0f)).x /2 ;
+		//float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth(), 0.0f)).x / 2;
+		SetPosition1(-texturecoord, GetPosition1().y);
+		SetPosition0(+texturecoord, GetPosition0().y,GetPosition0().z);
+
+	}
 
 	void BasicItem2D::Stretch() {
 		SetPosition0(GetPos0().x, GetPos0().y, GetPos0().z);

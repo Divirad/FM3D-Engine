@@ -175,10 +175,11 @@ void TestButton(HINSTANCE hInstance) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
 	Renderer2D* renderer = renderSystem->CreateRenderer2D();	Matrix4f projectionMatrix = Matrix4f::Identity();
-	renderer->Initialize(projectionMatrix);	Texture* Test_Tex = renderSystem->CreateTexture(NULL);	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
-	Button MyFirstButton(Test_Tex, Vector2f(0.0f, 0.0f));
-	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
-	MyFirstButton.AutoSize();
+	renderer->Initialize(projectionMatrix);	Texture* Test_Tex = renderSystem->CreateTexture(NULL);	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());	//Button MyFirstButton(Test_Tex, Vector2f(0.0f, 0.0f));
+
+	Button MyFirstButton(0xffffffff, Test_Tex, Vector3f(0.1f, -1.0f, 0.0f), Vector2f(CompCoords::PixelToScreenSpace(Vector2f(100.0f, 50.0f))));
+	
+	//MyFirstButton.AutoSize();
 	Engine::Font* f;
 	ExternFileManager::ReadFontFile("fontilein.ttf", 20, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
 	unsigned long long times[100];
@@ -193,30 +194,19 @@ void TestButton(HINSTANCE hInstance) {
 			renderer->Submit(&MyFirstButton);
 			if (MyFirstButton.Click(MOUSE_LEFT))
 			{
-				MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
+				//MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
 				Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
+				
+				/*MyFirstButton.HCenter();
+				MyFirstButton.AutoSize();*/
+				//MyFirstButton.HCenter();
 				MyFirstButton.AutoSize();
-				MyFirstButton.VStretch();
-				//MyFirstButton.AutoCenter();
 			}
 			renderer->End();
 			renderer->Flush();
 			renderSystem->EndRendering();
 			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-			//Window::SetConsolePosition(0, 1);
-			//std::cout << std::setw(7) << duration << "   " << std::endl << std::setw(7) << 1000000 / duration << "   ";
-			/*if (waiting == 0) {
-				times[counter++] = 1000000 / duration;
-				if (counter >= 100) {
-					unsigned long long x = 0;
-					for (int i = 0; i < 100; i++) {
-						x += times[i];
-					}
-					x /= 100;
-					std::cout << "FPS: " << x;
-				}
-			}			else waiting--;*/
+			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
 		}
 	};
 	renderSystem->Shutdown();

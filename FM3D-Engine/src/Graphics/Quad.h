@@ -47,7 +47,7 @@ namespace ENGINE_NAME {
 			inline void SetZ(float z) { m_position0.z = z; }
 
 			inline void SetPosition0(Vector3f vec) { m_position0 = vec; }
-			inline void SetPosition0(float x, float y, float z) { m_position0.x = x; m_position0.y = y; m_position0.z = y; }
+			inline void SetPosition0(float x, float y, float z) { m_position0.x = x; m_position0.y = y; m_position0.z = m_position0.z; }
 
 			inline void SetPosition1(Vector2f vec) { m_position1 = vec; }
 			inline void SetPosition1(float x, float y) { m_position1.x = x; m_position1.y = y; }
