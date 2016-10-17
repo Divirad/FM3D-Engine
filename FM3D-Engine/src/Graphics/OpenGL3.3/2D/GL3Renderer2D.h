@@ -57,6 +57,7 @@ namespace ENGINE_NAME {
 	public:
 		void Begin() override;
 		void Submit(Quad* quad) override;
+//		void Submit(BasicItem2D* quad) override;
 		void End() override;
 		void Flush() override;
 
