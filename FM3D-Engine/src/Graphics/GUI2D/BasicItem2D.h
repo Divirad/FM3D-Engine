@@ -6,10 +6,10 @@ namespace ENGINE_NAME {
 
 	public:
 
-		enum AUTODOCK
+		enum ANCHOR
 		{
-			VERTICAL_TOP,
-			VERTICAL_BOTTOM,
+			VERTICAL_LEFT,
+			VERTICAL_RIGHT,
 			VERTICAL_STRETCH,
 			VERTICAL_CENTER,
 
@@ -17,7 +17,13 @@ namespace ENGINE_NAME {
 			HORIZONTAL_BOTTOM,
 			HORIZONTAL_STRETCH,
 			HORIZONTAL_CENTER,
-			STRETCH
+
+			STRETCH,
+			CENTER,
+			LEFT,
+			RIGHT,
+			BOTTOM,
+			TOP
 		};
 		
 	protected:
@@ -30,20 +36,26 @@ namespace ENGINE_NAME {
 
 	public:
 
-		bool Click(int keyID);	//done
-		void AutoSize();		//done
-		void AutoDock(AUTODOCK ad);//d
-		void VTop();
-		void VBottom();
-		void VStretch();
-		void VCenter();
+		bool Click(int keyID);	//DONE
+		void AutoSize();		
+		void Anchor(ANCHOR ad);	//DONE
 
-		void HTop();
-		void HBottom();
-		void HStretch();		//d
-		void HCenter();
+		void VLeft();
+		void VRight();			//DONE
+		void VStretch();		//DONE
+		void VCenter();			//DONE
 
-		void Stretch();			//done
+		void HTop();			//DONE
+		void HBottom();			//DONE
+		void HStretch();		//DONE
+		void HCenter();			//DONE
+
+		void Stretch();		
+		void Center();
+		void Left();
+		void Right();
+		void Top();
+		void Bottom();
 
 		void PicVisibility(float);
 		void TextVisibility(float);

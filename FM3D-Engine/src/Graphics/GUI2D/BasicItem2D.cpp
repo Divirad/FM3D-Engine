@@ -34,34 +34,57 @@ namespace ENGINE_NAME {
 		std::cout << "\nAUTOSIZE\nPos 0: " << GetPos0() << "\nPos1: " << GetPos1() << "\nUV0: " << GetUV0() << "\nUV1: " << GetUV1();
 	}
 
-	void BasicItem2D::AutoDock(AUTODOCK ad){
+	void BasicItem2D::Anchor(ANCHOR ad){
 		switch (ad)
 		{
-		case Engine::BasicItem2D::VERTICAL_TOP:
-			VTop();
+	
+	//////////////////////////////////////////////////////////////
+		case VERTICAL_LEFT:
+			VLeft();
 			break;
-		case Engine::BasicItem2D::VERTICAL_BOTTOM:
-			VBottom();
+		case VERTICAL_RIGHT:
+			VRight();
 			break;
-		case Engine::BasicItem2D::VERTICAL_STRETCH:
+		case VERTICAL_STRETCH:
 			VStretch();
 			break;
-		case Engine::BasicItem2D::VERTICAL_CENTER:
+		case VERTICAL_CENTER:
 			VCenter();
 			break;
-		case Engine::BasicItem2D::HORIZONTAL_TOP:
+	
+	//////////////////////////////////////////////////////////////
+		case HORIZONTAL_TOP:
 			HTop();
 			break;
-		case Engine::BasicItem2D::HORIZONTAL_BOTTOM:
+		case HORIZONTAL_BOTTOM:
 			HBottom();
 			break;
-		case Engine::BasicItem2D::HORIZONTAL_STRETCH:
+		case HORIZONTAL_STRETCH:
 			HStretch();
 			break;
-		case Engine::BasicItem2D::HORIZONTAL_CENTER:
+		case HORIZONTAL_CENTER:
 			HCenter();
 			break;
-		case Engine::BasicItem2D::STRETCH:
+
+	//////////////////////////////////////////////////////////////
+		case STRETCH:
+			Stretch();
+			break;
+		case CENTER:
+			Center();
+			break;
+	
+	//////////////////////////////////////////////////////////////
+		case LEFT:
+			Left();
+			break;
+		case RIGHT:
+			Right();
+			break;
+		case TOP:
+			Top();
+			break;
+		case BOTTOM:
 			Stretch();
 			break;
 		default:
@@ -70,23 +93,38 @@ namespace ENGINE_NAME {
 
 	}
 
-	void BasicItem2D::VTop(){}
-	void BasicItem2D::VBottom() {}
+	void BasicItem2D::VLeft(){
+		VCenter();
+		Left();
+	}
+	void BasicItem2D::VRight() {
+		VCenter();
+		Right();
+	}
 	void BasicItem2D::VStretch(){
 		SetPosition0(GetPos0().x, -1.0f, GetPos0().z);
 		SetPosition1(Vector2f(GetPos1().x, 1.0f));
 	}
-	void BasicItem2D::VCenter(){}
+	void BasicItem2D::VCenter(){
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureHeight(), 0.0f)).x / 2;
+		SetPosition1(GetPosition1().x, -texturecoord);
+		SetPosition0(GetPosition0().x , texturecoord, GetPosition0().z);
+	}
 
-	void BasicItem2D::HTop(){}
-	void BasicItem2D::HBottom(){}
+	void BasicItem2D::HTop(){
+		HCenter();
+		Top();
+	}
+	void BasicItem2D::HBottom(){
+		HCenter();
+		Bottom();
+	}
 	void BasicItem2D::HStretch(){
 		SetPosition0(-1.0f, GetPos0().y, GetPos0().z);
 		SetPosition1(1.0f, GetPos1().y);
 	}
 	void BasicItem2D::HCenter(){
 		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth(), 0.0f)).x /2 ;
-		//float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth(), 0.0f)).x / 2;
 		SetPosition1(-texturecoord, GetPosition1().y);
 		SetPosition0(+texturecoord, GetPosition0().y,GetPosition0().z);
 
@@ -95,6 +133,27 @@ namespace ENGINE_NAME {
 	void BasicItem2D::Stretch() {
 		SetPosition0(GetPos0().x, GetPos0().y, GetPos0().z);
 		SetPosition1(Vector2f(GetPos1().x, GetPos1().y));
+	}
+	void BasicItem2D::Center() {
+		VCenter();
+		HCenter();
+	}
+
+	void BasicItem2D::Left(){
+		m_position0.x = -1.0f;
+		m_position1.x = -1.0f + (m_position1.x - m_position0.x);
+	}
+	void BasicItem2D::Right(){
+		m_position0.x = 1.0f - (m_position1.x - m_position0.x);
+		m_position1.x = 1.0f;
+	}
+	void BasicItem2D::Top(){
+		m_position0.y = 1.0f - (m_position1.y - m_position0.y);
+		m_position1.y = 1.0f;
+	}
+	void BasicItem2D::Bottom(){
+		m_position0.y = -1.0f;
+		m_position1.y = -1.0f + (m_position1.y - m_position0.y);
 	}
 
 	void BasicItem2D::PicVisibility(float pro){}

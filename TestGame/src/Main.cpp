@@ -177,7 +177,7 @@ void TestButton(HINSTANCE hInstance) {
 	Renderer2D* renderer = renderSystem->CreateRenderer2D();	Matrix4f projectionMatrix = Matrix4f::Identity();
 	renderer->Initialize(projectionMatrix);	Texture* Test_Tex = renderSystem->CreateTexture(NULL);	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());	//Button MyFirstButton(Test_Tex, Vector2f(0.0f, 0.0f));
 
-	Button MyFirstButton(0xffffffff, Test_Tex, Vector3f(0.1f, -1.0f, 0.0f), Vector2f(CompCoords::PixelToScreenSpace(Vector2f(100.0f, 50.0f))));
+	Button MyFirstButton(0xffffffff, Test_Tex, Vector3f(-0.2f, 0.5f, 0.0f), Vector2f(CompCoords::PixelToScreenSpace(Vector2f(100.0f, 50.0f))));
 	
 	//MyFirstButton.AutoSize();
 	Engine::Font* f;
@@ -197,10 +197,7 @@ void TestButton(HINSTANCE hInstance) {
 				//MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
 				Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
 				
-				/*MyFirstButton.HCenter();
-				MyFirstButton.AutoSize();*/
-				//MyFirstButton.HCenter();
-				MyFirstButton.AutoSize();
+				MyFirstButton.Anchor(BasicItem2D::HORIZONTAL_CENTER);
 			}
 			renderer->End();
 			renderer->Flush();
