@@ -160,10 +160,8 @@ void StarwarsScene(HINSTANCE hInstance) {
 	renderSystem->Shutdown();
 }
 
+void TestButton(HINSTANCE hInstance) {
 
-
-
-void TestButton(HINSTANCE hInstance) {
 	Window::StartConsole();
 	FileManager::Initialize("res/", "", "fm3d");
 	ExternFileManager::Initialize();
@@ -173,39 +171,62 @@ void TestButton(HINSTANCE hInstance) {
 
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), false, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
-	}
-	Renderer2D* renderer = renderSystem->CreateRenderer2D();	Matrix4f projectionMatrix = Matrix4f::Identity();
-	renderer->Initialize(projectionMatrix);	Texture* Test_Tex = renderSystem->CreateTexture(NULL);	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());	//Button MyFirstButton(Test_Tex, Vector2f(0.0f, 0.0f));
+	}
 
-	Button MyFirstButton(0xffffffff, Test_Tex, Vector3f(-0.2f, 0.5f, 0.0f), Vector2f(CompCoords::PixelToScreenSpace(Vector2f(100.0f, 50.0f))));
+	Renderer2D* renderer = renderSystem->CreateRenderer2D();
+	Matrix4f projectionMatrix = Matrix4f::Identity();
+	renderer->Initialize(projectionMatrix);
+
+	Texture* Test_Tex = renderSystem->CreateTexture(NULL);
+
+	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
+
+	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
 	
-	//MyFirstButton.AutoSize();
-	Engine::Font* f;
-	ExternFileManager::ReadFontFile("fontilein.ttf", 20, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
-	unsigned long long times[100];
-	uint counter = 0;
-	uint waiting = 30000;
-	while (!win->ShouldClose()) {
-		if (!win->HasMessage()) {
-			std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+	//Button MyFirstButton(Test_Tex, Vector2f(0.5f, 0.5f));
+
+	BasicItem2D MyFirstButton(Test_Tex);
+	/*MyFirstButton.SetPosition0(Vector2f(0.0f, 0.0f));
+	MyFirstButton.SetPosition0(0.2f, 0.2f);*/
+	//MyFirstButton.AutoSize();
+
+	Engine::Font* f;
+
+	ExternFileManager::ReadFontFile("fontilein.ttf", 20, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
+
+	//unsigned long long times[100];
+
+	uint counter = 0;
+
+	uint waiting = 30000;
+
+	while (!win->ShouldClose()) {
+
+		if (!win->HasMessage()) {
+
+			std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+
 			//VOLL DIE SCHLEIFE UND SOO
 			renderSystem->BeginRendering(new float[4]{ 0.2f, 0.5f, 0.5f, 1.0f });
 			renderer->Begin();
-			renderer->Submit(&MyFirstButton);
-			if (MyFirstButton.Click(MOUSE_LEFT))
-			{
-				//MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
-				Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
-				
-				MyFirstButton.Anchor(BasicItem2D::HORIZONTAL_CENTER);
+			renderer->Submit(&MyFirstButton);
+
+			if (MyFirstButton.ccRectangle(MOUSE_LEFT)){
+				MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
+				//Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
+				MyFirstButton.Anchor(BasicItem2D::CENTER);
+				//MyFirstButton.AutoSize();
 			}
 			renderer->End();
 			renderer->Flush();
-			renderSystem->EndRendering();
-			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+			renderSystem->EndRendering();
+
+			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+
 			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
 		}
 	};
 	renderSystem->Shutdown();
-}
+}
+
 

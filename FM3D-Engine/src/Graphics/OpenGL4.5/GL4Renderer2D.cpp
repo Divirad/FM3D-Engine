@@ -123,9 +123,9 @@ namespace ENGINE_NAME {
 		m_buffer->color = color;
 		m_buffer++;
 
-		vertex = m_transformationMatrix * quad->GetPosition2();
+		vertex = m_transformationMatrix * Vector3f(quad->GetPosition0().x,quad->GetPosition1().y,quad->GetPosition0().z);
 		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV2();
+		m_buffer->uv = Vector2f(quad->GetUV0().x, quad->GetUV1().y);
 		m_buffer->tid = tid;
 		m_buffer->color = color;
 		m_buffer++;
@@ -137,9 +137,9 @@ namespace ENGINE_NAME {
 		m_buffer->color = color;
 		m_buffer++;
 
-		vertex = m_transformationMatrix * quad->GetPosition3();
+		vertex = m_transformationMatrix * Vector3f(quad->GetPosition1().x, quad->GetPosition0().y, quad->GetPosition0().z);
 		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV3();
+		m_buffer->uv = Vector2f(quad->GetUV1().x, quad->GetUV0().y);
 		m_buffer->tid = tid;
 		m_buffer->color = color;
 		m_buffer++;

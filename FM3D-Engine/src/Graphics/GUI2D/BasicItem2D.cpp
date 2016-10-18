@@ -8,37 +8,91 @@ namespace ENGINE_NAME {
 
 		//CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
 
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
-
-		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-			GetPos0().y <= ccresult.y &&
-			GetPos0().x <= ccresult.x &&
-			GetPos1().x >= ccresult.x &&
-			GetPos1().y >= ccresult.y) {
-
-			std::cout << "INPUT:: BUT:: /w ID >>" << GetPos0().z << "<< was pressed" << std::endl;
-			Inputsystem::GetInstance()->setKey(keyID, false);
-			return true;
-		}
-
 		return 0;
 	}
 
-	void BasicItem2D::AutoSize(){
-		
-		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(GetPos0().xy);
-		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth()+ pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPos0().xy)));
 
-		SetSize(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y);
-
-		std::cout << "\nAUTOSIZE\nPos 0: " << GetPos0() << "\nPos1: " << GetPos1() << "\nUV0: " << GetUV0() << "\nUV1: " << GetUV1();
+	void BasicItem2D::AutoSize() {
+		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(GetPosition0().xy);
+		SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
 	}
-
-	void BasicItem2D::Anchor(ANCHOR ad){
+	///
+	///Anchor Basics 
+	///
+	void BasicItem2D::Stretch() {
+		SetPosition0(Vector3f(-1.0f, -1.0f, GetPosition0().z));
+		SetPosition1(Vector2f(1.0f, 1.0f));
+	}
+	void BasicItem2D::Center() {
+		VCenter();
+		HCenter();
+	}
+	void BasicItem2D::Left() {
+		m_position1.x = -1.0f + (m_position1.x - m_position0.x);
+		m_position0.x = -1.0f;
+	}
+	void BasicItem2D::Right() {
+		m_position0.x = 1.0f - (m_position1.x - m_position0.x);
+		m_position1.x = 1.0f;
+	}
+	void BasicItem2D::Top() {
+		m_position0.y = 1.0f - (m_position1.y - m_position0.y);
+		m_position1.y = 1.0f;
+	}
+	void BasicItem2D::Bottom() {
+		m_position1.y = -1.0f + (m_position1.y - m_position0.y);
+		m_position0.y = -1.0f;
+	}
+	///
+	///Vertical Anchor
+	///
+	void BasicItem2D::VLeft() {
+		VCenter();
+		Left();
+	}
+	void BasicItem2D::VRight() {
+		VCenter();
+		Right();
+	}
+	void BasicItem2D::VStretch() {
+		SetPosition0(Vector3f(GetPosition0().x, -1.0f, GetPosition0().z));
+		SetPosition1(Vector2f(GetPosition1().x, 1.0f));
+	}
+	void BasicItem2D::VCenter() {
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f((float)GetTextureHeight(), 0.0f)).x / 2;
+		SetPosition1(Vector2f(GetPosition1().x, -texturecoord));
+		TestCoords();
+		SetPosition0(Vector3f(GetPosition0().x, texturecoord, GetPosition0().z));
+		TestCoords();
+	}
+	///
+	///Horizontal Anchor
+	///
+	void BasicItem2D::HTop() {
+		HCenter();
+		Top();
+	}
+	void BasicItem2D::HBottom() {
+		HCenter();
+		Bottom();
+	}
+	void BasicItem2D::HStretch() {
+		SetPosition0(Vector3f(-1.0f, GetPosition0().y, GetPosition0().z));
+		SetPosition1(Vector2f(1.0f, GetPosition1().y));
+	}
+	void BasicItem2D::HCenter() {
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f((float)GetTextureWidth(), 0.0f)).x / 2.0f;
+		SetPosition1(Vector2f(-texturecoord, GetPosition1().y));
+		SetPosition0(Vector3f(+texturecoord, GetPosition0().y, GetPosition0().z));
+	}
+	///
+	///Anchor main method for anchoring
+	///
+	void BasicItem2D::Anchor(ANCHOR ad) {
 		switch (ad)
 		{
-	
-	//////////////////////////////////////////////////////////////
+
+			//////////////////////////////////////////////////////////////
 		case VERTICAL_LEFT:
 			VLeft();
 			break;
@@ -51,8 +105,8 @@ namespace ENGINE_NAME {
 		case VERTICAL_CENTER:
 			VCenter();
 			break;
-	
-	//////////////////////////////////////////////////////////////
+
+			//////////////////////////////////////////////////////////////
 		case HORIZONTAL_TOP:
 			HTop();
 			break;
@@ -66,15 +120,15 @@ namespace ENGINE_NAME {
 			HCenter();
 			break;
 
-	//////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////
 		case STRETCH:
 			Stretch();
 			break;
 		case CENTER:
 			Center();
 			break;
-	
-	//////////////////////////////////////////////////////////////
+
+			//////////////////////////////////////////////////////////////
 		case LEFT:
 			Left();
 			break;
@@ -85,84 +139,36 @@ namespace ENGINE_NAME {
 			Top();
 			break;
 		case BOTTOM:
-			Stretch();
+			Bottom();
 			break;
 		default:
 			break;
 		}
+		std::cout << "ANCHOR" << std::endl << m_position0;
+		std::cout << std::endl << m_position1 << std::endl;
 
 	}
+	///
+	///Changes the visibility of the picture 
+	///
+	void BasicItem2D::PicVisibility(float pro) {}
+	bool BasicItem2D::ccRectangle(int keyID) {
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 
-	void BasicItem2D::VLeft(){
-		VCenter();
-		Left();
-	}
-	void BasicItem2D::VRight() {
-		VCenter();
-		Right();
-	}
-	void BasicItem2D::VStretch(){
-		SetPosition0(GetPos0().x, -1.0f, GetPos0().z);
-		SetPosition1(Vector2f(GetPos1().x, 1.0f));
-	}
-	void BasicItem2D::VCenter(){
-		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureHeight(), 0.0f)).x / 2;
-		SetPosition1(GetPosition1().x, -texturecoord);
-		SetPosition0(GetPosition0().x , texturecoord, GetPosition0().z);
-	}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
+			GetPosition0().y <= ccresult.y &&
+			GetPosition0().x <= ccresult.x &&
+			GetPosition1().x >= ccresult.x &&
+			GetPosition1().y >= ccresult.y) {
 
-	void BasicItem2D::HTop(){
-		HCenter();
-		Top();
-	}
-	void BasicItem2D::HBottom(){
-		HCenter();
-		Bottom();
-	}
-	void BasicItem2D::HStretch(){
-		SetPosition0(-1.0f, GetPos0().y, GetPos0().z);
-		SetPosition1(1.0f, GetPos1().y);
-	}
-	void BasicItem2D::HCenter(){
-		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth(), 0.0f)).x /2 ;
-		SetPosition1(-texturecoord, GetPosition1().y);
-		SetPosition0(+texturecoord, GetPosition0().y,GetPosition0().z);
+			std::cout << "INPUT:: BUT:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
+			Inputsystem::GetInstance()->setKey(keyID, false);
+			return true;
+		}
 
+		return 0;
 	}
-
-	void BasicItem2D::Stretch() {
-		SetPosition0(GetPos0().x, GetPos0().y, GetPos0().z);
-		SetPosition1(Vector2f(GetPos1().x, GetPos1().y));
-	}
-	void BasicItem2D::Center() {
-		VCenter();
-		HCenter();
-	}
-
-	void BasicItem2D::Left(){
-		m_position0.x = -1.0f;
-		m_position1.x = -1.0f + (m_position1.x - m_position0.x);
-	}
-	void BasicItem2D::Right(){
-		m_position0.x = 1.0f - (m_position1.x - m_position0.x);
-		m_position1.x = 1.0f;
-	}
-	void BasicItem2D::Top(){
-		m_position0.y = 1.0f - (m_position1.y - m_position0.y);
-		m_position1.y = 1.0f;
-	}
-	void BasicItem2D::Bottom(){
-		m_position0.y = -1.0f;
-		m_position1.y = -1.0f + (m_position1.y - m_position0.y);
-	}
-
-	void BasicItem2D::PicVisibility(float pro){}
-	void BasicItem2D::TextVisibility(float pro){}
-	bool BasicItem2D::ccRectangle() { return 0; }
-	bool BasicItem2D::ccEllipse(){ return 0; }
-	bool BasicItem2D::Render(){ return 0; }
-	bool BasicItem2D::Update(){ return 0; }
-
-
-	
+	bool BasicItem2D::ccEllipse() { return 0; }
+	/*bool BasicItem2D::Render(){ return 0; }
+	bool BasicItem2D::Update(){ return 0; }*/
 }
