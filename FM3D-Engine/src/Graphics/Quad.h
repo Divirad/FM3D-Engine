@@ -11,6 +11,7 @@ namespace ENGINE_NAME {
 		Texture* m_texture;
 		Vector2f m_uv0;
 		Vector2f m_uv1;
+
 	public:
 		Quad(Vector3f position, Vector2f size, uint color, Texture* tex, Vector2f uvposition, Vector2f uvsize) :
 			m_position0(position), m_position1(Vector2f(position.x + size.x, position.y + size.y)), m_color(color), m_texture(tex), m_uv0(uvposition), m_uv1(uvposition + uvsize) {};
@@ -38,8 +39,6 @@ namespace ENGINE_NAME {
 
 
 #pragma region Set
-			inline void SetZ(float z) { m_position0.z = z; }
-
 			inline void SetPosition0(Vector3f vec) { m_position0 = vec; }
 
 			inline void SetPosition1(Vector2f vec) { m_position1 = vec; }

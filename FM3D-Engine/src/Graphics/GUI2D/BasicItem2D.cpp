@@ -59,7 +59,7 @@ namespace ENGINE_NAME {
 		SetPosition1(Vector2f(GetPosition1().x, 1.0f));
 	}
 	void BasicItem2D::VCenter() {
-		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f((float)GetTextureHeight(), 0.0f)).x / 2;
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(0.0f,(float)GetTextureHeight())).y;
 		SetPosition1(Vector2f(GetPosition1().x, -texturecoord));
 		TestCoords();
 		SetPosition0(Vector3f(GetPosition0().x, texturecoord, GetPosition0().z));
@@ -81,7 +81,7 @@ namespace ENGINE_NAME {
 		SetPosition1(Vector2f(1.0f, GetPosition1().y));
 	}
 	void BasicItem2D::HCenter() {
-		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f((float)GetTextureWidth(), 0.0f)).x / 2.0f;
+		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f((float)GetTextureWidth(), 0.0f)).x;
 		SetPosition1(Vector2f(-texturecoord, GetPosition1().y));
 		SetPosition0(Vector3f(+texturecoord, GetPosition0().y, GetPosition0().z));
 	}
@@ -169,6 +169,4 @@ namespace ENGINE_NAME {
 		return 0;
 	}
 	bool BasicItem2D::ccEllipse() { return 0; }
-	/*bool BasicItem2D::Render(){ return 0; }
-	bool BasicItem2D::Update(){ return 0; }*/
 }

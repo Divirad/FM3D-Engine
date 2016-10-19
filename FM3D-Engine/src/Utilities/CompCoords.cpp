@@ -15,17 +15,14 @@ namespace ENGINE_NAME {
 	Matrix4f CompCoords::s_matScreenSpaceToPixel = Matrix4f::Identity();
 
 	Vector2f CompCoords::PixelToScreenSpace(Vector2f &pixel) {
-		return (s_matPixelToScreenSpace * Vector3f(pixel, 0.0f)).xy;/*
-		float x = pixel.x * 2 / (float)Window::GetInstance()->GetWidth() - 1.0f;
-		float y = pixel.y * 2 / (float)Window::GetInstance()->GetHeight() - 1.0f;
-		return Vector2f(y , x);*/
+		return (s_matPixelToScreenSpace * Vector3f(pixel, 0.0f)).xy;
 	}
 	Vector2f CompCoords::ScreenSpaceToPixel(Vector2f &pixel) {
 		return (s_matScreenSpaceToPixel * Vector3f(pixel, 0.0f)).xy;
 	}
 
-	void CompCoords::OnSizeChange(Window::SizeChangeEvent* sce){
+	void CompCoords::OnSizeChange(Window::SizeChangeEvent* sce) {
 		s_matPixelToScreenSpace = Matrix4f::Orthographic(0.0f, (float)sce->winNewsize.x, (float)sce->winNewsize.y, 0.0f, 1.0f, -1.0f);
 		s_matScreenSpaceToPixel = Matrix4f::Invert(s_matPixelToScreenSpace);
-	} 
+	}
 }

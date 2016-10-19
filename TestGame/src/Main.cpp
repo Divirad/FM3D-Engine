@@ -4,15 +4,118 @@
 
 using namespace Engine;
 
+void NewButton(HINSTANCE hInstance);
 void TestButton(HINSTANCE hInstance);
 void StarwarsScene(HINSTANCE hInstance);
-
+void MatrixTester(HINSTANCE hInstance);
 
 ///////////////////////////////////////////////////////////////
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	TestButton(hInstance);
+	NewButton(hInstance);
 }
 ///////////////////////////////////////////////////////////////
+
+///
+///2D Test Project
+///
+void NewButton(HINSTANCE hInstance)
+{
+	///
+	///Start der Konsole
+	///
+	Window::StartConsole();
+	///
+	///Initialisierung des Filemanagers
+	///
+	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
+	///
+	///Initialisierung des Externen Filemanagers
+	///
+	ExternFileManager::Initialize();
+	///
+	///Window wird erstellt und gestartet
+	///
+	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
+	win->Start(1280, 720, L"Voll das Krasse Fenster");
+	///
+	///Compute Coordinates wird Initialisiert
+	///
+	CompCoords::Initialize(1280, 720);
+	///
+	///MatrixTester
+	///
+	std::cout << "----------------------------------" << std::endl <<
+		Vector2f(Window::GetInstance()->GetWidth() / 2.0f, Window::GetInstance()->GetHeight() / 2.0f) << std::endl
+		<< CompCoords::PixelToScreenSpace(Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 0.0f)) << std::endl
+		<< "----------------------------------" << std::endl;
+	///
+	///Rendersystem wird mit OpenGL 3.3 erstellt
+	///
+	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
+	///
+	///Check if rendersystem is konkretkrass 
+	///
+	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
+		std::cout << "Rendersystem Initializing Error!" << std::endl;
+	}
+	///
+	///2D Rendersystem wird erstellt
+	///
+	Renderer2D* renderer = renderSystem->CreateRenderer2D();
+	///
+	///Definierung der Projektionsmatrix
+	///
+	Matrix4f projectionMatrix = Matrix4f::Identity();
+	///
+	///Initialisierung der Projektionsmatrix
+	///
+	renderer->Initialize(projectionMatrix);
+		///
+		///Leere Textur wird erstellt
+		///
+		Texture* Test_Tex = renderSystem->CreateTexture(NULL);
+		///
+		///Textur wird eingelesen
+		///
+		ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
+		///
+		///BasicItem2D wird erstellt 
+		///
+		BasicItem2D MyFirstButton(Test_Tex);
+		///
+		///Hauptschleife
+		///
+		while (!win->ShouldClose()) {
+			if (!win->HasMessage()) {
+
+				renderSystem->BeginRendering(new float[4]{ 0.2f, 0.5f, 0.5f, 1.0f });
+				///
+				///Buffer Start
+				///
+				renderer->Begin();
+				///
+				///Button wird in den Buffer geschrieben
+				///
+				renderer->Submit(&MyFirstButton);
+				///
+				///
+				///
+				if (MyFirstButton.ccRectangle(MOUSE_LEFT)) {
+					std::cout << "\n\n#\n#IT WOAAAKS!!!\n#\n#";
+					MyFirstButton.AutoSize();
+					MyFirstButton.Bottom();
+				}
+				renderer->End();
+				
+				renderer->Flush();
+				renderSystem->EndRendering();
+			}
+		};
+		///Renderer wird beendet
+		renderSystem->Shutdown();
+}
+
+
 
 
 
@@ -22,8 +125,8 @@ void StarwarsScene(HINSTANCE hInstance) {
 	ExternFileManager::Initialize();
 
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
-
 	win->Start(1280, 720, L"JOOONGE");
+	
 
 	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
 
@@ -32,7 +135,7 @@ void StarwarsScene(HINSTANCE hInstance) {
 	}
 	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 1000.0f);
 
-	//projectionMatrix.Transpose();
+	////////////////////////////projectionMatrix.Transpose();
 	Renderer3D* renderer = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight());
 
 	Texture* emptyTex = renderSystem->CreateTexture(NULL);
@@ -160,73 +263,30 @@ void StarwarsScene(HINSTANCE hInstance) {
 	renderSystem->Shutdown();
 }
 
-void TestButton(HINSTANCE hInstance) {
 
+void MatrixTester(HINSTANCE hInstance){
 	Window::StartConsole();
-	FileManager::Initialize("res/", "", "fm3d");
+
+
+
+	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
 	ExternFileManager::Initialize();
+
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
+
 	win->Start(1280, 720, L"JOOONGE");
-	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
 
-	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), false, ((Win32Window*)win)->GetHwnd(), false)) {
-		std::cout << "Rendersystem Initializing Error!" << std::endl;
+	CompCoords::Initialize(1280, 720);
+	Vector2f v1(660, 360); 
+	std::cout << v1 << std::endl;
+	std::cout << CompCoords::PixelToScreenSpace(v1) << std::endl;
+	std::cout << "####################################" << std::endl;
+	std::cout << "----------------------------------" << std::endl <<
+		Vector2f(Window::GetInstance()->GetWidth() / 2.0f, Window::GetInstance()->GetHeight() / 2.0f) << std::endl
+		<< CompCoords::PixelToScreenSpace(Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 0.0f)) << std::endl
+		<< "----------------------------------" << std::endl;
+	while(1){
+		
 	}
-
-	Renderer2D* renderer = renderSystem->CreateRenderer2D();
-	Matrix4f projectionMatrix = Matrix4f::Identity();
-	renderer->Initialize(projectionMatrix);
-
-	Texture* Test_Tex = renderSystem->CreateTexture(NULL);
-
-	ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
-
-	CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
-	
-	//Button MyFirstButton(Test_Tex, Vector2f(0.5f, 0.5f));
-
-	BasicItem2D MyFirstButton(Test_Tex);
-	/*MyFirstButton.SetPosition0(Vector2f(0.0f, 0.0f));
-	MyFirstButton.SetPosition0(0.2f, 0.2f);*/
-	//MyFirstButton.AutoSize();
-
-	Engine::Font* f;
-
-	ExternFileManager::ReadFontFile("fontilein.ttf", 20, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
-
-	//unsigned long long times[100];
-
-	uint counter = 0;
-
-	uint waiting = 30000;
-
-	while (!win->ShouldClose()) {
-
-		if (!win->HasMessage()) {
-
-			std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-
-			//VOLL DIE SCHLEIFE UND SOO
-			renderSystem->BeginRendering(new float[4]{ 0.2f, 0.5f, 0.5f, 1.0f });
-			renderer->Begin();
-			renderer->Submit(&MyFirstButton);
-
-			if (MyFirstButton.ccRectangle(MOUSE_LEFT)){
-				MessageBox(NULL, L"IT WOAAAKS!!!", NULL, NULL);
-				//Inputsystem::GetInstance()->SetMouseOption(Inputsystem::CLICK_RELEASE);
-				MyFirstButton.Anchor(BasicItem2D::CENTER);
-				//MyFirstButton.AutoSize();
-			}
-			renderer->End();
-			renderer->Flush();
-			renderSystem->EndRendering();
-
-			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-
-			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-		}
-	};
-	renderSystem->Shutdown();
 }
-
 
