@@ -13,6 +13,7 @@ namespace ENGINE_NAME {
 		m_dirLightShader.Bind();
 		m_dirLightShader.Initialize(m_width, m_height);
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
+		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.16f, 0.8f, Vector3f(1.0f, -1.0f, -1.0f) });
 	}
 
 	void GL3Renderer3D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
@@ -35,15 +36,15 @@ namespace ENGINE_NAME {
 
 		GeometryPass(viewMatrix);
 
-		//glEnable(GL_STENCIL_TEST);
+		glEnable(GL_STENCIL_TEST);
 
-		//for (PointLight* light : m_pointLights) {
-		//	PointLightPass(*light, viewProjMatrix, cameraPos);
-		//}
+		for (PointLight* light : m_pointLights) {
+			PointLightPass(*light, viewProjMatrix, cameraPos);
+		}
 
-		//glDisable(GL_STENCIL_TEST);
+		glDisable(GL_STENCIL_TEST);
 
-		//DirectionalLightPass(cameraPos);
+		DirectionalLightPass(cameraPos);
 
 		FinalPass();
 	}
@@ -169,9 +170,9 @@ namespace ENGINE_NAME {
 	}
 
 	void GL3Renderer3D::FinalPass() {
-		//m_gbuffer.BindForFinalPass();
-		//GLCall(glBlitFramebuffer(0, 0, m_width, m_height, 0, 0, m_width, m_height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
-		m_gbuffer.DebugRendering(m_width, m_height);
+		m_gbuffer.BindForFinalPass();
+		GLCall(glBlitFramebuffer(0, 0, m_width, m_height, 0, 0, m_width, m_height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		//m_gbuffer.DebugRendering(m_width, m_height);
 	}
 
 }

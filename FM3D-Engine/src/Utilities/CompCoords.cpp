@@ -25,4 +25,12 @@ namespace ENGINE_NAME {
 		s_matPixelToScreenSpace = Matrix4f::Orthographic(0.0f, (float)sce->winNewsize.x, (float)sce->winNewsize.y, 0.0f, 1.0f, -1.0f);
 		s_matScreenSpaceToPixel = Matrix4f::Invert(s_matPixelToScreenSpace);
 	}
+
+	void CompCoords::ScalePixelToScreenSpace(Vector2f& pixel) {
+		pixel.x /= ((float)Window::GetInstance()->GetWidth());
+		pixel.y /= ((float)Window::GetInstance()->GetHeight());
+
+		pixel.x *= 2.0f;
+		pixel.y *= 2.0f;
+	}
 }

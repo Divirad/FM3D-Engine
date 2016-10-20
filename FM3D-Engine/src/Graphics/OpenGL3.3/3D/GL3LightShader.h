@@ -51,5 +51,7 @@ namespace ENGINE_NAME {
 		} m_dirLightLocation;
 	public:
 		GL3DirectionalLightShader();
+
+		void SetDirectionalLight(const DirectionalLight& Light);
 	};
 }

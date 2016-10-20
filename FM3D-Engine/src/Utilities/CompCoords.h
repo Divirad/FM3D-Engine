@@ -13,6 +13,7 @@ namespace ENGINE_NAME {
 	public:
 		static void Initialize(int windowWidth, int windowHeigth);
 		static Vector2f PixelToScreenSpace(Vector2f &pixel);
+		static void ScalePixelToScreenSpace(Vector2f& pixel);
 		static Vector2f ScreenSpaceToPixel(Vector2f &pixel);
 		static void OnSizeChange(Window::SizeChangeEvent* sce);
 	};

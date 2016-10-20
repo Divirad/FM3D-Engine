@@ -56,4 +56,13 @@ namespace ENGINE_NAME {
 		m_dirLightLocation.Direction = GetUniformLocation("gDirectionalLight.Direction");
 		m_dirLightLocation.DiffuseIntensity = GetUniformLocation("gDirectionalLight.Base.DiffuseIntensity");
 	}
+
+	void GL3DirectionalLightShader::SetDirectionalLight(const DirectionalLight & Light) {
+		SetUniform3f(m_dirLightLocation.Color, Light.color);
+		SetUniform1f(m_dirLightLocation.AmbientIntensity, Light.ambientIntensity);
+		Vector3f direction = Light.direction;
+		direction.Normalize();
+		SetUniform3f(m_dirLightLocation.Direction, direction);
+		SetUniform1f(m_dirLightLocation.DiffuseIntensity, Light.diffuseIntensity);
+	}
 }

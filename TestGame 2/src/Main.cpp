@@ -17,6 +17,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 void StarwarsScene(HINSTANCE hInstance) {
 	Window::StartConsole();
+
 	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
 	ExternFileManager::Initialize();
 
@@ -94,7 +95,7 @@ void StarwarsScene(HINSTANCE hInstance) {
 	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), bobaMesh);
 	boba.GetAnimations().push_back({ 0u, 0.0 });
 
-	float color[4] = { 0.2f, 0.5f, 0.5f, 1.0f };
+	float color[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 	Camera camera(Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f));
 
@@ -113,7 +114,7 @@ void StarwarsScene(HINSTANCE hInstance) {
 			renderer->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
 			renderSystem->EndRendering();
-			((AnimatedModel*)boba.GetModel())->AddToAnimationTime(1.0 / 60.0);
+			//((AnimatedModel*)boba.GetModel())->AddToAnimationTime(1.0 / 60.0);
 			if (((AnimatedModel*)boba.GetModel())->GetAnimationTime() >= ((AnimatedModel*)boba.GetModel())->GetAnimation()->GetDuration())
 				((AnimatedModel*)boba.GetModel())->SetAnimationTime(0.0);
 

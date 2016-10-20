@@ -3,14 +3,11 @@
 
 namespace ENGINE_NAME {
 
-	struct BaseLight {
+	struct DirectionalLight {
 		Vector3f color;
 		float ambientIntensity;
 		float diffuseIntensity;
-	};
 
-
-	struct DirectionalLight : public BaseLight {
 		Vector3f direction;
 	};
 
@@ -22,13 +19,24 @@ namespace ENGINE_NAME {
 	};
 
 
-	struct PointLight : public BaseLight {
+	struct PointLight {
+		Vector3f color;
+		float ambientIntensity;
+		float diffuseIntensity;
+
 		Vector3f position;
 		LightAttenuation attenuation;
 	};
 
 
-	struct SpotLight : public PointLight {
+	struct SpotLight  {
+		Vector3f color;
+		float ambientIntensity;
+		float diffuseIntensity;
+
+		Vector3f position;
+		LightAttenuation attenuation;
+
 		Vector3f direction;
 		float cutoff;
 	};

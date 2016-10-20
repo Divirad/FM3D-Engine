@@ -77,7 +77,7 @@ void NewButton(HINSTANCE hInstance)
 		///
 		///BasicItem2D wird erstellt 
 		///
-		BasicItem2D MyFirstButton(Test_Tex);
+		//BasicItem2D MyFirstButton(Test_Tex);
 		BasicItem2D VollDatZweiteKnoppke(VollDieTextur,2);
 		//VollDatZweiteKnoppke.SetPosition0(Vector3f(-0.5f, -0.5f,1.0f));
 		//VollDatZweiteKnoppke.AutoSize();
@@ -98,24 +98,23 @@ void NewButton(HINSTANCE hInstance)
 				///Button wird in den Buffer geschrieben
 				///
 				renderer->Submit(&VollDatZweiteKnoppke);
-				renderer->Submit(&MyFirstButton);
+				//renderer->Submit(&MyFirstButton);
 				///
 				///
 				///
 				if (VollDatZweiteKnoppke.ccRectangle(MOUSE_LEFT)) {
-					std::cout << "\n\n#\n#IT WOAAAKS!!!\n#\n#";
+					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
+					std::cout << "-------------" << std::endl;
 					//VollDatZweiteKnoppke.Center();
 
 					VollDatZweiteKnoppke.Top();
+					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
 					VollDatZweiteKnoppke.AutoSize();
-					MyFirstButton.AutoSize();
+					//MyFirstButton.AutoSize();
 					///
 					///MatrixTester
 					///
-					std::cout << "----------------------------------" << std::endl <<
-						Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 500.0f) << std::endl
-						<< CompCoords::PixelToScreenSpace(Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 500.0f)) << std::endl
-						<< "----------------------------------" << std::endl;
+					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
 				}
 				renderer->End();
 				

@@ -15,7 +15,9 @@ namespace ENGINE_NAME {
 	void BasicItem2D::AutoSize() {
 		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(Vector2f(GetPosition0().x, GetPosition0().y));
 		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
-		SetPosition1(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y)));
+		Vector2f tex(GetTextureWidth(), GetTextureHeight());
+		CompCoords::ScalePixelToScreenSpace(tex);
+		SetPosition1(m_position0.xy + tex);
 
 	}
 	///
