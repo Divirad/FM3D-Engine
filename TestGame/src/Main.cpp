@@ -41,13 +41,7 @@ void NewButton(HINSTANCE hInstance)
 	///Compute Coordinates wird Initialisiert
 	///
 	CompCoords::Initialize(1280, 720);
-	///
-	///MatrixTester
-	///
-	std::cout << "----------------------------------" << std::endl <<
-		Vector2f(Window::GetInstance()->GetWidth() / 2.0f, Window::GetInstance()->GetHeight() / 2.0f) << std::endl
-		<< CompCoords::PixelToScreenSpace(Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 0.0f)) << std::endl
-		<< "----------------------------------" << std::endl;
+	
 	///
 	///Rendersystem wird mit OpenGL 3.3 erstellt
 	///
@@ -74,14 +68,21 @@ void NewButton(HINSTANCE hInstance)
 		///Leere Textur wird erstellt
 		///
 		Texture* Test_Tex = renderSystem->CreateTexture(NULL);
+		Texture* VollDieTextur = renderSystem->CreateTexture(NULL);
 		///
 		///Textur wird eingelesen
 		///
 		ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
+		ExternFileManager::ReadTextureFile("knupke392x378.png", VollDieTextur, Texture::NEAREST);
 		///
 		///BasicItem2D wird erstellt 
 		///
 		BasicItem2D MyFirstButton(Test_Tex);
+		BasicItem2D VollDatZweiteKnoppke(VollDieTextur,2);
+		//VollDatZweiteKnoppke.SetPosition0(Vector3f(-0.5f, -0.5f,1.0f));
+		//VollDatZweiteKnoppke.AutoSize();
+		//MyFirstButton.AutoSize();
+		//MyFirstButton.Bottom();
 		///
 		///Hauptschleife
 		///
@@ -96,14 +97,25 @@ void NewButton(HINSTANCE hInstance)
 				///
 				///Button wird in den Buffer geschrieben
 				///
+				renderer->Submit(&VollDatZweiteKnoppke);
 				renderer->Submit(&MyFirstButton);
 				///
 				///
 				///
-				if (MyFirstButton.ccRectangle(MOUSE_LEFT)) {
+				if (VollDatZweiteKnoppke.ccRectangle(MOUSE_LEFT)) {
 					std::cout << "\n\n#\n#IT WOAAAKS!!!\n#\n#";
+					//VollDatZweiteKnoppke.Center();
+
+					VollDatZweiteKnoppke.Top();
+					VollDatZweiteKnoppke.AutoSize();
 					MyFirstButton.AutoSize();
-					MyFirstButton.Bottom();
+					///
+					///MatrixTester
+					///
+					std::cout << "----------------------------------" << std::endl <<
+						Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 500.0f) << std::endl
+						<< CompCoords::PixelToScreenSpace(Vector2f(Window::GetInstance()->GetWidth() / 2.0f, 500.0f)) << std::endl
+						<< "----------------------------------" << std::endl;
 				}
 				renderer->End();
 				

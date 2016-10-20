@@ -41,7 +41,7 @@ namespace ENGINE_NAME {
 #pragma region Set
 			inline void SetPosition0(Vector3f vec) { m_position0 = vec; }
 
-			inline void SetPosition1(Vector2f vec) { m_position1 = vec; }
+			inline void SetPosition1(Vector2f vec) { m_position1.x = vec.x; m_position1.y = vec.y;}
 
 			void SetSize(const Vector2f &vec);
 

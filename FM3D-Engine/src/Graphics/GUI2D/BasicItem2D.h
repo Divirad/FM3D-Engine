@@ -5,7 +5,23 @@ namespace ENGINE_NAME {
 	class ENGINE_DLL BasicItem2D : public Quad {
 
 	public:
+		BasicItem2D(Texture *txt, int i) {
+			
+			//SetPosition0(Vector3f(0.0f, 0.0f),0);
+			m_position0 = { -0.3f,-0.5f };
+			m_position1 = { 0.5f,0.0f };
+
+			/*m_position0 = { 0.0f,0.5f };
+			m_position1 = { 0.5f,1.0f };*/
+
+			SetTexture(txt);
+			m_uv0 = { 0.0f, 0.0f };
+			m_uv1 = { 1.0f,1.0f };
+			SetColor(0xffffffff);
+		}
+
 		BasicItem2D(Texture *txt) {
+
 			//SetPosition0(Vector3f(0.0f, 0.0f),0);
 			m_position0 = { 0.0f,0.0f };
 			m_position1 = { 0.5f,0.5f };
@@ -14,6 +30,7 @@ namespace ENGINE_NAME {
 			m_uv1 = { 1.0f,1.0f };
 			SetColor(0xffffffff);
 		}
+
 		enum ANCHOR
 		{
 			VERTICAL_LEFT,

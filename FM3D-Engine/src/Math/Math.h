@@ -42,6 +42,12 @@ namespace ENGINE_NAME {
 		inline float QuadraticEquation(float exponent, float linear, float constant) {
 			return (-linear + sqrtf(linear * linear - 4 * exponent * constant)) / (2 * exponent);
 		}
+
+		inline float AbsoluteValue(float abs){
+			if (abs < 0){ abs *= -1; }
+			return abs;
+			
+		}
 	}
 }
 #include "Matrix4.h"

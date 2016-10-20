@@ -13,8 +13,13 @@ namespace ENGINE_NAME {
 
 
 	void BasicItem2D::AutoSize() {
-		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(GetPosition0().xy);
-		SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
+		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(Vector2f(GetPosition0().x, GetPosition0().y));
+		Vector2f text = CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y));
+		Vector2f pos1px = pos0px + text;
+		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
+		SetPosition1(pos1px);
+		//SetPosition1(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y)));
+
 	}
 	///
 	///Anchor Basics 
