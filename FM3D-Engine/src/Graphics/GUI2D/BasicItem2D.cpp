@@ -5,8 +5,18 @@
 namespace ENGINE_NAME {
 
 	bool BasicItem2D::Click(int keyID) {
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 
-		//CompCoords::Initialize(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
+			GetPosition0().y <= ccresult.y &&
+			GetPosition0().x <= ccresult.x &&
+			GetPosition1().x >= ccresult.x &&
+			GetPosition1().y >= ccresult.y) {
+
+			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
+			Inputsystem::GetInstance()->setKey(keyID, false);
+			return true;
+		}
 
 		return 0;
 	}
@@ -15,7 +25,7 @@ namespace ENGINE_NAME {
 	void BasicItem2D::AutoSize() {
 		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(Vector2f(GetPosition0().x, GetPosition0().y));
 		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
-		Vector2f tex(GetTextureWidth(), GetTextureHeight());
+		Vector2f tex((float)GetTextureWidth(), (float)GetTextureHeight());
 		CompCoords::ScalePixelToScreenSpace(tex);
 		SetPosition1(m_position0.xy + tex);
 
@@ -65,9 +75,8 @@ namespace ENGINE_NAME {
 	void BasicItem2D::VCenter() {
 		float texturecoord = CompCoords::PixelToScreenSpace(Vector2f(0.0f,(float)GetTextureHeight())).y;
 		SetPosition1(Vector2f(GetPosition1().x, -texturecoord));
-		TestCoords();
+
 		SetPosition0(Vector3f(GetPosition0().x, texturecoord, GetPosition0().z));
-		TestCoords();
 	}
 	///
 	///Horizontal Anchor
@@ -97,30 +106,30 @@ namespace ENGINE_NAME {
 		{
 
 			//////////////////////////////////////////////////////////////
-		case VERTICAL_LEFT:
+		case LEFT_CENTER:
 			VLeft();
 			break;
-		case VERTICAL_RIGHT:
+		case RIGHT_CENTER:
 			VRight();
 			break;
-		case VERTICAL_STRETCH:
+		case STRETCH_VERTICAL:
 			VStretch();
 			break;
-		case VERTICAL_CENTER:
+		case CENTER_VERTICAL:
 			VCenter();
 			break;
 
 			//////////////////////////////////////////////////////////////
-		case HORIZONTAL_TOP:
+		case TOP_CENTER:
 			HTop();
 			break;
-		case HORIZONTAL_BOTTOM:
+		case BOTTOM_CENTER:
 			HBottom();
 			break;
-		case HORIZONTAL_STRETCH:
+		case STRETCH_HORIZONTAL:
 			HStretch();
 			break;
-		case HORIZONTAL_CENTER:
+		case CENTER_HORIZONTAL:
 			HCenter();
 			break;
 
@@ -148,9 +157,6 @@ namespace ENGINE_NAME {
 		default:
 			break;
 		}
-		std::cout << "ANCHOR" << std::endl << m_position0;
-		std::cout << std::endl << m_position1 << std::endl;
-
 	}
 	///
 	///Changes the visibility of the picture 
@@ -160,12 +166,10 @@ namespace ENGINE_NAME {
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 
 		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-			GetPosition0().y <= ccresult.y &&
-			GetPosition0().x <= ccresult.x &&
-			GetPosition1().x >= ccresult.x &&
-			GetPosition1().y >= ccresult.y) {
+			GetPosition0().xy <= ccresult &&
+			GetPosition1() >= ccresult) {
 
-			std::cout << "INPUT:: BUT:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
+			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
 			Inputsystem::GetInstance()->setKey(keyID, false);
 			return true;
 		}

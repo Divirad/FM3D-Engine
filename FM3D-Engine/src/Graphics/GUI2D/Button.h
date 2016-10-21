@@ -1,17 +1,33 @@
 #pragma once
 #include <Engine.h>
+#define MOUSE_INFIELD true
+#define MOUSE_OUTOFFIELD false
+
 namespace ENGINE_NAME {
 
 	class ENGINE_DLL Button : public BasicItem2D {
+	public:
+
+		enum FieldCheck {
+			INFIELD,
+			ALREADY_INFIELD,
+			OUTFIELD,
+			ALREADY_OUTFIELD
+		};
 
 	private:
+		FieldCheck ifinfield;
+		bool animate;
 
 	public:
-		//Button(uint p_color, float p_koordx, float p_koordy, float p_sizex, float p_sizey, float p_z);
 
-		//Button(uint p_color, Texture *p_texture, Vector3f p_koord, Vector2f p_size);
-		//Button(uint p_color, Texture *p_texture, float p_koordx, float p_koordy, float p_sizex, float p_sizey, float p_z);
+		Button(Texture* txt, Vector3f pos0);
+		Button(Texture* txt, Vector3f pos0, Vector2f pos1);
+		Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color);
 
-		//Button(Texture* p_texture, Vector2f p_koord);
+		void Animation(FieldCheck isin);
+		void Animation(FieldCheck isin, float animsize);
+		bool InFieldAnimation();
+
 	};
 }

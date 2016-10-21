@@ -163,7 +163,7 @@ namespace ENGINE_NAME
 
 		#pragma region Options
 		//void SetWindow(Window*window) { win = window; }	//Gibt komischen Fehler
-		void SetMouseOption(COORDS_MODE mode);
+		void SetMouseMode(COORDS_MODE mode);
 		#pragma endregion
 
 		Vector2f GetLastpos() { return lastpos; }

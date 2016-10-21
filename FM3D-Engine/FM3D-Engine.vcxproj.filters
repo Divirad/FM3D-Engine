@@ -558,6 +558,9 @@
     <ClInclude Include="src\Memory\DynamicRawArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\GUI2D\PictureQuad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl">
@@ -699,6 +702,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utilities\StringUtilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\GUI2D\PictureQuad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -77,8 +77,8 @@ void NewButton(HINSTANCE hInstance)
 		///
 		///BasicItem2D wird erstellt 
 		///
-		//BasicItem2D MyFirstButton(Test_Tex);
-		BasicItem2D VollDatZweiteKnoppke(VollDieTextur,2);
+		Button MyFirstButton(Test_Tex, Vector3f(-0.5f, -0.3f, 0.0f)); /*(Test_Tex)*/
+		//BasicItem2D VollDatZweiteKnoppke(VollDieTextur,2);
 		//VollDatZweiteKnoppke.SetPosition0(Vector3f(-0.5f, -0.5f,1.0f));
 		//VollDatZweiteKnoppke.AutoSize();
 		//MyFirstButton.AutoSize();
@@ -97,27 +97,30 @@ void NewButton(HINSTANCE hInstance)
 				///
 				///Button wird in den Buffer geschrieben
 				///
-				renderer->Submit(&VollDatZweiteKnoppke);
-				//renderer->Submit(&MyFirstButton);
+				//renderer->Submit(&VollDatZweiteKnoppke);
+				renderer->Submit(&MyFirstButton);
 				///
 				///
 				///
-				if (VollDatZweiteKnoppke.ccRectangle(MOUSE_LEFT)) {
-					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
-					std::cout << "-------------" << std::endl;
-					//VollDatZweiteKnoppke.Center();
+				if (MyFirstButton.ccRectangle(MOUSE_LEFT)) {
+					//std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
+					//std::cout << "-------------" << std::endl;
+					//////VollDatZweiteKnoppke.Center();
 
-					VollDatZweiteKnoppke.Top();
-					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
-					VollDatZweiteKnoppke.AutoSize();
-					//MyFirstButton.AutoSize();
+					//VollDatZweiteKnoppke.Top();
+					//std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
+					//VollDatZweiteKnoppke.AutoSize();
+
+					MyFirstButton.AutoSize();
+					MyFirstButton.Anchor(PictureQuad::TOP);
 					///
 					///MatrixTester
 					///
-					std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
+					/*std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;*/
 				}
-				renderer->End();
 				
+				renderer->End();
+				MyFirstButton.InFieldAnimation();
 				renderer->Flush();
 				renderSystem->EndRendering();
 			}

@@ -7,13 +7,13 @@ namespace ENGINE_NAME
 	Inputsystem Inputsystem::s_instance = Inputsystem();
 	Inputsystem::Inputsystem()
 	{
-		m_mode = CLICK_RELEASE;
+		m_mode = INSTANT;
 	}
 	Inputsystem::~Inputsystem()
 	{
 
 	}
-	void Inputsystem::SetMouseOption(COORDS_MODE mode)
+	void Inputsystem::SetMouseMode(COORDS_MODE mode)
 	{
 		m_mode = mode;
 	}
@@ -97,7 +97,9 @@ namespace ENGINE_NAME
 	{
 		if (m_mode == INSTANT)
 		{
-			cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
+			lastpos.x = LOWORD(lParam);
+			lastpos.y = HIWORD(lParam);
+			//cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
 		}
 	}
 

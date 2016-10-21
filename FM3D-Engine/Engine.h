@@ -77,6 +77,7 @@ namespace ENGINE_NAME {
 
 //2DRendering
 #include <src/Graphics/GUI2D/BasicItem2D.h>
+#include <src/Graphics/GUI2D/PictureQuad.h>
 #include <src/Graphics/GUI2D/Button.h>
 
 //DirectX11
