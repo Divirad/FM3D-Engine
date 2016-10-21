@@ -5,7 +5,6 @@
 using namespace Engine;
 
 void NewButton(HINSTANCE hInstance);
-void TestButton(HINSTANCE hInstance);
 void StarwarsScene(HINSTANCE hInstance);
 void MatrixTester(HINSTANCE hInstance);
 
@@ -72,17 +71,12 @@ void NewButton(HINSTANCE hInstance)
 		///
 		///Textur wird eingelesen
 		///
-		ExternFileManager::ReadTextureFile("knoebsche100x50.jpg", Test_Tex, Texture::NEAREST);
+		ExternFileManager::ReadTextureFile("NewFM3DLogoMini.png", Test_Tex, Texture::NEAREST);
 		ExternFileManager::ReadTextureFile("knupke392x378.png", VollDieTextur, Texture::NEAREST);
 		///
 		///BasicItem2D wird erstellt 
 		///
-		Button MyFirstButton(Test_Tex, Vector3f(-0.5f, -0.3f, 0.0f)); /*(Test_Tex)*/
-		//BasicItem2D VollDatZweiteKnoppke(VollDieTextur,2);
-		//VollDatZweiteKnoppke.SetPosition0(Vector3f(-0.5f, -0.5f,1.0f));
-		//VollDatZweiteKnoppke.AutoSize();
-		//MyFirstButton.AutoSize();
-		//MyFirstButton.Bottom();
+		Button MyFirstButton(Test_Tex, Vector3f(-0.5f, -0.3f, 0.0f),Vector2f(1.0f,1.0f)); 
 		///
 		///Hauptschleife
 		///
@@ -103,14 +97,7 @@ void NewButton(HINSTANCE hInstance)
 				///
 				///
 				if (MyFirstButton.ccRectangle(MOUSE_LEFT)) {
-					//std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
-					//std::cout << "-------------" << std::endl;
-					//////VollDatZweiteKnoppke.Center();
-
-					//VollDatZweiteKnoppke.Top();
-					//std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;
-					//VollDatZweiteKnoppke.AutoSize();
-
+		
 					MyFirstButton.AutoSize();
 					MyFirstButton.Anchor(PictureQuad::TOP);
 					///
@@ -128,10 +115,6 @@ void NewButton(HINSTANCE hInstance)
 		///Renderer wird beendet
 		renderSystem->Shutdown();
 }
-
-
-
-
 
 void StarwarsScene(HINSTANCE hInstance) {
 	Window::StartConsole();

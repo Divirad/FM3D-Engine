@@ -175,6 +175,7 @@
     <Image Include="res\Fett_jetpak_D.tga" />
     <Image Include="res\HOMMTEXT1.png" />
     <Image Include="res\knoebsche100x50.jpg" />
+    <Image Include="res\NewFM3DLogoMini.png" />
     <Image Include="res\Stormtrooper_d.tga" />
   </ItemGroup>
   <ItemGroup>

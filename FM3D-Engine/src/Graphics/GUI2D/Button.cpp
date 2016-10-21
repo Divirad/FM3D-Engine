@@ -51,12 +51,12 @@ namespace ENGINE_NAME
 	void Button::Animation(FieldCheck isin) {
 		if (isin == INFIELD)
 		{
-			m_position0 = Vector3f(m_position0.x + 0.01f, m_position0.y + 0.01f, m_position0.z);
-			m_position1 = Vector2f(m_position1.x - 0.01f, m_position1.y - 0.01f);
+			m_uv0 = Vector2f(m_uv0.x - 0.05f, m_uv0.y - 0.05f);
+			m_uv1 = Vector2f(m_uv1.x + 0.05f, m_uv1.y + 0.05f);
 		}
 		else if(isin == OUTFIELD){
-			m_position0 = Vector3f(m_position0.x - 0.01f, m_position0.y - 0.01f, m_position0.z);
-			m_position1 = Vector2f(m_position1.x + 0.01f, m_position1.y + 0.01f);
+			m_uv0 = Vector2f(m_uv0.x + 0.05f, m_uv0.y + 0.05f);
+			m_uv1 = Vector2f(m_uv1.x - 0.05f, m_uv1.y - 0.05f);
 		}
 		
 	}
@@ -64,12 +64,12 @@ namespace ENGINE_NAME
 	void Button::Animation(FieldCheck isin, float animsize) {
 		if (isin == INFIELD)
 		{
-			m_position0 = Vector3f(m_position0.x + animsize, m_position0.y + animsize, m_position0.z);
-			m_position1 = Vector2f(m_position1.x - animsize, m_position1.y - animsize);
+			m_uv0 = Vector2f(m_uv0.x + animsize, m_uv0.y + animsize);
+			m_uv1 = Vector2f(m_uv1.x - animsize, m_uv1.y - animsize);
 		}
 		else if (isin == OUTFIELD) {
-			m_position0 = Vector3f(m_position0.x - animsize, m_position0.y - animsize, m_position0.z);
-			m_position1 = Vector2f(m_position1.x + animsize, m_position1.y + animsize);
+			m_uv0 = Vector2f(m_uv0.x - animsize, m_uv0.y - animsize);
+			m_uv1 = Vector2f(m_uv1.x + animsize, m_uv1.y + animsize);
 		}
 
 	}
