@@ -12,6 +12,7 @@ namespace ENGINE_NAME
 		AutoSize();
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD;
+		animate = true;
 	}
 
 	Button::Button(Texture* txt, Vector3f pos0, Vector2f pos1) {
@@ -22,6 +23,7 @@ namespace ENGINE_NAME
 		m_position1 = pos1;
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD;
+		animate = true;
 	}
 
 	Button::Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color) {
@@ -32,6 +34,18 @@ namespace ENGINE_NAME
 		m_position1 = pos1;
 		SetColor(color); 
 		ifinfield = ALREADY_OUTFIELD;
+		animate = true;
+	}
+
+	Button::Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color, bool animation) {
+		SetTexture(txt);
+		m_position0 = pos0;
+		m_uv0 = { 0.0f, 0.0f };
+		m_uv1 = { 1.0f,1.0f };
+		m_position1 = pos1;
+		SetColor(color);
+		ifinfield = ALREADY_OUTFIELD;
+		animate = animation;
 	}
 
 	void Button::Animation(FieldCheck isin) {
@@ -81,8 +95,8 @@ namespace ENGINE_NAME
 		///IN FIELD
 		///
 		else if 
-			(GetPosition0().xy <= ccresult &&
-			    GetPosition1() >= ccresult &&
+			(GetPosition0().xy < ccresult &&
+			    GetPosition1() > ccresult &&
 			ifinfield == INFIELD) {
 
 			ifinfield = ALREADY_INFIELD;
@@ -93,8 +107,8 @@ namespace ENGINE_NAME
 		///OUT OF FIELD
 		///
 		else if
-			(!(GetPosition0().xy <= ccresult &&
-				GetPosition1() >= ccresult) &&
+			(!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult) &&
 				ifinfield == ALREADY_INFIELD) {
 
 			ifinfield = OUTFIELD;
@@ -102,8 +116,8 @@ namespace ENGINE_NAME
 			std::cout << "INPUT:: QUD:: OUT OF FIELD\n";
 		}
 		else if
-			(!(GetPosition0().xy <= ccresult &&
-				GetPosition1() >= ccresult) &&
+			(!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult) &&
 				ifinfield == INFIELD) {
 
 			ifinfield = OUTFIELD;
@@ -116,8 +130,8 @@ namespace ENGINE_NAME
 		///ALREADY OUT OF FIELD
 		///
 		else if
-			(!(GetPosition0().xy <= ccresult &&
-				GetPosition1() >= ccresult) &&
+			(!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult) &&
 				ifinfield == OUTFIELD) {
 
 			ifinfield = ALREADY_OUTFIELD;
