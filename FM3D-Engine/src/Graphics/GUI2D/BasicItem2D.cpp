@@ -8,10 +8,8 @@ namespace ENGINE_NAME {
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 
 		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-			GetPosition0().y <= ccresult.y &&
-			GetPosition0().x <= ccresult.x &&
-			GetPosition1().x >= ccresult.x &&
-			GetPosition1().y >= ccresult.y) {
+			GetPosition0().xy <= ccresult &&
+			GetPosition1() >= ccresult) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
 			Inputsystem::GetInstance()->setKey(keyID, false);

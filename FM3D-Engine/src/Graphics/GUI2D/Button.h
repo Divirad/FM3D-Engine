@@ -32,5 +32,7 @@ namespace ENGINE_NAME {
 		bool InFieldAnimation();
 		bool InFieldAnimation(float animsize);
 
+		FieldCheck FieldCecker();
+
 	};
 }

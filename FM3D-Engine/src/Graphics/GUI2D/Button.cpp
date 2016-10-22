@@ -63,12 +63,13 @@ namespace ENGINE_NAME
 
 	bool Button::InFieldAnimation() {
 		
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
+		//ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 		///
 		///INTO FIELD
 		///
-		if (GetPosition0().xy <= ccresult &&
-			   GetPosition1() >= ccresult &&
+		if (/*GetPosition0().xy <= ccresult &&
+			   GetPosition1() >= ccresult*/ 
+			FieldCecker()==INFIELD &&
 			ifinfield == ALREADY_OUTFIELD) {
 
 			ifinfield = INFIELD;
@@ -82,8 +83,9 @@ namespace ENGINE_NAME
 		///IN FIELD
 		///
 		else if 
-			(GetPosition0().xy < ccresult &&
-			    GetPosition1() > ccresult &&
+			(/*GetPosition0().xy < ccresult &&
+			    GetPosition1() > ccresult*/
+				FieldCecker() == INFIELD &&
 			ifinfield == INFIELD) {
 
 			ifinfield = ALREADY_INFIELD;
@@ -94,8 +96,9 @@ namespace ENGINE_NAME
 		///OUT OF FIELD
 		///
 		else if
-			(!(GetPosition0().xy < ccresult &&
-				GetPosition1() > ccresult) &&
+			(/*!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult)*/
+				FieldCecker()==OUTFIELD &&
 				ifinfield == ALREADY_INFIELD) {
 
 			ifinfield = OUTFIELD;
@@ -103,8 +106,8 @@ namespace ENGINE_NAME
 			std::cout << "INPUT:: QUD:: OUT OF FIELD\n";
 		}
 		else if
-			(!(GetPosition0().xy < ccresult &&
-				GetPosition1() > ccresult) &&
+			(/*!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult)*/ FieldCecker() == OUTFIELD &&
 				ifinfield == INFIELD) {
 
 			ifinfield = OUTFIELD;
@@ -188,6 +191,27 @@ namespace ENGINE_NAME
 			ifinfield = ALREADY_OUTFIELD;
 			std::cout << "INPUT:: QUD:: ALREADY OUT OF FIELD\n";
 		}
+	}
+
+	Button::FieldCheck Button::FieldCecker() {
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
+		///
+		///IN FIELD
+		///
+		if (GetPosition0().xy <= ccresult &&
+			GetPosition1() >= ccresult) {
+			return INFIELD;
+		}
+
+		///
+		///OUT OF FIELD
+		///
+		else if
+			(!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult)) {
+			return OUTFIELD;
+		}
+
 	}
 
 }

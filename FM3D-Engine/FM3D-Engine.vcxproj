@@ -375,6 +375,7 @@
     <ClInclude Include="src\FileSystem\FileManager.h" />
     <ClInclude Include="src\Graphics\GUI2D\BasicItem2D.h" />
     <ClInclude Include="src\Graphics\GUI2D\Button.h" />
+    <ClInclude Include="src\Graphics\GUI2D\DragDropper.h" />
     <ClInclude Include="src\Graphics\GUI2D\PictureQuad.h" />
     <ClInclude Include="src\Graphics\Lights.h" />
     <ClInclude Include="src\Graphics\Menu\BasicItem2D.h" />
@@ -465,6 +466,7 @@
     <ClCompile Include="src\Graphics\GUI2D\Button.cpp" />
     <ClCompile Include="src\Graphics\Animation.cpp" />
     <ClCompile Include="src\Graphics\Camera.cpp" />
+    <ClCompile Include="src\Graphics\GUI2D\DragDropper.cpp" />
     <ClCompile Include="src\Graphics\GUI2D\PictureQuad.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Model.cpp" />
