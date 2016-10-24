@@ -26,35 +26,6 @@ namespace ENGINE_NAME
 		lastposclick.x = LOWORD(lParam);
 		lastposclick.y = HIWORD(lParam);
 		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
-		
-		/*switch (m_mode) {
-		case CLICK:
-			pressed[LorR] = true;
-			lastposclick.x = LOWORD(lParam);
-			lastposclick.y = HIWORD(lParam);
-			cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
-			break;
-
-		case RELEASE:
-			pressed[LorR] = true;
-			cout << "\nINPUT:: R  :: " << LorR << "-Mouse-Click ACTIVATED\n";
-			break;
-
-		case CLICK_RELEASE:
-			pressed[LorR] = true;
-			lastposclick.x = LOWORD(lParam);
-			lastposclick.y = HIWORD(lParam);
-			cout << "\nINPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
-			break;
-
-		case INSTANT:
-			pressed[LorR] = true;
-			lastposclick.x = LOWORD(lParam);
-			lastposclick.y = HIWORD(lParam);
-			cout << "\nINPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
-			break;
-		}*/
-
 	}
 
 	void Inputsystem::MReleased(LPARAM lParam, int LorR) {
@@ -62,29 +33,6 @@ namespace ENGINE_NAME
 		lastposclick.x = LOWORD(lParam);
 		lastposclick.y = HIWORD(lParam);
 		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
-
-		/*switch (m_mode) {
-		case CLICK:
-			pressed[LorR] = false;
-			cout << "INPUT:: C  :: " << LorR << "-Mouse-Click  DEACTIVATED\n";
-			break;
-
-		case RELEASE:
-			pressed[LorR] = false;
-			cout << "INPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-
-		case CLICK_RELEASE:
-			pressed[LorR] = false;
-			cout << "INPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-
-		case INSTANT:
-			pressed[LorR] = false;
-			cout << "INPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-		}
-*/
 	}
 
 	void Inputsystem::MWheel(short wheeldata)

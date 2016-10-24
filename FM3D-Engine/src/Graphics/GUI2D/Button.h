@@ -10,8 +10,9 @@ namespace ENGINE_NAME {
 	public:
 
 		
-	private:
+	protected:
 		FIELDCHECK ifinfield;
+		bool clicked;
 		bool animate;
 
 	public:
@@ -21,12 +22,10 @@ namespace ENGINE_NAME {
 		Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color);
 		Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color, bool animation);
 
-		inline void SetAnimation(bool animation) { animate = animation; }
-		void Animation(FIELDCHECK isin, float animsize);
+		inline void SetAnimation(bool anim) { animate = anim; }
+		void Animation(bool in, float animsize);
 		bool InFieldAnimation();
 		bool InFieldAnimation(float animsize);
-/*
-		FieldCheck FieldCecker();*/
-
+		bool ClickAnimation(int keyID);
 	};
 }
