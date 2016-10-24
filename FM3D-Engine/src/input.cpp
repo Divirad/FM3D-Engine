@@ -5,18 +5,8 @@ using namespace std;
 namespace ENGINE_NAME
 {
 	Inputsystem Inputsystem::s_instance = Inputsystem();
-	Inputsystem::Inputsystem()
-	{
-		m_mode = INSTANT;
-	}
-	Inputsystem::~Inputsystem()
-	{
-
-	}
-	void Inputsystem::SetMouseMode(COORDS_MODE mode)
-	{
-		m_mode = mode;
-	}
+	Inputsystem::Inputsystem(){}
+	Inputsystem::~Inputsystem(){}
 
 	void Inputsystem::keyPressed(WPARAM wParam) {
 
@@ -32,12 +22,17 @@ namespace ENGINE_NAME
 	}
 
 	void Inputsystem::MPressed(LPARAM lParam, int LorR) {
-		switch (m_mode) {
+		pressed[LorR] = true;
+		lastposclick.x = LOWORD(lParam);
+		lastposclick.y = HIWORD(lParam);
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
+		
+		/*switch (m_mode) {
 		case CLICK:
 			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
+			lastposclick.x = LOWORD(lParam);
+			lastposclick.y = HIWORD(lParam);
+			cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
 			break;
 
 		case RELEASE:
@@ -47,23 +42,28 @@ namespace ENGINE_NAME
 
 		case CLICK_RELEASE:
 			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
+			lastposclick.x = LOWORD(lParam);
+			lastposclick.y = HIWORD(lParam);
+			cout << "\nINPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
 			break;
 
 		case INSTANT:
 			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
+			lastposclick.x = LOWORD(lParam);
+			lastposclick.y = HIWORD(lParam);
+			cout << "\nINPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
 			break;
-		}
+		}*/
 
 	}
 
 	void Inputsystem::MReleased(LPARAM lParam, int LorR) {
-		switch (m_mode) {
+		pressed[LorR] = true;
+		lastposclick.x = LOWORD(lParam);
+		lastposclick.y = HIWORD(lParam);
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
+
+		/*switch (m_mode) {
 		case CLICK:
 			pressed[LorR] = false;
 			cout << "INPUT:: C  :: " << LorR << "-Mouse-Click  DEACTIVATED\n";
@@ -84,7 +84,7 @@ namespace ENGINE_NAME
 			cout << "INPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
 			break;
 		}
-
+*/
 	}
 
 	void Inputsystem::MWheel(short wheeldata)
@@ -94,13 +94,13 @@ namespace ENGINE_NAME
 	}
 
 	void Inputsystem::MMove(LPARAM lParam)
-	{
+	{/*
 		if (m_mode == INSTANT)
-		{
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			//cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
-		}
+		{*/
+			lastposinst.x = LOWORD(lParam);
+			lastposinst.y = HIWORD(lParam);
+			cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
+		//}
 	}
 
 	bool Inputsystem::CheckIfKeyIsPressed(int keyid)

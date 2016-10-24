@@ -48,7 +48,7 @@ namespace ENGINE_NAME
 		animate = animation;
 	}
 
-	void Button::Animation(FieldCheck isin, float animsize) {
+	void Button::Animation(FIELDCHECK isin, float animsize) {
 		if (isin == INFIELD)
 		{
 			m_uv0 = Vector2f(m_uv0.x - animsize, m_uv0.y - animsize);
@@ -130,7 +130,7 @@ namespace ENGINE_NAME
 	}
 	bool Button::InFieldAnimation(float animsize) {
 
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposInst());
 		///
 		///INTO FIELD
 		///
@@ -193,7 +193,7 @@ namespace ENGINE_NAME
 		}
 	}
 
-	Button::FieldCheck Button::FieldCecker() {
+	/*Button::FieldCheck Button::FieldCecker() {
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
 		///
 		///IN FIELD
@@ -212,7 +212,7 @@ namespace ENGINE_NAME
 			return OUTFIELD;
 		}
 
-	}
+	}*/
 
 }
 

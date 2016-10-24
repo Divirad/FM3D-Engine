@@ -76,7 +76,9 @@ void NewButton(HINSTANCE hInstance)
 		///
 		///BasicItem2D wird erstellt 
 		///
-		DragDropper MyFirstButton(Test_Tex, Vector3f(-0.5f, -0.3f, 0.0f)); 
+		DragDropper MyFirstButton(Test_Tex, Vector3f(0.0f, 0.0f, 0.0f)); 
+		Engine::Font* f;
+		ExternFileManager::ReadFontFile("fontilein.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &f);
 		///
 		///Hauptschleife
 		///
@@ -92,21 +94,18 @@ void NewButton(HINSTANCE hInstance)
 				///Button wird in den Buffer geschrieben
 				///
 				//renderer->Submit(&VollDatZweiteKnoppke);
+				renderer->DrawString({ "suppet tooohhlen Text :)", f, 0xffffffff }, Vector3f(-0.5f, -0.2f, 0.0f));
+
 				renderer->Submit(&MyFirstButton);
 				///
 				///
 				///
-				if (MyFirstButton.ccRectangle(MOUSE_LEFT)) {
-		
-					
-					///
-					///MatrixTester
-					///
-					/*std::cout << "Pos0: " << VollDatZweiteKnoppke.GetPosition0() << std::endl << "Pos1: " << VollDatZweiteKnoppke.GetPosition1() << std::endl;*/
-				}
 				renderer->End();
+				//MyFirstButton.InFieldAnimation();
+				//MyFirstButton.InFieldAnimation();
 				MyFirstButton.InFieldAnimation();
 				MyFirstButton.DragDrop(MOUSE_LEFT);
+
 				renderer->Flush();
 				renderSystem->EndRendering();
 			}

@@ -136,7 +136,8 @@ namespace ENGINE_NAME
 		//Mode for Mousetracking
 		COORDS_MODE m_mode;
 		//Vector for tracking the last position of mouse
-		Vector2f lastpos;
+		Vector2f lastposclick;
+		Vector2f lastposinst;
 
 		short wheel;		
 
@@ -166,7 +167,8 @@ namespace ENGINE_NAME
 		void SetMouseMode(COORDS_MODE mode);
 		#pragma endregion
 
-		Vector2f GetLastpos() { return lastpos; }
+		Vector2f GetLastposClick() { return lastposclick; }
+		Vector2f GetLastposInst() { return lastposinst; }
 
 		void DoIfKeyPressed(int keyid, void(*f)());
 		bool CheckIfKeyIsPressed(int keyid);

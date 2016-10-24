@@ -25,6 +25,13 @@ namespace ENGINE_NAME {
 			BOTTOM,
 			TOP
 		};
+		enum FIELDCHECK {
+			INFIELD,
+			ALREADY_INFIELD,
+			OUTFIELD,
+			ALREADY_OUTFIELD
+		};
+
 
 	protected:
 		//4 Clickcheck
@@ -56,9 +63,10 @@ namespace ENGINE_NAME {
 		void Anchor(ANCHOR ad);	//DONE
 
 		void PicVisibility(float pro);
-		bool ccRectangle(int keyID);	//DONE
-		bool ccEllipse();
+		//bool ccRectangle(int keyID);	//DONE
+		//bool ccEllipse();
 
+		FIELDCHECK FieldCecker();
 
 	};
 }

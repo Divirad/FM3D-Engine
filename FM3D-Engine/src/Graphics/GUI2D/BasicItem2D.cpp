@@ -4,22 +4,7 @@
 
 namespace ENGINE_NAME {
 
-	bool BasicItem2D::Click(int keyID) {
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
-
-		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-			GetPosition0().xy <= ccresult &&
-			GetPosition1() >= ccresult) {
-
-			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
-			Inputsystem::GetInstance()->setKey(keyID, false);
-			return true;
-		}
-
-		return 0;
-	}
-
-
+	
 	void BasicItem2D::AutoSize() {
 		Vector2f pos0px = CompCoords::ScreenSpaceToPixel(Vector2f(GetPosition0().x, GetPosition0().y));
 		//SetSize(CompCoords::PixelToScreenSpace(Vector2f(GetTextureWidth() + pos0px.x, GetTextureHeight() + pos0px.y).Subtract(GetPosition0().xy)));
@@ -160,12 +145,32 @@ namespace ENGINE_NAME {
 	///Changes the visibility of the picture 
 	///
 	void BasicItem2D::PicVisibility(float pro) {}
-	bool BasicItem2D::ccRectangle(int keyID) {
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastpos());
-
-		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-			GetPosition0().xy <= ccresult &&
+	
+	BasicItem2D::FIELDCHECK BasicItem2D::FieldCecker(){
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposInst());
+		///
+		///IN FIELD
+		///
+		if (GetPosition0().xy <= ccresult &&
 			GetPosition1() >= ccresult) {
+			return INFIELD;
+		}
+
+		///
+		///OUT OF FIELD
+		///
+		else if
+			(!(GetPosition0().xy < ccresult &&
+				GetPosition1() > ccresult)) {
+			return OUTFIELD;
+		}
+	
+	}
+	
+	bool BasicItem2D::Click(int keyID) {
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick());
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
+			FieldCecker()==INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
 			Inputsystem::GetInstance()->setKey(keyID, false);
@@ -174,5 +179,20 @@ namespace ENGINE_NAME {
 
 		return 0;
 	}
-	bool BasicItem2D::ccEllipse() { return 0; }
+
+	//bool BasicItem2D::ccRectangle(int keyID) {
+	//	ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick());
+
+	//	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
+	//		FieldCecker() == true) {
+
+	//		std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
+	//		Inputsystem::GetInstance()->setKey(keyID, false);
+	//		return true;
+	//	}
+
+	//	return 0;
+	//}
+
+
 }
