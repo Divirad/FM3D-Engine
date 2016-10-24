@@ -12,7 +12,7 @@ namespace ENGINE_NAME
 		AutoSize();
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = false;
+		clicked = Inputsystem::NOCLICK;
 		animate = true;
 	}
 
@@ -24,8 +24,8 @@ namespace ENGINE_NAME
 		m_position1 = pos1;
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD; 
+		clicked = Inputsystem::NOCLICK;
 		animate = true;
-		clicked = false;
 	}
 
 	Button::Button(Texture* txt, Vector3f pos0, Vector2f pos1, uint color) {
@@ -36,7 +36,7 @@ namespace ENGINE_NAME
 		m_position1 = pos1;
 		SetColor(color); 
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = false;
+		clicked = Inputsystem::NOCLICK;
 		animate = true;
 	}
 
@@ -48,7 +48,7 @@ namespace ENGINE_NAME
 		m_position1 = pos1;
 		SetColor(color);
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = false;
+		clicked = Inputsystem::NOCLICK;
 		animate = animation;
 	}
 
@@ -114,6 +114,7 @@ namespace ENGINE_NAME
 			ifinfield = ALREADY_OUTFIELD;
 			std::cout << "INPUT:: BUT:: ALREADY OUT OF FIELD\n";
 		}
+		return MOUSE_OUTOFFIELD;
 	}
 
 	bool Button::InFieldAnimation(float animsize) {
@@ -165,25 +166,27 @@ namespace ENGINE_NAME
 			ifinfield = ALREADY_OUTFIELD;
 			std::cout << "INPUT:: BUT:: ALREADY OUT OF FIELD\n";
 		}
+		return MOUSE_OUTOFFIELD;
 	}
 
 	bool Button::ClickAnimation(int keyID) {
 
-		if (Click(keyID) == true && clicked==false) {
+		//if (Click(keyID) == true && clicked==false) {
 
-			clicked = true;
-			if (animate == true) { Animation(true, INFIELDANIM); }
+		//	clicked = true;
+		//	if (animate == true) { Animation(true, INFIELDANIM); }
 
-			std::cout << "INPUT:: BUT:: CLICKED\n";
-			return true;
-		}
+		//	std::cout << "INPUT:: BUT:: CLICKED\n";
+		//	return true;
+		//}
 
-		else if (Click(keyID) == true /*&& clicked == true*/) {
-			clicked = false;
-			if (animate == true) { Animation(false, INFIELDANIM); }
-			std::cout << "INPUT:: BUT:: RELEASED\n";
-			return false;
-		}
+		//else if (Click(keyID) == true /*&& clicked == true*/) {
+		//	clicked = false;
+		//	if (animate == true) { Animation(false, INFIELDANIM); }
+		//	std::cout << "INPUT:: BUT:: RELEASED\n";
+		//	return false;
+		//}
+		return MOUSE_OUTOFFIELD;
 
 	}
 

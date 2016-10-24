@@ -107,7 +107,7 @@ void NewButton(HINSTANCE hInstance)
 				//MyFirstButton.ClickAnimation(MOUSE_LEFT);
 				MyFirstButton.DragDrop(MOUSE_LEFT);
 				VollDatZweiteKnoppke.DragDrop(MOUSE_RIGHT);
-				
+				MyFirstButton.Click(MOUSE_LEFT);
 				renderer->Flush();
 				renderSystem->EndRendering();
 			}

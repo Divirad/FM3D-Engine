@@ -63,7 +63,7 @@ namespace ENGINE_NAME {
 		void Anchor(ANCHOR ad);	//DONE
 
 		void PicVisibility(float pro);
-		//bool ccRectangle(int keyID);	//DONE
+		Inputsystem::KEYCLICK ccRectangle(int keyID);	//DONE
 		//bool ccEllipse();
 
 		FIELDCHECK FieldCecker();

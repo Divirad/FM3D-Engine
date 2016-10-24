@@ -118,12 +118,16 @@ namespace ENGINE_NAME
 	{
 	public:
 		//Enum for Mousetracking system
-		enum COORDS_MODE{
-			CNULL,
-			CLICK,
-			RELEASE,
-			CLICK_RELEASE,
-			INSTANT
+		enum KEYCLICK{
+			NOCLICK,
+			ACTIVATED,
+			RELEASED
+		};
+
+		struct MOUSE
+		{
+			KEYCLICK clicked = NOCLICK;
+			Vector2f lastposclick;
 		};
 
 	private:
@@ -132,10 +136,9 @@ namespace ENGINE_NAME
 		//Array for Key-Checking (using the makros from above) 
 		//Each Array field has the same Char-ID like the keys
 		//Except the Mouse
-		bool pressed[121]{ 0 };
-		//Mode for Mousetracking
-		COORDS_MODE m_mode;
+		bool m_pressed[121] = { false };
 		//Vector for tracking the last position of mouse
+		MOUSE m_mousekey[4];
 		Vector2f lastposclick;
 		Vector2f lastposinst;
 
@@ -145,6 +148,7 @@ namespace ENGINE_NAME
 		static Inputsystem* GetInstance() { return &s_instance; }
 		Inputsystem();
 		~Inputsystem();
+
 
 		void Initialise(){}
 
@@ -158,20 +162,22 @@ namespace ENGINE_NAME
 		void MPressed(LPARAM lParam, int LorR);
 		void MReleased(LPARAM lParam, int LorR);
 		void MMove(LPARAM lParam);
+		void setMKey(int ID, KEYCLICK tof);
 
-		void MWheel(short wheeldata);				//doesn't work!!
+		void MWheel(short wheeldata);	//doesn't work!!
 		#pragma endregion
 
 		#pragma region Options
 		//void SetWindow(Window*window) { win = window; }	//Gibt komischen Fehler
-		void SetMouseMode(COORDS_MODE mode);
+		//void SetMouseMode(COORDS_MODE mode);
 		#pragma endregion
 
-		Vector2f GetLastposClick() { return lastposclick; }
+		Vector2f GetLastposClick(int keyID) { return m_mousekey[keyID].lastposclick; }
 		Vector2f GetLastposInst() { return lastposinst; }
 
 		void DoIfKeyPressed(int keyid, void(*f)());
 		bool CheckIfKeyIsPressed(int keyid);
+		Inputsystem::KEYCLICK CheckIfMouseIsPressed(int keyid);
 
 	};
 

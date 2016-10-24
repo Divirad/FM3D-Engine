@@ -12,7 +12,7 @@ namespace ENGINE_NAME {
 		
 	protected:
 		FIELDCHECK ifinfield;
-		bool clicked;
+		Inputsystem::KEYCLICK clicked;
 		bool animate;
 
 	public:

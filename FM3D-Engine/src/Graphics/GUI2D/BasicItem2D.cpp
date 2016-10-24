@@ -164,12 +164,12 @@ namespace ENGINE_NAME {
 				GetPosition1() > ccresult)) {
 			return OUTFIELD;
 		}
-	
+		return OUTFIELD;
 	}
 	
 	bool BasicItem2D::Click(int keyID) {
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick());
-		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
+		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::ACTIVATED &&
 			FieldCecker()==INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
@@ -180,19 +180,27 @@ namespace ENGINE_NAME {
 		return 0;
 	}
 
-	//bool BasicItem2D::ccRectangle(int keyID) {
-	//	ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick());
+	Inputsystem::KEYCLICK BasicItem2D::ccRectangle(int keyID) {
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
 
-	//	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(keyID) == true &&
-	//		FieldCecker() == true) {
+		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::ACTIVATED &&
+			FieldCecker() == INFIELD) {
 
-	//		std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
-	//		Inputsystem::GetInstance()->setKey(keyID, false);
-	//		return true;
-	//	}
+			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was ACTIVATED" << std::endl;
+			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
+			return Inputsystem::ACTIVATED;
+		}
 
-	//	return 0;
-	//}
+		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
+		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::RELEASED &&
+			FieldCecker() == INFIELD) {
+
+			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was RELEASED" << std::endl;
+			Inputsystem::GetInstance()->setKey(keyID, Inputsystem::NOCLICK);
+			return Inputsystem::RELEASED;
+		}
+		return Inputsystem::NOCLICK;
+	}
 
 
 }
