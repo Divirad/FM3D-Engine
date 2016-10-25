@@ -24,19 +24,13 @@ namespace ENGINE_NAME
 	void Inputsystem::MPressed(LPARAM lParam, int LorR) {
 		m_mousekey[LorR].clicked = ACTIVATED;
 		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
-
-		lastposclick.x = LOWORD(lParam);
-		lastposclick.y = HIWORD(lParam);
-		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< ACTIVATED\n";
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick <<" ACTIVATED\n";
 	}
 
 	void Inputsystem::MReleased(LPARAM lParam, int LorR) {
 		m_mousekey[LorR].clicked = RELEASED;
 		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
-
-		lastposclick.x = LOWORD(lParam);
-		lastposclick.y = HIWORD(lParam);
-		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastposclick.x << " AND Y: " << lastposclick.y << "<< RELEASED\n";
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick << "<< RELEASED\n";
 	}
 
 	void Inputsystem::MWheel(short wheeldata)

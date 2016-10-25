@@ -18,19 +18,15 @@ namespace ENGINE_NAME {
 				clicked = Inputsystem::ACTIVATED;
 				click = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
 				diff = click.Subtract(m_position0.xy);
-
-				std::cout << std::endl << "if if";
 			}
 			else {
 				clicked = Inputsystem::NOCLICK;
-				std::cout << std::endl << "if under else";
 			}
 		}
 		else if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::RELEASED) {
 			
 			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
 			clicked = Inputsystem::NOCLICK;
-			std::cout << std::endl << "else if";
 		}
 
 		else if (clicked== Inputsystem::ACTIVATED) {

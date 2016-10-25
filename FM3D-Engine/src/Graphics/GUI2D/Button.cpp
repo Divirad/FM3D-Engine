@@ -75,8 +75,6 @@ namespace ENGINE_NAME
 
 			ifinfield = INFIELD;
 			if(animate==true){ Animation(true, INFIELDANIM); }
-			
-			std::cout << "INPUT:: BUT:: IN FIELD\n";
 			return MOUSE_INFIELD;
 		}
 
@@ -86,7 +84,6 @@ namespace ENGINE_NAME
 		else if (FieldCecker() == INFIELD && ifinfield == INFIELD) {
 
 			ifinfield = ALREADY_INFIELD;
-			std::cout << "INPUT:: BUT:: ALREADY IN FIELD\n";
 		}
 
 		///
@@ -96,13 +93,11 @@ namespace ENGINE_NAME
 
 			ifinfield = OUTFIELD;
 			if (animate == true) { Animation(false, INFIELDANIM); }
-			std::cout << "INPUT:: BUT:: OUT OF FIELD\n";
 		}
 		else if(FieldCecker() == OUTFIELD && ifinfield == INFIELD) {
 
 			ifinfield = OUTFIELD;
 			if (animate == true) {Animation(false, INFIELDANIM);}
-			std::cout << "INPUT:: BUT:: OUT OF FIELD\n";
 			return MOUSE_OUTOFFIELD;
 		}
 
@@ -112,7 +107,6 @@ namespace ENGINE_NAME
 		else if	(FieldCecker()==OUTFIELD &&	ifinfield == OUTFIELD) {
 
 			ifinfield = ALREADY_OUTFIELD;
-			std::cout << "INPUT:: BUT:: ALREADY OUT OF FIELD\n";
 		}
 		return MOUSE_OUTOFFIELD;
 	}
@@ -127,8 +121,6 @@ namespace ENGINE_NAME
 
 			ifinfield = INFIELD;
 			if (animate == true) { Animation(true, animsize); }
-
-			std::cout << "INPUT:: BUT:: IN FIELD\n";
 			return MOUSE_INFIELD;
 		}
 
@@ -138,7 +130,6 @@ namespace ENGINE_NAME
 		else if (FieldCecker() == INFIELD && ifinfield == INFIELD) {
 
 			ifinfield = ALREADY_INFIELD;
-			std::cout << "INPUT:: BUT:: ALREADY IN FIELD\n";
 		}
 
 		///
@@ -148,13 +139,11 @@ namespace ENGINE_NAME
 
 			ifinfield = OUTFIELD;
 			if (animate == true) { Animation(false, animsize); }
-			std::cout << "INPUT:: BUT:: OUT OF FIELD\n";
 		}
 		else if (FieldCecker() == OUTFIELD && ifinfield == INFIELD) {
 
 			ifinfield = OUTFIELD;
 			if (animate == true) { Animation(false, INFIELDANIM); }
-			std::cout << "INPUT:: BUT:: OUT OF FIELD\n";
 			return MOUSE_OUTOFFIELD;
 		}
 
@@ -164,28 +153,28 @@ namespace ENGINE_NAME
 		else if (FieldCecker() == OUTFIELD &&	ifinfield == OUTFIELD) {
 
 			ifinfield = ALREADY_OUTFIELD;
-			std::cout << "INPUT:: BUT:: ALREADY OUT OF FIELD\n";
 		}
 		return MOUSE_OUTOFFIELD;
 	}
 
 	bool Button::ClickAnimation(int keyID) {
 
-		//if (Click(keyID) == true && clicked==false) {
+		if (ccRectangle(keyID) == Inputsystem::ACTIVATED /*&& clicked==false*/) {
 
-		//	clicked = true;
-		//	if (animate == true) { Animation(true, INFIELDANIM); }
+			/*clicked = true;*/
+			if (animate == true) { Animation(true, INFIELDANIM); }
 
-		//	std::cout << "INPUT:: BUT:: CLICKED\n";
-		//	return true;
-		//}
+			std::cout << "INPUT:: BUT:: CLICKED";
+			return true;
+		}
 
-		//else if (Click(keyID) == true /*&& clicked == true*/) {
-		//	clicked = false;
-		//	if (animate == true) { Animation(false, INFIELDANIM); }
-		//	std::cout << "INPUT:: BUT:: RELEASED\n";
-		//	return false;
-		//}
+		else if (ccRectangle(keyID) == Inputsystem::RELEASED /*&& clicked == true*/) {
+			//clicked = false;
+			if (animate == true) { Animation(false, INFIELDANIM); }
+			std::cout << "INPUT:: BUT:: RELEASED";
+			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
+			return false;
+		}
 		return MOUSE_OUTOFFIELD;
 
 	}

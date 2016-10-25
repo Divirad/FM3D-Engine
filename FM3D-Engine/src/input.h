@@ -131,15 +131,15 @@ namespace ENGINE_NAME
 		};
 
 	private:
-		//Static Object
+		///
+		///Static Object
+		///
 		static Inputsystem s_instance;
-		//Array for Key-Checking (using the makros from above) 
-		//Each Array field has the same Char-ID like the keys
-		//Except the Mouse
+		///Array for Key-Checking (using the makros from above) 
+		///Each Array field has the same Char-ID like the keys 
 		bool m_pressed[121] = { false };
-		//Vector for tracking the last position of mouse
+		///Vector for tracking the last position of mouse
 		MOUSE m_mousekey[4];
-		Vector2f lastposclick;
 		Vector2f lastposinst;
 
 		short wheel;		

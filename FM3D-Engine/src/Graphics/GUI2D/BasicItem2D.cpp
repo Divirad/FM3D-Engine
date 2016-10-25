@@ -202,5 +202,15 @@ namespace ENGINE_NAME {
 		return Inputsystem::NOCLICK;
 	}
 
+	bool BasicItem2D::Collision(Quad &quad){
+		if (GetPosition0().y<quad.GetPosition1().y &&
+			GetPosition0().x<quad.GetPosition1().x &&
+			GetPosition1().y>quad.GetPosition0().y &&
+			GetPosition1().x>quad.GetPosition0().x
+			) {
+			return true;
+		}
+		return false;
+	}
 
 }

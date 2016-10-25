@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Dropbox\Schule\FM3D\knupke392x378.png" />
+    <Image Include="res\blackhole.png" />
     <Image Include="res\dragon0.jpg" />
     <Image Include="res\dragon1.jpg" />
     <Image Include="res\dragon2.jpg" />

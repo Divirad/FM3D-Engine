@@ -64,9 +64,9 @@ namespace ENGINE_NAME {
 
 		void PicVisibility(float pro);
 		Inputsystem::KEYCLICK ccRectangle(int keyID);	//DONE
-		//bool ccEllipse();
 
 		FIELDCHECK FieldCecker();
+		bool Collision(Quad &quad);
 
 	};
 }
