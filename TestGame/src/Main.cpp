@@ -15,6 +15,93 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 ///////////////////////////////////////////////////////////////
 
 ///
+///First little TestGame
+///
+void BlackHole(HINSTANCE hInstance)
+{
+	Window::StartConsole();
+	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
+	ExternFileManager::Initialize();
+	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
+	win->Start(600, 600, L"Voll das Krasse Fenster");
+	CompCoords::Initialize(600, 600);
+	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
+	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
+		std::cout << "Rendersystem Initializing Error!" << std::endl;
+	}
+	Renderer2D* renderer = renderSystem->CreateRenderer2D();
+	Matrix4f projectionMatrix = Matrix4f::Identity();
+	renderer->Initialize(projectionMatrix);
+	///
+	///Textures
+	///
+	Texture* blackhole = renderSystem->CreateTexture(NULL);
+	Texture* fm3dlogo = renderSystem->CreateTexture(NULL);
+	ExternFileManager::ReadTextureFile("NewFM3DLogoMini.png", fm3dlogo, Texture::NEAREST);
+	ExternFileManager::ReadTextureFile("blackhole.png", blackhole, Texture::NEAREST);
+
+	PictureQuad BlackHole(blackhole, Vector3f(-1.0f, -1.0f, 0));
+	//vector<DragDropper> fm3ds
+	DragDropper fm3dtest(fm3dlogo, Vector3f(0.0f, 0.5f, 0));
+	fm3dtest.Anchor(DragDropper::TOP);
+	///
+	///FONT instruction
+	///
+	Engine::Font* inst;
+	ExternFileManager::ReadFontFile("fontilein.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(""), &inst);
+	Text instruction;
+	instruction.color = 0xffffffff;
+	instruction.font = inst;
+	instruction.txt = "Pull the logo into the black hole\n";
+
+	while (!win->ShouldClose()) {
+		if (!win->HasMessage()) {
+
+			renderSystem->BeginRendering(new float[4]{ 0.2f, 0.5f, 0.5f, 1.0f });
+			///
+			///Buffer Start
+			///
+			renderer->Begin();
+			///
+			///Button wird in den Buffer geschrieben
+			///
+			renderer->Submit(&BlackHole);
+			renderer->Submit(&fm3dtest);
+			renderer->DrawString(instruction, Vector3f(-1.0f, 0.8f, 0.0f));
+			///
+			///END SUBMITTING
+			///
+			renderer->End();
+			///
+			///CHECK
+			///
+			fm3dtest.InFieldAnimation();
+			if (BlackHole.Collision(fm3dtest)) {
+				instruction.txt = "Gooood job! Now Click it and pull it through the black hole!";
+			}
+			if (BlackHole.Click(MOUSE_LEFT) == true)
+			{
+				instruction.txt = instruction.txt + " FUUUCK ITS DARK HERE!";
+			}
+			if (fm3dtest.Click(MOUSE_LEFT) == true)
+			{
+				if (BlackHole.Collision(fm3dtest)){
+					fm3dtest.SetPosition0(Vector3f(-2.0f, -2.0f, 0.0f));
+					instruction.txt = "Good job lil astronaut!";
+					fm3dtest.AutoSize();
+				}
+			}
+			fm3dtest.DragDrop(MOUSE_LEFT);
+			
+			renderer->Flush();
+			renderSystem->EndRendering();
+		}
+	};
+	renderSystem->Shutdown();
+}
+
+
+///
 ///2D Test Project
 ///
 void NewButton(HINSTANCE hInstance)
