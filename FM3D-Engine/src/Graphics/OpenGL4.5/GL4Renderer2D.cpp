@@ -130,7 +130,7 @@ namespace ENGINE_NAME {
 		m_buffer->color = color;
 		m_buffer++;
 
-		vertex = m_transformationMatrix * quad->GetPosition1();
+		vertex = m_transformationMatrix * Vector3f(quad->GetPosition1().x, quad->GetPosition1().y, quad->GetPosition0().z);
 		m_buffer->vertex = vertex;
 		m_buffer->uv = quad->GetUV1();
 		m_buffer->tid = tid;

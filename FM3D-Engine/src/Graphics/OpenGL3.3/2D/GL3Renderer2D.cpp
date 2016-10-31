@@ -107,7 +107,7 @@ namespace ENGINE_NAME {
 		m_buffer->color = color;
 		m_buffer++;
 
-		vertex = m_transformationMatrix * quad->GetPosition1();
+		vertex = m_transformationMatrix * Vector3f(quad->GetPosition1().x, quad->GetPosition1().y, quad->GetPosition0().z);
 		m_buffer->vertex = vertex;
 		m_buffer->uv = quad->GetUV1();
 		m_buffer->color = color;
@@ -121,45 +121,6 @@ namespace ENGINE_NAME {
 
 		m_indicesCount += 6;
 	}
-
-	///BasicItem2D Rendering
-	/*void GL3Renderer2D::Submit(BasicItem2D* quad) {
-		uint color = quad->GetColor();
-		const GL3Texture* tex = (const GL3Texture*)quad->GetTexture();
-		float tid = 0.0f;
-		if (m_texture != tex) {
-			End();
-			Flush();
-			Begin();
-			m_texture = tex;
-		}
-
-		Vector3f vertex = m_transformationMatrix * quad->GetPosition0();
-		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV0();
-		m_buffer->color = color;
-		m_buffer++;
-
-		vertex = m_transformationMatrix * quad->GetPosition2();
-		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV2();
-		m_buffer->color = color;
-		m_buffer++;
-
-		vertex = m_transformationMatrix * quad->GetPosition1();
-		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV1();
-		m_buffer->color = color;
-		m_buffer++;
-
-		vertex = m_transformationMatrix * quad->GetPosition3();
-		m_buffer->vertex = vertex;
-		m_buffer->uv = quad->GetUV3();
-		m_buffer->color = color;
-		m_buffer++;
-
-		m_indicesCount += 6;
-	}*/
 
 	void GL3Renderer2D::End() {
 		GLCall(glUnmapBuffer(GL_ARRAY_BUFFER));

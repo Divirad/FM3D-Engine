@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Dropbox\Schule\FM3D\knupke392x378.png" />
+    <Image Include="res\blackhole.png" />
     <Image Include="res\dragon0.jpg" />
     <Image Include="res\dragon1.jpg" />
     <Image Include="res\dragon2.jpg" />
@@ -175,6 +176,7 @@
     <Image Include="res\Fett_jetpak_D.tga" />
     <Image Include="res\HOMMTEXT1.png" />
     <Image Include="res\knoebsche100x50.jpg" />
+    <Image Include="res\NewFM3DLogoMini.png" />
     <Image Include="res\Stormtrooper_d.tga" />
   </ItemGroup>
   <ItemGroup>

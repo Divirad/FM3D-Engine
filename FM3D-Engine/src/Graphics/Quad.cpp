@@ -4,13 +4,7 @@
 namespace ENGINE_NAME {
 
 	void Quad::SetSize(const Vector2f& vec) {
-		/*m_position1.x = m_position0.x + vec.x;
-		m_position1.y = m_position0.y - vec.y;*/
-		SetPosition1(Vector2f(m_position0.x + vec.x, m_position0.y - vec.y));
-		m_uv0.x = 0.0f;
-		m_uv0.y = 0.0f;
-		m_uv1.x = 1.0f;
-		m_uv1.y = 1.0f;
+		SetPosition1(Vector2f(m_position0.x + vec.x, m_position0.y + vec.y));
 	}
 
 	//void Quad::SetSize(int x, int y) {

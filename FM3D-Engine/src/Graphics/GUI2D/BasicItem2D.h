@@ -5,43 +5,18 @@ namespace ENGINE_NAME {
 	class ENGINE_DLL BasicItem2D : public Quad {
 
 	public:
-		BasicItem2D(Texture *txt, int i) {
-			
-			//SetPosition0(Vector3f(0.0f, 0.0f),0);
-			m_position0 = { -0.3f,-0.5f };
-			m_position1 = { 0.5f,0.0f };
-
-			/*m_position0 = { 0.0f,0.5f };
-			m_position1 = { 0.5f,1.0f };*/
-
-			SetTexture(txt);
-			m_uv0 = { 0.0f, 0.0f };
-			m_uv1 = { 1.0f,1.0f };
-			SetColor(0xffffffff);
-		}
-
-		BasicItem2D(Texture *txt) {
-
-			//SetPosition0(Vector3f(0.0f, 0.0f),0);
-			m_position0 = { 0.0f,0.0f };
-			m_position1 = { 0.5f,0.5f };
-			SetTexture(txt);
-			m_uv0 = { 0.0f, 0.0f };
-			m_uv1 = { 1.0f,1.0f };
-			SetColor(0xffffffff);
-		}
 
 		enum ANCHOR
 		{
-			VERTICAL_LEFT,
-			VERTICAL_RIGHT,
-			VERTICAL_STRETCH,
-			VERTICAL_CENTER,
+			LEFT_CENTER,
+			RIGHT_CENTER,
+			STRETCH_VERTICAL,
+			CENTER_VERTICAL,
 
-			HORIZONTAL_TOP,
-			HORIZONTAL_BOTTOM,
-			HORIZONTAL_STRETCH,
-			HORIZONTAL_CENTER,
+			TOP_CENTER,
+			BOTTOM_CENTER,
+			STRETCH_HORIZONTAL,
+			CENTER_HORIZONTAL,
 
 			STRETCH,
 			CENTER,
@@ -50,22 +25,21 @@ namespace ENGINE_NAME {
 			BOTTOM,
 			TOP
 		};
+		enum FIELDCHECK {
+			INFIELD,
+			ALREADY_INFIELD,
+			OUTFIELD,
+			ALREADY_OUTFIELD
+		};
+
 
 	protected:
-		//Quad m_box;		
 		//4 Clickcheck
 		Vector2f ccresult;
-		//visibility 
-		float visquad;
-		float visfloat;
+		//float visquad;
+		//float visfloat;
 
-	public:
-		
-		bool Click(int keyID);	//DONE
-		void AutoSize();
-		void Anchor(ANCHOR ad);	//DONE
-
-		void VLeft();
+		void VLeft();			//DONE
 		void VRight();			//DONE
 		void VStretch();		//DONE
 		void VCenter();			//DONE
@@ -82,10 +56,17 @@ namespace ENGINE_NAME {
 		void Top();				//DONE
 		void Bottom();			//DONE
 
-		void PicVisibility(float pro);
-		bool ccRectangle(int keyID);	//DONE
-		bool ccEllipse();
+	public:
+		
+		bool Click(int keyID);
+		void AutoSize();		//DONE
+		void Anchor(ANCHOR ad);	//DONE
 
+		void PicVisibility(float pro);
+		Inputsystem::KEYCLICK ccRectangle(int keyID);	//DONE
+
+		FIELDCHECK FieldCecker();
+		bool Collision(Quad &quad);
 
 	};
 }

@@ -77,7 +77,10 @@ namespace ENGINE_NAME {
 
 //2DRendering
 #include <src/Graphics/GUI2D/BasicItem2D.h>
+#include <src/Graphics/GUI2D/PictureQuad.h>
+#include <src/Graphics/GUI2D/TextQuad.h>
 #include <src/Graphics/GUI2D/Button.h>
+#include <src/Graphics/GUI2D/DragDropper.h>
 
 //DirectX11
 //#include <src/Graphics/D3D11/D3D11RenderSystem.h>

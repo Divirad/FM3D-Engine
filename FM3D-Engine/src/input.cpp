@@ -5,86 +5,32 @@ using namespace std;
 namespace ENGINE_NAME
 {
 	Inputsystem Inputsystem::s_instance = Inputsystem();
-	Inputsystem::Inputsystem()
-	{
-		m_mode = CLICK_RELEASE;
-	}
-	Inputsystem::~Inputsystem()
-	{
-
-	}
-	void Inputsystem::SetMouseOption(COORDS_MODE mode)
-	{
-		m_mode = mode;
-	}
+	Inputsystem::Inputsystem() {}
+	Inputsystem::~Inputsystem() {}
 
 	void Inputsystem::keyPressed(WPARAM wParam) {
 
-		if (pressed[wParam] != true)
+		if (m_pressed[wParam] != true)
 		{
-			pressed[wParam] = true;
+			m_pressed[wParam] = true;
 			cout << "INPUT:: K  :: >>" << wParam << "<< ACTIVATED\n";
 		}
 	}
 	void Inputsystem::keyReleased(WPARAM wParam) {
-		pressed[wParam] = false;
+		m_pressed[wParam] = false;
 		cout << "INPUT:: K  :: >>" << wParam << "<< DEACTIVATED\n";
 	}
 
 	void Inputsystem::MPressed(LPARAM lParam, int LorR) {
-		switch (m_mode) {
-		case CLICK:
-			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
-			break;
-
-		case RELEASE:
-			pressed[LorR] = true;
-			cout << "\nINPUT:: R  :: " << LorR << "-Mouse-Click ACTIVATED\n";
-			break;
-
-		case CLICK_RELEASE:
-			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
-			break;
-
-		case INSTANT:
-			pressed[LorR] = true;
-			lastpos.x = LOWORD(lParam);
-			lastpos.y = HIWORD(lParam);
-			cout << "\nINPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << lastpos.x << " AND Y: " << lastpos.y << "<< ACTIVATED\n";
-			break;
-		}
-
+		m_mousekey[LorR].clicked = ACTIVATED;
+		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick <<" ACTIVATED\n";
 	}
 
 	void Inputsystem::MReleased(LPARAM lParam, int LorR) {
-		switch (m_mode) {
-		case CLICK:
-			pressed[LorR] = false;
-			cout << "INPUT:: C  :: " << LorR << "-Mouse-Click  DEACTIVATED\n";
-			break;
-
-		case RELEASE:
-			pressed[LorR] = false;
-			cout << "INPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-
-		case CLICK_RELEASE:
-			pressed[LorR] = false;
-			cout << "INPUT:: CR :: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-
-		case INSTANT:
-			pressed[LorR] = false;
-			cout << "INPUT:: INS:: " << LorR << "-Mouse-Click @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "<< DEACTIVATED\n";
-			break;
-		}
-
+		m_mousekey[LorR].clicked = RELEASED;
+		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
+		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick << "<< RELEASED\n";
 	}
 
 	void Inputsystem::MWheel(short wheeldata)
@@ -95,31 +41,47 @@ namespace ENGINE_NAME
 
 	void Inputsystem::MMove(LPARAM lParam)
 	{
-		if (m_mode == INSTANT)
-		{
-			cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
-		}
+		
+		/*m_mousekey[MOUSE_LEFT].clicked = NOCLICK;
+		m_mousekey[MOUSE_RIGHT].clicked = NOCLICK;*/
+		/*
+		m_mousekey[MOUSE_MIDDLE].clicked = NOCLICK;*/
+
+			lastposinst.x = LOWORD(lParam);
+			lastposinst.y = HIWORD(lParam);
+			//cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
+	}
+
+	void Inputsystem::setMKey(int ID, KEYCLICK tof)
+	{
+		m_mousekey[ID].clicked = tof;
 	}
 
 	bool Inputsystem::CheckIfKeyIsPressed(int keyid)
 	{
-		if (pressed[keyid] == true)
+		if (m_pressed[keyid] == true)
 		{
 			return  true;
 		}
 		else { return false; }
 	}
 
+	Inputsystem::KEYCLICK Inputsystem::CheckIfMouseIsPressed(int keyid)
+	{
+		return	m_mousekey[keyid].clicked;
+
+	}
+
 	void Inputsystem::DoIfKeyPressed(int keyid, void(*f)()) {
 
-		if (pressed[keyid] == true) {
+		if (m_pressed[keyid] == true) {
 			(*f)();
 		}
 	}
 
 	void Inputsystem::setKey(int ID, bool tof)		//trueorFalse
 	{
-		pressed[ID] = tof;
+		m_pressed[ID] = tof;
 	}
 
 }
