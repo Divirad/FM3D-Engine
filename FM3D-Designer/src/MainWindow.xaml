@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:FM3D_Designer"
         xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
         xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
-        xmlns:dt="clr-namespace:FM3D_Designer.Themes.Dark_Theme"
         x:Class="FM3D_Designer.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
-        m:MetroUI.Theme="{x:Static dt:DarkMetroTheme.MetroStyle}"
+        m:MetroUI.Theme="{Binding MetroStyle, Source={x:Static local:Theme.Current}}"
         Height="720" Width="1280">
 
     <m:MetroShell ShowBackstageButton="False">

@@ -594,6 +594,8 @@
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\Null.frag" />
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\Null.vert" />
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\PointLight.frag" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\Assimp\lib\assimp.lib" />

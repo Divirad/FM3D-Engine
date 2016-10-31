@@ -77,50 +77,60 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="src\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FileBrowserWindow.xaml.cs">
-      <DependentUpon>FileBrowserWindow.xaml</DependentUpon>
+    <Compile Include="src\ColorTestWindow.xaml.cs">
+      <DependentUpon>ColorTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileSystem.cs" />
-    <Compile Include="MainLayout.xaml.cs">
+    <Compile Include="src\Command.cs" />
+    <Compile Include="src\Theme.cs" />
+    <Compile Include="src\WindowLayouts\MainLayout.xaml.cs">
       <DependentUpon>MainLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="src\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="src\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Project.cs" />
-    <Compile Include="StartLayout.xaml.cs">
+    <Compile Include="src\Project.cs" />
+    <Compile Include="src\WindowLayouts\StartLayout.xaml.cs">
       <DependentUpon>StartLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Dark Theme\DarkMetroTheme.cs" />
-    <Compile Include="ToolWindow.cs" />
-    <Compile Include="WindowLayout.cs" />
-    <Page Include="FileBrowserWindow.xaml">
+    <Compile Include="Themes\DarkMetroTheme.cs" />
+    <Compile Include="src\ToolWindow.cs" />
+    <Compile Include="src\ToolWindows\FileBrowser\Model.cs" />
+    <Compile Include="src\ToolWindows\FileBrowser\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\FileBrowser\ViewModel.cs" />
+    <Compile Include="src\WindowLayout.cs" />
+    <Page Include="src\ColorTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainLayout.xaml">
+    <Page Include="src\WindowLayouts\MainLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="src\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StartLayout.xaml">
+    <Page Include="src\WindowLayouts\StartLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\ToolWindows\FileBrowser\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -146,12 +156,20 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="TestProjects\Project 0\project 0.fmproj" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="src\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\file browser\file_nonproj_icon.ico" />
+    <Resource Include="resources\images\file browser\folder_closed_nonproj_icon.ico" />
+    <Resource Include="resources\images\file browser\folder_open_nonproj_icon.ico" />
+    <Resource Include="resources\images\warning.png" />
+    <Resource Include="resources\images\selected.png" />
     <Resource Include="resources\images\file browser\bigicons_icon.png" />
     <Resource Include="resources\images\file browser\tree_bigicons_icon.png" />
     <Resource Include="resources\images\file browser\tree_icon.png" />

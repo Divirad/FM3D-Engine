@@ -10,22 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Windows.Controls.Primitives;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.ToolWindows.FileBrowser
 {
     /// <summary>
-    /// Interaction logic for FileBrowserLayout.xaml
+    /// Interaction logic for FileBrowserView.xaml
     /// </summary>
-    public partial class FileBrowserWindow : ToolWindow
+    public partial class View : ToolWindow
     {
-        public FileBrowserWindow(WindowLayout mainWindow)
+        public View(WindowLayout mainWindow)
         {
             InitializeComponent();
             this.Header = "File Browser";
+
+
+
             this.Initialize(mainWindow);
         }
 

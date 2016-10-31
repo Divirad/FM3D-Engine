@@ -427,6 +427,8 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram.mdj" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\material.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\matrix3x3.inl" />

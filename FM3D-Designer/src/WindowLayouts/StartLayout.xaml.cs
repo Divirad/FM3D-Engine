@@ -42,7 +42,7 @@ namespace FM3D_Designer
 
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
-            //this.textBox.Text = "C:\\Users\\Dyrax\\Desktop\\TestProject\\Test.project";
+            this.textBox.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }
     }
 }

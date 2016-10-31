@@ -23,6 +23,8 @@ namespace FM3D_Designer
     {
         public MainWindow()
         {
+            Themes.DarkTheme.SetTheme();
+            
             InitializeComponent();
             AttachNewWindowLayout(new StartLayout(this));
         }

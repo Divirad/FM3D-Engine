@@ -92,12 +92,21 @@ void StarwarsScene(HINSTANCE hInstance) {
 	materialsBoba[3] = &mat4Boba;
 	materialsBoba[4] = &mat5Boba;
 
+	std::vector<std::vector<Entity>> entities;
+
+	for (int x = 0; x < 50; x++) {
+		entities.push_back(std::vector<Entity>());
+		for (int z = 0; z < 100; z++) {
+			entities[x].push_back(Entity(Vector3f(x * 2.5f, 0.0f, z * 2.5f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), bobaMesh));
+		}
+	}
+
 	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), bobaMesh);
 	boba.GetAnimations().push_back({ 0u, 0.0 });
 
 	float color[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-	Camera camera(Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f));
+	Camera camera(Vector3f(25.0f * 2.5f, 10.0f, 50.0f * 2.5f), Vector3f(-45.0f, 0.0f, 0.0f));
 
 	LARGE_INTEGER time1;
 	LARGE_INTEGER time2;
@@ -110,7 +119,14 @@ void StarwarsScene(HINSTANCE hInstance) {
 
 			//renderer->Submit(&trooper1);
 			//renderer->Submit(&trooper2);
-			renderer->Submit(&boba);
+			//renderer->Submit(&boba);
+
+			for (std::vector<Entity>& ent : entities) {
+				for (Entity& e : ent) {
+					renderer->Submit(&e);
+				}
+			}
+
 			renderer->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
 			renderSystem->EndRendering();

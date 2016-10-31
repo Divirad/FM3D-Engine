@@ -1,0 +1,57 @@
+﻿<m:MetroAppWindow x:Class="FM3D_Designer.ColorTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
+        xmlns:local="clr-namespace:FM3D_Designer"
+        mc:Ignorable="d"
+        m:MetroUI.Theme="{Binding MetroStyle, Source={x:Static local:Theme.Current}}"
+        Title="ColorTestWindow"
+        Height="1000" Width="1500">
+    <m:MetroShell ShowBackstageButton="False">
+        <m:MetroShell.Chrome>
+            <m:MetroChrome>
+            </m:MetroChrome>
+        </m:MetroShell.Chrome>
+        <m:MetroShell.Items>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}">CanvasBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">TextBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.TextLightBrushKey}}">TextLightBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.TextDarkBrushKey}}">TextDarkBrushKey</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.TextInactiveBrushKey}}">TextInactiveBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.TextDisabledBrushKey}}">TextDisabledBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.CanvasDarkBrushKey}}">CanvasDarkBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.CanvasLightBrushKey}}">CanvasLightBrushKey</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.CanvasLighterBrushKey}}">CanvasLighterBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseBrushKey}}">BaseBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseTextBrushKey}}">BaseTextBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseDarkBrushKey}}">BaseDarkBrushKey</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseDarkerBrushKey}}">BaseDarkerBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseLightBrushKey}}">BaseLightBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseLightTextBrushKey}}">BaseLightTextBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementBrushKey}}">ComplementBrushKey</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementLightBrushKey}}">ComplementLightBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementDarkBrushKey}}">ComplementDarkBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementDarkerBrushKey}}">ComplementDarkerBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementTextBrushKey}}">ComplementTextBrushKey</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.ComplementLightTextBrushKey}}">ComplementLightTextBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.CanvasGradientBrushKey}}">CanvasGradientBrushKey</TextBox>
+                    <TextBox Margin="10,10" Height="80" Width="200" Background="{DynamicResource {x:Static m:MetroColors.BaseActivateGradientBrushKey}}">BaseActivateGradientBrushKey</TextBox>
+                </StackPanel>
+            </StackPanel>
+        </m:MetroShell.Items>
+    </m:MetroShell>
+</m:MetroAppWindow>

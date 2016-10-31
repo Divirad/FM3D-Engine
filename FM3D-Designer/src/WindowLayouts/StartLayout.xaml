@@ -30,7 +30,7 @@
                 <Button x:Name="button" Content="Start Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="button_Click"/>
             </StackPanel>                        
             <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" Grid.Column="0" VerticalAlignment="Stretch"/>
-            <Button x:Name="testButton" Grid.Column="0" Content="Test Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click"/>
+            <Button x:Name="testButton" Grid.Column="0" Content="Project 0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click"/>
         </Grid>
 
     </Grid>
