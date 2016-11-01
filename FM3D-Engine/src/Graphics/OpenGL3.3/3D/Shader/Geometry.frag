@@ -12,9 +12,11 @@ layout (location = 3) out vec3 TexCoordOut;
 uniform sampler2D gColorMap;                
 											
 void main()									
-{											
-	WorldPosOut     = WorldPos0;					
-	DiffuseOut      = texture(gColorMap, TexCoord0).xyz;	
+{																
+	vec4 color		= texture(gColorMap, TexCoord0);
+	if(color[3] < 0.6) discard;
+	DiffuseOut      = color.xyz;
+	WorldPosOut     = WorldPos0;	
 	NormalOut       = normalize(Normal0);					
 	TexCoordOut     = vec3(TexCoord0, 0.0);				
 }

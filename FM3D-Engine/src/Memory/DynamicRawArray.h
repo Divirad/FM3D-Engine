@@ -25,6 +25,13 @@ namespace ENGINE_NAME {
 		}
 
 		bool IsCreated() const { return m_isCreated; }
+
+		void Delete() {
+			if (!m_isCreated) {
+				free(m_data);
+				m_isCreated = true;
+			}
+		}
 	};
 
 	template<class T>
