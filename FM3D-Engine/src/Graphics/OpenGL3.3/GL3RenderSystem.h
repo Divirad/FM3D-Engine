@@ -32,13 +32,14 @@ namespace ENGINE_NAME {
 		GL3RenderSystem() {};
 	public:
 		bool Initialize(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen) override;
-		void BeginRendering(float color[4]) override;
+		void BeginRendering(const Color4f& color) override;
 		void EndRendering() override;
 		void Shutdown() override;
 
 		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<Mesh::Part>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
-		Texture* CreateTexture(const char* filename) override { return new GL3Texture(); }
-		Renderer2D* CreateRenderer2D() override { return new GL3Renderer2D(); }
+		Texture* CreateTexture() override { return new GL3Texture(); }
+		Renderer2D* CreateRenderer2D(const RenderTarget2D* renderTarget) override { return new GL3Renderer2D(renderTarget); }
 		Renderer3D* CreateRenderer3D(Matrix4f& projectionMatrix, uint width, uint height) override { return new GL3Renderer3D(projectionMatrix, width, height, this); }
+		RenderTarget2D* CreateRenderTarget2D(const Vector2i& size, bool useDepth) override { return new GL3RenderTarget2D(size, useDepth); }
 	};
 }

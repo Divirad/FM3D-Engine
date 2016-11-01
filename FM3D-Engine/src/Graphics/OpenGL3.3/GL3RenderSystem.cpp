@@ -42,7 +42,7 @@ namespace ENGINE_NAME {
 		return true;
 	}
 
-	void GL3RenderSystem::BeginRendering(float color[4]) {
+	void GL3RenderSystem::BeginRendering(const Color4f& color) {
 		GLCall(glClearColor(color[0], color[1], color[2], color[3]));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}

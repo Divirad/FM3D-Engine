@@ -55,6 +55,7 @@ namespace ENGINE_NAME {
 #include <src/Utilities/CompCoords.h>	///
 
 #include <src/Graphics/Texture.h>
+#include <src/Graphics/RenderTarget2D.h>
 #include <src/Graphics/Quad.h>
 #include <src/Graphics/Font.h>
 #include <src/Graphics/Camera.h>
@@ -90,6 +91,7 @@ namespace ENGINE_NAME {
 
 #include <src/Graphics/OpenGL3.3/GL3Mesh.h>
 #include <src/Graphics/OpenGL3.3/GL3Texture.h>
+#include <src/Graphics/OpenGL3.3/GL3RenderTarget2D.h>
 #include <src/Graphics/OpenGL3.3/GL3Shader.h>
 #include <src/Graphics/OpenGL3.3/2D/GL3Renderer2D.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3GBuffer.h>

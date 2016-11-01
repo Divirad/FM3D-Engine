@@ -21,31 +21,7 @@ namespace ENGINE_NAME {
 			unsigned int color;
 		};
 
-		class ENGINE_DLL Shader2D : public GL3Shader {
-		private:
-			GLint loc_prMatrix;
-			GLint loc_tex;
-			GLint loc_texBits;
-		public:
-			Shader2D(const char* vertPath, const char* fragPath) : GL3Shader(vertPath, fragPath) { GetAllUniformLocations(); };
-
-			void Init(Matrix4f prm) {
-				SetUniform1i(loc_tex, 0);
-				prm.Transpose();
-				SetUniformMat4(loc_prMatrix, prm);
-			}
-
-			void LoadTexBits(int bits) {
-				SetUniform1i(loc_texBits, bits);
-			}
-		protected:
-			void GetAllUniformLocations() {
-				loc_prMatrix = GetUniformLocation("pr_matrix");
-				loc_tex = GetUniformLocation("tex");
-				loc_texBits = GetUniformLocation("texBits");
-			};
-			void BindAttributes() {};
-		};
+		class Shader2D;
 
 		GLuint m_vao;
 		GLuint m_vbo;
@@ -55,6 +31,9 @@ namespace ENGINE_NAME {
 		VertexData* m_buffer;
 		const GL3Texture* m_texture;
 	public:
+		GL3Renderer2D(const RenderTarget2D* renderTarget);
+		~GL3Renderer2D();
+
 		void Begin() override;
 		void Submit(Quad* quad) override;
 //		void Submit(BasicItem2D* quad) override;
@@ -62,9 +41,5 @@ namespace ENGINE_NAME {
 		void Flush() override;
 
 		void DrawString(const Text& text, const Vector3f& position) override;
-
-		void Initialize(Matrix4f projectionMatrix);
-		void SetProjectionMatrix(const Matrix4f& projectionMatrix) override;
-		void Shutdown() override;
 	};
 }

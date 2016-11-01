@@ -58,16 +58,15 @@ namespace ENGINE_NAME {
 		VertexData* m_buffer;
 		std::vector<const GL3Texture*> m_TextureSlots;
 	public:
+		GL4Renderer2D(const RenderTarget2D* renderTarget);
+		~GL4Renderer2D();
+
 		void Begin() override;
 		void Submit(Quad* quad) override;
 		void End() override;
 		void Flush() override;
 
 		void DrawString(const Text& text, const Vector3f& position) override;
-
-		void Initialize(Matrix4f projectionMatrix);
-		void SetProjectionMatrix(const Matrix4f& projectionMatrix) override;
-		void Shutdown() override;
 	private:
 		float SubmitTexture(const GL3Texture* texture);
 	};

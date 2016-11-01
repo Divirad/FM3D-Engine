@@ -12,6 +12,6 @@ namespace ENGINE_NAME {
 
 		GL4RenderSystem() {};
 	public:
-		Renderer2D* CreateRenderer2D() override { return new GL4Renderer2D(); }
+		Renderer2D* CreateRenderer2D(const RenderTarget2D* renderTarget) override { return new GL4Renderer2D(renderTarget); }
 	};
 }

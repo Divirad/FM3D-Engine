@@ -397,6 +397,7 @@
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3Mesh.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderSystem.h" />
+    <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3Shader.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3Texture.h" />
     <ClInclude Include="src\Graphics\OpenGL4.5\GL4Renderer2D.h" />
@@ -405,6 +406,7 @@
     <ClInclude Include="src\Graphics\Renderer2D.h" />
     <ClInclude Include="src\Graphics\Renderer3D.h" />
     <ClInclude Include="src\Graphics\RenderSystem.h" />
+    <ClInclude Include="src\Graphics\RenderTarget2D.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
     <ClInclude Include="src\Graphics\Skeleton.h" />
     <ClInclude Include="src\Graphics\Texture.h" />
@@ -485,15 +487,19 @@
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3Mesh.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderSystem.cpp" />
+    <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3Shader.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3Texture.cpp" />
     <ClCompile Include="src\Graphics\OpenGL4.5\GL4Renderer2D.cpp" />
     <ClCompile Include="src\Graphics\OpenGL4.5\GL4RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\Quad.cpp" />
+    <ClCompile Include="src\Graphics\Renderer2D.cpp" />
     <ClCompile Include="src\Graphics\RenderSystem.cpp" />
+    <ClCompile Include="src\Graphics\RenderTarget2D.cpp" />
     <ClCompile Include="src\Graphics\Skeleton.cpp" />
     <ClCompile Include="src\Graphics\Vertices.cpp" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\Math\Math.cpp" />
     <ClCompile Include="src\Utilities\CompCoords.cpp" />
     <ClCompile Include="src\Utilities\StringUtilities.cpp" />
     <ClCompile Include="src\Win32Window.cpp" />

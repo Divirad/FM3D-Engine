@@ -2,20 +2,14 @@
 
 namespace ENGINE_NAME {
 
-	void GL4Renderer2D::Shutdown() {
+	GL4Renderer2D::~GL4Renderer2D() {
 		glDeleteBuffers(1, &m_ibo);
 		glDeleteBuffers(1, &m_vbo);
 		glDeleteVertexArrays(1, &m_vao);
 		delete m_shader;
 	}
 
-	void GL4Renderer2D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
-		m_shader->Bind();
-		m_shader->Init(projectionMatrix);
-		m_shader->Unbind();
-	}
-
-	void GL4Renderer2D::Initialize(Matrix4f projectionMatrix) {
+	GL4Renderer2D::GL4Renderer2D(const RenderTarget2D* renderTarget): Renderer2D(renderTarget) {
 		glGenVertexArrays(1, &m_vao);
 		glGenBuffers(1, &m_vbo);
 		GLErrorCheck();
@@ -71,9 +65,6 @@ namespace ENGINE_NAME {
 			;
 
 		m_shader = new Shader2D(vertexShaderSrc, fragmentShaderSrc);
-		m_shader->Bind();
-		m_shader->Init(projectionMatrix);
-		m_shader->Unbind();
 	}
 
 	float GL4Renderer2D::SubmitTexture(const GL3Texture* texture) {

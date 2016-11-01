@@ -2,20 +2,33 @@
 
 namespace ENGINE_NAME {
 
-	void GL3Renderer2D::Shutdown() {
+	class GL3Renderer2D::Shader2D : public GL3Shader {
+	private:
+		GLint loc_tex;
+		GLint loc_texBits;
+	public:
+		Shader2D(const char* vertPath, const char* fragPath) : GL3Shader(vertPath, fragPath) {
+			loc_tex = GetUniformLocation("tex");
+			loc_texBits = GetUniformLocation("texBits");
+
+			Bind();
+			SetUniform1i(loc_tex, 0);
+			Unbind();
+		};
+
+		void LoadTexBits(int bits) {
+			SetUniform1i(loc_texBits, bits);
+		}
+	};
+
+	GL3Renderer2D::~GL3Renderer2D() {
 		glDeleteBuffers(1, &m_ibo);
 		glDeleteBuffers(1, &m_vbo);
 		glDeleteVertexArrays(1, &m_vao);
 		delete m_shader;
 	}
 
-	void GL3Renderer2D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
-		m_shader->Bind();
-		m_shader->Init(projectionMatrix);
-		m_shader->Unbind();
-	}
-
-	void GL3Renderer2D::Initialize(Matrix4f projectionMatrix) {
+	GL3Renderer2D::GL3Renderer2D(const RenderTarget2D* renderTarget): Renderer2D(renderTarget), m_texture(nullptr), m_indicesCount(0) {
 		glGenVertexArrays(1, &m_vao);
 		glGenBuffers(1, &m_vbo);
 		GLErrorCheck();
@@ -69,9 +82,6 @@ namespace ENGINE_NAME {
 			;
 
 		m_shader = new Shader2D(vertexShaderSrc, fragmentShaderSrc);
-		m_shader->Bind();
-		m_shader->Init(projectionMatrix);
-		m_shader->Unbind();
 	}
 
 	void GL3Renderer2D::Begin() {

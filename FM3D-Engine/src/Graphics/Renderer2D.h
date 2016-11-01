@@ -6,6 +6,9 @@ namespace ENGINE_NAME {
 	class ENGINE_DLL Renderer2D {
 	protected:
 		Matrix4f m_transformationMatrix = Matrix4f::Identity();
+		const RenderTarget2D* m_renderTarget;
+
+		Renderer2D(const RenderTarget2D* renderTarget);
 	public:
 		virtual void Begin() = 0;
 		virtual void Submit(Quad* quad) = 0;
@@ -21,9 +24,5 @@ namespace ENGINE_NAME {
 				m_transformationMatrix *= mat;
 			}
 		}
-
-		virtual void Initialize(Matrix4f projectionMatrix) = 0;
-		virtual void SetProjectionMatrix(const Matrix4f& projectionMatrix) = 0;
-		virtual void Shutdown() = 0;
 	};
 }

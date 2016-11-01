@@ -11,6 +11,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame", "TestGame\TestGa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame 2", "TestGame 2\TestGame 2.vcxproj", "{CE91B0FA-8D78-422B-B5F3-AE049FCEA8ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestGames", "TestGames", "{35FBF31A-8732-42CD-A605-A51845E8E901}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame 3", "TestGame 3\TestGame 3.vcxproj", "{B4672659-CC50-4506-BED8-CC2410791DC3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F89C230-CDA6-42F8-99F7-48BBFBF90425} = {5F89C230-CDA6-42F8-99F7-48BBFBF90425}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,8 +96,29 @@ Global
 		{CE91B0FA-8D78-422B-B5F3-AE049FCEA8ED}.Release|x64.Build.0 = Release|x64
 		{CE91B0FA-8D78-422B-B5F3-AE049FCEA8ED}.Release|x86.ActiveCfg = Release|Win32
 		{CE91B0FA-8D78-422B-B5F3-AE049FCEA8ED}.Release|x86.Build.0 = Release|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Debug|x64.ActiveCfg = Debug|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Debug|x64.Build.0 = Debug|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Debug|x86.ActiveCfg = Debug|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Debug|x86.Build.0 = Debug|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|Any CPU.ActiveCfg = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|Any CPU.Build.0 = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|x64.ActiveCfg = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|x64.Build.0 = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|x86.ActiveCfg = Release|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.NoExternalIncludes|x86.Build.0 = Release|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Release|x64.ActiveCfg = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Release|x64.Build.0 = Release|x64
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Release|x86.ActiveCfg = Release|Win32
+		{B4672659-CC50-4506-BED8-CC2410791DC3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F04A7CC-C537-4A30-93D1-7224435E0A3E} = {35FBF31A-8732-42CD-A605-A51845E8E901}
+		{CE91B0FA-8D78-422B-B5F3-AE049FCEA8ED} = {35FBF31A-8732-42CD-A605-A51845E8E901}
+		{B4672659-CC50-4506-BED8-CC2410791DC3} = {35FBF31A-8732-42CD-A605-A51845E8E901}
 	EndGlobalSection
 EndGlobal

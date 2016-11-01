@@ -23,6 +23,10 @@ namespace ENGINE_NAME {
 	typedef Math::Vector4<double> Vector4d;
 	typedef Math::Vector4<unsigned int> Vector4u;
 
+	typedef Vector3f Color3f;
+	typedef Vector4f Color4f;
+	typedef Math::Vector3<byte> Color3b;
+	typedef Math::Vector4<byte> Color4b;
 
 	namespace Math {
 		inline float toRadians(float degrees) {
@@ -48,6 +52,11 @@ namespace ENGINE_NAME {
 			return abs;
 			
 		}
+
+		Color3f ConvertColor(const Color3b& color);
+		Color3b ConvertColor(const Color3f& color);
+		Color4f ConvertColor(const Color4b& color);
+		Color4b ConvertColor(const Color4f& color);
 	}
 }
 #include "Matrix4.h"
