@@ -26,14 +26,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
-	//Renderer3D* renderer3D = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight());
+	Renderer3D* renderer3D = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight());
 
 	LARGE_INTEGER time1;
 	LARGE_INTEGER time2;
+	LARGE_INTEGER frequency;
+	QueryPerformanceFrequency(&frequency);
 
 	Camera camera;
 
-	Color4f clearColor(1.0f, 0.5f, 0.2f, 1.0f);
+	Color4f clearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	Engine::Font* font;
 	ExternFileManager::ReadFontFile("font.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(), &font);
@@ -47,9 +49,55 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	};
 	emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, pixels, 32);
 
-	Text text0{ "Hallo", font, 0xff000000 };
-	Text text1{ "Tschau", font, 0xff000000 };
-	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.2f, 0.3f), 0xfffff00f, emptyTex);
+	//Models
+	Model* treeLeavesModel;
+	ExternFileManager::ReadModelFile("Tree.dae", renderSystem, &treeLeavesModel, false);
+	Model* bobaMesh;
+	ExternFileManager::ReadModelFile("bobaFett.dae", renderSystem, &bobaMesh, false, true);
+	AnimatedModel* bobaAnimModel = (AnimatedModel*)bobaMesh;
+	bobaAnimModel->SetAnimation(&bobaMesh->GetMesh()->GetSkeleton()->GetAnimations()[0]);
+	bobaAnimModel->SetAnimationTime(1.5);
+
+	//Textures
+	Texture* leavesTexture = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("leaves.png", leavesTexture);
+	Texture* barkTexture = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("bark.jpg", barkTexture);
+	Texture* bobaTexBody = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("Fett_body_D.tga", bobaTexBody, Texture::NEAREST);
+	Texture* bobaTexJet = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("Fett_jetpak_D.tga", bobaTexJet, Texture::NEAREST);
+	Texture* bobaTexHelmet = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("Fett_helmet_D.tga", bobaTexHelmet, Texture::NEAREST);
+	Texture* bobaTexDisplay = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("Fett_display_D.tga", bobaTexDisplay, Texture::NEAREST);
+
+	//Combine Models and Textures
+	Material leavesMaterial = { 0xffffffff, leavesTexture };
+	treeLeavesModel->GetMaterials()[1] = &leavesMaterial;
+	Material barkMaterial = { 0xffffffff, barkTexture };
+	treeLeavesModel->GetMaterials()[0] = &barkMaterial;
+	Array<const Material*>& materialsBoba = bobaMesh->GetMaterials();
+	Material mat1Boba = { 0xffffffff, bobaTexJet };
+	Material mat2Boba = { 0xffffffff, bobaTexDisplay };
+	Material mat3Boba = { 0xffffffff, bobaTexHelmet };
+	Material mat4Boba = { 0xffffffff, bobaTexJet };
+	Material mat5Boba = { 0xffffffff, bobaTexBody };
+	materialsBoba[0] = &mat1Boba;
+	materialsBoba[1] = &mat2Boba;
+	materialsBoba[2] = &mat3Boba;
+	materialsBoba[3] = &mat4Boba;
+	materialsBoba[4] = &mat5Boba;
+
+	//Entities
+	Entity entityLeaves(Vector3f(0.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.1f, 0.1f, 0.1f), treeLeavesModel);
+	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), bobaMesh);
+
+	//2D
+	Text text0{ "", font, 0xff000000 };
+	Text text1{ "", font, 0xff000000 };
+	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, emptyTex);
+	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, barkTexture);
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -57,21 +105,31 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->BeginRendering(clearColor);
 
-			//renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
+			renderer3D->Submit(&entityLeaves);
+			renderer3D->Submit(&boba);
+			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
-			renderer2D->Begin();
-			renderer2D->Submit(&textBack);
-			renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
-			renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
-			renderer2D->End();
-			renderer2D->Flush();
+			//renderer2D->Begin();
+			//renderer2D->Submit(&textBack);
+			//renderer2D->Submit(&barkQuad);
+			//renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
+			//renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
+			//renderer2D->End();
+			//renderer2D->Flush();
 
 			renderSystem->EndRendering();
 
+			if (((AnimatedModel*)boba.GetModel())->GetAnimationTime() >= ((AnimatedModel*)boba.GetModel())->GetAnimation()->GetDuration())
+				((AnimatedModel*)boba.GetModel())->SetAnimationTime(0.0);
+
+			Move(camera);
+
 			QueryPerformanceCounter(&time2);
-			LONGLONG time = time2.QuadPart - time1.QuadPart;
-			text0.txt = std::to_string(1.0f / (float)time);
-			text1.txt = std::to_string(time);
+			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;
+			std::stringstream stream;
+			stream << std::fixed << std::setprecision(2) << 1000.0f / (float)time;
+			text0.txt = "FPS: " + stream.str();
+			text1.txt = "T: " + std::to_string(time) + "ms";
 		}
 	};
 

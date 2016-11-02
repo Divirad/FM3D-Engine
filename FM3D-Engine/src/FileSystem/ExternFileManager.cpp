@@ -384,6 +384,8 @@ namespace ENGINE_NAME {
 			offset *= Matrix4f::Invert(meshMatrices[0]);
 		}
 		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(RawArray<Matrix4f>(boneOffsetMatrices), RawArray<Animation>(animations)) : nullptr, supportsInstancing, parts);
+		boneOffsetMatrices.Delete();
+		animations.Delete();
 		for (Mesh::Part& p : parts) {
 			delete[] (uint*) p.indices;
 		}
