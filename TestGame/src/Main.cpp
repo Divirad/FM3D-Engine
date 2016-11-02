@@ -147,31 +147,90 @@ void Menu(HINSTANCE hInstance)
 
 
 			if (bt_search.Click(MOUSE_LEFT) == true){
-
+				but = 0;
 			}
 
-
-
-			if (pq_trash.Collision(dd_doc)) {
-				instruction.txt = "Gooood job! Now Click it and pull it through the black hole!";
+			if (bt_profile.Click(MOUSE_LEFT) == true) {
+				but = 1;
 			}
-			if (pq_trash.Click(MOUSE_LEFT) == true)
+
+			if (bt_home.Click(MOUSE_LEFT) == true) {
+				but = 2;
+			}
+
+			if (bt_left.Click(MOUSE_LEFT) == true)
 			{
-				instruction.txt = instruction.txt + " FUUUCK ITS DARK HERE!";
+				switch (but)
+				{
+				case 0:
+					bt_search.Anchor(Button::LEFT);
+					break;
+				case 1:
+					bt_profile.Anchor(Button::LEFT);
+					break;
+				case 2:
+					bt_home.Anchor(Button::LEFT);
+					break;
+				default:
+					break;
+				}
 			}
-			if (dd_doc.Click(MOUSE_LEFT) == true)
+
+			if (bt_middle.Click(MOUSE_LEFT) == true)
+			{				
+				switch (but)
+				{
+				case 0:
+					bt_search.AutoSize();
+					bt_search.Anchor(Button::CENTER_HORIZONTAL);
+					break;
+				case 1:
+					bt_profile.AutoSize();
+					bt_profile.Anchor(Button::CENTER_HORIZONTAL);
+					break;
+				case 2:
+					bt_home.AutoSize();
+					bt_home.Anchor(Button::CENTER_HORIZONTAL);
+					break;
+				default:
+					break;
+				}
+			}
+
+			if (bt_right.Click(MOUSE_LEFT) == true)
 			{
-				if (pq_trash.Collision(dd_doc)){
-					dd_doc.SetPosition0(Vector3f(-2.0f, -2.0f, 0.0f));
-					instruction.txt = "Good job lil astronaut!";
-					dd_doc.AutoSize();
+				switch (but)
+				{
+				case 0:
+					bt_search.Anchor(Button::RIGHT);
+					break;
+				case 1:
+					bt_profile.Anchor(Button::RIGHT);
+					break;
+				case 2:
+					bt_home.Anchor(Button::RIGHT);
+					break;
+				default:
+					break;
 				}
 			}
 
 
-
+			if (pq_trash.Collision(dd_doc)) {
+				instruction.txt = "Gooood job!";
+			}
+			if (pq_trash.Click(MOUSE_LEFT) == true)
+			{
+				instruction.txt = instruction.txt + " FUUU** ITS DARK HERE!";
+			}
+			if (dd_doc.Click(MOUSE_LEFT) == false)
+			{
+				if (pq_trash.Collision(dd_doc)){
+					dd_doc.SetPosition0(Vector3f(-2.0f, -2.0f, 0.0f));
+					dd_doc.AutoSize();
+				}
+			}
 			dd_doc.DragDrop(MOUSE_LEFT);
-			
 
 			renderer2D->Flush();
 			renderSystem->EndRendering();
