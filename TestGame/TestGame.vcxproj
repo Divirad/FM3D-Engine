@@ -163,8 +163,11 @@
     <Font Include="res\fontilein.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Dropbox\Schule\FM3D\knupke392x378.png" />
+    <Image Include="res\0left.png" />
+    <Image Include="res\0middle.png" />
+    <Image Include="res\0right.png" />
     <Image Include="res\blackhole.png" />
+    <Image Include="res\doc.png" />
     <Image Include="res\dragon0.jpg" />
     <Image Include="res\dragon1.jpg" />
     <Image Include="res\dragon2.jpg" />
@@ -174,10 +177,15 @@
     <Image Include="res\Fett_display_D.tga" />
     <Image Include="res\Fett_helmet_D.tga" />
     <Image Include="res\Fett_jetpak_D.tga" />
+    <Image Include="res\home.png" />
     <Image Include="res\HOMMTEXT1.png" />
     <Image Include="res\knoebsche100x50.jpg" />
+    <Image Include="res\knupke392x378.png" />
     <Image Include="res\NewFM3DLogoMini.png" />
+    <Image Include="res\profile.png" />
+    <Image Include="res\search.png" />
     <Image Include="res\Stormtrooper_d.tga" />
+    <Image Include="res\trash.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\bobaFett.dae" />

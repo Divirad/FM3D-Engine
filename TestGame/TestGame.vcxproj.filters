@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Menu">
+      <UniqueIdentifier>{67afbf2c-9d1e-4060-b2b5-f671f858e251}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -44,13 +47,37 @@
     <Image Include="res\knoebsche100x50.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\Dropbox\Schule\FM3D\knupke392x378.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\NewFM3DLogoMini.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\blackhole.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\profile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\search.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\trash.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\knupke392x378.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\home.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\doc.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\0left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\0middle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\0right.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -199,6 +199,7 @@ namespace ENGINE_NAME {
 			Inputsystem::GetInstance()->setKey(keyID, Inputsystem::NOCLICK);
 			return Inputsystem::RELEASED;
 		}
+
 		return Inputsystem::NOCLICK;
 	}
 
