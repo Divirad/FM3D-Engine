@@ -82,7 +82,7 @@ namespace ENGINE_NAME {
 							}
 						}
 						Matrix4f modelMatrix = e->GetModelMatrix();
-						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * modelMatrix));
+						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * modelMatrix * Matrix4f::Scale(Vector3f(10.0f, 10.0f, 10.0f))));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
 						((const GL3Mesh*)it->first)->Render(i);
 					}

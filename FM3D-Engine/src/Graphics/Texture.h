@@ -16,13 +16,18 @@ namespace ENGINE_NAME {
 			LINEAR,
 			NEAREST
 		};
+		enum MipMapMode {
+			NONE,
+			MIPMAP_NEAREST,
+			MIPMAP_LINEAR
+		};
 	protected:
 		uint m_width;
 		uint m_height;
 		uint m_bits;
 	public:
-		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, float* pixels, uint bits) = 0;
-		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, char* pixels, uint bits) = 0;
+		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) = 0;
+		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) = 0;
 		virtual void Shutdown() = 0;
 
 		uint GetBits() const { return m_bits; };

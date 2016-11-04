@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\bark.jpg">
       <Filter>Resource Files</Filter>
     </Image>
@@ -30,6 +25,9 @@
     <Image Include="res\leaves.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\grass.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\bobaFett.dae" />
@@ -37,5 +35,10 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\font.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="res\src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -146,7 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="res\src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FM3D-Engine\FM3D-Engine.vcxproj">
@@ -159,6 +159,7 @@
     <Image Include="res\Fett_display_D.tga" />
     <Image Include="res\Fett_helmet_D.tga" />
     <Image Include="res\Fett_jetpak_D.tga" />
+    <Image Include="res\grass.jpg" />
     <Image Include="res\leaves.png" />
   </ItemGroup>
   <ItemGroup>

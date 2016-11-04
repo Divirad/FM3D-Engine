@@ -22,7 +22,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
-	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 1000.0f);
+	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.001f, 1000.0f);
 
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
@@ -47,22 +47,23 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		1.0f, 1.0f, 1.0f, 1.0f,
 		1.0f, 1.0f, 1.0f, 1.0f
 	};
-	emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, pixels, 32);
+	emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
 
 	//Models
 	Model* treeLeavesModel;
-	ExternFileManager::ReadModelFile("Tree.dae", renderSystem, &treeLeavesModel, false);
+	ExternFileManager::ReadModelFile("Tree.dae", renderSystem, &treeLeavesModel, false, true, Matrix4f::Translate(Vector3f(850.0f, 0.0f, 0.0f)));
 	Model* bobaMesh;
 	ExternFileManager::ReadModelFile("bobaFett.dae", renderSystem, &bobaMesh, false, true);
 	AnimatedModel* bobaAnimModel = (AnimatedModel*)bobaMesh;
 	bobaAnimModel->SetAnimation(&bobaMesh->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 	bobaAnimModel->SetAnimationTime(1.5);
 
+
 	//Textures
 	Texture* leavesTexture = renderSystem->CreateTexture();
-	ExternFileManager::ReadTextureFile("leaves.png", leavesTexture);
+	ExternFileManager::ReadTextureFile("leaves.png", leavesTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 	Texture* barkTexture = renderSystem->CreateTexture();
-	ExternFileManager::ReadTextureFile("bark.jpg", barkTexture);
+	ExternFileManager::ReadTextureFile("bark.jpg", barkTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 	Texture* bobaTexBody = renderSystem->CreateTexture();
 	ExternFileManager::ReadTextureFile("Fett_body_D.tga", bobaTexBody, Texture::NEAREST);
 	Texture* bobaTexJet = renderSystem->CreateTexture();
@@ -73,10 +74,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	ExternFileManager::ReadTextureFile("Fett_display_D.tga", bobaTexDisplay, Texture::NEAREST);
 
 	//Combine Models and Textures
-	Material leavesMaterial = { 0xffffffff, leavesTexture };
-	treeLeavesModel->GetMaterials()[1] = &leavesMaterial;
 	Material barkMaterial = { 0xffffffff, barkTexture };
 	treeLeavesModel->GetMaterials()[0] = &barkMaterial;
+	Material leavesMaterial = { 0xffffffff, leavesTexture };
+	treeLeavesModel->GetMaterials()[1] = &leavesMaterial;
 	Array<const Material*>& materialsBoba = bobaMesh->GetMaterials();
 	Material mat1Boba = { 0xffffffff, bobaTexJet };
 	Material mat2Boba = { 0xffffffff, bobaTexDisplay };
@@ -90,14 +91,55 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	materialsBoba[4] = &mat5Boba;
 
 	//Entities
-	Entity entityLeaves(Vector3f(0.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.1f, 0.1f, 0.1f), treeLeavesModel);
+	Entity entityLeaves(Vector3f(0.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), treeLeavesModel);
 	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), bobaMesh);
+	
+	//Terrain
+	std::vector<uint> indices;
+	Vertices vertices(200 * 200 * 4, Vertices::POSITION | Vertices::TEXCOORD | Vertices::NORMAL);
+	{
+		float size = 1.0f;
+		float y = 0.0f;
+		int c = 0;
+		for (float x = -100.0f; x < 100.0f; x += 1.0f) {
+			for (float z = -100.0f; z < 100.0f; z += 1.0f, c += 4) {
+				vertices.GetPosition(c + 0) = Vector3f(x, 0.0f, z);
+				vertices.GetTexCoord(c + 0) = Vector2f(0.0f, 0.0f);
+				vertices.GetNormal(c + 0) = Vector3f(0.0f, 1.0f, 0.0f);
+				vertices.GetPosition(c + 1) = Vector3f(x, y, z + size);
+				vertices.GetTexCoord(c + 1) = Vector2f(0.0f, 1.0f);
+				vertices.GetNormal(c + 1) = Vector3f(0.0f, 1.0f, 0.0f);
+				vertices.GetPosition(c + 2) = Vector3f(x + size, y, z + size);
+				vertices.GetTexCoord(c + 2) = Vector2f(1.0f, 1.0f);
+				vertices.GetNormal(c + 2) = Vector3f(0.0f, 1.0f, 0.0f);
+				vertices.GetPosition(c + 3) = Vector3f(x + size, y, z);
+				vertices.GetTexCoord(c + 3) = Vector2f(1.0f, 0.0f);
+				vertices.GetNormal(c + 3) = Vector3f(0.0f, 1.0f, 0.0f);
+				indices.push_back(c + 0);
+				indices.push_back(c + 1);
+				indices.push_back(c + 2);
+				indices.push_back(c + 2);
+				indices.push_back(c + 3);
+				indices.push_back(c + 0);
+			}
+		}
+	}
+
+	Texture* terrainTexture = renderSystem->CreateTexture();
+	ExternFileManager::ReadTextureFile("grass.jpg", terrainTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+	Material terrainMaterial = { 0xffffffff, terrainTexture };
+	RawArray<const Material*> materials(1);
+	materials[0] = &terrainMaterial;
+
+	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<Mesh::Part>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
+
+	Entity terrain(Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 
 	//2D
 	Text text0{ "", font, 0xff000000 };
 	Text text1{ "", font, 0xff000000 };
 	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, emptyTex);
-	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, barkTexture);
+	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, leavesTexture);
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -107,15 +149,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderer3D->Submit(&entityLeaves);
 			renderer3D->Submit(&boba);
+			renderer3D->Submit(&terrain);
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
-			//renderer2D->Begin();
-			//renderer2D->Submit(&textBack);
-			//renderer2D->Submit(&barkQuad);
-			//renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
-			//renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
-			//renderer2D->End();
-			//renderer2D->Flush();
+			renderer2D->Begin();
+			renderer2D->Submit(&textBack);
+			renderer2D->Submit(&barkQuad);
+			renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
+			renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
+			renderer2D->End();
+			renderer2D->Flush();
 
 			renderSystem->EndRendering();
 

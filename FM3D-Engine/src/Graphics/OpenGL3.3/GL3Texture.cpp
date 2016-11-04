@@ -2,12 +2,26 @@
 
 namespace ENGINE_NAME {
 
-	GLint GL3Texture::GetGLFilterMode(FilterMode& filter) {
+	GLint GL3Texture::GetGLFilterMode(FilterMode& filter, MipMapMode mipMapMode) {
 		switch (filter) {
 		case LINEAR:
-			return GL_LINEAR;
+			switch (mipMapMode) {
+			case NONE:
+				return GL_LINEAR;
+			case MIPMAP_LINEAR:
+				return GL_LINEAR_MIPMAP_LINEAR;
+			case MIPMAP_NEAREST:
+				return GL_LINEAR_MIPMAP_NEAREST;
+			}
 		case NEAREST:
-			return GL_NEAREST;
+			switch (mipMapMode) {
+			case NONE:
+				return GL_NEAREST;
+			case MIPMAP_LINEAR:
+				return GL_NEAREST_MIPMAP_LINEAR;
+			case MIPMAP_NEAREST:
+				return GL_NEAREST_MIPMAP_NEAREST;
+			}
 		default:
 			std::cout << "Unknown Texture Filter!" << std::endl;
 			return 0;
@@ -32,18 +46,22 @@ namespace ENGINE_NAME {
 		}
 	}
 
-	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, float* pixels, uint bits) {
+	void GL3Texture::SetParameters(FilterMode& filter, WrapMode& wrap, MipMapMode mipmap) {
+		if(mipmap != NONE) GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetGLFilterMode(filter, mipmap)));
+		//GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GetGLFilterMode(filter, mipmap)));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GetGLWrapMode(wrap)));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGLWrapMode(wrap)));
+	}
+
+	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) {
 		m_bits = bits;
 		m_width = width;
 		m_height = height;
 		GLenum err = GL_NO_ERROR;
 		if ((err = glGetError()) != GL_NO_ERROR) std::cout << "GLerror: " << err << " " << gluErrorString(err) << std::endl;
 		GLCall(glGenTextures(1, &m_tID));
-		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetGLFilterMode(filterMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GetGLFilterMode(filterMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GetGLWrapMode(wrapMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGLWrapMode(wrapMode)));
+		Bind();
 
 		if (m_bits != 24 && m_bits != 32 && m_bits != 8)
 			std::cout << "[Texture] Unsupported image bit-depth! (" << m_bits << ")" << std::endl;
@@ -51,21 +69,20 @@ namespace ENGINE_NAME {
 		GLint internalFormat = m_bits == 32 ? GL_RGBA : m_bits == 24 ? GL_RGB : GL_RED;
 		GLenum format = m_bits == 32 ? GL_BGRA : m_bits == 24 ? GL_BGR : GL_RED;
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_FLOAT, pixels ? pixels : NULL));
-		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+
+		SetParameters(filterMode, wrapMode, mipMapMode);
+
+		Unbind();
 	}
 
-	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, char* pixels, uint bits) {
+	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) {
 		m_bits = bits;
 		m_width = width;
 		m_height = height;
 		GLenum err = GL_NO_ERROR;
 		if ((err = glGetError()) != GL_NO_ERROR) std::cout << "GLerror: " << err << " " << gluErrorString(err) << std::endl;
 		GLCall(glGenTextures(1, &m_tID));
-		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetGLFilterMode(filterMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GetGLFilterMode(filterMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GetGLWrapMode(wrapMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGLWrapMode(wrapMode)));
+		Bind();
 
 		if (m_bits != 24 && m_bits != 32 && m_bits != 8)
 			std::cout << "[Texture] Unsupported image bit-depth! (" << m_bits << ")" << std::endl;
@@ -73,7 +90,10 @@ namespace ENGINE_NAME {
 		GLint internalFormat = m_bits == 32 ? GL_RGBA : m_bits == 24 ? GL_RGB : GL_RED;
 		GLenum format = m_bits == 32 ? GL_BGRA : m_bits == 24 ? GL_BGR : GL_RED;
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, pixels ? pixels : NULL));
-		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+		
+		SetParameters(filterMode, wrapMode, mipMapMode);
+
+		Unbind();
 	}
 
 	void GL3Texture::Shutdown() {

@@ -120,7 +120,7 @@ namespace ENGINE_NAME {
 			uint color;
 		};
 		
-		struct Part {
+		struct ENGINE_DLL Part {
 			uint indicesCount;
 			void* indices;
 			Vertices vertices;

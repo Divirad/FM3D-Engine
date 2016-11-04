@@ -8,7 +8,7 @@ namespace ENGINE_NAME {
 
 	int nodee = 0;
 
-	bool ExternFileManager::ReadTextureFile(const char* filename, Texture* texture, Texture::FilterMode filterMode, Texture::WrapMode wrapMode) {
+	bool ExternFileManager::ReadTextureFile(const char* filename, Texture* texture, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode) {
 		string path = FileManager::resourcePath + string(filename);
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -39,7 +39,7 @@ namespace ENGINE_NAME {
 			return false;
 		}
 
-		texture->Initialize(width, height, filterMode, wrapMode, (char*)result, bits);
+		texture->Initialize(width, height, filterMode, wrapMode, mipMapMode, (char*)result, bits);
 		return true;
 	}
 
@@ -92,7 +92,7 @@ namespace ENGINE_NAME {
 		}
 	}
 
-	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation) {
+	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
 
 		for (unsigned int j = 0; j < mesh->mNumBones; j++) {
@@ -131,8 +131,8 @@ namespace ENGINE_NAME {
 
 		for (uint i = 0; i < vertices.GetVertexCount(); i++) {
 			aiVector3D pos = mesh->mVertices[i];
-			if(isAnimated) vertices.SetPosition(meshMatrix * Vector3f(pos.x, pos.y, pos.z), i);
-			else vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
+			/*if(isAnimated)*/ vertices.SetPosition(modelMatrix * (meshMatrix * Vector3f(pos.x, pos.y, pos.z)), i);
+			//else vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
 			aiVector3D uv = mesh->mTextureCoords[0][i];
 			vertices.SetTexCoord(Vector2f(uv.x, 1.0f - uv.y), i);
 			aiVector3D norm = mesh->mNormals[i];
@@ -337,7 +337,7 @@ namespace ENGINE_NAME {
 		new (inAnimation) Animation(animation->mName.data, matrices, RawArray<double>(times), animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
 	}
 	
-	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation) {
+	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
 		string path = FileManager::resourcePath + string(filename);
 		Assimp::Importer importer;
 		const aiScene* scene;
@@ -369,7 +369,7 @@ namespace ENGINE_NAME {
 		Array<Mesh::Part> parts(meshIds.size());
 		uint c = 0;
 		for (uint meshIndex : meshIds) {
-			InitializePart(parts[c], scene, meshIndex, meshMatrices[c], boneIndex, boneOffsetMatrices, supportsInstancing, useAnimation);
+			InitializePart(parts[c], scene, meshIndex, meshMatrices[c], boneIndex, boneOffsetMatrices, supportsInstancing, useAnimation, modelMatrix);
 			c++;
 		}
 
