@@ -8,7 +8,6 @@ using DevComponents.WpfDock;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Windows;
-using DevComponents.WPF.Metro;
 
 namespace FM3D_Designer.src
 {
@@ -45,28 +44,6 @@ namespace FM3D_Designer.src
             }
 
             this.docksite = docksite;
-            if(this.docksite != null) this.docksite.AfterDocked += AfterDocked;
-        }
-
-        void AfterDocked(object sender, DockRoutedEventArgs e)
-        {
-            if (e.DockControl is DockWindowGroup)
-            {
-                DockWindowGroup dg = e.DockControl as DockWindowGroup;
-                if (dg.IsFloating)
-                {
-                    Window w = Window.GetWindow(dg);
-                    MetroUI.SetTheme(w, MetroUI.GetTheme(mainWindow));
-                }
-            } else if(e.DockControl is DockWindow)
-            {
-                DockWindow dg = e.DockControl as DockWindow;
-                if (dg.IsFloating)
-                {
-                    Window w = Window.GetWindow(dg);
-                    MetroUI.SetTheme(w, MetroUI.GetTheme(mainWindow));
-                }
-            }
         }
     }
 }

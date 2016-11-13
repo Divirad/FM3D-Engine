@@ -30,25 +30,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
             this.Initialize(mainWindow, null);
         }
-        ///
-        ///Open ContextMenu
-        ///
-        private void opencm_file(object sender, RoutedEventArgs e)
-        {
-            cm_file.Visibility = Visibility.Visible;
-            cm_file.IsOpen = true;
-        }
 
-        private void opencm_edit(object sender, RoutedEventArgs e)
-        {
-            cm_edit.Visibility = Visibility.Visible;
-            cm_edit.IsOpen = true;
-        }
-        private void opencm_view(object sender, RoutedEventArgs e)
-        {
-            cm_view.Visibility = Visibility.Visible;
-            cm_view.IsOpen = true;
-        }
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.ClearAttachedWindows();

@@ -11,7 +11,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu x:Name="menu" Grid.Row="0" Background="{ Binding MenuBackGroundBrush, Source={x:Static local:Theme.Current}}" Foreground="{ Binding MainFontBrush, Source={x:Static local:Theme.Current}}">
+        <Menu x:Name="menu" Grid.Row="0">
             <MenuItem Header="_File" >
                 <MenuItem Header="_Save"/>
             </MenuItem>

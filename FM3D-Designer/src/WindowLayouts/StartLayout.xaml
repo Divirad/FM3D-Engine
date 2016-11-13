@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
              xmlns:local="clr-namespace:FM3D_Designer.src"
              mc:Ignorable="d" 
              IsMainLayout="True">
@@ -18,61 +17,49 @@
         
 
         <!-- MENU-->
-        <Menu x:Name="menu" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+        <Menu x:Name="menu" Grid.Row="0">
 
-            <MenuItem Header="_File" Click="opencm_file">
-                <MenuItem.ContextMenu>
-                    <ContextMenu Name ="cm_file" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
-                        <MenuItem Header="New" Command="New"/>
-                        <MenuItem Header="Open" Command="Open"/>
-                        <Separator />
-                        <MenuItem Header="Add Item" />
-                        <Separator />
-                        <MenuItem Header="Close" />
-                        <MenuItem Header="Close Project" />
-                        <Separator />
-                        <MenuItem Header="Save" Command="Save" />
-                        <MenuItem Header="Save All" />
-                        <MenuItem Header="Save As..." Command="SaveAs" />
-                        <Separator />
-                        <MenuItem Header="Last File" />
-                        <MenuItem Header="Last Project" />
-                        <Separator />
-                        <MenuItem Header="Exit" />
-                    </ContextMenu>
-                </MenuItem.ContextMenu>
+            <MenuItem Header="_File">
+                <MenuItem Header="New" Command="New"/>
+                <MenuItem Header="Open" Command="Open"/>
+                <Separator />
+                <MenuItem Header="Add Item" />
+                <Separator />
+                <MenuItem Header="Close" />
+                <MenuItem Header="Close Project" />
+                <Separator />
+                <MenuItem Header="Save" Command="Save" />
+                <MenuItem Header="Save All" />
+                <MenuItem Header="Save As..." Command="SaveAs" />
+                <Separator />
+                <MenuItem Header="Last File" />
+                <MenuItem Header="Last Project" />
+                <Separator />
+                <MenuItem Header="Exit" />
             </MenuItem>
-            <MenuItem Header="_Edit" Click="opencm_edit">
-                <MenuItem.ContextMenu>
-                    <ContextMenu Name ="cm_edit" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
-                        <MenuItem Header="Undo" Command="Undo"/>
-                        <MenuItem Header="Redo" Command="Redo"/>
-                        <Separator />
-                        <MenuItem Header="Cut" Command="Cut" />
-                        <MenuItem Header="Copy" Command="Copy"/>
-                        <MenuItem Header="Paste" Command="Paste"/>
-                        <MenuItem Header="Delete" Command="Delete"/>
-                        <MenuItem Header="Select All" Command="SelectAll"/>
-                    </ContextMenu>
-                </MenuItem.ContextMenu>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo" Command="Undo"/>
+                <MenuItem Header="Redo" Command="Redo"/>
+                <Separator />
+                <MenuItem Header="Cut" Command="Cut" />
+                <MenuItem Header="Copy" Command="Copy"/>
+                <MenuItem Header="Paste" Command="Paste"/>
+                <MenuItem Header="Delete" Command="Delete"/>
+                <MenuItem Header="Select All" Command="SelectAll"/>
             </MenuItem>
 
-            <MenuItem Header="_View" Click="opencm_view">
-                <MenuItem.ContextMenu>
-                    <ContextMenu Name ="cm_view" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
-                        <MenuItem Header="Code"/>
-                        <MenuItem Header="Designer"/>
-                        <MenuItem Header="Open with..."/>
-                        <Separator />
-                        <MenuItem Header="File Browser"/>
-                        <Separator />
-                        <MenuItem Header="Start Page"/>
-                        <Separator/>
-                        <MenuItem Header="Minimize"/>
-                        <MenuItem Header="Maximize"/>
-                        <MenuItem Header="Close"/>
-                    </ContextMenu>
-                </MenuItem.ContextMenu>
+            <MenuItem Header="_View">
+                <MenuItem Header="Code"/>
+                <MenuItem Header="Designer"/>
+                <MenuItem Header="Open with..."/>
+                <Separator />
+                <MenuItem Header="File Browser"/>
+                <Separator />
+                <MenuItem Header="Start Page"/>
+                <Separator/>
+                <MenuItem Header="Minimize"/>
+                <MenuItem Header="Maximize"/>
+                <MenuItem Header="Close"/>
             </MenuItem>
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />

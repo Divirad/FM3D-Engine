@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
              xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
              xmlns:local="clr-namespace:FM3D_Designer.src"
              mc:Ignorable="d" 
@@ -14,7 +13,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-       <Menu x:Name="menu" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+       <Menu x:Name="menu" Grid.Row="0">
             <MenuItem Header="_Edit">
                 <MenuItem Header="_New" Command="New"/>
             </MenuItem>
@@ -26,12 +25,12 @@
         </Menu>
         <dd:DockSite  Grid.Row="1"  Name="dockSite" VisualStyle="Office2016">
         </dd:DockSite>
-        <m:MetroToolBar Grid.Row="0">
+        <!--<m:MetroToolBar Grid.Row="0">
             <Button Height="25" ToolTip="Collapse All">
                 <Image Source="resources/images/file browser/collapseAll_icon.png" />
             </Button>
             
-           <!-- <Menu x:Name="menu2" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}"> 
+           --><!-- <Menu x:Name="menu2" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}"> 
             <MenuItem Header="_Edit" Grid.Column="10">
                 <MenuItem Header="_New" Command="New"/>
             </MenuItem>
@@ -39,7 +38,7 @@
             <MenuItem Header="_View" />
                 <MenuItem Header="_Window" />
                 <MenuItem Header="_Help" />
-             </Menu> -->
-        </m:MetroToolBar>
+             </Menu> --><!--
+        </m:MetroToolBar>-->
     </Grid>
 </local:WindowLayout>

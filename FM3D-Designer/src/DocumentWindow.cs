@@ -8,7 +8,6 @@ using DevComponents.WpfDock;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Windows;
-using DevComponents.WPF.Metro;
 
 namespace FM3D_Designer.src
 {

@@ -31,7 +31,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
             int x, y;
 
-            byte[] imageData = ExternFileLoader.LoadTexture("../../resources/images/FM3DLogo.png", out x, out y);
+            byte[] imageData = ExternFileLoader.LoadTexture("../../resources/images/logofm3d.png", out x, out y);
 
             BitmapSource bitmapSource = BitmapSource.Create(x, y, 300, 300, PixelFormats.Bgra32, BitmapPalettes.Gray256, imageData, x * 4);
 

@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.FileBrowser"
              xmlns:fm="clr-namespace:FM3D_Designer.src"
-             xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
              xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
              x:Class="FM3D_Designer.src.ToolWindows.FileBrowser.View"
              mc:Ignorable="d"
@@ -21,7 +20,7 @@
                         <Setter.Value>
                             <VisualBrush Stretch="Fill">
                                 <VisualBrush.Visual>
-                                    <Rectangle Width="26" Height="24" Fill="{ Binding MenuSelectedBrush, Source={x:Static fm:Theme.Current}}">
+                                    <Rectangle Width="26" Height="24">
                                         <Rectangle.OpacityMask>
                                             <ImageBrush ImageSource="/FM3D-Designer;component/resources/images/selected.png"/>
                                         </Rectangle.OpacityMask>
@@ -40,13 +39,13 @@
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ToolBarTray IsLocked="True" Grid.Row="0" Background="{ Binding MenuBackGroundBrush, Source={x:Static fm:Theme.Current}}">
-            <ToolBar Height="35" Background="{ Binding MenuBackGroundColorBrush, Source={x:Static fm:Theme.Current}}" Loaded="ToolBar_Loaded">
+        <ToolBarTray IsLocked="True" Grid.Row="0">
+            <ToolBar Height="35" Loaded="ToolBar_Loaded">
                 <Separator />
-                <Button Height="30" Background="{ Binding MenuBackGroundBrush, Source={x:Static fm:Theme.Current}}" ToolTip="Collapse All">
+                <Button Height="30" ToolTip="Collapse All">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
-                <Separator Background="{ Binding MenuSelectedBrush, Source={x:Static fm:Theme.Current}}"/>
+                <Separator/>
                 <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" IsEnabled="{Binding ModeTree, Source={StaticResource viewModel}}" Command="{Binding CommTree, Source={StaticResource viewModel}}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_icon.png" />
                 </Button>
@@ -59,7 +58,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <TreeView Background="{Binding ToolWindowBackGroundBrush, Source={x:Static fm:Theme.Current}}" DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
@@ -78,21 +77,6 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                 </Style>
             </TreeView.ItemContainerStyle>
-            <TreeView.Resources>
-
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"
-                      Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}"
-                      Color="{ Binding MainFontColor, Source={x:Static fm:Theme.Current}}" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                      Color="{ Binding HighLightColor, Source={x:Static fm:Theme.Current}}" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
-                      Color="{ Binding HighLightFontColor, Source={x:Static fm:Theme.Current}}" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                      Color="{ Binding NoFocusHighLightColor, Source={x:Static fm:Theme.Current}}" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
-                      Color="{ Binding NoFocusHighLightFontColor, Source={x:Static fm:Theme.Current}}" />
-            </TreeView.Resources>
         </TreeView>
 
     </Grid>
