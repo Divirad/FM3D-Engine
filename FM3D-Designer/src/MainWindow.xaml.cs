@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using DevComponents.WPF.Metro;
+using DevComponents.WpfDock;
 
 ///Hauptnamespace
 /**
@@ -36,6 +37,7 @@ namespace FM3D_Designer.src
             Themes.DarkTheme.SetTheme();
             
             InitializeComponent();
+            if (this.dockSite != null) this.dockSite.AfterDocked += AfterDocked;
             AttachNewWindowLayout(new WindowLayouts.StartLayout(this));
         }
         public void AttachNewWindowLayout(WindowLayout layout, bool isSelected = false)
@@ -49,6 +51,19 @@ namespace FM3D_Designer.src
         {
             this.dockingGroup.Items.Clear();
             this.dockingGroup.UpdateVisibility();
+        }
+
+        void AfterDocked(object sender, DockRoutedEventArgs e)
+        {
+            if (e.DockControl is DockWindow)
+            {
+                DockWindow dg = e.DockControl as DockWindow;
+                if (dg.IsFloating)
+                {
+                    Window w = Window.GetWindow(dg);
+                    MetroUI.SetTheme(w, MetroUI.GetTheme(this));
+                }
+            }
         }
 
     }

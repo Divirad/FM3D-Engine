@@ -16,7 +16,10 @@
 
         <Menu x:Name="menu" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
             <MenuItem Header="_Project" />
-            <MenuItem Header="_View" />
+            <MenuItem Header="_View" >
+                <MenuItem Header="_Hello"/>
+            </MenuItem>
+                
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>

@@ -41,7 +41,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.TextureViewPort(this, image));
+            dg.Items.Add(new DocumentWindows.TextureViewPort(this, image));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, Dock.Right);
             DockSite.SetDockSize(splitPanel, 150);

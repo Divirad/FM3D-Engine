@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FM3D_Designer.src.ToolWindows
+namespace FM3D_Designer.src.DocumentWindows
 {
     /// <summary>
     /// Interaction logic for TextureViewPort.xaml
     /// </summary>
-    public partial class TextureViewPort : ToolWindow
+    public partial class TextureViewPort : DocumentWindow
     {
         public TextureViewPort(WindowLayout mainWindow, Image image)
         {

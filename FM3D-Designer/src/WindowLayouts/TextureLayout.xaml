@@ -12,7 +12,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu x:Name="menu" Grid.Row="0" Background="{ Binding MenuBackGroundBrush, Source={x:Static local:Theme.Current}}" Foreground="{ Binding MainFontBrush, Source={x:Static local:Theme.Current}}">
-            <MenuItem Header="_File" />
+            <MenuItem Header="_File" >
+                <MenuItem Header="_Save"/>
+            </MenuItem>
             <MenuItem Header="_Edit" />
             <MenuItem Header="_View" />
             <MenuItem Header="_Window" />

@@ -58,6 +58,14 @@ namespace FM3D_Designer.src
                     Window w = Window.GetWindow(dg);
                     MetroUI.SetTheme(w, MetroUI.GetTheme(mainWindow));
                 }
+            } else if(e.DockControl is DockWindow)
+            {
+                DockWindow dg = e.DockControl as DockWindow;
+                if (dg.IsFloating)
+                {
+                    Window w = Window.GetWindow(dg);
+                    MetroUI.SetTheme(w, MetroUI.GetTheme(mainWindow));
+                }
             }
         }
     }

@@ -81,12 +81,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\DocumentWindow.cs" />
     <Compile Include="src\ColorTestWindow.xaml.cs">
       <DependentUpon>ColorTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Command.cs" />
     <Compile Include="src\Theme.cs" />
-    <Compile Include="src\ToolWindows\TextureViewPort.xaml.cs">
+    <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\WindowLayouts\MainLayout.xaml.cs">
@@ -118,7 +119,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="src\ToolWindows\TextureViewPort.xaml">
+    <Page Include="src\DocumentWindows\TextureViewPort.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +203,7 @@
       <Name>Designer Lib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
