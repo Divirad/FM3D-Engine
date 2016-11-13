@@ -17,6 +17,7 @@
             <m:MetroChrome>
             </m:MetroChrome>
         </m:MetroShell.Chrome>
+
         <m:MetroShell.Items>
             <DockPanel LastChildFill="True">
                 <dd:DockSite  Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">

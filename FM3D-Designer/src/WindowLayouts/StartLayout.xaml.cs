@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace FM3D_Designer
 {
@@ -29,20 +30,47 @@ namespace FM3D_Designer
 
             this.Initialize(mainWindow, null);
         }
+        ///
+        ///Open ContextMenu
+        ///
+        private void opencm_file(object sender, RoutedEventArgs e)
+        {
+            cm_file.Visibility = Visibility.Visible;
+            cm_file.IsOpen = true;
+        }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void opencm_edit(object sender, RoutedEventArgs e)
+        {
+            cm_edit.Visibility = Visibility.Visible;
+            cm_edit.IsOpen = true;
+        }
+        private void opencm_view(object sender, RoutedEventArgs e)
+        {
+            cm_view.Visibility = Visibility.Visible;
+            cm_view.IsOpen = true;
+        }
+        private void btn_start_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.ClearAttachedWindows();
 
-            Project.Load(this.textBox.Text);
+            Project.Load(this.tb_path.Text);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
 
         }
+        /// 
+        ///Open Windows FileBrowser to load path in txtbox
+        ///
+        private void btn_load_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+                tb_path.Text = openFileDialog.FileName; //File.ReadAllText(
+        }
 
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
-            this.textBox.Text = "../../TestProjects/Project 0/project 0.fmproj";
+            this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }
     }
 }

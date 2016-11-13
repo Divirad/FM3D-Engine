@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:FM3D_Designer"
              mc:Ignorable="d" 
              IsMainLayout="True">
+    
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,23 +15,112 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        
+
+        <!-- MENU-->
         <Menu x:Name="menu" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
-            <MenuItem Header="_Project" />
-            <MenuItem Header="_View" />
+
+            <MenuItem Header="_File" Click="opencm_file">
+                <MenuItem.ContextMenu>
+                    <ContextMenu Name ="cm_file" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+                        <MenuItem Header="New" Command="New"/>
+                        <MenuItem Header="Open" Command="Open"/>
+                        <Separator />
+                        <MenuItem Header="Add Item" />
+                        <Separator />
+                        <MenuItem Header="Close" />
+                        <MenuItem Header="Close Project" />
+                        <Separator />
+                        <MenuItem Header="Save" Command="Save" />
+                        <MenuItem Header="Save All" />
+                        <MenuItem Header="Save As..." Command="SaveAs" />
+                        <Separator />
+                        <MenuItem Header="Last File" />
+                        <MenuItem Header="Last Project" />
+                        <Separator />
+                        <MenuItem Header="Exit" />
+                    </ContextMenu>
+                </MenuItem.ContextMenu>
+            </MenuItem>
+            <MenuItem Header="_Edit" Click="opencm_edit">
+                <MenuItem.ContextMenu>
+                    <ContextMenu Name ="cm_edit" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+                        <MenuItem Header="Undo" Command="Undo"/>
+                        <MenuItem Header="Redo" Command="Redo"/>
+                        <Separator />
+                        <MenuItem Header="Cut" Command="Cut" />
+                        <MenuItem Header="Copy" Command="Copy"/>
+                        <MenuItem Header="Paste" Command="Paste"/>
+                        <MenuItem Header="Delete" Command="Delete"/>
+                        <MenuItem Header="Select All" Command="SelectAll"/>
+                    </ContextMenu>
+                </MenuItem.ContextMenu>
+            </MenuItem>
+
+            <MenuItem Header="_View" Click="opencm_view">
+                <MenuItem.ContextMenu>
+                    <ContextMenu Name ="cm_view" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}">
+                        <MenuItem Header="Code"/>
+                        <MenuItem Header="Designer"/>
+                        <MenuItem Header="Open with..."/>
+                        <Separator />
+                        <MenuItem Header="File Browser"/>
+                        <Separator />
+                        <MenuItem Header="Start Page"/>
+                        <Separator/>
+                        <MenuItem Header="Minimize"/>
+                        <MenuItem Header="Maximize"/>
+                        <MenuItem Header="Close"/>
+                    </ContextMenu>
+                </MenuItem.ContextMenu>
+            </MenuItem>
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>
+        <!--GRID DEFINITION-->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <TextBox x:Name="textBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Margin="10, 0">Path</TextBox>
-                <Button x:Name="button" Content="Start Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="button_Click"/>
-            </StackPanel>                        
-            <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" Grid.Column="0" VerticalAlignment="Stretch"/>
-            <Button x:Name="testButton" Grid.Column="0" Content="Project 0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+           
+            <Image
+	            Source="/resources/images/logofm3ddark.png"
+                Grid.Column="0" Grid.Row ="0"
+	            HorizontalAlignment="Left"
+	            Height="250"
+	            Margin="10,10,0,0"
+	            VerticalAlignment="Top"
+	            Width="250">
+            </Image>
+            <!--Label Content="This is a Label control." Grid.Column="1" Grid.Row ="0"/-->
+            <TextBlock
+                Grid.Column="1" Grid.Row ="0"
+                Background="Beige"
+	            Text="FM3D-Designer"
+	            HorizontalAlignment="Stretch"
+	            Margin="10,10,10,10"
+	            VerticalAlignment="Top"
+	            Padding="5"
+	            FontSize="30"
+            />
+            <!-- TEST BUTTON-->
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" Grid.Row ="1" Grid.Column="0" VerticalAlignment="Stretch"/>
+            <Button x:Name="testButton" Grid.Column="0" Grid.Row ="1" Content="Project 0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click"/>
+<!-- LOAD PROJECT BUTTON-->
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row ="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <TextBox x:Name="tb_path" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Margin="10, 0">Path</TextBox>
+                <Button x:Name="btn_load" Content="Load Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn_load_Click" Margin="10, 0"/>
+                <Button x:Name="btn_start" Content="Start Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn_start_Click"/>
+            </StackPanel>
+            
+            
+               
+            
         </Grid>
 
     </Grid>
