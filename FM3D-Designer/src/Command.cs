@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     public class Command : ICommand
     {

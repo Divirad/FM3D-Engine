@@ -10,7 +10,7 @@ using System.ComponentModel;
 using System.Windows;
 using DevComponents.WPF.Metro;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     public class ToolWindow : DockWindow
     {

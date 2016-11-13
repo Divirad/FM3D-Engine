@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"

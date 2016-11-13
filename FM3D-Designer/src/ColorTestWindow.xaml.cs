@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 using DevComponents.WPF.Metro;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     /// <summary>
     /// Interaction logic for ColorTestWindow.xaml

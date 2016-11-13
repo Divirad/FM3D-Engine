@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using DevComponents.WPF.Metro;
 using System.Windows.Media;
+using FM3D_Designer.src;
 
 namespace FM3D_Designer.Themes
 {

@@ -84,6 +84,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Material mat3Boba = { 0xffffffff, bobaTexHelmet };
 	Material mat4Boba = { 0xffffffff, bobaTexJet };
 	Material mat5Boba = { 0xffffffff, bobaTexBody };
+
 	materialsBoba[0] = &mat1Boba;
 	materialsBoba[1] = &mat2Boba;
 	materialsBoba[2] = &mat3Boba;
