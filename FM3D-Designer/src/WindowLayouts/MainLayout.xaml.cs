@@ -17,7 +17,7 @@ using DevComponents.WpfDock;
 using System.Windows.Controls;
 using System.ComponentModel;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
     /// Interaction logic for MainLayout.xaml
@@ -29,7 +29,6 @@ namespace FM3D_Designer
             InitializeComponent();
             this.Header = "Main Page";
             this.Initialize(mainWindow, this.dockSite);
-
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();

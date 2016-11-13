@@ -14,11 +14,21 @@ using System.Windows.Shapes;
 
 using DevComponents.WPF.Metro;
 
-namespace FM3D_Designer
+///Hauptnamespace
+/**
+ * Alle Klassen liegen in diesem Namepsace
+ * um eine Komplikation mit einer Klasse
+ * aus einer externen Bibliothek zu verhindern
+ */
+namespace FM3D_Designer.src
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    ///Hauptfenster
+    /**
+     * Ein fast leeres Fenster, enthält nur ein DockSite-Control,
+     * um das docken von WindowLayouts zu ermöglichen. Der modern
+     * aussehende style wird durch die Basisklasse MetroAppWindow
+     * hervorgerufen.
+     */
     public partial class MainWindow : MetroAppWindow
     {
         public MainWindow()
@@ -26,7 +36,7 @@ namespace FM3D_Designer
             Themes.DarkTheme.SetTheme();
             
             InitializeComponent();
-            AttachNewWindowLayout(new StartLayout(this));
+            AttachNewWindowLayout(new WindowLayouts.StartLayout(this));
         }
         public void AttachNewWindowLayout(WindowLayout layout, bool isSelected = false)
         {

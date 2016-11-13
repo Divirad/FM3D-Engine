@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
     /// Interaction logic for StartLayout.xaml
@@ -37,6 +37,8 @@ namespace FM3D_Designer
             Project.Load(this.textBox.Text);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
+            WindowLayout layout = new TextureLayout();
+            mainWindow.AttachNewWindowLayout(layout);
 
         }
 

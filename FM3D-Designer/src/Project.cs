@@ -8,7 +8,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     public class Project
     {

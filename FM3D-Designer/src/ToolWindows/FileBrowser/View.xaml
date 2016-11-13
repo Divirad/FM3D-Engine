@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FM3D_Designer.ToolWindows.FileBrowser"
-             xmlns:fm="clr-namespace:FM3D_Designer"
+             xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.FileBrowser"
+             xmlns:fm="clr-namespace:FM3D_Designer.src"
              xmlns:m="clr-namespace:DevComponents.WPF.Metro;assembly=DevComponents.WPF.Metro"
-             xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls" x:Class="FM3D_Designer.ToolWindows.FileBrowser.View"
+             xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
+             x:Class="FM3D_Designer.src.ToolWindows.FileBrowser.View"
              mc:Ignorable="d"
              Width="300" Height="600">
 

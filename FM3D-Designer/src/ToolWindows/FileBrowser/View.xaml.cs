@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 using System.Windows.Controls.Primitives;
 
-namespace FM3D_Designer.ToolWindows.FileBrowser
+namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     /// <summary>
     /// Interaction logic for FileBrowserView.xaml

@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections;
 
-namespace FM3D_Designer.ToolWindows.FileBrowser
+namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     public class TreeItemViewModel : INotifyPropertyChanged
     {
@@ -187,7 +187,7 @@ namespace FM3D_Designer.ToolWindows.FileBrowser
 
         public ViewModel()
         {
-            model.PropertyChanged += OnDirectoryChanched;
+            model.PropertyChanged += OnDirectoryChanged;
 
             commIcons = new Command(this.ExecuteIcons, this.CanExecuteIcons);
             commTreeIcons = new Command(this.ExecuteTreeIcons, this.CanExecuteTreeIcons);
@@ -282,7 +282,7 @@ namespace FM3D_Designer.ToolWindows.FileBrowser
             }
         }
 
-        void OnDirectoryChanched(object sender, PropertyChangedEventArgs args)
+        void OnDirectoryChanged(object sender, PropertyChangedEventArgs args)
         {
             if(args.PropertyName.Equals(nameof(model.RootDirectories), StringComparison.Ordinal))
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Collections;
 
-namespace FM3D_Designer.ToolWindows.FileBrowser
+namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     public enum FileType
     {

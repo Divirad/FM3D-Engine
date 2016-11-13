@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     public class Theme : INotifyPropertyChanged
     {
