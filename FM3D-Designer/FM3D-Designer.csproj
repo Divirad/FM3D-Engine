@@ -180,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\logofm3dbright.png" />
+    <Resource Include="resources\images\logofm3ddark.png" />
+    <Resource Include="resources\images\logofm3d.png" />
     <Resource Include="resources\images\file browser\file_nonproj_icon.ico" />
     <Resource Include="resources\images\file browser\folder_closed_nonproj_icon.ico" />
     <Resource Include="resources\images\file browser\folder_open_nonproj_icon.ico" />
@@ -195,7 +198,7 @@
     <Resource Include="DotNetBar\DevComponents.WpfDock.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\images\FM3DLogo.png" />
+    <Folder Include="src\ToolWindows\TextEditor\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Designer Lib\Designer Lib.vcxproj">

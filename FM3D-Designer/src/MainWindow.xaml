@@ -12,11 +12,13 @@
         m:MetroUI.Theme="{Binding MetroStyle, Source={x:Static local:Theme.Current}}"
         Height="720" Width="1280">
 
+    
     <m:MetroShell ShowBackstageButton="False">
         <m:MetroShell.Chrome>
             <m:MetroChrome>
             </m:MetroChrome>
         </m:MetroShell.Chrome>
+
         <m:MetroShell.Items>
             <DockPanel LastChildFill="True">
                 <dd:DockSite x:Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">
