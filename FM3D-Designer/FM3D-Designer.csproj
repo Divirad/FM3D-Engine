@@ -178,6 +178,8 @@
     <None Include="src\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Assimp32.dll" />
+    <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
     <Resource Include="resources\images\logofm3dbright.png" />
     <Resource Include="resources\images\logofm3ddark.png" />

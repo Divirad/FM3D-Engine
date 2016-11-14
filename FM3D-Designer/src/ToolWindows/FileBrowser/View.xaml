@@ -20,7 +20,7 @@
                         <Setter.Value>
                             <VisualBrush Stretch="Fill">
                                 <VisualBrush.Visual>
-                                    <Rectangle Width="26" Height="24">
+                                    <Rectangle Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Width="26" Height="24">
                                         <Rectangle.OpacityMask>
                                             <ImageBrush ImageSource="/FM3D-Designer;component/resources/images/selected.png"/>
                                         </Rectangle.OpacityMask>
@@ -46,38 +46,50 @@
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
                 <Separator/>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" IsEnabled="{Binding ModeTree, Source={StaticResource viewModel}}" Command="{Binding CommTree, Source={StaticResource viewModel}}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" IsEnabled="{Binding ModeTree, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.TREE}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_icon.png" />
                 </Button>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeIconsButton" IsEnabled="{Binding ModeTreeIcons, Source={StaticResource viewModel}}" Command="{Binding CommTreeIcons, Source={StaticResource viewModel}}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeIconsButton" IsEnabled="{Binding ModeTreeIcons, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.TREE_ICONS}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_bigicons_icon.png" />
                 </Button>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="iconsButton" IsEnabled="{Binding ModeIcons, Source={StaticResource viewModel}}" Command="{Binding CommIcons, Source={StaticResource viewModel}}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="iconsButton" IsEnabled="{Binding ModeIcons, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.ICONS}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/bigicons_icon.png" />
                 </Button>
             </ToolBar>
         </ToolBarTray>
 
-        <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <Grid>
-                            <Image Source="{Binding ImageSource}"/>
-                            <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
-                        </Grid>
-                        <TextBlock Text="{Binding Name}" Margin="2"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
-                    <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-        </TreeView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TreeView Grid.Column="0" DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Image Source="{Binding ImageSource}"/>
+                                <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
+                            </Grid>
+                            <TextBlock Text="{Binding Name}" Margin="2"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
+                        <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+            <ListView Grid.Column="2">
+                
+            </ListView>
+        </Grid>
 
     </Grid>
 
