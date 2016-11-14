@@ -154,33 +154,52 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
     }
     public class ViewModel : INotifyPropertyChanged
     {
+        public enum ViewMode
+        {
+            ICONS,
+            TREE_ICONS,
+            TREE
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Model model = new Model();
+        public ViewMode Mode
+        {
+            set
+            {
+                model.Mode = value;
+            }
+            get
+            {
+                return model.Mode;
+            }
+        }
 
         #region Commands
-        private Command commIcons;
-        public ICommand CommIcons
+        public class CommandTreeMode : CommandBase
         {
-            get
+            private ViewModel model;
+            public CommandTreeMode(ViewModel model)
             {
-                return commIcons;
+                this.model = model;
+            }
+            public override bool CanExecute(object parameter)
+            {
+                return (ViewMode)parameter != model.Mode;
+            }
+            public override void Execute(object parameter)
+            {
+                model.Mode = (ViewMode)parameter;
+                model.UpdateMode();
             }
         }
-        private Command commTreeIcons;
-        public ICommand CommTreeIcons
+        private CommandTreeMode _CommTreeMode;
+        public ICommand CommTreeMode
         {
             get
             {
-                return commTreeIcons;
-            }
-        }
-        private Command commTree;
-        public ICommand CommTree
-        {
-            get
-            {
-                return commTree;
+                return _CommTreeMode;
             }
         }
         #endregion
@@ -189,75 +208,13 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             model.PropertyChanged += OnDirectoryChanged;
 
-            commIcons = new Command(this.ExecuteIcons, this.CanExecuteIcons);
-            commTreeIcons = new Command(this.ExecuteTreeIcons, this.CanExecuteTreeIcons);
-            commTree = new Command(this.ExecuteTree, this.CanExecuteTree);
+            _CommTreeMode = new CommandTreeMode(this);
 
             _RootDirectories = new ObservableCollection<TreeItemViewModel>();
             foreach (FileSystemObjectData f in model.RootDirectories)
             {
                 _RootDirectories.Add(new TreeItemViewModel(f));
             }
-
-            ExecuteTree();
-        }
-
-        #region TreeModes
-        public bool ModeIcons
-        {
-            get
-            {
-                return model.Mode == Model.ViewMode.ICONS;
-            }
-        }
-
-        public bool ModeTreeIcons
-        {
-            get
-            {
-                return model.Mode == Model.ViewMode.TREE_ICONS;
-            }
-        }
-
-        public bool ModeTree
-        {
-            get
-            {
-                return model.Mode == Model.ViewMode.TREE;
-            }
-        }
-
-        private bool CanExecuteIcons()
-        {
-            return model.Mode != Model.ViewMode.ICONS;
-        }
-
-        private bool CanExecuteTreeIcons()
-        {
-            return model.Mode != Model.ViewMode.TREE_ICONS;
-        }
-
-        private bool CanExecuteTree()
-        {
-            return model.Mode != Model.ViewMode.TREE;
-        }
-
-        private void ExecuteIcons()
-        {
-            model.Mode = Model.ViewMode.ICONS;
-            UpdateMode();
-        }
-
-        private void ExecuteTreeIcons()
-        {
-            model.Mode = Model.ViewMode.TREE_ICONS;
-            UpdateMode();
-        }
-
-        private void ExecuteTree()
-        {
-            model.Mode = Model.ViewMode.TREE;
-            UpdateMode();
         }
 
         public void UpdateMode()
@@ -270,8 +227,6 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
             //commIcons.UpdateCanExecuteState();
         }
-
-        #endregion
 
         private ObservableCollection<TreeItemViewModel> _RootDirectories;
         public IEnumerable<TreeItemViewModel> RootDirectories

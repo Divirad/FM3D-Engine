@@ -7,7 +7,8 @@ using System.Windows.Input;
 
 namespace FM3D_Designer.src
 {
-    public class Command : ICommand
+
+    public abstract class CommandBase : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -15,6 +16,13 @@ namespace FM3D_Designer.src
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        public abstract bool CanExecute(object parameter);
+
+        public abstract void Execute(object parameter);
+    }
+
+    public class Command : CommandBase
+    {
         private Action action;
         private Func<bool> condition;
 
@@ -24,11 +32,11 @@ namespace FM3D_Designer.src
             this.condition = condition;
         }
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return condition();
         }
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             action();
         }

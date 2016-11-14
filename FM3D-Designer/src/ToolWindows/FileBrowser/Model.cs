@@ -27,15 +27,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
     public class Model : INotifyPropertyChanged
     {
-        public enum ViewMode
-        {
-            ICONS,
-            TREE_ICONS,
-            TREE
-        }
-
-        private ViewMode _Mode;
-        public ViewMode Mode
+        private ViewModel.ViewMode _Mode = ViewModel.ViewMode.TREE;
+        public ViewModel.ViewMode Mode
         {
             get
             {
