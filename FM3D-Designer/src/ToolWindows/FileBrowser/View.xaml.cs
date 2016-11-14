@@ -25,9 +25,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             InitializeComponent();
             this.Header = "File Browser";
-
-
-
+            
             this.Initialize(mainWindow);
         }
 
@@ -39,6 +37,11 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             {
                 overflowGrid.Background = toolBar.Background;
             }
+        }
+        
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+           // mainWindow.AddToolView();
         }
     }
 }

@@ -60,13 +60,30 @@
 
         <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TreeView.ItemTemplate>
+               
                 <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Open" Command="Open" Click="Open_Click"/>
+                                <MenuItem Header="Add"/>
+                                <Separator />
+                                <MenuItem Header="Cut" Command="Cut" />
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
+                                <MenuItem Header="Delete" Command="Delete"/>
+                                <MenuItem Header="Select All" Command="SelectAll"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+
                         <Grid>
-                            <Image Source="{Binding ImageSource}"/>
-                            <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
-                        </Grid>
-                        <TextBlock Text="{Binding Name}" Margin="2"/>
+                                <Image Source="{Binding ImageSource}"/>
+                                <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
+                            </Grid>
+                            <TextBlock Text="{Binding Name}" Margin="2">
+                                
+                            </TextBlock>
+                        
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>

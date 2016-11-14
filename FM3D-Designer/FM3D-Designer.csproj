@@ -92,6 +92,9 @@
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ToolWindows\TextEditor\TextEditor.xaml.cs">
+      <DependentUpon>TextEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\WindowLayouts\MainLayout.xaml.cs">
       <DependentUpon>MainLayout.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
     <Compile Include="src\ToolWindows\FileBrowser\ViewModel.cs" />
     <Compile Include="src\WindowLayout.cs" />
     <Page Include="src\DocumentWindows\TextureViewPort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\TextEditor\TextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,9 +203,7 @@
     <Resource Include="resources\images\file browser\folder_open_icon.ico" />
     <Resource Include="DotNetBar\DevComponents.WpfDock.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\ToolWindows\TextEditor\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Designer Lib\Designer Lib.vcxproj">
       <Project>{73299801-382b-4e3c-b5ea-6b9761b403f7}</Project>

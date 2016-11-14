@@ -101,7 +101,8 @@
 <!-- LOAD PROJECT BUTTON-->
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row ="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBox x:Name="tb_path" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Margin="10, 0">Path</TextBox>
-                <Button x:Name="btn_load" Content="Load Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn_load_Click" Margin="10, 0"/>
+                
+                <Button x:Name="btn_load" Height="50" Width="100" Content="Load Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn_load_Click" Margin="10, 0"/>
                 <Button x:Name="btn_start" Content="Start Project" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn_start_Click"/>
             </StackPanel>
             
