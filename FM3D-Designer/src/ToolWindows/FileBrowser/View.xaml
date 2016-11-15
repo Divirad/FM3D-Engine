@@ -82,6 +82,7 @@
                         <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
                         <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="Visibility" Value="{Binding IsVisible}"/>
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>

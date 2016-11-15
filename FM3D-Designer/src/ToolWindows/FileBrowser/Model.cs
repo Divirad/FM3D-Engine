@@ -14,8 +14,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     public enum FileType
     {
-        UNKNOWN,
         DIRECTORY,
+        UNKNOWN,
     }
 
     public enum FileState
@@ -52,6 +52,15 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             get
             {
                 return _RootDirectories;
+            }
+        }
+
+        private ObservableCollection<FileSystemObjectData> _OnlyDirectories;
+        public IEnumerable<FileSystemObjectData> Directories
+        {
+            get
+            {
+                return _OnlyDirectories;
             }
         }
 
