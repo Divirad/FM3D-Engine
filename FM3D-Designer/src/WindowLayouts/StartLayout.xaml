@@ -13,15 +13,13 @@
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         
-
         <!-- MENU-->
         <Menu x:Name="menu" Grid.Row="0">
 
             <MenuItem Header="_File">
                 <MenuItem Header="New" Command="New" Click="New_Click"/>
-                <MenuItem Header="Open" Command="Open"/>
+                <MenuItem Header="Open" Command="Open" Click="btn_load_Click"/>
                 <Separator />
                 <MenuItem Header="Add Item" />
                 <Separator />
@@ -110,5 +108,7 @@
 
     <local:WindowLayout.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" />
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" />
     </local:WindowLayout.CommandBindings>
+    
 </local:WindowLayout>

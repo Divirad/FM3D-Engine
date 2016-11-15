@@ -23,6 +23,7 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class StartLayout : WindowLayout
     {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
         StartTools st = new StartTools();
         public StartLayout(MainWindow mainWindow)
         {
@@ -61,11 +62,14 @@ namespace FM3D_Designer.src.WindowLayouts
         ///
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
                 tb_path.Text = openFileDialog.FileName; 
         }
-
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == true)
+                tb_path.Text = openFileDialog.FileName;
+        }
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
             this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
