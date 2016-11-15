@@ -26,19 +26,12 @@ namespace FM3D_Designer.src.WindowLayouts
         public MainLayout(MainWindow mainWindow)
         {
             InitializeComponent();
+            
             this.Header = "Main Page";
             this.Initialize(mainWindow, this.dockSite);
-            {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(new ToolWindows.FileBrowser.View(this));
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Right);
-                DockSite.SetDockSize(splitPanel, 150);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
-                
-            }
+            StartTools st = new StartTools(this);
+
+                st.startFileBrowser();
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();

@@ -23,20 +23,26 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class StartLayout : WindowLayout
     {
+        StartTools st = new StartTools();
         public StartLayout(MainWindow mainWindow)
         {
             InitializeComponent();
-
+           
             //Initialize DockWindow
             this.Header = "StartPage";
 
             this.Initialize(mainWindow, null);
         }
-
-        public void New_Click(object sender, RoutedEventArgs e){
         
-            //bruh.InitializeComponent();
-            //var controller = async ShowProgressAsync("Please wait...", "Progress message");
+
+        public void New_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
+        }
+
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
@@ -57,7 +63,7 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
-                tb_path.Text = openFileDialog.FileName; //File.ReadAllText(
+                tb_path.Text = openFileDialog.FileName; 
         }
 
         private void testButton_Click(object sender, RoutedEventArgs e)

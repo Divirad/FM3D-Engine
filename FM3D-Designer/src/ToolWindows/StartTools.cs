@@ -16,23 +16,74 @@ using System.Windows.Shapes;
 using DevComponents.WpfDock;
 using System.ComponentModel;
 
-//namespace FM3D_Designer.src.WindowLayouts
-//{
-//    class StartTools 
-//    {
-//        StartTools(WindowLayout mainWindow) {
-            
-//        }
-//        public void startFileBrowser()
-//        {
-//            SplitPanel splitPanel = new SplitPanel();
-//            DockWindowGroup dg = new DockWindowGroup();
-//            dg.Items.Add(new ToolWindows.FileBrowser.View(mainWindow));
-//            splitPanel.Children.Add(dg);
-//            DockSite.SetDock(splitPanel, Dock.Right);
-//            DockSite.SetDockSize(splitPanel, 150);
-//            this.dockSite.SplitPanels.Add(splitPanel);
-//            dg.UpdateVisibility();
-//        } 
-//    }
-//}
+namespace FM3D_Designer.src.WindowLayouts
+{
+    class StartTools
+    {
+        private MainLayout mw;
+        public StartTools() { }
+        public StartTools(MainLayout mainWindow)
+        {
+            mw = mainWindow;
+        }
+
+        public void SetWindow(MainLayout mainWindow)
+        {
+            mw = mainWindow;
+        }
+
+        
+        
+        public void startFileBrowser(Dock dock, int docksize)
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(new ToolWindows.FileBrowser.View(mw));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, dock);
+            DockSite.SetDockSize(splitPanel, docksize);
+            mw.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
+        }
+        public void startFileBrowser(Dock dock)
+        {
+            startFileBrowser(dock, 150);
+        }
+        public void startFileBrowser()
+        {
+            startFileBrowser(Dock.Right, 150);
+        }
+        
+        public void startTextEditor(Dock dock, int docksize)
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(mw));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, dock);
+            DockSite.SetDockSize(splitPanel, docksize);
+            mw.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
+        }
+        public void startTextEditor(Dock dock)
+        {
+            startTextEditor(dock, 600);
+        }
+        public void startTextEditor()
+        {
+            startTextEditor(Dock.Top, 600);
+        }
+
+        public void startCreateProject(Dock dock, int docksize)
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(mw));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, dock);
+            DockSite.SetDockSize(splitPanel, docksize);
+            mw.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
+        }
+    }
+}

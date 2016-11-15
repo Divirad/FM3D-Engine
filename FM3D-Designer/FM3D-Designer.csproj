@@ -92,7 +92,7 @@
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ToolWindows\CreateProject\CreateProject.xaml.cs">
+    <Compile Include="src\WindowLayouts\CreateProject.xaml.cs">
       <DependentUpon>CreateProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\ToolWindows\StartTools.cs" />
@@ -128,7 +128,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="src\ToolWindows\CreateProject\CreateProject.xaml">
+    <Page Include="src\WindowLayouts\CreateProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +213,9 @@
     <Resource Include="resources\images\file browser\folder_open_icon.ico" />
     <Resource Include="DotNetBar\DevComponents.WpfDock.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\ToolWindows\CreateProject\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Designer Lib\Designer Lib.vcxproj">
       <Project>{73299801-382b-4e3c-b5ea-6b9761b403f7}</Project>

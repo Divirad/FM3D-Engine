@@ -30,20 +30,5 @@
         </Menu>
         <dd:DockSite  Grid.Row="1"  Name="dockSite" VisualStyle="Office2016">
         </dd:DockSite>
-        <!--<m:MetroToolBar Grid.Row="0">
-            <Button Height="25" ToolTip="Collapse All">
-                <Image Source="resources/images/file browser/collapseAll_icon.png" />
-            </Button>
-            
-           --><!-- <Menu x:Name="menu2" Grid.Row="0" Background="{DynamicResource {x:Static m:MetroColors.CanvasBrushKey}}" Foreground="{DynamicResource {x:Static m:MetroColors.TextBrushKey}}"> 
-            <MenuItem Header="_Edit" Grid.Column="10">
-                <MenuItem Header="_New" Command="New"/>
-            </MenuItem>
-            <MenuItem Header="_Project" />
-            <MenuItem Header="_View" />
-                <MenuItem Header="_Window" />
-                <MenuItem Header="_Help" />
-             </Menu> --><!--
-        </m:MetroToolBar>-->
     </Grid>
 </local:WindowLayout>
