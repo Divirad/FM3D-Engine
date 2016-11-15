@@ -1,0 +1,79 @@
+﻿<fm:ToolWindow
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.TextEditor"
+             xmlns:fm="clr-namespace:FM3D_Designer.src"
+             xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
+             x:Class="FM3D_Designer.src.ToolWindows.TextEditor.TextEditor"
+             mc:Ignorable="d"
+             Width="600" Height="600">
+    
+    <fm:ToolWindow.Resources>
+        <!--local:ViewModel x:Key="viewModel"/-->
+
+        <Style x:Key="ToggleStyle" TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <VisualBrush Stretch="Fill">
+                                <VisualBrush.Visual>
+                                    <Rectangle Width="26" Height="24">
+                                        <Rectangle.OpacityMask>
+                                            <ImageBrush ImageSource="/FM3D-Designer;component/resources/images/selected.png"/>
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </fm:ToolWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu x:Name="men_texteditor" Grid.Row="0">
+
+            <MenuItem Header="_File">
+                <MenuItem Header="New" Command="New">
+
+                </MenuItem>
+                <MenuItem Header="Open" Command="Open"/>
+                <Separator />
+                <MenuItem Header="Add Item" />
+                <Separator />
+                <MenuItem Header="Close" />
+                <MenuItem Header="Close Project" />
+                <Separator />
+                <MenuItem Header="Save" Command="Save" />
+                <MenuItem Header="Save All" />
+                <MenuItem Header="Save As..." Command="SaveAs" />
+                <Separator />
+                <MenuItem Header="Last File" />
+                <MenuItem Header="Last Project" />
+                <Separator />
+                <MenuItem Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo" Command="Undo"/>
+                <MenuItem Header="Redo" Command="Redo"/>
+                <Separator />
+                <MenuItem Header="Cut" Command="Cut" />
+                <MenuItem Header="Copy" Command="Copy"/>
+                <MenuItem Header="Paste" Command="Paste"/>
+                <MenuItem Header="Delete" Command="Delete"/>
+                <MenuItem Header="Select All" Command="SelectAll"/>
+            </MenuItem>
+        </Menu>
+        <RichTextBox  AcceptsReturn="True" Grid.Row="1" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" KeyDown="KeyComplete"/>
+    </Grid>
+
+</fm:ToolWindow>

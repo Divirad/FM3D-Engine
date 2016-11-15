@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
@@ -21,14 +23,27 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class StartLayout : WindowLayout
     {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        StartTools st = new StartTools();
         public StartLayout(MainWindow mainWindow)
         {
             InitializeComponent();
-
+           
             //Initialize DockWindow
             this.Header = "StartPage";
 
             this.Initialize(mainWindow, null);
+        }
+        
+
+        public void New_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
+        }
+
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
@@ -47,14 +62,18 @@ namespace FM3D_Designer.src.WindowLayouts
         ///
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
-                tb_path.Text = openFileDialog.FileName; //File.ReadAllText(
+                tb_path.Text = openFileDialog.FileName; 
         }
-
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == true)
+                tb_path.Text = openFileDialog.FileName;
+        }
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
             this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }
+
     }
 }
