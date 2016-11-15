@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using DevComponents.WpfDock;
-using System.Windows.Controls;
 using System.ComponentModel;
 
 namespace FM3D_Designer.src.WindowLayouts
@@ -55,8 +54,8 @@ namespace FM3D_Designer.src.WindowLayouts
                 DockWindowGroup dg = new DockWindowGroup();
                 dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
                 splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Bottom);
-                DockSite.SetDockSize(splitPanel, 150);
+                DockSite.SetDock(splitPanel, Dock.Top);
+                DockSite.SetDockSize(splitPanel, 600);
                 this.dockSite.SplitPanels.Add(splitPanel);
                 dg.UpdateVisibility();
 
@@ -70,6 +69,28 @@ namespace FM3D_Designer.src.WindowLayouts
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, Dock.Left);
             DockSite.SetDockSize(splitPanel, 150);
+        }
+        public void OpenFileBrowser(object sender, RoutedEventArgs e)
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(new ToolWindows.FileBrowser.View(this));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, Dock.Left);
+            DockSite.SetDockSize(splitPanel, 150);
+            this.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
+        }
+        public void OpenTextEditor(object sender, RoutedEventArgs e)
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, Dock.Right);
+            DockSite.SetDockSize(splitPanel,600);
+            this.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
         }
     }
 }

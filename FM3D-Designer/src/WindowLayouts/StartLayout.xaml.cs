@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
@@ -29,6 +31,12 @@ namespace FM3D_Designer.src.WindowLayouts
             this.Header = "StartPage";
 
             this.Initialize(mainWindow, null);
+        }
+
+        public void New_Click(object sender, RoutedEventArgs e){
+        
+            //bruh.InitializeComponent();
+            //var controller = async ShowProgressAsync("Please wait...", "Progress message");
         }
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
@@ -56,5 +64,6 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }
+
     }
 }

@@ -8,9 +8,8 @@
              xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
              x:Class="FM3D_Designer.src.ToolWindows.TextEditor.TextEditor"
              mc:Ignorable="d"
-             Width="300" Height="600">
-
-
+             Width="600" Height="600">
+    
     <fm:ToolWindow.Resources>
         <!--local:ViewModel x:Key="viewModel"/-->
 
@@ -40,6 +39,40 @@
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <Menu x:Name="men_texteditor" Grid.Row="0">
+
+            <MenuItem Header="_File">
+                <MenuItem Header="New" Command="New">
+
+                </MenuItem>
+                <MenuItem Header="Open" Command="Open"/>
+                <Separator />
+                <MenuItem Header="Add Item" />
+                <Separator />
+                <MenuItem Header="Close" />
+                <MenuItem Header="Close Project" />
+                <Separator />
+                <MenuItem Header="Save" Command="Save" />
+                <MenuItem Header="Save All" />
+                <MenuItem Header="Save As..." Command="SaveAs" />
+                <Separator />
+                <MenuItem Header="Last File" />
+                <MenuItem Header="Last Project" />
+                <Separator />
+                <MenuItem Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo" Command="Undo"/>
+                <MenuItem Header="Redo" Command="Redo"/>
+                <Separator />
+                <MenuItem Header="Cut" Command="Cut" />
+                <MenuItem Header="Copy" Command="Copy"/>
+                <MenuItem Header="Paste" Command="Paste"/>
+                <MenuItem Header="Delete" Command="Delete"/>
+                <MenuItem Header="Select All" Command="SelectAll"/>
+            </MenuItem>
+        </Menu>
         <RichTextBox  AcceptsReturn="True" Grid.Row="1" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" KeyDown="KeyComplete"/>
     </Grid>
 

@@ -20,7 +20,9 @@
         <Menu x:Name="menu" Grid.Row="0">
 
             <MenuItem Header="_File">
-                <MenuItem Header="New" Command="New"/>
+                <MenuItem Header="New" Command="New" Click="New_Click">
+                    
+                </MenuItem>
                 <MenuItem Header="Open" Command="Open"/>
                 <Separator />
                 <MenuItem Header="Add Item" />

@@ -92,6 +92,10 @@
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ToolWindows\CreateProject\CreateProject.xaml.cs">
+      <DependentUpon>CreateProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\StartTools.cs" />
     <Compile Include="src\ToolWindows\TextEditor\TextEditor.xaml.cs">
       <DependentUpon>TextEditor.xaml</DependentUpon>
     </Compile>
@@ -121,6 +125,10 @@
     <Compile Include="src\ToolWindows\FileBrowser\ViewModel.cs" />
     <Compile Include="src\WindowLayout.cs" />
     <Page Include="src\DocumentWindows\TextureViewPort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\CreateProject\CreateProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

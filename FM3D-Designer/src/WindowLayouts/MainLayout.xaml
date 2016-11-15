@@ -19,7 +19,12 @@
             </MenuItem>
             <MenuItem Header="_File" />
             <MenuItem Header="_Edit" />
-            <MenuItem Header="_View" />
+            <MenuItem Header="_View" >
+                <MenuItem Header="Add Window">
+                    <MenuItem Header="File Browser" Click="OpenFileBrowser"/>
+                    <MenuItem Header="Text Editor" Click="OpenTextEditor"/>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>
