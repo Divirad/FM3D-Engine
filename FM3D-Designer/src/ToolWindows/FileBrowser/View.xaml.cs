@@ -38,10 +38,12 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 overflowGrid.Background = toolBar.Background;
             }
         }
-        
-        private void Open_Click(object sender, RoutedEventArgs e)
+
+        private void TreeViewItem_MouseRightButtonDown(object sender, MouseEventArgs e)
         {
-           // mainWindow.AddToolView();
+            TreeViewItem item = (TreeViewItem)sender;
+            item.IsSelected = true;
+            e.Handled = true;
         }
     }
 }

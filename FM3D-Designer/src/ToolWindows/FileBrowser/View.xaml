@@ -58,24 +58,17 @@
             </ToolBar>
         </ToolBarTray>
 
-        <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TreeView.ItemTemplate>
                
                 <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Open" Command="Open" Click="Open_Click"/>
-                                <MenuItem Header="Add"/>
-                                <Separator />
-                                <MenuItem Header="Cut" Command="Cut" />
-                                <MenuItem Header="Copy" Command="Copy"/>
-                                <MenuItem Header="Paste" Command="Paste"/>
-                                <MenuItem Header="Delete" Command="Delete"/>
-                                <MenuItem Header="Select All" Command="SelectAll"/>
-                            </ContextMenu>
-                        </StackPanel.ContextMenu>
-
                         <Grid>
                                 <Image Source="{Binding ImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
@@ -90,6 +83,9 @@
                         <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="Visibility" Value="{Binding IsVisible}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=OneWayToSource}"/>
+                        <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
+                        <EventSetter Event="TreeViewItem.MouseRightButtonDown" Handler="TreeViewItem_MouseRightButtonDown"/>
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>

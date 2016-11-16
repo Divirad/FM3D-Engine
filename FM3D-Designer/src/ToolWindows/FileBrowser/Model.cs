@@ -55,19 +55,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
-        private ObservableCollection<FileSystemObjectData> _OnlyDirectories;
-        public IEnumerable<FileSystemObjectData> Directories
-        {
-            get
-            {
-                return _OnlyDirectories;
-            }
-        }
-
         public void Refresh()
         {
             _RootDirectories.Clear();
-            FileSystemObjectData projectFiles = new FileSystemObjectData(Project.CurrentProject.ProjectFiles.Name, FileType.DIRECTORY, FileState.NORMAL);
+            FileSystemObjectData projectFiles = new FileSystemObjectData(Project.CurrentProject.ProjectFiles.Name, FileType.DIRECTORY, FileState.NORMAL, null);
             projectFiles.GenerateChildren(new DirectoryInfo(Project.CurrentProject.ProjectFiles.Path), 0, Project.CurrentProject.ProjectFiles, true, FileState.NORMAL);
             _RootDirectories.Add(projectFiles);
         }
@@ -77,11 +68,21 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
     public class FileSystemObjectData : INotifyPropertyChanged
     {
-        public FileSystemObjectData(string name, FileType fileType, FileState state)
+        public FileSystemObjectData(string name, FileType fileType, FileState state, FileSystemObjectData parent)
         {
             this._State = state;
             this._Name = name;
             this._FileType = fileType;
+            this.parent = parent;
+        }
+
+        private FileSystemObjectData parent;
+        public FileSystemObjectData Parent
+        {
+            get
+            {
+                return parent;
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -148,7 +149,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     {
                         if ((dir.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             continue;
-                        var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, FileState.NOT_PROJECT);
+                        var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, FileState.NOT_PROJECT, this);
                         folder.GenerateChildren(dir, hierarchyLevel + 1, projFolder, allFiles, FileState.NOT_PROJECT);
                         _Children.Add(folder);
                     }
@@ -159,7 +160,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 {
                     foreach (FileInfo fileInfo in dirInfo.GetFiles())
                     {
-                        var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), FileState.NOT_PROJECT);
+                        var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), FileState.NOT_PROJECT, this);
                         _Children.Add(file);
                     }
                 }
@@ -175,7 +176,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     {
                         foreach (Project.Folder f in projFolder.SubFolders)
                         {                         
-                            var folder = new FileSystemObjectData(f.Name, FileType.DIRECTORY, FileState.NOT_FOUND);
+                            var folder = new FileSystemObjectData(f.Name, FileType.DIRECTORY, FileState.NOT_FOUND, this);
                             folder.GenerateChildren(null, hierarchyLevel + 1, f, allFiles, FileState.NOT_FOUND);
                             _Children.Add(folder);
                         }
@@ -187,7 +188,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                         foreach (Project.File f in projFolder.Files)
                         {
                             FileInfo fileInfo = new FileInfo(f.Path);
-                            var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), FileState.NOT_FOUND);
+                            var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), FileState.NOT_FOUND, this);
                             _Children.Add(file);
                         }
                     }
@@ -215,7 +216,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                                     break;
                                 }
                             }
-                            var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, isFound ? FileState.NORMAL : FileState.NOT_FOUND);
+                            var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, isFound ? FileState.NORMAL : FileState.NOT_FOUND, this);
                             folder.GenerateChildren(dir, hierarchyLevel + 1, f, allFiles, isFound ? FileState.NORMAL : FileState.NOT_FOUND);
                             _Children.Add(folder);
                         }
@@ -223,7 +224,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                         {
                             foreach (DirectoryInfo dir in directories)
                             {
-                                var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, FileState.NOT_PROJECT);
+                                var folder = new FileSystemObjectData(dir.Name, FileType.DIRECTORY, FileState.NOT_PROJECT, this);
                                 folder.GenerateChildren(dir, hierarchyLevel + 1, projFolder, allFiles, FileState.NOT_PROJECT);
                                 _Children.Add(folder);
                             }
@@ -246,14 +247,14 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                                     break;
                                 }
                             }
-                            var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), isFound ? FileState.NORMAL : FileState.NOT_FOUND);
+                            var file = new FileSystemObjectData(fileInfo.Name, GetFileTypeFromExtension(fileInfo.Extension), isFound ? FileState.NORMAL : FileState.NOT_FOUND, this);
                             _Children.Add(file);
                         }
                         if (allFiles)
                         {
                             foreach (FileInfo fi in files)
                             {
-                                var file = new FileSystemObjectData(fi.Name, GetFileTypeFromExtension(fi.Extension), FileState.NOT_PROJECT);
+                                var file = new FileSystemObjectData(fi.Name, GetFileTypeFromExtension(fi.Extension), FileState.NOT_PROJECT, this);
                                 _Children.Add(file);
                             }
                         }
