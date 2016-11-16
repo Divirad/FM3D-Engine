@@ -143,6 +143,15 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
+        private Visibility _IsVisible = Visibility.Visible;
+        public Visibility IsVisible
+        {
+            get
+            {
+                return _IsVisible;
+            }
+        }
+
         private ObservableCollection<TreeItemViewModel> _Children;
         public IList<TreeItemViewModel> Children
         {

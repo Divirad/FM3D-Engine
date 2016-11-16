@@ -80,21 +80,24 @@
                                 <Image Source="{Binding ImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
                             </Grid>
-                            <TextBlock Text="{Binding Name}" Margin="2">
-                                
-                            </TextBlock>
-                        
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
-                    <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-        </TreeView>
+                            <TextBlock Text="{Binding Name}" Margin="2"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
+                        <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="Visibility" Value="{Binding IsVisible}"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+            <ListView Grid.Column="2">
+                
+            </ListView>
+        </Grid>
 
     </Grid>
 
