@@ -29,40 +29,12 @@ namespace FM3D_Designer.src.WindowLayouts
             
             this.Header = "Main Page";
             this.Initialize(mainWindow, this.dockSite);
-            StartTools st = new StartTools(this);
-
-                st.startFileBrowser();
-            {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(new ToolWindows.FileBrowser.View(this));
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Left);
-                DockSite.SetDockSize(splitPanel, 150);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
-            }
-            {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Top);
-                DockSite.SetDockSize(splitPanel, 600);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
-
+            { 
+                startFileBrowser();
+                startTextEditor();
             }
         }
-        public void AddToolView()
-        {
-            SplitPanel splitPanel = new SplitPanel();
-            DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
-            splitPanel.Children.Add(dg);
-            DockSite.SetDock(splitPanel, Dock.Left);
-            DockSite.SetDockSize(splitPanel, 150);
-        }
+        
         public void OpenFileBrowser(object sender, RoutedEventArgs e)
         {
             SplitPanel splitPanel = new SplitPanel();
@@ -74,6 +46,7 @@ namespace FM3D_Designer.src.WindowLayouts
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
+
         public void OpenTextEditor(object sender, RoutedEventArgs e)
         {
             SplitPanel splitPanel = new SplitPanel();
