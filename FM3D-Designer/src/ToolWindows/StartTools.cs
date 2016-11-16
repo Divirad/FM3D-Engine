@@ -18,31 +18,17 @@ using System.ComponentModel;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
-    class StartTools
+    public partial class MainLayout
     {
-        private MainLayout mw;
-        public StartTools() { }
-        public StartTools(MainLayout mainWindow)
-        {
-            mw = mainWindow;
-        }
-
-        public void SetWindow(MainLayout mainWindow)
-        {
-            mw = mainWindow;
-        }
-
-        
-        
         public void startFileBrowser(Dock dock, int docksize)
         {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.FileBrowser.View(mw));
+            dg.Items.Add(new ToolWindows.FileBrowser.View(this));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, dock);
             DockSite.SetDockSize(splitPanel, docksize);
-            mw.dockSite.SplitPanels.Add(splitPanel);
+            this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
         public void startFileBrowser(Dock dock)
@@ -53,16 +39,16 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             startFileBrowser(Dock.Right, 150);
         }
-        
+
         public void startTextEditor(Dock dock, int docksize)
         {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(mw));
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, dock);
             DockSite.SetDockSize(splitPanel, docksize);
-            mw.dockSite.SplitPanels.Add(splitPanel);
+            this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
         public void startTextEditor(Dock dock)
@@ -78,11 +64,11 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(mw));
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, dock);
             DockSite.SetDockSize(splitPanel, docksize);
-            mw.dockSite.SplitPanels.Add(splitPanel);
+            this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
     }

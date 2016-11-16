@@ -33,14 +33,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
                 st.startFileBrowser();
             {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(new ToolWindows.FileBrowser.View(this));
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Left);
-                DockSite.SetDockSize(splitPanel, 150);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
+                st.startTextEditor();
             }
             {
                 SplitPanel splitPanel = new SplitPanel();
