@@ -18,7 +18,7 @@ using System.ComponentModel;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
-    public partial class MainLayout
+    public partial class MainLayout : WindowLayout
     {
         public void startFileBrowser(Dock dock, int docksize)
         {
@@ -39,6 +39,10 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             startFileBrowser(Dock.Right, 150);
         }
+        public void startFileBrowser(object sender, RoutedEventArgs e)
+        {
+            startFileBrowser();
+        }
 
         public void startTextEditor(Dock dock, int docksize)
         {
@@ -58,6 +62,10 @@ namespace FM3D_Designer.src.WindowLayouts
         public void startTextEditor()
         {
             startTextEditor(Dock.Top, 600);
+        }
+        public void startTextEditor(object sender, RoutedEventArgs e)
+        {
+            startTextEditor();
         }
 
         public void startCreateProject(Dock dock, int docksize)

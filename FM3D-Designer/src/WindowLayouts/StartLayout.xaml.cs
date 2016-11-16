@@ -24,7 +24,7 @@ namespace FM3D_Designer.src.WindowLayouts
     public partial class StartLayout : WindowLayout
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        StartTools st = new StartTools();
+        
         public StartLayout(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
-        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void NewProj(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
@@ -65,7 +65,7 @@ namespace FM3D_Designer.src.WindowLayouts
             if (openFileDialog.ShowDialog() == true)
                 tb_path.Text = openFileDialog.FileName; 
         }
-        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void OpenProj(object sender, ExecutedRoutedEventArgs e)
         {
             if (openFileDialog.ShowDialog() == true)
                 tb_path.Text = openFileDialog.FileName;

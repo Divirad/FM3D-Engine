@@ -96,11 +96,17 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
-                    <TextBox x:Name="tb_path" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10, 0">Path</TextBox>
-                    <Button x:Name="btn_load" Grid.Column="1" Content="Load" Click="btn_load_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" FontWeight="Normal" FontSize="10"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="tb_path"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10, 0">Path</TextBox>
+                    <Button x:Name="btn_load" Command="Open" Grid.Column="1" Grid.Row="0" Content="Load" Click="btn_load_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" FontWeight="Normal" FontSize="10"/>
+                    <Button x:Name="btn_start" Grid.Column="0" Grid.Row="1" Content="Start" Click="btn_start_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="100" Height="40"/>
+                    <Button x:Name="btn_new"  Command="New" Grid.Column="0" Grid.Row="2" Content="New Project" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="100" Height="40"/>
                 </Grid>
-                <Button x:Name="btn_start" Grid.Row="2" Content="Start" Click="btn_start_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="100" Height="40"/>
+                
             </Grid>
 
             <TextBlock
@@ -149,8 +155,8 @@
     </Grid>
 
     <local:WindowLayout.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" />
-        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" />
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewProj" />
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenProj" />
     </local:WindowLayout.CommandBindings>
     
 </local:WindowLayout>
