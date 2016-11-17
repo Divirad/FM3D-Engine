@@ -65,11 +65,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TreeView.ItemTemplate>
-               
-                <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <Grid>
+                <TreeView.ItemTemplate>
+
+                    <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
                                 <Image Source="{Binding ImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
                             </Grid>
@@ -90,9 +90,25 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-            <ListView Grid.Column="2">
-                
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource viewModel}" ItemsSource="{Binding CurrentDirectory, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Width="48" Orientation="Vertical">
+                            <Grid VerticalAlignment="Center">
+                                <Image Source="{Binding BigImageSource}"/>
+                                <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
+                            </Grid>
+                            <TextBlock Text="{Binding Name}" Margin="2"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
             </ListView>
         </Grid>
+    </Grid>
 
 </fm:ToolWindow>

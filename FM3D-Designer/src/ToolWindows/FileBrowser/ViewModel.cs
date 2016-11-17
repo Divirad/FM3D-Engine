@@ -42,10 +42,12 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 if (this.objectData.FileType == FileType.DIRECTORY)
                 {
                     this.ImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/folder_closed_nonproj_icon.ico", UriKind.Relative);
+                    this.BigImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/folder_closed_nonproj_icon.ico", UriKind.Relative);
                 }
                 else
                 {
                     this.ImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/file_nonproj_icon.ico", UriKind.Relative);
+                    this.BigImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/file_nonproj_icon.ico", UriKind.Relative);
                 }
             }
             else
@@ -53,9 +55,11 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 switch (this.objectData.FileType)
                 {
                     case FileType.DIRECTORY:
+                        this.BigImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/folder_bigIcon.png", UriKind.Relative);
                         this.ImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/folder_closed_icon.ico", UriKind.Relative);
                         break;
                     default:
+                        this.BigImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative);
                         this.ImageSource = new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative);
                         break;
                 }
@@ -173,6 +177,23 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 {
                     _ImageSource = value;
                     if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("ImageSource"));
+                }
+            }
+        }
+
+        private Uri _BigImageSource;
+        public Uri BigImageSource
+        {
+            get
+            {
+                return _BigImageSource;
+            }
+            set
+            {
+                if (value != _BigImageSource)
+                {
+                    _BigImageSource = value;
+                    if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("BigImageSource"));
                 }
             }
         }
@@ -324,7 +345,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             get
             {
-                return _CurrentDirectory.Children;
+                if (_CurrentDirectory != null)
+                    return _CurrentDirectory.Children;
+                else
+                    return new ObservableCollection<TreeItemViewModel>();
             }
         }
 
