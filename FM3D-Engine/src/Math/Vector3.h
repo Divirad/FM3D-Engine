@@ -22,10 +22,10 @@ namespace ENGINE_NAME {
 			Vector3(Vector2<Scalar> xy, Scalar z) : xy(xy), z(z) {}
 			Vector3(Scalar x, Scalar y, Scalar z) : x(x), y(y), z(z) {}
 
-			inline static Vector3 Zero() { return ZERO, ZERO, ZERO; }
-			inline static Vector3 XAxis() { return ONE, ZERO, ZERO; }
-			inline static Vector3 YAxis() { return ZERO, ONE, ZERO; }
-			inline static Vector3 ZAxis() { return ZERO, ZERO, ONE; }
+			inline static Vector3 Zero() { return Vector3(ZERO, ZERO, ZERO); }
+			inline static Vector3 XAxis() { return Vector3(ONE, ZERO, ZERO); }
+			inline static Vector3 YAxis() { return Vector3(ZERO, ONE, ZERO); }
+			inline static Vector3 ZAxis() { return Vector3(ZERO, ZERO, ONE); }
 
 			inline Vector3& Add(const Vector3& other) { x += other.x; y += other.y; z += other.z; return *this; }
 			inline Vector3& Subtract(const Vector3& other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
@@ -74,7 +74,7 @@ namespace ENGINE_NAME {
 			inline bool operator==(const Vector3& other) const { return x == other.x && y == other.y && z == other.z; }
 			inline bool operator!=(const Vector3& other) const { return !(*this == other); }
 
-			inline Vector3 operator-(const Vector3& Vector3tor) { return Vector3(-Vector3tor.x, -Vector3tor.y, -Vector3tor.z); }
+			//inline Vector3 operator-(const Vector3& Vector3tor) { return Vector3(-Vector3tor.x, -Vector3tor.y, -Vector3tor.z); }
 
 			inline Vector3 Cross(const Vector3& other) const { return Vector3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x); }
 			inline Scalar Dot(const Vector3& other) const { return x * other.x + y * other.y + z * other.z; }

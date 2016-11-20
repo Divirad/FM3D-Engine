@@ -7,6 +7,7 @@ using namespace Engine;
 
 void Move(Camera& camera);
 Vector3f& SetHill(Vector3f& vec);
+Vector3f SetHillNormal(Vector3f& vec);
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
@@ -18,7 +19,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
 
-	win->Start(1280, 720, L"TestGame 3");
+	win->Start(1600, 900, L"TestGame 3");
 
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
@@ -47,6 +48,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Entity entityLeaves(Vector3f(20.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.treeLeavesModel);
 	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
 	Entity island(Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
+	Entity shuttle(Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -58,17 +60,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		for (float x = -100.0f; x < 100.0f; x += 1.0f) {
 			for (float z = -100.0f; z < 100.0f; z += 1.0f, c += 4) {
 				vertices.GetPosition(c + 0) = SetHill(Vector3f(x, 0.0f, z));
+				vertices.GetNormal(c + 0) = SetHillNormal(Vector3f(x, 0.0f, z));
 				vertices.GetTexCoord(c + 0) = Vector2f(0.0f, 0.0f);
-				vertices.GetNormal(c + 0) = Vector3f(0.0f, 1.0f, 0.0f);
 				vertices.GetPosition(c + 1) = SetHill(Vector3f(x, y, z + size));
+				vertices.GetNormal(c + 1) = SetHillNormal(Vector3f(x, y, z + size));
 				vertices.GetTexCoord(c + 1) = Vector2f(0.0f, 1.0f);
-				vertices.GetNormal(c + 1) = Vector3f(0.0f, 1.0f, 0.0f);
 				vertices.GetPosition(c + 2) = SetHill(Vector3f(x + size, y, z + size));
+				vertices.GetNormal(c + 2) = SetHillNormal(Vector3f(x + size, y, z + size));
 				vertices.GetTexCoord(c + 2) = Vector2f(1.0f, 1.0f);
-				vertices.GetNormal(c + 2) = Vector3f(0.0f, 1.0f, 0.0f);
 				vertices.GetPosition(c + 3) = SetHill(Vector3f(x + size, y, z));
+				vertices.GetNormal(c + 3) = SetHillNormal(Vector3f(x + size, y, z));
 				vertices.GetTexCoord(c + 3) = Vector2f(1.0f, 0.0f);
-				vertices.GetNormal(c + 3) = Vector3f(0.0f, 1.0f, 0.0f);
+
 				indices.push_back(c + 0);
 				indices.push_back(c + 1);
 				indices.push_back(c + 2);
@@ -105,6 +108,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderer3D->Submit(&boba);
 			renderer3D->Submit(&terrain);
 			renderer3D->Submit(&island);
+			renderer3D->Submit(&shuttle);
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
 			renderer2D->Begin();
@@ -120,6 +124,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			((AnimatedModel*)boba.GetModel())->AddToAnimationTime(1.0f / 60.0f);
 			if (((AnimatedModel*)boba.GetModel())->GetAnimationTime() >= ((AnimatedModel*)boba.GetModel())->GetAnimation()->GetDuration())
 				((AnimatedModel*)boba.GetModel())->SetAnimationTime(0.0);
+
+			((AnimatedModel*)shuttle.GetModel())->AddToAnimationTime(1.0f / 60.0f);
+			if (((AnimatedModel*)shuttle.GetModel())->GetAnimationTime() >= ((AnimatedModel*)shuttle.GetModel())->GetAnimation()->GetDuration())
+				((AnimatedModel*)shuttle.GetModel())->SetAnimationTime(0.0);
+
 
 			Move(camera);
 
@@ -191,5 +200,27 @@ Vector3f& SetHill(Vector3f& vec) {
 		vec.y = a * sin(vec.x * b + (-50.0f * b)) * sin(vec.z * b + (-30.0f * b));
 	}
 	return vec;
+}
+
+Vector3f SetHillNormal(Vector3f& vec) {
+	if (vec.x > 50.0f && vec.x < 75.0f && vec.z > 30.0f && vec.z < 55.0f) {
+		Vector3f p0 = SetHill(vec + Vector3f::XAxis());
+		Vector3f p1 = SetHill(vec - Vector3f::XAxis());
+		Vector3f p2 = SetHill(vec + Vector3f::ZAxis());
+		Vector3f p3 = SetHill(vec - Vector3f::ZAxis());
+
+		SetHill(vec);
+
+		Vector3f n0 = ((p0 - vec).Cross(p2 - vec)).Normalize();
+		Vector3f n1 = ((p1 - vec).Cross(p3 - vec)).Normalize();
+		if (n0.y < 0) n0 *= -1.0f;
+		if (n1.y < 0) n1 *= -1.0f;
+
+		Vector3f result = (n0 + n1) / 2.0f;;
+
+		return result;
+	}
+	Vector3f r = Vector3f::YAxis();
+	return r;
 }
 

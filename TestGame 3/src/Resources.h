@@ -8,16 +8,44 @@ struct Resources {
 #pragma region
 	Texture* emptyTex;
 	Material emptyMat;
+	Texture* redTex;
+	Material redMat;
+	Texture* disabledTex;
+	Material disabledMat;
 	void Init(RenderSystem* renderSystem) {
-		emptyTex = renderSystem->CreateTexture();
-		float pixels[] = {
-			1.0f, 1.0f, 1.0f, 1.0f,
-			1.0f, 1.0f, 1.0f, 1.0f,
-			1.0f, 1.0f, 1.0f, 1.0f,
-			1.0f, 1.0f, 1.0f, 1.0f
-		};
-		emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
-		emptyMat = { 0xffffffff, emptyTex };
+		{
+			emptyTex = renderSystem->CreateTexture();
+			float pixels[] = {
+				1.0f, 1.0f, 1.0f, 1.0f,
+				1.0f, 1.0f, 1.0f, 1.0f,
+				1.0f, 1.0f, 1.0f, 1.0f,
+				1.0f, 1.0f, 1.0f, 1.0f
+			};
+			emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			emptyMat = { 0xffffffff, emptyTex };
+		}
+		{
+			redTex = renderSystem->CreateTexture();
+			float pixels[] = {
+				0.0f, 0.0f, 1.0f, 1.0f,
+				0.0f, 0.0f, 1.0f, 1.0f,
+				0.0f, 0.0f, 1.0f, 1.0f,
+				0.0f, 0.0f, 1.0f, 1.0f
+			};
+			redTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			redMat = { 0xffffffff, redTex };
+		}
+		{
+			disabledTex = renderSystem->CreateTexture();
+			float pixels[] = {
+				0.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f
+			};
+			disabledTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			disabledMat = { 0x0, disabledTex };
+		}
 	}
 #pragma endregion
 
@@ -138,11 +166,83 @@ struct Resources {
 	}
 #pragma endregion
 
+#pragma region Shuttle
+	Model* shuttleModel;
+	Texture* shuttleBody;
+	Texture* shuttleHover;
+	Texture* shuttleInside;
+	Texture* shuttleLegs;
+	Texture* shuttleRest;
+	Texture* shuttleSite;
+	Texture* shuttleWire;
+	Texture* shuttleOutside;
+	Texture* shuttleBuster;
+	Material matShuttleBody;
+	Material matShuttleHover;
+	Material matShuttleInside;
+	Material matShuttleLegs;
+	Material matShuttleRest;
+	Material matShuttleSite;
+	Material matShuttleWire;
+	Material matShuttleOutside;
+	Material matShuttleBuster;
+	void InitShuttle(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("shuttle.dae", renderSystem, &shuttleModel, false, true);
+		AnimatedModel* shuttleAnimModel = (AnimatedModel*)shuttleModel;
+		shuttleAnimModel->SetAnimation(&shuttleModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
+		shuttleAnimModel->SetAnimationTime(0.0);
+
+		shuttleBody = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.jpg", shuttleBody, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleHover = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Hover_Col.jpg", shuttleHover, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleInside = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Inside_Col.jpg", shuttleInside, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleLegs = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Legs_Col.jpg", shuttleLegs, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleRest = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Rest_Col.jpg", shuttleRest, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleSite = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Site_Col.jpg", shuttleSite, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleWire = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Wire_Col.jpg", shuttleWire, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleOutside = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.png.001.jpg", shuttleOutside, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleBuster = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Buster_Col_1.jpg", shuttleBuster, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+
+
+		matShuttleBody = { 0xffffffff, shuttleBody };
+		matShuttleHover = { 0xffffffff, shuttleHover };
+		matShuttleInside = { 0xffffffff, shuttleInside };
+		matShuttleLegs = { 0xffffffff, shuttleLegs };
+		matShuttleRest = { 0xffffffff, shuttleRest };
+		matShuttleSite = { 0xffffffff, shuttleSite };
+		matShuttleWire = { 0xffffffff, shuttleWire };
+		matShuttleOutside= { 0xffffffff, shuttleOutside };
+		matShuttleBuster = { 0xffffffff, shuttleBuster };
+
+		auto& materials = shuttleModel->GetMaterials();
+		materials[0] = &disabledMat; //strange thing
+		materials[1] = &matShuttleBuster;
+		materials[2] = &emptyMat; //unknown
+		materials[3] = &matShuttleOutside;
+		materials[4] = &matShuttleWire;
+		materials[5] = &matShuttleLegs;
+		materials[6] = &matShuttleRest;
+		materials[7] = &matShuttleInside;
+		materials[8] = &matShuttleBody;
+		materials[9] = &matShuttleInside;
+		materials[10] = &emptyMat; //unknown
+		materials[11] = &matShuttleHover;
+	}
+#pragma endregion
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
 		InitIsland(r);
 		InitBoba(r);
 		InitTree(r);
+		InitShuttle(r);
 	}
 };
