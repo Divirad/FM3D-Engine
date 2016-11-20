@@ -370,6 +370,10 @@
     <ClInclude Include="Dependencies\GLEW\include\GL\wglew.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\EntitySystem\Component.h" />
+    <ClInclude Include="src\EntitySystem\Entity.h" />
+    <ClInclude Include="src\EntitySystem\Event.h" />
+    <ClInclude Include="src\EntitySystem\Manager.h" />
     <ClInclude Include="src\EventSystem.h" />
     <ClInclude Include="src\FileSystem\ExternFileManager.h" />
     <ClInclude Include="src\FileSystem\FileManager.h" />

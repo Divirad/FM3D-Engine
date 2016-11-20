@@ -281,7 +281,7 @@ namespace ENGINE_NAME {
 		}
 
 		static Matrix4f Transformation(const Vector3f& translation, const Vector3f& scale, const Vector3f& angle) {
-			return   Matrix4f::Scale(scale) * Matrix4f::Translate(translation) * Matrix4f::Rotation(angle);
+			return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
 		}
 
 		static Matrix4f Invert(const Matrix4f& matrix) {

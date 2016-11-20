@@ -57,6 +57,8 @@ namespace ENGINE_NAME {
 		GLCall(glDepthMask(GL_TRUE));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
+		//GLCall(glEnable(GL_CULL_FACE));
+		GLCall(glCullFace(GL_BACK));
 
 		GLCall(glActiveTexture(GL_TEXTURE0));
 
@@ -82,7 +84,7 @@ namespace ENGINE_NAME {
 							}
 						}
 						Matrix4f modelMatrix = e->GetModelMatrix();
-						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * modelMatrix * Matrix4f::Scale(Vector3f(10.0f, 10.0f, 10.0f))));
+						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * (Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) * modelMatrix)));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
 						((const GL3Mesh*)it->first)->Render(i);
 					}
@@ -96,6 +98,7 @@ namespace ENGINE_NAME {
 		// When we get here the depth buffer is already populated and the stencil pass
 		// depends on it, but it does not write to it.
 		GLCall(glDepthMask(GL_FALSE));
+		GLCall(glDisable(GL_CULL_FACE));
 	}
 
 	void GL3Renderer3D::StencilPass(PointLight& light, Matrix4f& wvp) {

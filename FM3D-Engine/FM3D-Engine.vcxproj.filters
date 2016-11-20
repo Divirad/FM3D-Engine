@@ -576,6 +576,18 @@
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\EntitySystem\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntitySystem\Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntitySystem\Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntitySystem\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl">

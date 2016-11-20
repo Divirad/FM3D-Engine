@@ -28,17 +28,45 @@
     <Image Include="res\grass.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\island\arl1b.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\grs1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\lv1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\plvs1c.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\snd1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\rc1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\island\terrain_mtl1_bumpamt.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\bobaFett.dae" />
     <None Include="res\Tree.dae" />
+    <None Include="res\house.dae" />
+    <None Include="res\island\island.dae" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\font.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="res\src\Main.cpp">
+    <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

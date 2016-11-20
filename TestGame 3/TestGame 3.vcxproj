@@ -146,7 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="res\src\Main.cpp" />
+    <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FM3D-Engine\FM3D-Engine.vcxproj">
@@ -160,14 +160,26 @@
     <Image Include="res\Fett_helmet_D.tga" />
     <Image Include="res\Fett_jetpak_D.tga" />
     <Image Include="res\grass.jpg" />
+    <Image Include="res\island\arl1b.jpg" />
+    <Image Include="res\island\grs1.jpg" />
+    <Image Include="res\island\lv1.jpg" />
+    <Image Include="res\island\plvs1c.jpg" />
+    <Image Include="res\island\rc1.jpg" />
+    <Image Include="res\island\snd1.jpg" />
+    <Image Include="res\island\terrain_mtl1_bumpamt.jpg" />
     <Image Include="res\leaves.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\bobaFett.dae" />
+    <None Include="res\house.dae" />
+    <None Include="res\island\island.dae" />
     <None Include="res\Tree.dae" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\font.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Resources.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

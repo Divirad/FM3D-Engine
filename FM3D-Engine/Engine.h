@@ -54,6 +54,10 @@ namespace ENGINE_NAME {
 #include <src/input.h>
 #include <src/Utilities/CompCoords.h>	///
 
+#include <src/EntitySystem/Component.h>
+#include <src/EntitySystem/Entity.h>
+#include <src/EntitySystem/Manager.h>
+
 #include <src/Graphics/Texture.h>
 #include <src/Graphics/RenderTarget2D.h>
 #include <src/Graphics/Quad.h>

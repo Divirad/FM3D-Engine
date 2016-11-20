@@ -14,6 +14,8 @@
 #include <map>
 #include <forward_list>
 #include <list>
+#include <mutex>
+#include <functional>
 
 #include <smmintrin.h>
 
