@@ -55,14 +55,62 @@ namespace FM3D_Designer.src.WindowLayouts
             //XmlWriter writer = new XmlWriter();
             string path = tb_path.Text + @"\" + tb_name.Text;
             string projfiles = path + @"\" + @"ProjectFiles";
-            string file = path + @"\" + tb_name.Text + ".fmproj";
+            string text = path + @"\" + @"ProjectFiles\Textures";
+            string ent = path + @"\" + @"ProjectFiles\Entities";
+            string scen = path + @"\" + @"ProjectFiles\Scenes";
+            string pathtofile = path + @"\" + tb_name.Text + ".fmproj";
 
-            Directory.CreateDirectory(path);//path);
-            Directory.CreateDirectory(projfiles);//projfiles);
-            File.Create(file);
+            Directory.CreateDirectory(text);
+            Directory.CreateDirectory(ent);
+            Directory.CreateDirectory(scen);
+
+            //File.Create(pathtofile);
             mainWindow.ClearAttachedWindows();
+            ///
+            ///XML - Neues XML Element
+            ///
+            XmlDocument projfile = new XmlDocument();
+            //projfile.CreateDocumentFragment(pathtofile);
+            ///
+            ///Main Knoten & "initialisierung"cdes knotens in das projekt
+            /// 
 
-            Project.Load(file);
+            XmlNode mainproj = projfile.CreateElement("Project");
+                ///
+                ///Hinzufügen des knotens in den geschrieben werden soll 
+                ///         <Project>   
+                ///
+                ///         </Project>
+                ///
+                projfile.AppendChild(mainproj);
+
+            XmlNode projectfilesdir = projfile.CreateElement("ProjectFiles");
+            XmlNode folder = projfile.CreateElement("Folder");
+
+            XmlNode file = projfile.CreateElement("File");
+            XmlAttribute name = projfile.CreateAttribute("name"); ///Neues Attribut
+
+            //ProjectFile Dir
+            name.Value = "ProjectFiles";
+            projectfilesdir.Attributes.Append(name);
+            mainproj.AppendChild(projectfilesdir);
+
+            //Entitie Dir
+            name.Value = "Entities";
+            folder.Attributes.Append(name);
+            projectfilesdir.AppendChild(folder);
+            //Textures Dir
+            name.Value = "Textures";
+            folder.Attributes.Append(name);
+            projectfilesdir.AppendChild(folder);
+            //Scenes Dir
+            name.Value = "Scenes";
+            folder.Attributes.Append(name);
+            projectfilesdir.AppendChild(folder);
+
+            projfile.Save(pathtofile);
+
+            Project.Load(pathtofile);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
         }
