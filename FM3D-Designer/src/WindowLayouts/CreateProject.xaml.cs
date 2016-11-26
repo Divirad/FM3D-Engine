@@ -86,27 +86,38 @@ namespace FM3D_Designer.src.WindowLayouts
 
             XmlNode projectfilesdir = projfile.CreateElement("ProjectFiles");
             XmlNode folder = projfile.CreateElement("Folder");
+            XmlNode entfolder = projfile.CreateElement("Folder");
+            XmlNode textfolder = projfile.CreateElement("Folder");
+            XmlNode scenesfolder = projfile.CreateElement("Folder");
 
             XmlNode file = projfile.CreateElement("File");
-            XmlAttribute name = projfile.CreateAttribute("name"); ///Neues Attribut
 
+            XmlAttribute name = projfile.CreateAttribute("name");
+            XmlAttribute namescen = projfile.CreateAttribute("name"); ///Neues Attribut
+            XmlAttribute nameent = projfile.CreateAttribute("name");
+            XmlAttribute nametext = projfile.CreateAttribute("name");
             //ProjectFile Dir
             name.Value = "ProjectFiles";
             projectfilesdir.Attributes.Append(name);
             mainproj.AppendChild(projectfilesdir);
 
             //Entitie Dir
-            name.Value = "Entities";
-            folder.Attributes.Append(name);
-            projectfilesdir.AppendChild(folder);
+            nameent.Value = "Entities";
+            entfolder.Attributes.Append(nameent);
+            entfolder.InnerText = " ";
+            projectfilesdir.AppendChild(entfolder);
+
             //Textures Dir
-            name.Value = "Textures";
-            folder.Attributes.Append(name);
-            projectfilesdir.AppendChild(folder);
+            nametext.Value = "Textures";
+            textfolder.Attributes.Append(nametext);
+            textfolder.InnerText = " ";
+            projectfilesdir.AppendChild(textfolder);
+
             //Scenes Dir
-            name.Value = "Scenes";
-            folder.Attributes.Append(name);
-            projectfilesdir.AppendChild(folder);
+            namescen.Value = "Scenes";
+            scenesfolder.Attributes.Append(namescen);
+            scenesfolder.InnerText = " ";
+            projectfilesdir.AppendChild(scenesfolder);
 
             projfile.Save(pathtofile);
 
