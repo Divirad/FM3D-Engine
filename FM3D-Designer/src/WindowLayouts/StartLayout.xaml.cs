@@ -24,27 +24,23 @@ namespace FM3D_Designer.src.WindowLayouts
     public partial class StartLayout : WindowLayout
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        
+
         public StartLayout(MainWindow mainWindow)
         {
             InitializeComponent();
-           
+
             //Initialize DockWindow
             this.Header = "StartPage";
 
             this.Initialize(mainWindow, null);
         }
-        
+
 
         public void New_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
-        private void NewProj(object sender, ExecutedRoutedEventArgs e)
-        {
-            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
-        }
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
@@ -57,23 +53,60 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(layout);
 
         }
-        /// 
-        ///Open Windows FileBrowser to load path in txtbox
-        ///
-        private void btn_load_Click(object sender, RoutedEventArgs e)
+        private void NewProj(object sender, ExecutedRoutedEventArgs e)
         {
-            if (openFileDialog.ShowDialog() == true)
-                tb_path.Text = openFileDialog.FileName; 
+            mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
+
         private void OpenProj(object sender, ExecutedRoutedEventArgs e)
         {
+            openFileDialog.FileName = "fmproj";
+            openFileDialog.Title = "Open your FM3D Project-File";
+
             if (openFileDialog.ShowDialog() == true)
                 tb_path.Text = openFileDialog.FileName;
+        }
+        private void CloseProj(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
             this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }
 
+        async public void NewProject(object sender, RoutedEventArgs e)
+        {
+            var varmsg_name = await ((MetroWindow)Application.Current.MainWindow).ShowInputAsync("New Project", "Name your fancy project!"/*, MessageDialogStyle.AffirmativeAndNegative/*/);
+
+            if (openFileDialog.ShowDialog() == true)
+            { tb_path.Text = openFileDialog.FileName; }
+
+            var varmsg_path = await ((MetroWindow)Application.Current.MainWindow).ShowInputAsync("New Project", "Path!"/*, MessageDialogStyle.AffirmativeAndNegative/*/);
+
+            string path = varmsg_path + @"\" + varmsg_name;
+            string projfiles = path + @"\" + "ProjectFiles";
+            string file = path + @"\" + varmsg_name + ".fmproj";
+            System.IO.Directory.CreateDirectory(path);
+            System.IO.Directory.CreateDirectory(projfiles + "ObjectFiles");
+            System.IO.Directory.CreateDirectory(projfiles + "ResourceFiles");
+            System.IO.Directory.CreateDirectory(projfiles + "SourceFiles");
+            System.IO.Directory.CreateDirectory(projfiles + "TextureFiles");
+            System.IO.Directory.CreateDirectory(projfiles);
+            System.IO.File.Create(file);
+            mainWindow.ClearAttachedWindows();
+
+            file.Replace('\\', '/');
+            file.Replace('C', '\b');
+            file.Replace(':', '\b');
+
+            Project.Load(file);
+
+            mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
+            //path + "\\" + varmsg_name + ".fmproj"
+
+
+
+        }
     }
 }

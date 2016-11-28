@@ -215,9 +215,7 @@
     <Resource Include="resources\images\file browser\folder_open_icon.ico" />
     <Resource Include="DotNetBar\DevComponents.WpfDock.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\ToolWindows\CreateProject\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Designer Lib\Designer Lib.vcxproj">
       <Project>{73299801-382b-4e3c-b5ea-6b9761b403f7}</Project>

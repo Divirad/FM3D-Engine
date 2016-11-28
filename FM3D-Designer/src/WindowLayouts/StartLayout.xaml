@@ -6,23 +6,29 @@
              xmlns:local="clr-namespace:FM3D_Designer.src"
              mc:Ignorable="d" 
              IsMainLayout="True">
-    
+
+
+    <local:WindowLayout.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewProj" />
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenProj" />
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseProj" />
+    </local:WindowLayout.CommandBindings>
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- MENU-->
         <Menu x:Name="menu" Grid.Row="0">
 
             <MenuItem Header="_File">
-                <MenuItem Header="New" Command="New"/>
+                <!--MenuItem Header="New" Command="New"/>
                 <MenuItem Header="Open" Command="Open"/>
                 <Separator />
                 <MenuItem Header="Add Item" />
-                <Separator />
+                <Separator /-->
                 <MenuItem Header="Close" />
                 <MenuItem Header="Close Project" />
                 <Separator />
@@ -33,7 +39,7 @@
                 <MenuItem Header="Last File" />
                 <MenuItem Header="Last Project" />
                 <Separator />
-                <MenuItem Header="Exit" />
+                <MenuItem Header="Exit" Command="Close"/>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="Undo" Command="Undo"/>
@@ -81,7 +87,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                    <TextBlock
+                <TextBlock
                         Grid.Column="0" Grid.Row ="0"
                         Background="Beige"
 	                    Text="Projects"
@@ -90,7 +96,7 @@
 	                    VerticalAlignment="Top"
 	                    Padding="5"
 	                    FontSize="30">
-                    </TextBlock>
+                </TextBlock>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -102,11 +108,11 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="tb_path"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10, 0">Path</TextBox>
-                    <Button x:Name="btn_load" Command="Open" Grid.Column="1" Grid.Row="0" Content="Load" Click="btn_load_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" FontWeight="Normal" FontSize="10"/>
-                    <Button x:Name="btn_start" Grid.Column="0" Grid.Row="1" Content="Start" Click="btn_start_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="100" Height="40"/>
-                    <Button x:Name="btn_new"  Command="New" Grid.Column="0" Grid.Row="2" Content="New Project" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="100" Height="40"/>
+                    <Button x:Name="btn_load" Command="Open"   Grid.Column="1" Grid.Row="0" Content="Load" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5, 0,5,0" FontWeight="Normal" FontSize="10"></Button>
+                    <Button x:Name="btn_start" Grid.Column="0" Grid.Row="1"                 Content="Start" Click="btn_start_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="150" Height="40"/>
+                    <Button x:Name="btn_new"  Command="New"    Grid.Column="0" Grid.Row="2" Content="New Project" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="150" Height="40"/>
                 </Grid>
-                
+
             </Grid>
 
             <TextBlock
@@ -120,7 +126,7 @@
 	            FontSize="30">
             </TextBlock>
 
-            
+
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
 	            Text="GIVE ME UR CODE"
 	            HorizontalAlignment="Stretch" Margin="10,200,10,10" VerticalAlignment="Top" Padding="5" FontSize="20"></TextBlock>
@@ -146,17 +152,11 @@
 	            VerticalAlignment="Top"
 	            Width="350">
             </Image>
-            
+
             <!-- TEST BUTTON-->
             <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" Grid.Row ="1" Grid.Column="0" VerticalAlignment="Stretch"/>
             <Button x:Name="testButton" Grid.Column="0" Grid.Row ="1" Content="Project 0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="testButton_Click" FontWeight="Normal"/>
-            
+
         </Grid>
     </Grid>
-
-    <local:WindowLayout.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.New" Executed="NewProj" />
-        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenProj" />
-    </local:WindowLayout.CommandBindings>
-    
 </local:WindowLayout>
