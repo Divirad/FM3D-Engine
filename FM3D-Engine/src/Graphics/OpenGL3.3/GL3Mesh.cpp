@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GL3Mesh::GL3Mesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<Part>& parts): Mesh(skeleton, supportsInstancing, parts.Size()), m_glBuffers(parts.Size()) {
 		bool isAnimated = skeleton != nullptr;

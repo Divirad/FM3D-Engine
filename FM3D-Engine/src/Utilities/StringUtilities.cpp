@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	std::string StringUtilities::RemoveSpacesAtFrontAndBack(const std::string& string) {
 		uint i;

@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Mesh::Mesh(const Skeleton* skeleton, bool supportsInstancing, int partsCount): m_skeleton(skeleton), m_supportsInstancing(supportsInstancing), m_partsCount(partsCount) {
 

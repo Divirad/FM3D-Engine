@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	D3D11Shader::D3D11Shader(ID3D11Device* device, const HWND hwnd, ID3D11DeviceContext* context): m_vertexShader(0), m_pixelShader(0), m_layout(0), m_sampleState(0), m_device(device), m_hwnd(hwnd), m_deviceContext(context) {
 

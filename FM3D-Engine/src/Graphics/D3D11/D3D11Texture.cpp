@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	bool D3D11Texture::LoadTarga(const char* filename, int& height, int& width) {
 		int error, bpp, imageSize, index, i, j, k;

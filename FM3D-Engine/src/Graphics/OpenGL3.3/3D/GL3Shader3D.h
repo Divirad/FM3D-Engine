@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class GL3Shader3D : public GL3Shader {
 	private:

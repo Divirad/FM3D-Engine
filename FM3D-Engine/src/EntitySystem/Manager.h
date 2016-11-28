@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class SetPoolManager {
 	protected:

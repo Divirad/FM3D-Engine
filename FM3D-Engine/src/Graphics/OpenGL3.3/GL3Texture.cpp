@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GLint GL3Texture::GetGLFilterMode(FilterMode& filter, MipMapMode mipMapMode) {
 		switch (filter) {

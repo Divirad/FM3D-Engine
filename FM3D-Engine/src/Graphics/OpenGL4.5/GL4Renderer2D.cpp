@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GL4Renderer2D::~GL4Renderer2D() {
 		glDeleteBuffers(1, &m_ibo);

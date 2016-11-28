@@ -6,27 +6,27 @@
 
 #define PI 3.14159265358f
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
-	typedef Math::Vector3<float> Vector3f;
-	typedef Math::Vector3<int> Vector3i;
-	typedef Math::Vector3<double> Vector3d;
-	typedef Math::Vector3<unsigned int> Vector3u;
-
-	typedef Math::Vector2<float> Vector2f;
-	typedef Math::Vector2<int> Vector2i;
-	typedef Math::Vector2<double> Vector2d;
-	typedef Math::Vector2<unsigned int> Vector2u;
-
-	typedef Math::Vector4<float> Vector4f;
-	typedef Math::Vector4<int> Vector4i;
-	typedef Math::Vector4<double> Vector4d;
-	typedef Math::Vector4<unsigned int> Vector4u;
-
-	typedef Vector3f Color3f;
-	typedef Vector4f Color4f;
-	typedef Math::Vector3<byte> Color3b;
-	typedef Math::Vector4<byte> Color4b;
+	using Vector3f = Math::Vector3<float>;
+	using Vector3i = Math::Vector3<int>;
+	using Vector3d = Math::Vector3<double>;
+	using Vector3u = Math::Vector3<unsigned int>;
+	
+	using Vector2f = Math::Vector2<float>;
+	using Vector2i = Math::Vector2<int>;
+	using Vector2d = Math::Vector2<double>;
+	using Vector2u = Math::Vector2<unsigned int>;
+	
+	using Vector4f = Math::Vector4<float>;
+	using Vector4i = Math::Vector4<int>;
+	using Vector4d = Math::Vector4<double>;
+	using Vector4u = Math::Vector4<unsigned int>;
+	
+	using Color3f = Vector3f;
+	using Color4f = Vector4f;
+	using Color3b = Math::Vector3<byte>;
+	using Color4b = Math::Vector4<byte>;
 
 	namespace Math {
 		inline float toRadians(float degrees) {
@@ -61,7 +61,7 @@ namespace ENGINE_NAME {
 }
 #include "Matrix4.h"
 
-namespace ENGINE_NAME {
+namespace FM3D {
 	namespace Math {
 
 		ENGINE_DLL inline Vector3f GetLookingDirection(Vector3f& rotation, const Vector3f& standardDirection = Vector3f(0.0f, 0.0f, -1.0f)) {

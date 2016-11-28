@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine.h>
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL PictureQuad : public BasicItem2D {
 	

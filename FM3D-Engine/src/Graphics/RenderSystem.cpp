@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	RenderSystem* RenderSystem::Create(Renderer renderer) {
 		switch (renderer) {

@@ -1,7 +1,7 @@
 #include <Engine.h>
 #include "MeshCreator.h"
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Mesh * MeshCreator::CreateIcosahedron(const RenderSystem* renderSystem) {
 		const float t = (1.0f + std::sqrt(5.0f)) / 2.0f;

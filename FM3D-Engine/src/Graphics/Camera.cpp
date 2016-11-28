@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Camera::Camera(Vector3f& position, Vector3f& rotation, float zoom):
 	m_position(position), m_rotation(rotation), m_zoom(zoom) {

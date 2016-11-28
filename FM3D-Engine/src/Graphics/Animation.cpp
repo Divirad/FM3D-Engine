@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Animation::Animation(std::string name,RawArray<Array<Matrix4f>>& bones, RawArray<double>& times, double keysPerSecond, double duration) :
 		m_bones(bones), m_name(name), m_times(times), m_keysPerSecond(keysPerSecond), m_duration(duration) {

@@ -4,7 +4,7 @@
 #define GL3RENDERER3D_MAXTEXTURES 32
 #define GL3RENDERER3D_MAX_BONES 120
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL GL3Renderer3D : Renderer3D {
 	private:

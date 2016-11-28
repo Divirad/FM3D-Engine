@@ -3,7 +3,7 @@
 #define DRAGGING true
 #define DROPPED false
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL DragDropper : public Button {
 	protected:

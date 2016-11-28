@@ -11,7 +11,7 @@
 #define GL3RENDERER2D_SHADER_UV_INDEX		1
 #define GL3RENDERER2D_SHADER_COLOR_INDEX	2
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL GL3Renderer2D : public Renderer2D {
 	private:

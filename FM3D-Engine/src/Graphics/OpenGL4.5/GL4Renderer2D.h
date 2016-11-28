@@ -12,7 +12,7 @@
 #define GL4RENDERER2D_SHADER_TID_INDEX		2
 #define GL4RENDERER2D_SHADER_COLOR_INDEX	3
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL GL4Renderer2D : public Renderer2D {
 	private:

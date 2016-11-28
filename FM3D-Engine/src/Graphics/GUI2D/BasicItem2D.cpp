@@ -2,7 +2,7 @@
 #include <Engine.h>
 
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	
 	void BasicItem2D::AutoSize() {

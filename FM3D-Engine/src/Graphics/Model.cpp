@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Model::Model(const Mesh* mesh, RawArray<const Material*>& materials, bool isAnimated)
 		: m_mesh(mesh), m_materials(materials), m_isAnimated(isAnimated) {

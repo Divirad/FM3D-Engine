@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	void Quad::SetSize(const Vector2f& vec) {
 		SetPosition1(Vector2f(m_position0.x + vec.x, m_position0.y + vec.y));

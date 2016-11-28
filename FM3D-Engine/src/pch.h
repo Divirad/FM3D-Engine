@@ -16,6 +16,9 @@
 #include <list>
 #include <mutex>
 #include <functional>
+#include <stack>
+#include <unordered_set>
+#include <utility>
 
 #include <smmintrin.h>
 

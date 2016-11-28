@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine.h>
-namespace ENGINE_NAME {
+namespace FM3D {
 
 		PictureQuad::PictureQuad(Texture* txt, Vector3f pos0) {
 			SetTexture(txt);

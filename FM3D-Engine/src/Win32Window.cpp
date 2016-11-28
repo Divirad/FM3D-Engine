@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	WCHAR Win32Window::s_maxWindowID = 1;
 

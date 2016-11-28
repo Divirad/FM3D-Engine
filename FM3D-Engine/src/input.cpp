@@ -2,7 +2,7 @@
 
 using namespace std;
 
-namespace ENGINE_NAME
+namespace FM3D
 {
 	Inputsystem Inputsystem::s_instance = Inputsystem();
 	Inputsystem::Inputsystem() {}

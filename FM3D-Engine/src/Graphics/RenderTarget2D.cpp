@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	RenderTarget2D::RenderTarget2D(const Vector2i& size): m_size(size) {
 

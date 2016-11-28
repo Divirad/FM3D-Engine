@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 #define CHARACTER_COUNT 256
 

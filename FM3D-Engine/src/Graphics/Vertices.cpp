@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Vertices::Vertices(uint vertexCount, uint vertexData): m_vertexData(vertexData), m_data(new byte[GetVertexSize() * vertexCount]), m_vertexCount(vertexCount){
 

@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class GL3Renderer2D::Shader2D : public GL3Shader {
 	private:

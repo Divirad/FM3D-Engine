@@ -4,7 +4,7 @@
 #define ZERO (Scalar) 0.0f
 #define ONE (Scalar) 1.0f
 
-namespace ENGINE_NAME {
+namespace FM3D {
 	namespace Math {
 
 		template<typename Scalar>

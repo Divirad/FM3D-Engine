@@ -8,7 +8,7 @@
 #define GL3MESH_ATTRIBUTE_BONE_INDICES 4
 #define GL3MESH_ATTRIBUTE_BONE_WEIGHTS 5
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class GL3Mesh : public Mesh {
 	private:

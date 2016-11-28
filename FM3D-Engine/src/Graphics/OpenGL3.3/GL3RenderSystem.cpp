@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	bool GL3RenderSystem::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen) {
 		m_hDevContext = GetDC(hwnd);

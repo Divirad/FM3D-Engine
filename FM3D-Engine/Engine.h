@@ -1,7 +1,5 @@
 #pragma once
 
-#define ENGINE_NAME Engine
-
 #include <src/pch.h>
 
 #ifdef EXPORT_DLL
@@ -21,10 +19,10 @@
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
-	typedef unsigned char byte;
-	typedef unsigned int uint;
+	using byte = unsigned char;
+	using uint = unsigned int;
 
 	enum Platform {
 		WINDOWS
@@ -54,9 +52,14 @@ namespace ENGINE_NAME {
 #include <src/input.h>
 #include <src/Utilities/CompCoords.h>	///
 
+#include <src/EntitySystem/Event.h>
 #include <src/EntitySystem/Component.h>
+#include <src/EntitySystem/EntityCollection.h>
+#include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
 #include <src/EntitySystem/Manager.h>
+#include <src/EntitySystem/Matcher.h>
+
 
 #include <src/Graphics/Texture.h>
 #include <src/Graphics/RenderTarget2D.h>
@@ -72,7 +75,7 @@ namespace ENGINE_NAME {
 #include <src/Graphics/Mesh.h>
 #include <src/Graphics/Model.h>
 
-#include <src/Entity.h>
+//#include <src/Entity.h>
 
 #include <src/Graphics/Renderer2D.h>
 #include <src/Graphics/Renderer3D.h>

@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GL3RenderTarget2D::GL3RenderTarget2D(const Vector2i& size, bool useDepth): RenderTarget2D(size), m_depthBuffer(0) {
 		GLCall(glGenFramebuffers(1, &m_frameBuffer));

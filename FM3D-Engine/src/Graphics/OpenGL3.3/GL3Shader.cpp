@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GLuint GL3Shader::Initialize(const char* vertSrc, const char* fragSrc) {
 		GLuint program = GLCall(glCreateProgram());

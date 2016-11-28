@@ -4,7 +4,7 @@
 #define MOUSE_OUTOFFIELD false
 #define INFIELDANIM 0.05f
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL Button : public BasicItem2D {
 	public:

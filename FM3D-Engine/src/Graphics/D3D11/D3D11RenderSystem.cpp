@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	D3D11RenderSystem::D3D11RenderSystem() {
 		m_swapChain = 0;

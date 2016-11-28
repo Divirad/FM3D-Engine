@@ -112,7 +112,7 @@
 
 #pragma warning(pop)
 
-namespace ENGINE_NAME 
+namespace FM3D 
 {
 	class ENGINE_DLL Inputsystem
 	{

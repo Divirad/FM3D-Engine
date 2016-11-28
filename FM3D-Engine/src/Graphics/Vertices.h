@@ -1,17 +1,17 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	class ENGINE_DLL Vertices {
 	public:
-		typedef Vector3f Position;
-		typedef Vector2f TexCoord;
-		typedef Vector3f Normal;
-		typedef Vector4f Color;
-		typedef Vector4i BoneIndex;
-		typedef Vector4f BoneWeight;
-		typedef Vector3f Tangent;
+		using Position = Vector3f;
+		using TexCoord = Vector2f;
+		using Normal = Vector3f;
+		using Color = Vector4f;
+		using BoneIndex = Vector4i;
+		using BoneWeight = Vector4f;
+		using Tangent = Vector3f;
 
 		enum VertexData : byte {
 			POSITION = 0x1,

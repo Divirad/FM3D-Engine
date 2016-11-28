@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	Skeleton::Skeleton(RawArray<Matrix4f>& boneOffsetMatrices, RawArray<Animation>& animations): m_boneOffsetMatrices(boneOffsetMatrices), m_animations(animations) {
 

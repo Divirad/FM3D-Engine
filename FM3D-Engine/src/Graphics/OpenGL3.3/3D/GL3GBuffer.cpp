@@ -1,6 +1,6 @@
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	GL3GBuffer::GL3GBuffer(unsigned int width, unsigned int height) {
 		GLCall(glGenFramebuffers(1, &m_fbo));

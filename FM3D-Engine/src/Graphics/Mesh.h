@@ -1,116 +1,13 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	///<summary>
 	///Collection of polygons for presenting a game object on the screen
 	///</summary>
 	class ENGINE_DLL Mesh {
 	public:
-
-#pragma region Vertex
-		/*
-		///<summary>
-		///Vertex data
-		///</summary>
-		template<bool isColored = false, bool isAnimated = false, bool supportsNormalMap = false>
-		struct Vertex;
-
-		template<>
-		struct Vertex<false, false, false> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-		};
-
-		template<>
-		struct Vertex<true, false, false> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4f color;
-		};
-
-		template<>
-		struct Vertex<false, true, false> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4i boneIndex;
-			Vector4f boneWeight;
-		};
-
-		template<>
-		struct Vertex<true, true, false> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4f color;
-
-			Vector4i boneIndex;
-			Vector4f boneWeight;
-		};
-
-		template<>
-		struct Vertex<false, false, true> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector3f tangent;
-		};
-
-		template<>
-		struct Vertex<true, false, true> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4f color;
-
-			Vector3f tangent;
-		};
-
-		template<>
-		struct Vertex<false, true, true> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4i boneIndex;
-			Vector4f boneWeight;
-
-			Vector3f tangent;
-		};
-
-		template<>
-		struct Vertex<true, true, true> {
-			Vector3f position;
-			Vector2f uv;
-			Vector3f normal;
-
-			Vector4f color;
-
-			Vector4i boneIndex;
-			Vector4f boneWeight;
-
-			Vector3f tangent;
-		};
-
-		typedef Vertex<> Vertex;
-		typedef Vertex<true> Vertex_C;
-		typedef Vertex<true> Vertex_C_A;
-		typedef Vertex<true> Vertex_C_A_N;
-		typedef Vertex<true> Vertex_C_N;
-		typedef Vertex<true> Vertex_A;
-		typedef Vertex<true> Vertex_A_N;
-		typedef Vertex<true> Vertex_N;
-		*/
-#pragma endregion
 
 		///<summary>
 		///Data for each instance

@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-namespace ENGINE_NAME {
+namespace FM3D {
 
 	template<class T>
 	class ArrayBase {
