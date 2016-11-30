@@ -42,7 +42,7 @@
         <ToolBarTray IsLocked="True" Grid.Row="0">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
                 <Separator />
-                <Button Height="30" ToolTip="Collapse All">
+                <Button Height="30" ToolTip="Collapse All" Command="{Binding CommCollapseAll, Source={StaticResource viewModel}}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
                 <Separator/>
@@ -58,13 +58,13 @@
             </ToolBar>
         </ToolBarTray>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" DataContext="{StaticResource viewModel}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{Binding TreeLength}"/>
+                <ColumnDefinition Width="{Binding SplitterLength}"/>
+                <ColumnDefinition Width="{Binding ListLength}"/>
             </Grid.ColumnDefinitions>
-            <TreeView DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TreeView Grid.Column="0" DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Visibility="{Binding TreeVisibility, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TreeView.ItemTemplate>
 
                     <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
@@ -90,7 +90,7 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource viewModel}" ItemsSource="{Binding CurrentDirectory, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource viewModel}" Visibility="{Binding ListVisibility, Mode=OneWay}" ItemsSource="{Binding CurrentDirectory, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Width="48" Orientation="Vertical">
