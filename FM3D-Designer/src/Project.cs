@@ -49,21 +49,19 @@ namespace FM3D_Designer.src
             }
         }
 
+        private const string ProjectFilesDirectory = "/ProjectFiles";
+
+        public string _Name { get; set; }
+        public string _Directory { get; set; }
+        public Folder ProjectFiles { get; set; }
         private static Project _CurrentProject = null;
         public static Project CurrentProject { get { return _CurrentProject; } }
 
         public Project(string path)
         {
-            this.Directory = new FileInfo(path).Directory.FullName;
-            this.ProjectFiles = new Folder("ProjectFiles", this.Directory + ProjectFilesDirectory);
+            this._Directory = new FileInfo(path).Directory.FullName;
+            this.ProjectFiles = new Folder("ProjectFiles", this._Directory + ProjectFilesDirectory);
         }
-
-        private const string ProjectFilesDirectory = "/ProjectFiles";
-        public string Name { get; set; }
-
-        public string Directory { get; set; }
-
-        public Folder ProjectFiles { get; set; }
 
         public static Project Load(string path)
         {
@@ -131,6 +129,76 @@ namespace FM3D_Designer.src
             }
         }
 
+        public static void CreateProject(string dirpath, string dirname)
+        {
 
+            //XmlWriter writer = new XmlWriter();
+            string path = dirpath + @"\" + dirname;
+            string projfiles = path + @"\" + @"ProjectFiles";
+            string text = path + @"\" + @"ProjectFiles\Textures";
+            string ent = path + @"\" + @"ProjectFiles\Entities";
+            string scen = path + @"\" + @"ProjectFiles\Scenes";
+            string pathtofile = path + @"\" + dirname + ".fmproj";
+
+            Directory.CreateDirectory(text);
+            Directory.CreateDirectory(ent);
+            Directory.CreateDirectory(scen);
+            ///
+            ///XML - Neues XML Element
+            ///
+            XmlDocument projfile = new XmlDocument();
+            //projfile.CreateDocumentFragment(pathtofile);
+            ///
+            ///Main Knoten & "initialisierung"cdes knotens in das projekt
+            /// 
+
+            XmlNode mainproj = projfile.CreateElement("Project");
+            ///
+            ///Hinzufügen des knotens in den geschrieben werden soll 
+            ///         <Project>   
+            ///
+            ///         </Project>
+            ///
+            projfile.AppendChild(mainproj);
+
+            XmlNode projectfilesdir = projfile.CreateElement("ProjectFiles");
+            XmlNode folder = projfile.CreateElement("Folder");
+            XmlNode entfolder = projfile.CreateElement("Folder");
+            XmlNode textfolder = projfile.CreateElement("Folder");
+            XmlNode scenesfolder = projfile.CreateElement("Folder");
+
+            XmlNode file = projfile.CreateElement("File");
+
+            XmlAttribute name = projfile.CreateAttribute("name");
+            XmlAttribute namescen = projfile.CreateAttribute("name"); ///Neues Attribut
+            XmlAttribute nameent = projfile.CreateAttribute("name");
+            XmlAttribute nametext = projfile.CreateAttribute("name");
+            //ProjectFile Dir
+            name.Value = "ProjectFiles";
+            projectfilesdir.Attributes.Append(name);
+            mainproj.AppendChild(projectfilesdir);
+
+            //Entitie Dir
+            nameent.Value = "Entities";
+            entfolder.Attributes.Append(nameent);
+            entfolder.InnerText = " ";
+            projectfilesdir.AppendChild(entfolder);
+
+            //Textures Dir
+            nametext.Value = "Textures";
+            textfolder.Attributes.Append(nametext);
+            textfolder.InnerText = " ";
+            projectfilesdir.AppendChild(textfolder);
+
+            //Scenes Dir
+            namescen.Value = "Scenes";
+            scenesfolder.Attributes.Append(namescen);
+            scenesfolder.InnerText = " ";
+            projectfilesdir.AppendChild(scenesfolder);
+
+            projfile.Save(pathtofile);
+
+            Project.Load(pathtofile);
+        }
     }
 }

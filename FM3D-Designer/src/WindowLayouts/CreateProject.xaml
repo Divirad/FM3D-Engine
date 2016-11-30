@@ -141,7 +141,7 @@
                         Content="Start to develope" 
                         HorizontalAlignment="Left"
 	                    Margin="10,10,10,10"
-                    Click="startdev"
+                    Click="bt_Click"
 	                    VerticalAlignment="Top"
 	                    Padding="5"
                         FontWeight="Normal"
