@@ -196,6 +196,7 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\file browser\refresh_icon.png" />
     <Resource Include="resources\images\file browser\folder_bigIcon.png" />
     <Resource Include="resources\images\file browser\file_bigIcon.png" />
     <Resource Include="resources\images\logofm3dbright.png" />

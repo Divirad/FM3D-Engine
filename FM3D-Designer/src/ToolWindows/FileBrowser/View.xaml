@@ -45,6 +45,9 @@
                 <Button Height="30" ToolTip="Collapse All" Command="{Binding CommCollapseAll, Source={StaticResource viewModel}}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
+                <Button Height="30" ToolTip="Refresh" Command="{Binding CommRefresh, Source={StaticResource viewModel}}">
+                    <Image Source="/FM3D-Designer;component/resources/images/file browser/refresh_icon.png" />
+                </Button>
                 <Separator/>
                 <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" IsEnabled="{Binding ModeTree, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.TREE}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_icon.png" />

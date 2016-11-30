@@ -327,15 +327,16 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Model model = new Model();
+        private ViewMode _Mode;
         public ViewMode Mode
         {
             set
             {
-                model.Mode = value;
+                _Mode = value;
             }
             get
             {
-                return model.Mode;
+                return _Mode;
             }
         }
 
@@ -397,6 +398,31 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 return _CommCollapseAll;
             }
         }
+
+        public class CommandRefresh : CommandBase
+        {
+            private ViewModel model;
+            public CommandRefresh(ViewModel model)
+            {
+                this.model = model;
+            }
+            public override bool CanExecute(object parameter)
+            {
+                return true;
+            }
+            public override void Execute(object parameter)
+            {
+                model.Refresh();
+            }
+        }
+        private CommandRefresh _CommRefresh;
+        public ICommand CommRefresh
+        {
+            get
+            {
+                return _CommRefresh;
+            }
+        }
         #endregion
 
         public ViewModel()
@@ -405,6 +431,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
             _CommTreeMode = new CommandTreeMode(this);
             _CommCollapseAll = new CommandCollapseAll(this);
+            _CommRefresh = new CommandRefresh(this);
+
+            this._Mode = ViewMode.TREE;
+            UpdateMode();
 
             _RootDirectories = new ObservableCollection<TreeItemViewModel>();
             foreach (FileSystemObjectData f in model.RootDirectories)
@@ -544,6 +574,28 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             set
             {
                 _ListLength = value;
+            }
+        }
+
+        public void Refresh()
+        {
+            this._RootDirectories.Clear();
+            this._CurrentDirectory = null;
+
+            model = null;
+            model = new Model();
+            model.PropertyChanged += OnDirectoryChanged;
+
+            _RootDirectories = new ObservableCollection<TreeItemViewModel>();
+            foreach (FileSystemObjectData f in model.RootDirectories)
+            {
+                _RootDirectories.Add(new TreeItemViewModel(this, f, null));
+            }
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("RootDirectories"));
+                PropertyChanged(this, new PropertyChangedEventArgs("CurrentDirectory"));
             }
         }
     }
