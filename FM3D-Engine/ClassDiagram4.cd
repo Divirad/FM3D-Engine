@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FM3D::EventHandlerBase&lt;E&gt;" Collapsed="true">
+    <Position X="9.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EventSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::MethodEventHandler&lt;H, E&gt;" Collapsed="true">
+    <Position X="8.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAEAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EventSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::FuncEventHandler&lt;E&gt;" Collapsed="true">
+    <Position X="10.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAEAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EventSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::EventSource&lt;E&gt;" Collapsed="true">
+    <Position X="19.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAgAA=</HashCode>
+      <FileName>src\EventSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::ExternFileManager" Collapsed="true">
+    <Position X="23.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAQACAAAAGAAAAAAAAEAAAQAAAAAAAAA=</HashCode>
+      <FileName>src\FileSystem\ExternFileManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::FileManager" Collapsed="true">
+    <Position X="25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAACAAAAAAAQQAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>src\FileSystem\FileManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Animation" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACBAAAwAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <FileName>src\Graphics\Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Camera" Collapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEAACCAAAAAAAAAAAAAACAAAAAAAAABAAEAAAA=</HashCode>
+      <FileName>src\Graphics\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Font" Collapsed="true">
+    <Position X="26.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAiAIAAAAAAAAAAAgAAAGEAAAAAACAAA=</HashCode>
+      <FileName>src\Graphics\Font.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::BasicItem2D" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAKAAEAAIAAAAAgAACQBACAEAAIAAAAKBCQAABIogA=</HashCode>
+      <FileName>src\Graphics\GUI2D\BasicItem2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Button" Collapsed="true">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAgAAAAEAAAAAEAAAAAAIgAAAwAAA=</HashCode>
+      <FileName>src\Graphics\GUI2D\Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Mesh" Collapsed="true">
+    <Position X="9.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIABAAAAABAAAAAAAABAAAAAAAAAQAAgAAAwAA=</HashCode>
+      <FileName>src\Graphics\Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::MeshCreator" Collapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAABAAAA=</HashCode>
+      <FileName>src\Graphics\MeshCreator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Model" Collapsed="true">
+    <Position X="12.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAEAAAAAhAABAAAAAAEAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::AnimatedModel" Collapsed="true">
+    <Position X="12.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAgAAACAAAIAAAIAggAAgAAA=</HashCode>
+      <FileName>src\Graphics\Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Renderer2D" Collapsed="true">
+    <Position X="0.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAQQAABAQAAAAAAAAAAAAAgAAEAAAAGAAAQBIAAE=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\2D\GL3Renderer2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3GBuffer" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEBIAAQgAAAQAAABARAAAAAECAAAAAAAAg=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3GBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3LightShader" Collapsed="true">
+    <Position X="14.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQMAAAAAQAAAEAAAARQAAAAAAAAAAAAAAAABgA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3LightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3PointLightShader" Collapsed="true">
+    <Position X="13.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3LightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3DirectionalLightShader" Collapsed="true">
+    <Position X="15.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3LightShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3NullShader" Collapsed="true">
+    <Position X="8.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAgA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3NullShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Renderer3D" Collapsed="true">
+    <Position X="6.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YIAAAAAAAECQBEABAEAAAAQAggAQAADCAAAAARAIAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3Renderer3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3RenderSystem" Collapsed="true">
+    <Position X="5.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAJAAAYAAAAAACQCAAAAAAQCBAAAAAAEAAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3Renderer3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL4RenderSystem" Collapsed="true">
+    <Position X="5.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAACACAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3Renderer3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Shader3D" Collapsed="true">
+    <Position X="11" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAQEAAAAAAAAAAAwAAAIAAAAEAAAQEAAABgA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\3D\GL3Shader3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Mesh" Collapsed="true">
+    <Position X="9.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAQAAiAAAAAAAAAAAAAAAAAAAAAAABAEAAAAAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\GL3Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::RenderSystem" Collapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAYAAAAAACQAAAAAAAUCAAAAAAAEAAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\GL3RenderSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Shader" Collapsed="true">
+    <Position X="12" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEAgABAAEAAAQAAAEAACAAAAEAQAAAAAAAEAgASAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\GL3Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3Texture" Collapsed="true">
+    <Position X="13.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAAAAQAAAAAAgQAAAAAAAAAAAAIEAAACCAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\GL3Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL4Renderer2D" Collapsed="true">
+    <Position X="2.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAQAABAQAAAAAABAAAAEAAAAEAAAAGgAAQBIAAE=</HashCode>
+      <FileName>src\Graphics\OpenGL4.5\GL4Renderer2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Quad" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAiACAAACEIAEAIAAAAACAAAgCABAgAAAmIAAA=</HashCode>
+      <FileName>src\Graphics\Quad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Renderer2D" Collapsed="true">
+    <Position X="1.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAAIBAAAAAAAAAAAAAAEEAAEAAAAAAAAQAIAAA=</HashCode>
+      <FileName>src\Graphics\Renderer2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Renderer3D" Collapsed="true">
+    <Position X="6.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAIAAA=</HashCode>
+      <FileName>src\Graphics\Renderer3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Texture" Collapsed="true">
+    <Position X="13.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQABgAAAAQBAAAAAAACAAAAAAEAAAAA=</HashCode>
+      <FileName>src\Graphics\RenderSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Shader" Collapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAQBAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\RenderSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Skeleton" Collapsed="true">
+    <Position X="26.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAEAAAACAAAAAAAAAgAAAQAAA=</HashCode>
+      <FileName>src\Graphics\Skeleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Vertices" Collapsed="true">
+    <Position X="25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICBAAgBHDCgEiEAAqAQQqAAIAIAIgyIEB4ggBgoAAA=</HashCode>
+      <FileName>src\Graphics\Vertices.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Inputsystem" Collapsed="true">
+    <Position X="23.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACAAIAgAUAAAgQAAAAABAAAACAAAEhEEIEAYAA=</HashCode>
+      <FileName>src\input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Matrix4f" Collapsed="true">
+    <Position X="19.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAQEAAAAEAAIAAAAIBAQQAEAgAAAAAAEAEAAgBAAQ=</HashCode>
+      <FileName>src\Math\Matrix4.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::CompCoords" Collapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAwAQAAAAAAAAAAAAAAAAAQAAACgAAAA=</HashCode>
+      <FileName>src\Utilities\CompCoords.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::StringUtilities" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAABAAAAAAAAAAEAEAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>src\Utilities\StringUtilities.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Win32Window" Collapsed="true">
+    <Position X="3.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EABAEAAAACAgAAAAAAAAAAAEEAAAAAAAAAAAAACAAIQ=</HashCode>
+      <FileName>src\Win32Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Window" Collapsed="true">
+    <Position X="3.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEAAACAgAAABAgAAAABABAIAAECCAAAACECAQAA=</HashCode>
+      <FileName>src\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Array&lt;T&gt;" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAgAAAAAAA=</HashCode>
+      <FileName>src\Memory\Array.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::ArrayBase&lt;T&gt;" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAQgCAAAIgAAAAQAAEAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>src\Memory\ArrayBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::RawArray&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAACAAAAEAAAAAAAgAAAAAAE=</HashCode>
+      <FileName>src\Memory\RawArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::DynamicArray&lt;T&gt;" Collapsed="true">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>src\Memory\DynamicArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::DynamicArrayBase&lt;T&gt;" Collapsed="true">
+    <Position X="14.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAQAAAQAAQAAAAQAAAIDAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Memory\DynamicArrayBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::DynamicRawArray&lt;T&gt;" Collapsed="true">
+    <Position X="15.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAgAgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAgAAAAAAE=</HashCode>
+      <FileName>src\Memory\DynamicRawArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::DragDropper" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAQAAAAAAAAAAEIAAAAAAAAAAAAAAAAACgAEAAAA=</HashCode>
+      <FileName>src\Graphics\GUI2D\DragDropper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::PictureQuad" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>src\Graphics\GUI2D\PictureQuad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::TextQuad" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\GUI2D\TextQuad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::RenderTarget2D" Collapsed="true">
+    <Position X="0.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAMAAAA=</HashCode>
+      <FileName>src\Graphics\RenderTarget2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::GL3RenderTarget2D" Collapsed="true">
+    <Position X="0.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAAAEAAAAAAAAAAAAAAQAACAAAAAAAAECAAA=</HashCode>
+      <FileName>src\Graphics\OpenGL3.3\GL3RenderTarget2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::ComponentIds" Collapsed="true">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAABAAAAAAAQAAIAAEAAAAAAAAAAABAA=</HashCode>
+      <FileName>src\EntitySystem\Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::SetPoolManager" Collapsed="true">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::InitializeManager" Collapsed="true">
+    <Position X="21.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAgAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::ExecuteManager" Collapsed="true">
+    <Position X="21.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Event&lt;ReturnType(Args...)&gt;" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAIAAAEAAABQAAAgAAAAAAAAAgAABIAAA=</HashCode>
+      <FileName>src\EntitySystem\Event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Entity" Collapsed="true">
+    <Position X="25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EwIAEUAAAAAJoICAACAAhQBABBDAAAQEQCAACEAABCA=</HashCode>
+      <FileName>src\EntitySystem\Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::EntityCollection" Collapsed="true">
+    <Position X="26.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABCAEQAEAAQAAQJAAEGAIAhgQAAAAQQEcAAAIEAAEIA=</HashCode>
+      <FileName>src\EntitySystem\Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Group" Collapsed="true">
+    <Position X="19.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAQBAYKCACCAAAQIQAAAAAAAEAAAAQAAAAA=</HashCode>
+      <FileName>src\EntitySystem\EntityCollection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Matcher" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABxAACAAAAAAAAAAgIQQAQAEMAAAAAACIEAAAQAAAAg=</HashCode>
+      <FileName>src\EntitySystem\Matcher.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::RenderableComponent" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAACAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\RenderableComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::PositionComponent" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAAAAAAAAAAAAEgAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\BasicComponents.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::RotationComponent" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAIAAAACAhEAAAAAAAAAQAAAAEAgAAAAAAAEAAAA=</HashCode>
+      <FileName>src\BasicComponents.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::ScaleComponent" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgCAAAAAAAAAAAAAAEAAAIAAAAgAAAAA=</HashCode>
+      <FileName>src\BasicComponents.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::EventInternal::Invoker&lt;ReturnType, ...Args&gt;" Collapsed="true">
+    <Position X="26.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::EventInternal::Invoker&lt;void, Args...&gt;" Collapsed="true">
+    <Position X="25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Math::Vector2&lt;Scalar&gt;" Collapsed="true">
+    <Position X="19.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAABAQABAAAAEAADAQBACQEAAABAAAAgAAAAAAA=</HashCode>
+      <FileName>src\Math\Vector2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Math::Vector3&lt;Scalar&gt;" Collapsed="true">
+    <Position X="21.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAABAYAAAAAAEAADAQBACQEAAABAAAKgAAAAAAA=</HashCode>
+      <FileName>src\Math\Vector3.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D::Math::Vector4&lt;Scalar&gt;" Collapsed="true">
+    <Position X="23.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAUAAAAAAEAADAQBACQEAAABAAAAgAAAAAAA=</HashCode>
+      <FileName>src\Math\Vector4.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="FM3D::Channel" Collapsed="true">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\FileSystem\ExternFileManager.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::Character" Collapsed="true">
+    <Position X="19.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAASAQAAAAAgAAAAIIAAAAAAAAABAAAA=</HashCode>
+      <FileName>src\Graphics\Font.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::Text" Collapsed="true">
+    <Position X="21.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Font.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::DirectionalLight" Collapsed="true">
+    <Position X="23.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIQAAAAAAAACAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Lights.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::LightAttenuation" Collapsed="true">
+    <Position X="25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIAAAAAgA=</HashCode>
+      <FileName>src\Graphics\Lights.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::PointLight" Collapsed="true">
+    <Position X="18" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAIACAAAAAAACBAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Lights.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::SpotLight" Collapsed="true">
+    <Position X="19.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIQAAAAAAIACAAAAAAICBAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Lights.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::Material" Collapsed="true">
+    <Position X="26.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Graphics\Material.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::DefinePosition" Collapsed="true">
+    <Position X="21.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>src\Utilities\StringUtilities.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FM3D::Component" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAABAAAAAAAA=</HashCode>
+      <FileName>src\EntitySystem\Component.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="FM3D::Platform" Collapsed="true">
+    <Position X="18" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FM3D::Renderer" Collapsed="true">
+    <Position X="19.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBAAAAAAAAAAA=</HashCode>
+      <FileName>Engine.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

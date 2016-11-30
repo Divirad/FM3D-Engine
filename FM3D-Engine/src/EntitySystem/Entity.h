@@ -2,7 +2,8 @@
 
 namespace FM3D {
 
-	class Entity {
+	class ENGINE_DLL Entity {
+		friend class EntityCollection;
 	public:
 #pragma region Events
 		///Event für eine Component-Veränderung
@@ -145,15 +146,6 @@ namespace FM3D {
 		*/
 		EntityId GetID() const;
 
-		///Zerstört das Entity
-		/**
-		* Löscht das Entity und macht es damit nicht mehr nutzbar.
-		* Das FM3D::Entity bleibt weiterhin im Speicher um erneut
-		* genutzt zu werden. Hierbei werden die Eventquellen 
-		* #OnEntityDestroyed und #OnEntityWillBeDestroyed ausgelöst.
-		*/
-		void Destroy();
-
 		///Vergleichs-Operator
 		/**
 		* Vergleicht zwei FM3D::Entity mit Hilfe ihrer Id.
@@ -170,6 +162,9 @@ namespace FM3D {
 
 		template <typename C, typename... Args>
 		EntityPtr Replace(Args&&... args);
+
+		Component* GetComponent(const ComponentId index) const;
+		EntityCollection* GetCollection();
 	private:
 		///Konstruktor
 		/**
@@ -181,17 +176,28 @@ namespace FM3D {
 								FM3D::Entity erstellt hat. Wird #m_collection zugewiesen.
 		* @param id				Id des FM3D::Entity-Objekts. Wird #m_id zugewiesen.
 		*/
-		Entity(EntityCollection* collection, EntityId id, EntityPtr& ptr);
+		Entity(EntityCollection* collection);
 
 		EntityPtr AddComponent(const ComponentId index, Component* component);
 		EntityPtr RemoveComponent(const ComponentId index);
 		EntityPtr ReplaceComponent(const ComponentId index, Component* component);
-		Component* GetComponent(const ComponentId index) const;
 		bool HasComponent(const ComponentId index) const;
 		void Replace(const ComponentId index, Component* replacement);
 
 		template<class C, class...Args>
 		Component* CreateComponent(Args&... args);
+		void SetInstance(EntityPtr& ptr);
+		void SetEntityId(EntityId id);
+		void SetAlive(bool alive);
+
+		///Zerstört das Entity
+		/**
+		* Löscht das Entity und macht es damit nicht mehr nutzbar.
+		* Das FM3D::Entity bleibt weiterhin im Speicher um erneut
+		* genutzt zu werden. Hierbei werden die Eventquellen
+		* #OnEntityDestroyed und #OnEntityWillBeDestroyed ausgelöst.
+		*/
+		void Destroy();
 	};
 
 	template<class C, class...Args>

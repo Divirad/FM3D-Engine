@@ -112,7 +112,6 @@ namespace FM3D {
 
 	void Entity::Destroy() {
 		OnEntityWillBeDestroyed(this);
-		//TODO: EntityCollection::DestroyEntity()
 		RemoveAllComponents();
 		OnEntityWillBeDestroyed.Clear();
 		OnComponentAdded.Clear();
@@ -130,7 +129,7 @@ namespace FM3D {
 			OnComponentReplaced(m_this.lock(), index, previousComponent, replacement);
 		}
 		else {
-			GetComponentPool(index)->push(previousComponent);
+			m_collection->GetReuseableComponents(index).push(previousComponent);
 
 			if (replacement == nullptr) {
 				m_components.erase(index);
@@ -143,8 +142,24 @@ namespace FM3D {
 		}
 	}
 
-	Entity::Entity(EntityCollection* collection, EntityId id, EntityPtr& ptr):
-		m_collection(collection), m_id(id), m_this(ptr) {
+	Entity::Entity(EntityCollection* collection):
+		m_collection(collection) {
 
+	}
+
+	void Entity::SetInstance(EntityPtr& ptr) {
+		this->m_this = std::weak_ptr<Entity>(ptr);
+	}
+
+	void Entity::SetEntityId(EntityId id) {
+		this->m_id = id;
+	}
+
+	void Entity::SetAlive(bool alive) {
+		this->m_isAlive = alive;
+	}
+
+	EntityCollection* Entity::GetCollection() {
+		return m_collection;
 	}
 }

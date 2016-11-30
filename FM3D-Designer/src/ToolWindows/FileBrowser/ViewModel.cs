@@ -66,10 +66,16 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
 
             //Set Folder content
-            _Children = new ObservableCollection<TreeItemViewModel>();
+            _AllChildren = new ObservableCollection<TreeItemViewModel>();
+            _DirectoryChildren = new ObservableCollection<TreeItemViewModel>();
             foreach (FileSystemObjectData f in objectData.Children)
             {
-                _Children.Add(new TreeItemViewModel(viewModel, f, this));
+                var child = new TreeItemViewModel(viewModel, f, this);
+                _AllChildren.Add(child);
+                if (child.objectData.FileType == FileType.DIRECTORY)
+                {
+                    _DirectoryChildren.Add(child);
+                }
             }
 
             //Context Menu
@@ -207,12 +213,39 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
-        private ObservableCollection<TreeItemViewModel> _Children;
+        private ObservableCollection<TreeItemViewModel> _AllChildren;
+        public IList<TreeItemViewModel> AllChildren
+        {
+            get
+            {
+                return _AllChildren;
+            }
+        }
+
+        private ObservableCollection<TreeItemViewModel> _DirectoryChildren;
+        public IList<TreeItemViewModel> DirectoryChildren
+        {
+            get
+            {
+                return _DirectoryChildren;
+            }
+        }
+
         public IList<TreeItemViewModel> Children
         {
             get
             {
-                return _Children;
+                switch (viewModel.Mode)
+                {
+                    case ViewModel.ViewMode.TREE:
+                        return AllChildren;
+                    case ViewModel.ViewMode.TREE_ICONS:
+                        return DirectoryChildren;
+                    case ViewModel.ViewMode.ICONS:
+                        return new ObservableCollection<TreeItemViewModel>();
+                    default:
+                        throw new Exception("Unknown Mode State!");
+                }
             }
         }
 
@@ -243,15 +276,42 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         private async void Menu_Delete(object sender, System.EventArgs e)
         {
             var result = await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Deleeete", "This will delete the file/directory for ever!", MessageDialogStyle.AffirmativeAndNegative);
-            if(result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Affirmative)
             {
                 //TODO: Delete file here
                 if (parent != null)
                 {
-                    this.parent.Children.Remove(this);
+                    this.parent.AllChildren.Remove(this);
                     this.parent.objectData.Children.Remove(this.objectData);
                     if (this.parent.PropertyChanged != null) this.parent.PropertyChanged(this, new PropertyChangedEventArgs("Children"));
                 }
+            }
+        }
+
+        public void CollapseAll()
+        {
+            this.IsExpanded = false;
+            foreach (var c in this.AllChildren)
+            {
+                c.CollapseAll();
+            }
+        }
+
+        public void ExpandAll()
+        {
+            this.IsExpanded = true;
+            foreach (var c in this.AllChildren)
+            {
+                c.ExpandAll();
+            }
+        }
+
+        public void UpdateMode()
+        {
+            if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Children"));
+            foreach (var c in this.AllChildren)
+            {
+                c.ExpandAll();
             }
         }
     }
@@ -294,6 +354,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             public override void Execute(object parameter)
             {
                 model.Mode = (ViewMode)parameter;
+                foreach (var r in model.RootDirectories)
+                {
+                    r.UpdateMode();
+                }
                 model.UpdateMode();
             }
         }
@@ -305,6 +369,34 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 return _CommTreeMode;
             }
         }
+
+        public class CommandCollapseAll : CommandBase
+        {
+            private ViewModel model;
+            public CommandCollapseAll(ViewModel model)
+            {
+                this.model = model;
+            }
+            public override bool CanExecute(object parameter)
+            {
+                return true;
+            }
+            public override void Execute(object parameter)
+            {
+                foreach (var r in model.RootDirectories)
+                {
+                    r.CollapseAll();
+                }
+            }
+        }
+        private CommandCollapseAll _CommCollapseAll;
+        public ICommand CommCollapseAll
+        {
+            get
+            {
+                return _CommCollapseAll;
+            }
+        }
         #endregion
 
         public ViewModel()
@@ -312,6 +404,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             model.PropertyChanged += OnDirectoryChanged;
 
             _CommTreeMode = new CommandTreeMode(this);
+            _CommCollapseAll = new CommandCollapseAll(this);
 
             _RootDirectories = new ObservableCollection<TreeItemViewModel>();
             foreach (FileSystemObjectData f in model.RootDirectories)
@@ -322,11 +415,33 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         public void UpdateMode()
         {
+            switch(Mode)
+            {
+                case ViewMode.TREE:
+                    _SplitterLength = new GridLength(0);
+                    _TreeLength = new GridLength(1, GridUnitType.Star);
+                    _ListLength = new GridLength(0);
+                    break;
+                case ViewMode.ICONS:
+                    _SplitterLength = new GridLength(0);
+                    _TreeLength = new GridLength(0);
+                    _ListLength = new GridLength(1, GridUnitType.Star);
+                    break;
+                case ViewMode.TREE_ICONS:
+                    _SplitterLength = new GridLength(5);
+                    _TreeLength = new GridLength(1, GridUnitType.Star);
+                    _ListLength = new GridLength(1, GridUnitType.Star);
+                    break;
+            }
+
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs("ModeIcons"));
-                PropertyChanged(this, new PropertyChangedEventArgs("ModeTreeIcons"));
-                PropertyChanged(this, new PropertyChangedEventArgs("ModeTree"));
+                PropertyChanged(this, new PropertyChangedEventArgs("TreeVisibility"));
+                PropertyChanged(this, new PropertyChangedEventArgs("ListVisibility"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SplitterVisibility"));
+                PropertyChanged(this, new PropertyChangedEventArgs("TreeLength"));
+                PropertyChanged(this, new PropertyChangedEventArgs("ListLength"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SplitterLength"));
             }
             //commIcons.UpdateCanExecuteState();
         }
@@ -346,7 +461,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             get
             {
                 if (_CurrentDirectory != null)
-                    return _CurrentDirectory.Children;
+                    return _CurrentDirectory.AllChildren;
                 else
                     return new ObservableCollection<TreeItemViewModel>();
             }
@@ -354,7 +469,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         void OnDirectoryChanged(object sender, PropertyChangedEventArgs args)
         {
-            if(args.PropertyName.Equals(nameof(model.RootDirectories), StringComparison.Ordinal))
+            if (args.PropertyName.Equals(nameof(model.RootDirectories), StringComparison.Ordinal))
             {
                 MessageBox.Show("CHANGED D:");
             }
@@ -365,6 +480,71 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             _CurrentDirectory = item;
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentDirectory"));
+        }
+
+        public Visibility TreeVisibility
+        {
+            get
+            {
+                if (Mode == ViewMode.ICONS)
+                {
+                    return Visibility.Hidden;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
+        }
+
+        public Visibility ListVisibility
+        {
+            get
+            {
+                if (Mode == ViewMode.TREE)
+                {
+                    return Visibility.Hidden;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
+        }
+
+        private GridLength _SplitterLength;
+        public GridLength SplitterLength
+        {
+            get
+            {
+                return _SplitterLength;
+            }
+        }
+
+        private GridLength _TreeLength;
+        public GridLength TreeLength
+        {
+            get
+            {
+                return _TreeLength;
+            }
+            set
+            {
+                _TreeLength = value;
+            }
+        }
+
+        private GridLength _ListLength;
+        public GridLength ListLength
+        {
+            get
+            {
+                return _ListLength;
+            }
+            set
+            {
+                _ListLength = value;
+            }
         }
     }
 }

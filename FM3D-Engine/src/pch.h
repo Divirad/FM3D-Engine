@@ -19,6 +19,7 @@
 #include <stack>
 #include <unordered_set>
 #include <utility>
+#include <unordered_map>
 
 #include <smmintrin.h>
 

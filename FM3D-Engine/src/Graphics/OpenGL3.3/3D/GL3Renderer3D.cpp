@@ -21,7 +21,9 @@ namespace FM3D {
 	}
 
 	void GL3Renderer3D::Submit(const Entity* e) {
-		const Model* model = e->GetModel();
+		if (!e->HasAnyComponent(std::vector<ComponentId>({ PositionComponentId, RotationComponentId, ScaleComponentId, RenderableComponentId })))
+			throw std::runtime_error("Entity doesn't has necessary components for rendering");
+		const Model* model = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId))->GetModel();
 		const Mesh* mesh = model->GetMesh();
 
 		std::map<const Model*, std::vector<const Entity*>>& map = m_meshModelEntityMap[mesh];
@@ -83,7 +85,10 @@ namespace FM3D {
 								m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().Size());
 							}
 						}
-						Matrix4f modelMatrix = e->GetModelMatrix();
+						const Vector3f& position = static_cast<PositionComponent*>(e->GetComponent(PositionComponentId))->GetPosition();
+						const Vector3f& rotation = static_cast<RotationComponent*>(e->GetComponent(RotationComponentId))->GetRotation();
+						const Vector3f& scale = static_cast<ScaleComponent*>(e->GetComponent(ScaleComponentId))->GetScale();
+						Matrix4f modelMatrix = Matrix4f::Transformation(position, scale, rotation);
 						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * (Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) * modelMatrix)));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
 						((const GL3Mesh*)it->first)->Render(i);
