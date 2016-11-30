@@ -15,7 +15,7 @@ namespace FM3D {
 		template<class C>
 		static void Destruct(Component* component) {
 			static_assert((std::is_base_of<Component, C>::value && !std::is_same<Component, C>::value), "Class type must be derived from Component");
-			C* c = dynamic_cast<C*>(component);
+			C* c = static_cast<C*>(component);
 			c->Destruct();
 		}
 	};
@@ -41,7 +41,7 @@ namespace FM3D {
 	* Statische Klasse, die jedem Komponenten
 	* eine eindeutige Id zuschreibt
 	*/
-	class ComponentIds
+	class ENGINE_DLL ComponentIds
 	{
 		typedef void(*DestructPtr)(Component*);
 
@@ -97,7 +97,7 @@ namespace FM3D {
 
 		static void Destruct(ComponentId id, Component* component) {
 			typedef void(*ptr)(Component*);
-			s_destructMethods[id].destruct(component);
+			s_methods[id].destruct(component);
 		}
 
 	private:
@@ -108,6 +108,6 @@ namespace FM3D {
 		* Id um eins erhöht.
 		*/
 		static unsigned int s_counter;
-		static std::vector<ComponentMethods> s_destructMethods;
+		static std::vector<ComponentMethods> s_methods;
 	};
 }

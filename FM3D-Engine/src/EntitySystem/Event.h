@@ -75,7 +75,7 @@ namespace FM3D {
 		*/
 		using Invoker = EventInternal::Invoker<ReturnType, Args...>;
 
-		friend Invoker;
+		friend class Invoker;
 
 		///Funktions-Type
 		/**
@@ -137,7 +137,7 @@ namespace FM3D {
 		Event& Remove(const function &func) {
 			std::lock_guard<std::mutex> lock(m_mutex);
 
-			m_functions.remove_if([&](std::shared_ptr<function> &functionPtr)
+			m_functions.remove_if([&](std::shared_ptr<function>&functionPtr)
 			{
 				return func.target_type().hash_code() == functionPtr->target_type().hash_code();
 			});
@@ -212,7 +212,7 @@ namespace FM3D {
 	void EventInternal::Invoker<void, Args...>::Invoke(Event<void(Args...)> &event, Args... params) {
 		std::lock_guard<std::mutex> lock(event.m_mutex);
 
-		for (const auto &functionPtr : event.m_functionList) {
+		for (const auto& functionPtr : event.m_functions) {
 			(*functionPtr)(params...);
 		}
 	}

@@ -3,17 +3,10 @@
 
 namespace FM3D {
 
-	class Entity;
 	class Group;
+	using GroupPtr = std::shared_ptr<Group>;
 
-	///Pointer auf ein FM3D::Entity Objekt
-	/**
-	* Es wird ein std::shared_ptr verwendet statt einem
-	* normalen Pointer um zu verhindern, dass das Entity
-	* von einem anderen Thread gelöscht wird, während es
-	* noch verwendet wird.
-	*/
-	using EntityPtr = std::shared_ptr<Entity>;
+
 
 	///Id eines FM3D::Entity
 	/**
@@ -24,7 +17,7 @@ namespace FM3D {
 	*/
 	using EntityId = unsigned long;
 
-	class EntityCollection {
+	class ENGINE_DLL EntityCollection {
 		friend class Entity;
 	public:
 #pragma region Events
@@ -77,7 +70,9 @@ namespace FM3D {
 		* Wird ausgelöst, wenn eine FM3D::Group gelöscht
 		* und aus der FM3D::EntityCollection entfernt wird.
 		*/
-		GroupChangedEvent OnGroupCleared;
+		GroupChangedEvent OnGroupDestroyed;
+
+		static EntityId s_entityID;
 #pragma endregion
 	private:
 		///Container für alle FM3D::Entity
@@ -131,6 +126,10 @@ namespace FM3D {
 		* aufgerufen wird.
 		*/
 		std::vector<EntityPtr> m_entityVector;
+
+		std::unordered_map<Matcher, std::shared_ptr<Group>> m_groups;
+
+		std::function<void(Entity*)> m_entityReleasedMethod;
 	public:
 
 		///Erstellt ein neues FM3D::Entity
@@ -189,14 +188,26 @@ namespace FM3D {
 		size_t CountOfResuseableComponents() const;
 		size_t CountOfRetainedEntities() const;
 
+		void DestroyGroup(Group& group);
+		void DestroyGroup(const Matcher& matcher);
+
+		GroupPtr GetGroup(const Matcher& matcher);
+
+		///Löscht Entity
+		/**
+		* Löscht übergebenes FM3D::Entity aus der FM3D::Collection. Das Entity wird
+		* gegebenenfalls im Speicher behalten um es später erneut zu verwenden.
+		*
+		* @param entity	Pointer auf das zu löschende Entity
+		*/
+		void DestroyEntity(const EntityPtr& entity);
+
 		private:
-			///Löscht Entity
-			/**
-			* Löscht übergebenes FM3D::Entity aus der FM3D::Collection. Das Entity wird
-			* gegebenenfalls im Speicher behalten um es später erneut zu verwenden.
-			*
-			* @param entity	Pointer auf das zu löschende Entity
-			*/
-			void DestroyEntity(EntityPtr entity);
+
+
+			void UpdateGroup(GroupPtr& group);
+			void UpdateGroups(const EntityPtr& entity);
+			void OnEntityComponentChanged(EntityPtr entity, ComponentId index, Component* component);
+			void OnEntityReleased(Entity* entity);
 	};
 }

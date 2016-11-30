@@ -54,12 +54,13 @@ namespace FM3D {
 
 #include <src/EntitySystem/Event.h>
 #include <src/EntitySystem/Component.h>
+#include <src/EntitySystem/Matcher.h>
 #include <src/EntitySystem/EntityCollection.h>
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
 #include <src/EntitySystem/Manager.h>
-#include <src/EntitySystem/Matcher.h>
 
+#include <src/BasicComponents.h>
 
 #include <src/Graphics/Texture.h>
 #include <src/Graphics/RenderTarget2D.h>
@@ -74,6 +75,7 @@ namespace FM3D {
 #include <src/Graphics/Vertices.h>
 #include <src/Graphics/Mesh.h>
 #include <src/Graphics/Model.h>
+#include <src/Graphics/RenderableComponent.h>
 
 //#include <src/Entity.h>
 

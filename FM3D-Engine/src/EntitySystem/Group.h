@@ -3,7 +3,21 @@
 
 namespace FM3D {
 
-	class Group {
+	class ENGINE_DLL Group {
+	public:
+		enum GroupAction {
+			NONE,
+			ADDED,
+			REMOVED
+		};
+
+		using GroupUpdatedEvent = Event<void(Group* sender, EntityPtr entity)>;
+		using GroupChangedEvent = Event<void(Group* sender)>;
+
+		GroupUpdatedEvent OnEntityAdded;
+		GroupUpdatedEvent OnEntityRemoved;
+		GroupChangedEvent OnGroupChanged;
+		GroupChangedEvent OnGroupDestroyed;
 	private:
 		Matcher m_matcher;
 		///Container für alle FM3D::Entity
@@ -50,5 +64,13 @@ namespace FM3D {
 		size_t CountOfEntities() const;
 
 		const Matcher& GetMatcher() const;
+		void SetInstance(std::shared_ptr<Group>& ptr);
+
+		GroupAction UpdateEntity(const EntityPtr& entity);
+		GroupAction UpdateEntitySilently(const EntityPtr& entity);
+		Group(const Matcher& matcher);
+		~Group();
+	private:
+		void ChangeGroup(Matcher* matcher);
 	};
 }

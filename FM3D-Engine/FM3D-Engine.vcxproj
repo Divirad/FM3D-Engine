@@ -380,6 +380,7 @@
     <ClInclude Include="src\EventSystem.h" />
     <ClInclude Include="src\FileSystem\ExternFileManager.h" />
     <ClInclude Include="src\FileSystem\FileManager.h" />
+    <ClInclude Include="src\BasicComponents.h" />
     <ClInclude Include="src\Graphics\GUI2D\BasicItem2D.h" />
     <ClInclude Include="src\Graphics\GUI2D\Button.h" />
     <ClInclude Include="src\Graphics\GUI2D\DragDropper.h" />
@@ -410,6 +411,7 @@
     <ClInclude Include="src\Graphics\OpenGL4.5\GL4Renderer2D.h" />
     <ClInclude Include="src\Graphics\OpenGL4.5\GL4RenderSystem.h" />
     <ClInclude Include="src\Graphics\Quad.h" />
+    <ClInclude Include="src\Graphics\RenderableComponent.h" />
     <ClInclude Include="src\Graphics\Renderer2D.h" />
     <ClInclude Include="src\Graphics\Renderer3D.h" />
     <ClInclude Include="src\Graphics\RenderSystem.h" />
@@ -472,7 +474,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DLLMain.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\EntitySystem\Component.cpp" />
     <ClCompile Include="src\EntitySystem\Entity.cpp" />
     <ClCompile Include="src\EntitySystem\EntityCollection.cpp" />
     <ClCompile Include="src\EntitySystem\Group.cpp" />

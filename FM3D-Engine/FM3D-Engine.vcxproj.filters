@@ -597,6 +597,12 @@
     <ClInclude Include="src\EntitySystem\Matcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\RenderableComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl">
@@ -653,9 +659,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DLLMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Win32Window.cpp">
@@ -776,6 +779,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\EntitySystem\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntitySystem\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
