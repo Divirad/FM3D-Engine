@@ -27,19 +27,6 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
     public class Model : INotifyPropertyChanged
     {
-        private ViewModel.ViewMode _Mode = ViewModel.ViewMode.TREE;
-        public ViewModel.ViewMode Mode
-        {
-            get
-            {
-                return _Mode;
-            }
-            set
-            {
-                _Mode = value;
-            }
-        }
-
         public Model()
         {
             _RootDirectories = new ObservableCollection<FileSystemObjectData>();
