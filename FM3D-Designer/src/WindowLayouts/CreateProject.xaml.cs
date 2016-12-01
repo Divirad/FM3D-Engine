@@ -48,11 +48,13 @@ namespace FM3D_Designer.src.WindowLayouts
 
             if (openbrowserdialog.ShowDialog() == DialogResult.OK)
             { tb_path.Text = openbrowserdialog.SelectedPath; }
+        }
+        
+        public void startdev(object sender, RoutedEventArgs e)
+        {
             Project.CreateProject(tb_path.Text, tb_name.Text);
             mainWindow.ClearAttachedWindows();
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
         }
-        
-
     }
 }
