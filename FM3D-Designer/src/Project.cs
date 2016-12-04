@@ -201,6 +201,14 @@ namespace FM3D_Designer.src
             Project.Load(pathtofile);
         }
 
+        public static void InsertFile(File file)
+        {
+            
+        }
 
+        public static void InsertDir(Folder folder)
+        {
+
+        }
     }
 }

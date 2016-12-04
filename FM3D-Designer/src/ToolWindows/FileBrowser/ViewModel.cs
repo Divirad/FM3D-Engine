@@ -84,14 +84,21 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 if (this.objectData.FileType == FileType.DIRECTORY)
                 {
                     var add = new MenuItem();
-                    add.Header = "Add";
-                    add.Click += this.Menu_Add;
+                    add.Header = "Add File";
+                    add.Click += this.Menu_AddFile;
+                    _ContextMenu.AddItem(add);
+                }
+                if (this.objectData.FileType == FileType.DIRECTORY)
+                {
+                    var add = new MenuItem();
+                    add.Header = "Add Directory";
+                    add.Click += this.Menu_AddDir;
                     _ContextMenu.AddItem(add);
                 }
                 if (this.parent != null)
                 {
                     var delete = new MenuItem();
-                    delete.Header = "Delete";
+                    delete.Header = "Delete";   
                     delete.Click += this.Menu_Delete;
                     _ContextMenu.AddItem(delete);
                 }
@@ -269,10 +276,20 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
-        private void Menu_Add(object sender, System.EventArgs e)
+        private async void Menu_AddFile(object sender, System.EventArgs e)
         {
-            //((MetroWindow)Application.Current.MainWindow).ShowDialog();
+            var result = await ((MetroWindow)Application.Current.MainWindow).ShowInputAsync("New File", "This will delete the file/directory for ever!");
+            //if (result == MessageDialogResult.Affirmative) {
+            //}
         }
+
+        private async void Menu_AddDir(object sender, System.EventArgs e)
+        {
+            var result = await ((MetroWindow)Application.Current.MainWindow).ShowInputAsync("New Directory", "This will delete the file/directory for ever!");
+            //if (result == MessageDialogResult.Affirmative) {
+            //}
+        }
+
         private async void Menu_Delete(object sender, System.EventArgs e)
         {
             var result = await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Deleeete", "This will delete the file/directory for ever!", MessageDialogStyle.AffirmativeAndNegative);
