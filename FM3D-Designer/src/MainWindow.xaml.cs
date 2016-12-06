@@ -32,12 +32,20 @@ namespace FM3D_Designer.src
      */
     public partial class MainWindow : MetroWindow
     {
+        public static MainWindow Instance { get; private set; } = null;
+
         public MainWindow()
         {
             //Themes.DarkTheme.SetTheme();
+            if (Instance != null) throw new InvalidOperationException("Already created Object of Singleton class MainWindow");
             
             InitializeComponent();
             AttachNewWindowLayout(new WindowLayouts.StartLayout(this));
+            Instance = this;
+        }
+        ~MainWindow()
+        {
+            if (Instance == this) Instance = null;
         }
         public void AttachNewWindowLayout(WindowLayout layout, bool isSelected = false)
         {
@@ -52,6 +60,10 @@ namespace FM3D_Designer.src
             this.dockingGroup.UpdateVisibility();
         }
 
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            PipeSystem.CloseVS();
+        }
     }
 
 }

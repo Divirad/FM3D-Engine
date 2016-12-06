@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        <Menu x:Name="menu" Grid.Row="0">
@@ -28,7 +29,18 @@
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>
-        <dd:DockSite  Grid.Row="1"  Name="dockSite" VisualStyle="Office2016">
+        <ToolBarTray IsLocked="True" Grid.Row="1">
+            <ToolBar Height="35" Loaded="ToolBar_Loaded">
+                <Separator />
+                <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
+                    <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
+                </Button>
+                <Button Height="30" ToolTip="Run Game">
+                    <Image Source="/FM3D-Designer;component/resources/images/start_icon.png" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <dd:DockSite  Grid.Row="2"  Name="dockSite" VisualStyle="Office2016">
         </dd:DockSite>
     </Grid>
 </local:WindowLayout>

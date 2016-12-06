@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 using DevComponents.WpfDock;
 using System.ComponentModel;
+using System.Windows.Shapes;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Navigation;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls.Primitives;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
@@ -34,7 +34,17 @@ namespace FM3D_Designer.src.WindowLayouts
                 startTextEditor();
             }
         }
-        
+
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToolBar toolBar = sender as ToolBar;
+            var overflowGrid = toolBar.Template.FindName("OverflowButton", toolBar) as ButtonBase;
+            if (overflowGrid != null)
+            {
+                overflowGrid.Background = toolBar.Background;
+            }
+        }
+
         public void OpenFileBrowser(object sender, RoutedEventArgs e)
         {
             SplitPanel splitPanel = new SplitPanel();
@@ -57,6 +67,11 @@ namespace FM3D_Designer.src.WindowLayouts
             DockSite.SetDockSize(splitPanel,600);
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PipeSystem.StartVS("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
         }
     }
 }

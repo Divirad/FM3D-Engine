@@ -11,4 +11,8 @@
       <File name="Bruh.y"/>
     </Folder>
   </ProjectFiles>
+  <CPlusPlus>
+	<FM3D_File name="fm3d.xml"/>
+	<Solution name="GameProject.sln"/>
+  </CPlusPlus>
 </Project>

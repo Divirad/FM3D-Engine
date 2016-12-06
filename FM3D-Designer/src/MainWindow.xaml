@@ -9,7 +9,7 @@
         x:Class="FM3D_Designer.src.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="720" Width="1280">
+        Height="720" Width="1280" Closing="MetroWindow_Closing">
 
     <DockPanel LastChildFill="True">
         <dd:DockSite x:Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">
