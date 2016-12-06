@@ -35,10 +35,6 @@ namespace FM3D_Designer.src.WindowLayouts
             InitializeComponent();
             this.Header = "Create Project";
 
-            //var result = await((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Deleeete", "This will delete the file/directory for ever!", MessageDialogStyle.AffirmativeAndNegative);
-            //if (result == MessageDialogResult.Affirmative)
-            //{ }
-
             this.Initialize(mainWindow, null);
         }
 

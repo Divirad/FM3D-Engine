@@ -87,6 +87,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PipeSystem.cs" />
+    <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
+      <DependentUpon>AddFileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Dialogs\DialogManager.cs" />
     <Compile Include="src\DocumentWindow.cs" />
     <Compile Include="src\Command.cs" />
     <Compile Include="src\FM3DPropertyFile.cs" />
@@ -127,6 +131,10 @@
     </Compile>
     <Compile Include="src\ToolWindows\FileBrowser\ViewModel.cs" />
     <Compile Include="src\WindowLayout.cs" />
+    <Page Include="src\Dialogs\AddFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\DocumentWindows\TextureViewPort.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
