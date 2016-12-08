@@ -11,7 +11,7 @@
              Width="300" Height="600">
 
     <fm:ToolWindow.Resources>
-        <local:ViewModel x:Key="viewModel"/>
+        <local:Logic x:Key="logic"/>
 
         <Style x:Key="ToggleStyle" TargetType="Button">
             <Style.Triggers>
@@ -42,36 +42,36 @@
         <ToolBarTray IsLocked="True" Grid.Row="0">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
                 <Separator />
-                <Button Height="30" ToolTip="Collapse All" Command="{Binding CommCollapseAll, Source={StaticResource viewModel}}">
+                <Button Height="30" ToolTip="Collapse All" Command="{Binding CommCollapseAll, Source={StaticResource logic}}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
-                <Button Height="30" ToolTip="Refresh" Command="{Binding CommRefresh, Source={StaticResource viewModel}}">
+                <Button Height="30" ToolTip="Refresh" Command="{Binding CommRefresh, Source={StaticResource logic}}">
                     <!--http://images.google.de/imgres?imgurl=http://www.myiconfinder.com/uploads/iconsets/256-256-60eade7f184e696a79fa2ff1e81c851d.png&imgrefurl=http://www.myiconfinder.com/icon/arrow-cycle-refresh-repeat-round-undo-update-sync-reloading/5068&h=256&w=256&tbnid=ojWfon76yfyLkM:&docid=gIEKG4XVFs8YgM&ei=ETQ_WNKKFoObsAGB2b6IDw&tbm=isch&client=firefox-b-ab&iact=rc&uact=3&page=1&start=45&ved=0ahUKEwiS1_fBptHQAhWDDSwKHYGsD_EQMwhiKC0wLQ&bih=916&biw=1920-->
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/refresh_icon.png" />
                 </Button>
                 <Separator/>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" IsEnabled="{Binding ModeTree, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.TREE}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" Command="{Binding CommTreeMode, Source={StaticResource logic}}" CommandParameter="{x:Static local:Logic+ViewMode.TREE}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_icon.png" />
                 </Button>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeIconsButton" IsEnabled="{Binding ModeTreeIcons, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.TREE_ICONS}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeIconsButton" Command="{Binding CommTreeMode, Source={StaticResource logic}}" CommandParameter="{x:Static local:Logic+ViewMode.TREE_ICONS}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_bigicons_icon.png" />
                 </Button>
-                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="iconsButton" IsEnabled="{Binding ModeIcons, Source={StaticResource viewModel}}" Command="{Binding CommTreeMode, Source={StaticResource viewModel}}" CommandParameter="{x:Static local:ViewModel+ViewMode.ICONS}">
+                <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="iconsButton" Command="{Binding CommTreeMode, Source={StaticResource logic}}" CommandParameter="{x:Static local:Logic+ViewMode.ICONS}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/bigicons_icon.png" />
                 </Button>
             </ToolBar>
         </ToolBarTray>
 
-        <Grid Grid.Row="1" DataContext="{StaticResource viewModel}">
+        <Grid Grid.Row="1" DataContext="{StaticResource logic}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding TreeLength}"/>
-                <ColumnDefinition Width="{Binding SplitterLength}"/>
-                <ColumnDefinition Width="{Binding ListLength}"/>
+                <ColumnDefinition Width="{Binding TreeLength, Mode=OneWay}"/>
+                <ColumnDefinition Width="{Binding SplitterLength, Mode=OneWay}"/>
+                <ColumnDefinition Width="{Binding ListLength, Mode=OneWay}"/>
             </Grid.ColumnDefinitions>
-            <TreeView Grid.Column="0" DataContext="{StaticResource viewModel}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Visibility="{Binding TreeVisibility, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TreeView Grid.Column="0" DataContext="{StaticResource logic}" ItemsSource="{Binding RootDirectories, Mode=OneWay}" Visibility="{Binding TreeVisibility, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TreeView.ItemTemplate>
 
-                    <HierarchicalDataTemplate DataType="{x:Type local:TreeItemViewModel}" AlternationCount="2" ItemsSource="{Binding Children}">
+                    <HierarchicalDataTemplate DataType="{x:Type local:Item}" AlternationCount="2" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <Grid>
                                 <Image Source="{Binding ImageSource}"/>
@@ -86,15 +86,14 @@
                         <!--<EventSetter Event="MouseDoubleClick" Handler="{Binding OnDoubleClick}"/>-->
                         <!--<Setter Property="Foreground" Value="{ Binding MainFontColorBrush, Source={x:Static fm:Theme.Current}}"/>-->
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                        <Setter Property="Visibility" Value="{Binding IsVisible}"/>
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=OneWayToSource}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                         <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
                         <EventSetter Event="TreeViewItem.MouseRightButtonDown" Handler="TreeViewItem_MouseRightButtonDown"/>
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource viewModel}" Visibility="{Binding ListVisibility, Mode=OneWay}" ItemsSource="{Binding CurrentDirectory, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource logic}" Visibility="{Binding ListVisibility, Mode=OneWay}" ItemsSource="{Binding CurrentDirectoryContent, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Width="48" Orientation="Vertical">

@@ -23,10 +23,10 @@ namespace FM3D_Designer.src
 
     public class Command : CommandBase
     {
-        private Action action;
-        private Func<bool> condition;
+        private Action<object> action;
+        private Func<object, bool> condition;
 
-        public Command(Action action, Func<bool> condition)
+        public Command(Action<object> action, Func<object, bool> condition)
         {
             this.action = action;
             this.condition = condition;
@@ -34,11 +34,11 @@ namespace FM3D_Designer.src
 
         public override bool CanExecute(object parameter)
         {
-            return condition();
+            return condition(parameter);
         }
         public override void Execute(object parameter)
         {
-            action();
+            action(parameter);
         }
     }
 }

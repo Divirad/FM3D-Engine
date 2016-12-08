@@ -82,10 +82,13 @@ namespace FM3D_Designer.src
         {
             lock (mutex)
             {
-                process.Exited -= OnVSCloses;
+                if (process != null)
+                {
+                    process.Exited -= OnVSCloses;
 
-                process.CloseMainWindow();
-                process.Close();
+                    process.CloseMainWindow();
+                    process.Close();
+                }
             }
             _CloseVS();
         }

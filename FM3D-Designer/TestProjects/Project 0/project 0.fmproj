@@ -5,8 +5,11 @@
     <Folder name="SATAAN">
       <File name="6.x"/>
       <File name="6.y"/>
+      <Folder name="Foolder">
+        <File name="Wer das liest ist dumm"/>
+      </Folder>
     </Folder>
-	  <Folder name="SATAAN">
+	  <Folder name="SATAAN 3">
       <File name="6.x"/>
       <File name="Bruh.y"/>
     </Folder>

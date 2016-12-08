@@ -90,7 +90,6 @@
     <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\Dialogs\DialogManager.cs" />
     <Compile Include="src\DocumentWindow.cs" />
     <Compile Include="src\Command.cs" />
     <Compile Include="src\FM3DPropertyFile.cs" />
@@ -99,6 +98,9 @@
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ToolWindows\FileBrowser\Creator.cs" />
+    <Compile Include="src\ToolWindows\FileBrowser\Item.cs" />
+    <Compile Include="src\ToolWindows\FileBrowser\Logic.cs" />
     <Compile Include="src\WindowLayouts\CreateProject.xaml.cs">
       <DependentUpon>CreateProject.xaml</DependentUpon>
     </Compile>
@@ -125,11 +127,9 @@
     </Compile>
     <Compile Include="Themes\DarkMetroTheme.cs" />
     <Compile Include="src\ToolWindow.cs" />
-    <Compile Include="src\ToolWindows\FileBrowser\Model.cs" />
     <Compile Include="src\ToolWindows\FileBrowser\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ToolWindows\FileBrowser\ViewModel.cs" />
     <Compile Include="src\WindowLayout.cs" />
     <Page Include="src\Dialogs\AddFileDialog.xaml">
       <SubType>Designer</SubType>
