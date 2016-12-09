@@ -21,9 +21,9 @@ namespace FM3D {
 	}
 
 	void GL3Renderer3D::Submit(const Entity* e) {
-		if (!e->HasAnyComponent(std::vector<ComponentId>({ PositionComponentId, RotationComponentId, ScaleComponentId, RenderableComponentId })))
+		if (!e->HasComponents(std::vector<ComponentId>({ PositionComponentId, RotationComponentId, ScaleComponentId, RenderableComponentId })))
 			throw std::runtime_error("Entity doesn't has necessary components for rendering");
-		const Model* model = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId))->GetModel();
+		Model* model = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId))->GetModel();
 		const Mesh* mesh = model->GetMesh();
 
 		std::map<const Model*, std::vector<const Entity*>>& map = m_meshModelEntityMap[mesh];

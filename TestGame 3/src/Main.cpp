@@ -3,11 +3,13 @@
 #include <iomanip>
 #include "Resources.h"
 
-using namespace Engine;
+using namespace FM3D;
 
 void Move(Camera& camera);
 Vector3f& SetHill(Vector3f& vec);
 Vector3f SetHillNormal(Vector3f& vec);
+EntityPtr CreateEntity(EntityCollection&, const Vector3f&, const Vector3f&, const Vector3f&, Model*);
+AnimatedModel* GetModel(EntityPtr& e);
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
@@ -30,6 +32,8 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
 	Renderer3D* renderer3D = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight());
 
+	EntityCollection scene;
+
 	LARGE_INTEGER time1;
 	LARGE_INTEGER time2;
 	LARGE_INTEGER frequency;
@@ -39,16 +43,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Color4f clearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	Engine::Font* font;
+	FM3D::Font* font;
 	ExternFileManager::ReadFontFile("font.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(), &font);
 
 	Resources res(renderSystem);
 
 	//Entities
-	Entity entityLeaves(Vector3f(20.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.treeLeavesModel);
-	Entity boba(Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
-	Entity island(Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
-	Entity shuttle(Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
+	EntityPtr entityLeaves = CreateEntity(scene, Vector3f(20.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.treeLeavesModel);
+	EntityPtr boba = CreateEntity(scene, Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
+	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
+	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -90,7 +94,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<Mesh::Part>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
 
-	Entity terrain(Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 
 	//2D
 	Text text0{ "", font, 0xff000000 };
@@ -103,12 +107,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			QueryPerformanceCounter(&time1);
 
 			renderSystem->BeginRendering(clearColor);
-
-			renderer3D->Submit(&entityLeaves);
-			renderer3D->Submit(&boba);
-			renderer3D->Submit(&terrain);
-			renderer3D->Submit(&island);
-			renderer3D->Submit(&shuttle);
+			renderer3D->Submit(entityLeaves.get());
+			renderer3D->Submit(boba.get());
+			renderer3D->Submit(terrain.get());
+			renderer3D->Submit(island.get());
+			renderer3D->Submit(shuttle.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
 			renderer2D->Begin();
@@ -121,13 +124,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->EndRendering();
 
-			((AnimatedModel*)boba.GetModel())->AddToAnimationTime(1.0f / 60.0f);
-			if (((AnimatedModel*)boba.GetModel())->GetAnimationTime() >= ((AnimatedModel*)boba.GetModel())->GetAnimation()->GetDuration())
-				((AnimatedModel*)boba.GetModel())->SetAnimationTime(0.0);
+			GetModel(boba)->AddToAnimationTime(1.0f / 60.0f);
+			if (GetModel(boba)->GetAnimationTime() >= GetModel(boba)->GetAnimation()->GetDuration())
+				GetModel(boba)->SetAnimationTime(0.0);
 
-			((AnimatedModel*)shuttle.GetModel())->AddToAnimationTime(1.0f / 60.0f);
-			if (((AnimatedModel*)shuttle.GetModel())->GetAnimationTime() >= ((AnimatedModel*)shuttle.GetModel())->GetAnimation()->GetDuration())
-				((AnimatedModel*)shuttle.GetModel())->SetAnimationTime(0.0);
+			GetModel(shuttle)->AddToAnimationTime(1.0f / 60.0f);
+			if (GetModel(shuttle)->GetAnimationTime() >= GetModel(shuttle)->GetAnimation()->GetDuration())
+				GetModel(shuttle)->SetAnimationTime(0.0);
 
 
 			Move(camera);
@@ -224,3 +227,15 @@ Vector3f SetHillNormal(Vector3f& vec) {
 	return r;
 }
 
+EntityPtr CreateEntity(EntityCollection& col, const Vector3f& pos, const Vector3f& rot, const Vector3f& sca, Model* mod) {
+	EntityPtr e = col.CreateEntity();
+	e->Add<PositionComponent>(pos);
+	e->Add<RotationComponent>(rot);
+	e->Add<ScaleComponent>(sca);
+	e->Add<RenderableComponent>(mod);
+	return e;
+}
+AnimatedModel* GetModel(EntityPtr& e) {
+	RenderableComponent* r = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId));
+	return static_cast<AnimatedModel*>(r->GetModel());
+}

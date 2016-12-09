@@ -7,7 +7,7 @@ namespace FM3D {
 	* Leere Struktur von der alle Komponenten
 	* des Entitysystems erben.
 	*/
-	struct Component {
+	struct ENGINE_DLL Component {
 	protected:
 		///Standard Konstruktor
 		Component() = default;
@@ -20,7 +20,10 @@ namespace FM3D {
 		}
 	};
 
-
+	class PositionComponent;
+	class RotationComponent;
+	class ScaleComponent;
+	class RenderableComponent;
 
 	///Id eines Komponenten
 	/**
@@ -41,8 +44,7 @@ namespace FM3D {
 	* Statische Klasse, die jedem Komponenten
 	* eine eindeutige Id zuschreibt
 	*/
-	class ENGINE_DLL ComponentIds
-	{
+	class ENGINE_DLL ComponentIds {
 		typedef void(*DestructPtr)(Component*);
 
 		///Alle Methoden eines FM3D::Component
@@ -75,6 +77,11 @@ namespace FM3D {
 			static ComponentId id = InitComponent<T>();
 			return id;
 		}
+
+		template<> static const ComponentId Get<PositionComponent>();
+		template<> static const ComponentId Get<RotationComponent>();
+		template<> static const ComponentId Get<ScaleComponent>();
+		template<> static const ComponentId Get<RenderableComponent>();
 
 		template<typename T>
 		static ComponentId InitComponent() {

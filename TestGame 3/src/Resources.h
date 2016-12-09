@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-using namespace Engine;
+using namespace FM3D;
 
 struct Resources {
 
