@@ -110,6 +110,7 @@
 #define KEY_F8			119
 #define KEY_F9			120
 
+#define INPUT Inputsystem::GetInstance()
 #pragma warning(pop)
 
 namespace FM3D 

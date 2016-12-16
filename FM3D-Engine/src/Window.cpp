@@ -5,7 +5,7 @@ namespace FM3D {
 	Window* Window::s_instance = nullptr;
 
 	Window::Window() {
-
+		
 	}
 
 	Window* Window::Create(Platform p, HINSTANCE hInstance) {
