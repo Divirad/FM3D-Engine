@@ -13,6 +13,8 @@ namespace FM3D {
 		
 		void ReSize(const Vector2i& size) override;
 		void PresentOnScreen(const Vector2i& screenSize) override;
-		void Bind() const;
+		void BindAsTarget() const override;
+		void BindAsSource() const override;
+		std::shared_ptr<const Texture> GetTexture() override;
 	};
 }

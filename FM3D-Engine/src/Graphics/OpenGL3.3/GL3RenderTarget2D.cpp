@@ -45,14 +45,23 @@ namespace FM3D {
 	void GL3RenderTarget2D::PresentOnScreen(const Vector2i& screenSize) {
 		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer));
-		glViewport(0, 0, screenSize.x, screenSize.y);
+		GLCall(glViewport(0, 0, screenSize.x, screenSize.y));
 
 		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT0));
 		GLCall(glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, screenSize.x, screenSize.y, GL_COLOR_BUFFER_BIT, GL_LINEAR));
 	}
 
-	void GL3RenderTarget2D::Bind() const {
-		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-		glViewport(0, 0, m_size.x, m_size.y);
+	void GL3RenderTarget2D::BindAsTarget() const {
+		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_frameBuffer));
+		GLCall(glViewport(0, 0, m_size.x, m_size.y));
+	}
+
+	void GL3RenderTarget2D::BindAsSource() const {
+		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer));
+		GLCall(glViewport(0, 0, m_size.x, m_size.y));
+	}
+
+	std::shared_ptr<const Texture> GL3RenderTarget2D::GetTexture() {
+		return std::shared_ptr<const Texture>(new GL3Texture(m_texture, m_size.x, m_size.y, 24));
 	}
 }

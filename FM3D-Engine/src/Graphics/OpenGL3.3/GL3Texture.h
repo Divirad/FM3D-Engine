@@ -6,7 +6,12 @@ namespace FM3D {
 	class ENGINE_DLL GL3Texture : public Texture {
 	private:
 		friend class ExternFileManager;
+		friend class GL3RenderTarget2D;
+		friend class GL3RenderSystem;
 		uint m_tID;
+
+		GL3Texture(uint id, uint width, uint height, uint bits);
+		GL3Texture();
 	public:
 		void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) override;
 		void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) override;

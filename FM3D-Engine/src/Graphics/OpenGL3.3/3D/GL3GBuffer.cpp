@@ -91,7 +91,7 @@ namespace FM3D {
 
 
 	void GL3GBuffer::BindForFinalPass() {
-		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
+		//GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo));
 		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT4));
 	}

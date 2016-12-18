@@ -183,19 +183,22 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\vector3.h" />
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
-    <ClInclude Include="src\InternOpengl.h" />
+    <ClInclude Include="src\OpenGL\InternOpengl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\ExternFileLoader.h" />
-    <ClInclude Include="src\Opengl.h" />
-    <ClInclude Include="src\OpenGLContext.h" />
+    <ClInclude Include="src\OpenGL\IRenderable.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Mesh.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Opengl.h" />
+    <ClInclude Include="src\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="src\InternOpenGL.cpp" />
+    <ClCompile Include="src\OpenGL\InternOpenGL.cpp" />
     <ClCompile Include="src\ExternFileLoader.cpp" />
-    <ClCompile Include="src\OpenGL.cpp" />
-    <ClCompile Include="src\OpenGLContext.cpp" />
+    <ClCompile Include="src\OpenGL\Wrapper\Mesh.cpp" />
+    <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
+    <ClCompile Include="src\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

@@ -30,7 +30,8 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
-	Renderer3D* renderer3D = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight());
+	RenderTarget2D* target3D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
+	Renderer3D* renderer3D = renderSystem->CreateRenderer3D(projectionMatrix, win->GetWidth(), win->GetHeight(), target3D);
 
 	EntityCollection scene;
 
@@ -113,14 +114,21 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderer3D->Submit(island.get());
 			renderer3D->Submit(shuttle.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
+			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderer2D->Begin();
+
+			auto sceneTex = target3D->GetTexture();
+			Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, sceneTex.get());
+			renderer2D->Submit(&renderedScene);
+
 			renderer2D->Submit(&textBack);
 			renderer2D->Submit(&barkQuad);
 			renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
 			renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
 			renderer2D->End();
 			renderer2D->Flush();
+			target2D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderSystem->EndRendering();
 

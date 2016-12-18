@@ -2,6 +2,14 @@
 
 namespace FM3D {
 
+	GL3Texture::GL3Texture(uint id, uint width, uint height, uint bits): Texture(width, height, bits), m_tID(id) {
+
+	}
+
+	GL3Texture::GL3Texture() {
+
+	}
+
 	GLint GL3Texture::GetGLFilterMode(FilterMode& filter, MipMapMode mipMapMode) {
 		switch (filter) {
 		case LINEAR:

@@ -1,6 +1,7 @@
 #pragma once
-#include "pch.h"
+#include "../pch.h"
 #include "OpenGLContext.h"
+#include "IRenderable.h"
 
 namespace DesignerLib {
 
@@ -19,7 +20,7 @@ namespace DesignerLib {
 
 		void Initialize(double width, double height);
 		void ChangeSize(System::Windows::Size^ size);
-		void Update();
+		void Update(IRenderable^ r);
 		void Render(System::Windows::Controls::Image^ image);
 	};
 }

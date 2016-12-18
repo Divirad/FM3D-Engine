@@ -1,6 +1,6 @@
 #pragma once
-#include "pch.h"
-#include "InternOpengl.h"
+#include "../../pch.h"
+#include "../InternOpengl.h"
 
 using namespace System::Windows;
 using namespace System::Windows::Controls;

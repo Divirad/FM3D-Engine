@@ -11,5 +11,11 @@ namespace FM3D {
 	public:
 		virtual void ReSize(const Vector2i& size) = 0;
 		virtual void PresentOnScreen(const Vector2i& screenSize) = 0;
+		virtual void BindAsTarget() const = 0;
+		virtual void BindAsSource() const = 0;
+		virtual std::shared_ptr<const Texture> GetTexture() = 0;
+
+		int GetWidth() const;
+		int GetHeight() const;
 	};
 }

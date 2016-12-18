@@ -1,27 +1,5 @@
 #include "InternOpengl.h"
-#include "pch.h"
-
-#ifdef _DEBUG
-#define _GLErrorCheck(x) {\
-				     GLenum GLCall_error = glGetError();\
-				     if (GLCall_error != GL_NO_ERROR) {\
-						std::stringstream str;\
-						str << "[OpenGL Error] (" << GLCall_error << ": " << gluErrorString(GLCall_error) << "): " << #x << " " << __FILE__ << ":" << __LINE__ << std::endl;\
-						std::cerr << str.str();\
-						System::Console::WriteLine(gcnew System::String(str.str().c_str()));\
-				  		__debugbreak();\
-				     }\
-					 }
-#endif
-
-#ifdef _DEBUG
-#define GLCall(x) x;\
-				  _GLErrorCheck(x);
-#define GLErrorCheck() _GLErrorCheck(0)
-#else
-#define GLCall(x) x;
-#define GLErrorCheck()
-#endif
+#include "../pch.h"
 
 namespace DesignerLib {
 
@@ -76,7 +54,7 @@ namespace DesignerLib {
 		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, 0));
 	}
 
-	void InternOpenGL::Update() {
+	void InternOpenGL::Update(IRenderable^ r) {
 		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
