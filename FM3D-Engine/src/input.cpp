@@ -41,15 +41,8 @@ namespace FM3D
 
 	void Inputsystem::MMove(LPARAM lParam)
 	{
-		
-		/*m_mousekey[MOUSE_LEFT].clicked = NOCLICK;
-		m_mousekey[MOUSE_RIGHT].clicked = NOCLICK;*/
-		/*
-		m_mousekey[MOUSE_MIDDLE].clicked = NOCLICK;*/
-
 			lastposinst.x = LOWORD(lParam);
 			lastposinst.y = HIWORD(lParam);
-			//cout << "INPUT:: INS:: Mouse @ the Coords >>X: " << LOWORD(lParam) << " AND Y: " << HIWORD(lParam) << "\n";
 	}
 
 	void Inputsystem::setMKey(int ID, KEYCLICK tof)
@@ -66,9 +59,10 @@ namespace FM3D
 		else { return false; }
 	}
 
-	Inputsystem::KEYCLICK Inputsystem::CheckIfMouseIsPressed(int keyid)
+	bool Inputsystem::CheckIfMouseIsPressed(int keyid)
 	{
-		return	m_mousekey[keyid].clicked;
+		if(m_mousekey[keyid].clicked==KEYCLICK::ACTIVATED)return	true;
+		else return false;
 
 	}
 

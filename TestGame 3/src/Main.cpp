@@ -107,7 +107,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			QueryPerformanceCounter(&time1);
 
 			renderSystem->BeginRendering(clearColor);
-			renderer3D->Submit(entityLeaves.get());
+			//renderer3D->Submit(entityLeaves.get());
 			renderer3D->Submit(boba.get());
 			renderer3D->Submit(terrain.get());
 			renderer3D->Submit(island.get());
@@ -134,12 +134,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 			Move(camera);
-			if (INPUT->CheckIfKeyIsPressed(KEY_R)) {
-
-				camera.Preset(camera.FIRSTPERSON, false);
-			}
-			else { ShowCursor(true); }
-
+			
+				camera.Preset(camera.FIRSTPERSON, true);
+			
 			QueryPerformanceCounter(&time2);
 			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;
 			std::stringstream stream;
@@ -153,6 +150,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 }
 
 void Move(Camera& camera) {
+	
 	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_LEFT)) {
 		camera.GetRotation().y += 1.0f;
 	}

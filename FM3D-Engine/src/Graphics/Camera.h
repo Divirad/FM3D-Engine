@@ -16,11 +16,10 @@ namespace FM3D {
 		float m_zoom;
 
 		bool fpstat;
-		Vector2f before, after;
+		Vector2f last;
 
 	public:
-		Camera(Vector3f& position = Vector3f(0.0f, 0.0f, 0.0f), Vector3f& rotation = Vector3f(0.0f, 0.0f, 0.0f), float zoom = 1.0f, bool fp=true);
-
+		Camera(Vector3f& position = Vector3f(0.0f, 0.0f, 0.0f), Vector3f& rotation = Vector3f(0.0f, 0.0f, 0.0f), float zoom = 1.0f);
 		Matrix4f GetViewMatrix() const;
 
 		inline Vector3f& GetPosition() { return m_position; }
@@ -32,5 +31,6 @@ namespace FM3D {
 		inline const float& GetZoom() const { return m_zoom; }
 
 		void Preset(PRESET pre, bool showcursor);
+		void FP_pres(float percent);
 	};
 }
