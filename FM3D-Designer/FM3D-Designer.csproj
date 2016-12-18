@@ -92,7 +92,13 @@
     </Compile>
     <Compile Include="src\DocumentWindow.cs" />
     <Compile Include="src\Command.cs" />
+    <Compile Include="src\DocumentWindows\MeshViewPort.xaml.cs">
+      <DependentUpon>MeshViewPort.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\FM3DPropertyFile.cs" />
+    <Compile Include="src\GLControl.xaml.cs">
+      <DependentUpon>GLControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\ProjectXML.cs" />
     <Compile Include="src\Theme.cs" />
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
@@ -119,6 +125,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\Project.cs" />
+    <Compile Include="src\WindowLayouts\MeshLayout.xaml.cs">
+      <DependentUpon>MeshLayout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\WindowLayouts\StartLayout.xaml.cs">
       <DependentUpon>StartLayout.xaml</DependentUpon>
     </Compile>
@@ -135,7 +144,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\DocumentWindows\MeshViewPort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\DocumentWindows\TextureViewPort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\GLControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\WindowLayouts\MeshLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
