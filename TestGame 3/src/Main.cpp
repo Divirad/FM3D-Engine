@@ -134,6 +134,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 			Move(camera);
+			if (INPUT->CheckIfKeyIsPressed(KEY_R)) {
+
+				camera.Preset(camera.FIRSTPERSON, false);
+			}
+			else { ShowCursor(true); }
 
 			QueryPerformanceCounter(&time2);
 			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;

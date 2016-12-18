@@ -68,7 +68,8 @@ namespace FM3D {
 		Inputsystem* InputWP = Inputsystem::GetInstance();
 		
 		Window *win = Window::GetInstance();
-
+		win->SetHWND(hWnd);
+		
 		switch (message) {
 		case WM_DESTROY:
 			PostQuitMessage(0);
