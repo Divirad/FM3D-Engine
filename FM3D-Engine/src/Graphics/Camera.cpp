@@ -2,8 +2,8 @@
 
 namespace FM3D {
 
-	Camera::Camera(Vector3f& position, Vector3f& rotation, float zoom, bool fp):
-	m_position(position), m_rotation(rotation), m_zoom(zoom), fpstat(fp){
+	Camera::Camera(Vector3f& position, Vector3f& rotation, float zoom):
+	m_position(position), m_rotation(rotation), m_zoom(zoom), fpstat(0){
 
 	}
 
@@ -22,24 +22,21 @@ namespace FM3D {
 		switch (pre)
 		{
 		case FIRSTPERSON:
-		{
-			if (fpstat == true) {
-				
-				SetCursorPos(CenterCursor.x, CenterCursor.y);
-				before = INPUT->GetLastposInst();
-                
-				fpstat = false;
-			}
-			else {
-				after = INPUT->GetLastposInst();
-				Vector2f result = after.Subtract(before);
-				m_rotation = Vector3f(m_rotation.x + result.y, m_rotation.y + result.x, m_rotation.z);
-				fpstat = true;
-			}
+		{	
+			//if (INPUT->CheckIfMouseIsPressed(MOUSE_LEFT) == true) { FP_pres(1.0f); }
+			FP_pres(1.0f);
 			break;
 		}
 		default:
-			break;
+		break;
 		}
+
+	}
+
+	void Camera::FP_pres(float percent){
+
+			Vector2f dif = INPUT->GetLastposInst().Subtract(last);
+			last = INPUT->GetLastposInst();
+			m_rotation = m_rotation.Subtract(Vector3f(dif.y, dif.x, 0.0f));
 	}
 }

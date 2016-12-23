@@ -178,7 +178,7 @@ namespace FM3D
 
 		void DoIfKeyPressed(int keyid, void(*f)());
 		bool CheckIfKeyIsPressed(int keyid);
-		Inputsystem::KEYCLICK CheckIfMouseIsPressed(int keyid);
+		bool CheckIfMouseIsPressed(int keyid);
 
 	};
 

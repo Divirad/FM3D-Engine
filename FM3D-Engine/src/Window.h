@@ -40,7 +40,6 @@ namespace FM3D {
 */	
 			RECT rct;
 			GetWindowRect(m_hwnd, &rct);
-			std::cout<< Vector2i(rct.left, rct.top)<< std::endl;
 			return Vector2i(rct.left, rct.top);
 			//return Vector2i(wp.rcNormalPosition.left, wp.rcNormalPosition.top); 
 		}
