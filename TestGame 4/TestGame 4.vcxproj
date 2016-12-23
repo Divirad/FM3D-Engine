@@ -89,11 +89,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
