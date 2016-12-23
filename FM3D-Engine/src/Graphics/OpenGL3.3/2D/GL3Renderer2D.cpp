@@ -138,7 +138,7 @@ namespace FM3D {
 	}
 
 	void GL3Renderer2D::Flush() {
-		GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		m_renderTarget->BindAsTarget();
 		if(m_texture) {
 			GLCall(glActiveTexture(GL_TEXTURE0));
 			GLCall(glBindTexture(GL_TEXTURE_2D, m_texture->GetID()));

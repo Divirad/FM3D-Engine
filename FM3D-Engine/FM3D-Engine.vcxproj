@@ -510,6 +510,7 @@
     <ClCompile Include="src\Graphics\RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\RenderTarget2D.cpp" />
     <ClCompile Include="src\Graphics\Skeleton.cpp" />
+    <ClCompile Include="src\Graphics\Texture.cpp" />
     <ClCompile Include="src\Graphics\Vertices.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />

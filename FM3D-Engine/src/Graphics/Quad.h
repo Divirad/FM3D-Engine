@@ -8,15 +8,15 @@ namespace FM3D {
 		Vector3f m_position0;
 		Vector2f m_position1;
 		uint m_color;
-		Texture* m_texture;
+		const Texture* m_texture;
 		Vector2f m_uv0;	
 		Vector2f m_uv1;
 
 	public:
-		Quad(Vector3f position, Vector2f size, uint color, Texture* tex) :
+		Quad(Vector3f position, Vector2f size, uint color, const Texture* tex) :
 			m_position0(position), m_position1(Vector2f(position.x + size.x, position.y + size.y)), m_color(color), m_texture(tex), m_uv0(Vector2f(0.0f, 0.0f)), m_uv1(Vector2f(1.0f, 1.0f)) {};
 
-		Quad(Vector3f position, Vector2f size, uint color, Texture* tex, Vector2f uvposition, Vector2f uvsize) :
+		Quad(Vector3f position, Vector2f size, uint color, const Texture* tex, Vector2f uvposition, Vector2f uvsize) :
 			m_position0(position), m_position1(Vector2f(position.x + size.x, position.y + size.y)), m_color(color), m_texture(tex), m_uv0(uvposition), m_uv1(uvposition + uvsize) {};
 		
 		Quad() {}; 
@@ -27,7 +27,7 @@ namespace FM3D {
 			inline Vector2f GetPosition1() { return m_position1; }
 
 			inline uint GetColor() { return m_color; }
-			inline Texture* GetTexture() { return m_texture; }
+			inline const Texture* GetTexture() { return m_texture; }
 
 			inline Vector2f GetUV0() { return m_uv0; }
 			inline Vector2f GetUV1() { return m_uv1; }

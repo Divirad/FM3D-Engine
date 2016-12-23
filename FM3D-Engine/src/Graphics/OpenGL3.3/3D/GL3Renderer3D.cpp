@@ -2,8 +2,11 @@
 
 namespace FM3D {
 
-	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem) : m_projectionMatrix(projectionMatrix), m_gbuffer(width, height),
-		m_width(width), m_height(height), m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)), m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))) {
+	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target) :
+		Renderer3D(target), m_projectionMatrix(projectionMatrix), m_gbuffer(width, height), m_width(width), m_height(height),
+		m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)),
+		m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))) {
+
 		m_shader3D.Bind();
 		m_shader3D.SetColorTextureUnit(0);
 
@@ -179,8 +182,10 @@ namespace FM3D {
 
 	void GL3Renderer3D::FinalPass() {
 		m_gbuffer.BindForFinalPass();
-		GLCall(glBlitFramebuffer(0, 0, m_width, m_height, 0, 0, m_width, m_height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		m_target->BindAsTarget();
+		GLCall(glBlitFramebuffer(0, 0, m_width, m_height, 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
 		//m_gbuffer.DebugRendering(m_width, m_height);
+
 	}
 
 }

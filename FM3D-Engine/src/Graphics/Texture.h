@@ -25,7 +25,11 @@ namespace FM3D {
 		uint m_width;
 		uint m_height;
 		uint m_bits;
+
+		Texture() {};
+		Texture(uint width, uint height, uint bits);
 	public:
+
 		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) = 0;
 		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) = 0;
 		virtual void Shutdown() = 0;

@@ -1,0 +1,26 @@
+﻿<local:WindowLayout x:Class="FM3D_Designer.src.WindowLayouts.MeshLayout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:FM3D_Designer.src">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="menu" Grid.Row="0">
+            <MenuItem Header="_File" >
+                <MenuItem Header="_Save"/>
+            </MenuItem>
+            <MenuItem Header="_Edit" />
+            <MenuItem Header="_View" />
+            <MenuItem Header="_Window" />
+            <MenuItem Header="_Help" />
+        </Menu>
+        <dd:DockSite  Grid.Row="1"  Name="dockSite" VisualStyle="Office2016">
+        </dd:DockSite>
+    </Grid>
+</local:WindowLayout>

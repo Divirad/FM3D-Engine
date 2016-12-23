@@ -89,47 +89,49 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp.lib;FreeImage.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp.lib;FreeImage.lib;opengl32.lib;glu32.lib;glew32s.lib;user32.lib;Gdi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;$(SolutionDir)FM3D-Engine\Dependencies\GLEW\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp.lib;FreeImage.lib;</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;FreeImage.lib;opengl32.lib;glu32.lib;glew32s.lib;user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp.lib;FreeImage.lib;</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;FreeImage.lib;opengl32.lib;glu32.lib;glew32s.lib;user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp.lib;FreeImage.lib;</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;FreeImage.lib;opengl32.lib;glu32.lib;glew32s.lib;user32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -140,6 +142,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -179,12 +183,22 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\vector3.h" />
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
+    <ClInclude Include="src\OpenGL\InternOpengl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\ExternFileLoader.h" />
+    <ClInclude Include="src\OpenGL\IRenderable.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Mesh.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Opengl.h" />
+    <ClInclude Include="src\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="src\OpenGL\InternOpenGL.cpp" />
     <ClCompile Include="src\ExternFileLoader.cpp" />
+    <ClCompile Include="src\OpenGL\Wrapper\Mesh.cpp" />
+    <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
+    <ClCompile Include="src\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -197,6 +211,11 @@
     <None Include="Dependencies\Assimp\include\Assimp\quaternion.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\vector2.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\vector3.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FM3D-Engine\FM3D-Engine.vcxproj">
+      <Project>{5f89c230-cda6-42f8-99f7-48bbfbf90425}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

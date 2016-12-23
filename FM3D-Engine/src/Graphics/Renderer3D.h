@@ -6,7 +6,10 @@ namespace FM3D {
 	class ENGINE_DLL Renderer3D {
 	protected:
 		friend class RenderSystem;
-		Renderer3D() {};
+
+		RenderTarget2D* m_target;
+
+		Renderer3D(RenderTarget2D* target): m_target(target) {};
 	public:
 		virtual void Submit(const Entity* e) = 0;
 		virtual void Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) = 0;

@@ -27,7 +27,7 @@ namespace FM3D {
 
 		friend class GL3RenderSystem;
 		friend class GL4RenderSystem;
-		GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem);
+		GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target);
 	public:
 		void Submit(const Entity* e) override;
 		void Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) override;
