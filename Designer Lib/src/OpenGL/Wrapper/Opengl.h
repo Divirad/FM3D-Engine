@@ -20,7 +20,7 @@ namespace DesignerLib {
 		OpenGL();
 		~OpenGL();
 
-		void Initialize(double width, double height);
+		void Initialize(double width, double height, Renderable^ r, DesignerLib::Camera^ cam);
 		void ChangeSize(Size^ size);
 		void Update();
 		void Render(Image^ image);

@@ -13,5 +13,5 @@ namespace FM3D {
 
 		inline Model* GetModel() const { return m_model; }
 	};
-#define RenderableComponentId ComponentIds::Get<RenderableComponent>()
+#define RenderableComponentId FM3D::ComponentIds::Get<FM3D::RenderableComponent>()
 }

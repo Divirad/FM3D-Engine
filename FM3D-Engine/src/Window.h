@@ -18,7 +18,7 @@ namespace FM3D {
 	public:
 		EventSource <SizeChangeEvent> &GetSizeChangeSource() { return m_winNewsize; }
 
-		virtual bool Start(int width, int height, LPCWSTR title);
+		virtual bool Start(int width, int height, LPCWSTR title, bool showWindow = true);
 		virtual bool ShouldClose() const = 0;
 		virtual bool HasMessage() = 0;
 		virtual void Close() = 0;

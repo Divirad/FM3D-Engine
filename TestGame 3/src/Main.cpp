@@ -14,6 +14,11 @@ AnimatedModel* GetModel(EntityPtr& e);
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
+	Output::Initialize();
+	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
+	Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
+
+
 	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
 	ExternFileManager::Initialize();
 
@@ -96,6 +101,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<Mesh::Part>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
 
 	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+
+	OUTPUT_INFO(3, "Hallo", "Infooo");
+	OUTPUT_ERROR(4, "Hallu", "Yeeeaah");
 
 	//2D
 	Text text0{ "", font, 0xff000000 };

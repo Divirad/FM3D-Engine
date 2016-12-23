@@ -14,7 +14,7 @@ namespace FM3D {
 		inline const Vector3f& GetPosition() const { return m_position; }
 		inline void SetPosition(const Vector3f& position) { m_position = position; }
 	};
-#define PositionComponentId ComponentIds::Get<PositionComponent>()
+#define PositionComponentId FM3D::ComponentIds::Get<FM3D::PositionComponent>()
 
 	class RotationComponent : public Component {
 		Vector3f m_rotation;
@@ -35,7 +35,7 @@ namespace FM3D {
 		inline void SetYaw(float yaw) { m_rotation.y = yaw; }
 		inline void SetRoll(float roll) { m_rotation.z = roll; }
 	};
-#define RotationComponentId ComponentIds::Get<RotationComponent>()
+#define RotationComponentId FM3D::ComponentIds::Get<FM3D::RotationComponent>()
 
 	class ScaleComponent : public Component {
 		Vector3f m_scale;
@@ -48,5 +48,5 @@ namespace FM3D {
 		inline const Vector3f& GetScale() const { return m_scale; }
 		inline void SetScale(const Vector3f& scale) { m_scale = scale; }
 	};
-#define ScaleComponentId ComponentIds::Get<ScaleComponent>()
+#define ScaleComponentId FM3D::ComponentIds::Get<FM3D::ScaleComponent>()
 }

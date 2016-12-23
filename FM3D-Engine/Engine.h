@@ -34,6 +34,8 @@ namespace FM3D {
 	};
 }
 
+#include <src/Timer.h>
+#include <src/Output.h>
 
 #include <src/Memory/ArrayBase.h>
 #include <src/Memory/DynamicArrayBase.h>

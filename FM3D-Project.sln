@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FM3D-Engine", "FM3D-Engine\FM3D-Engine.vcxproj", "{5F89C230-CDA6-42F8-99F7-48BBFBF90425}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FM3D-Designer", "FM3D-Designer\FM3D-Designer.csproj", "{9DDCC42C-A5E3-4B09-A7E2-D1CA21B9AE13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F89C230-CDA6-42F8-99F7-48BBFBF90425} = {5F89C230-CDA6-42F8-99F7-48BBFBF90425}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame", "TestGame\TestGame.vcxproj", "{6F04A7CC-C537-4A30-93D1-7224435E0A3E}"
 EndProject

@@ -74,7 +74,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)$(Configuration)</OutDir>
+    <OutDir>$(SolutionDir)FM3D-Designer\bin\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -186,17 +186,18 @@
     <ClInclude Include="src\OpenGL\InternOpengl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\ExternFileLoader.h" />
-    <ClInclude Include="src\OpenGL\IRenderable.h" />
-    <ClInclude Include="src\OpenGL\Wrapper\Mesh.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Renderable.h" />
+    <ClInclude Include="src\OpenGL\Wrapper\Camera.h" />
     <ClInclude Include="src\OpenGL\Wrapper\Opengl.h" />
     <ClInclude Include="src\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="src\OpenGL\InternOpenGL.cpp" />
     <ClCompile Include="src\ExternFileLoader.cpp" />
-    <ClCompile Include="src\OpenGL\Wrapper\Mesh.cpp" />
+    <ClCompile Include="src\OpenGL\Wrapper\Renderable.cpp" />
     <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>

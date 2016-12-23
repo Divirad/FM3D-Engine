@@ -10,8 +10,8 @@ namespace DesignerLib {
 		delete m_gl;
 	}
 
-	void OpenGL::Initialize(double width, double height) {
-		m_gl->Initialize(width, height);
+	void OpenGL::Initialize(double width, double height, Renderable^ r, DesignerLib::Camera^ cam) {
+		m_gl->Initialize(width, height, r, cam);
 	}
 
 	void OpenGL::ChangeSize(Size^ size) {

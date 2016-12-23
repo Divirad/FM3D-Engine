@@ -30,7 +30,7 @@ namespace FM3D {
 		}
 	}
 
-	bool Win32Window::Start(int width, int height, LPCWSTR title) {
+	bool Win32Window::Start(int width, int height, LPCWSTR title, bool showWindow) {
 		Window::Start(width, height, title);
 		RECT rc = { 0, 0, width, height };
 		DWORD windowStyle = (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SIZEBOX );
@@ -41,7 +41,7 @@ namespace FM3D {
 			return false;
 		}
 
-		ShowWindow(m_hWnd, SW_SHOWDEFAULT);
+		if(showWindow) ShowWindow(m_hWnd, SW_SHOWDEFAULT);
 		return true;
 	}
 

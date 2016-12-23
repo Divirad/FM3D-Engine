@@ -138,10 +138,13 @@
     <ClInclude Include="src\OpenGL\Wrapper\Opengl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\Wrapper\Mesh.h">
+    <ClInclude Include="src\OpenGL\Wrapper\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\IRenderable.h">
+    <ClInclude Include="src\Vec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\Wrapper\Renderable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,7 +164,7 @@
     <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\Wrapper\Mesh.cpp">
+    <ClCompile Include="src\OpenGL\Wrapper\Renderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

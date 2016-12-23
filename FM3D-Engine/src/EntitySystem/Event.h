@@ -68,7 +68,8 @@ namespace FM3D {
 	* @tparam Args			Parameter des Events
 	*/
 	template<class ReturnType, class... Args>
-	class Event<ReturnType(Args...)> {
+	class Event<ReturnType(Args...)> 
+	{
 		///Invoker-Type
 		/**
 		* Invoker mit den Templateparametern des Events.
