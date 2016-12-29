@@ -5,6 +5,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System.Windows;
 
 namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
@@ -191,6 +196,26 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     OnPropertyChanged("ImageSource");
                 }
             }
+        }
+        #endregion
+
+        #region Context Menu
+        
+        public ContextMenu CMenu
+        {
+            get
+            {
+                var menu = new ContextMenu();
+                var menu_res = new MenuItem();
+                menu_res.Header = "New Resource";
+                menu_res.Click += OnNewResource;
+                menu.Items.Add(menu_res);
+                return menu;
+            }
+        }
+        private void OnNewResource(object sender, EventArgs args)
+        {
+            ((MetroWindow)Application.Current.MainWindow).ShowMetroDialogAsync(new Dialogs.NewResourceDialog());
         }
         #endregion
 

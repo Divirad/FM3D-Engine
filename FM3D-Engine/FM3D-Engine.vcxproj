@@ -484,6 +484,7 @@
     <ClCompile Include="src\EntitySystem\Entity.cpp" />
     <ClCompile Include="src\EntitySystem\EntityCollection.cpp" />
     <ClCompile Include="src\EntitySystem\Group.cpp" />
+    <ClCompile Include="src\EntitySystem\Manager.cpp" />
     <ClCompile Include="src\EntitySystem\Matcher.cpp" />
     <ClCompile Include="src\FileSystem\ExternFileManager.cpp" />
     <ClCompile Include="src\FileSystem\FileManager.cpp" />
