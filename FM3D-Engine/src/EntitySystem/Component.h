@@ -25,6 +25,12 @@ namespace FM3D {
 	class ScaleComponent;
 	class RenderableComponent;
 
+	//Components for 2D-Rendering
+	class ImageComponent;
+#define PictureComponent ImageComponent		//Frag einfach nicht! einfach das define Akzeptieren!
+	class UVComponent;
+	class TextComponent;
+
 	///Id eines Komponenten
 	/**
 	* 32-Bit Wert, der alle verschiedenen Komponenten
@@ -82,6 +88,11 @@ namespace FM3D {
 		template<> static const ComponentId Get<RotationComponent>();
 		template<> static const ComponentId Get<ScaleComponent>();
 		template<> static const ComponentId Get<RenderableComponent>();
+		
+		//Components for 2D-Rendering
+		template<> static const ComponentId Get<ImageComponent>();
+		template<> static const ComponentId Get<UVComponent>();
+		template<> static const ComponentId Get<TextComponent>();
 
 		template<typename T>
 		static ComponentId InitComponent() {

@@ -5,6 +5,7 @@ namespace FM3D {
 
 	class ENGINE_DLL Quad {
 	protected:
+
 		Vector3f m_position0;
 		Vector2f m_position1;
 		uint m_color;
