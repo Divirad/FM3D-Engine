@@ -23,5 +23,9 @@ namespace FM3D_Designer.src.Dialogs
         {
             InitializeComponent();
         }
+
+        public void cancel(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
