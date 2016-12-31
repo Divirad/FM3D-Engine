@@ -1,34 +1,37 @@
 #pragma once
+#include <Engine.h>
 
 namespace FM3D {
 
-	class SetPoolManager {
+	class ManagerCollection;
+
+	class Manager {
+		friend class ManagerCollection;
 	protected:
-		SetPoolManager() = default;
+		GroupPtr m_group;
 
+		Manager(GroupPtr group);
+	protected:
+		virtual void Initialize() {};
+		virtual void Execute(EntityPtr entity) = 0;
+		virtual void Terminate() {};
 	public:
-		virtual ~SetPoolManager() = default;
-
-		//virtual void SetPool(Pool* pool) = 0;
+		virtual void ExecuteForAll();
 	};
 
-	class InitializeManager {
-	protected:
-		InitializeManager() = default;
+	using ManagerPtr = std::shared_ptr<Manager>;
 
+	class ManagerCollection {
+	private:
+		std::unordered_set<ManagerPtr> m_manager;
 	public:
-		virtual ~InitializeManager() = default;
+		ManagerCollection() = default;
 
-		virtual void Initialize() = 0;
-	};
+		void Initialize();
+		void Terminate();
+		void Execute();
 
-	class ExecuteManager {
-	protected:
-		ExecuteManager() = default;
-
-	public:
-		virtual ~ExecuteManager() = default;
-
-		virtual void Execute() = 0;
+		void Add(const ManagerPtr& manager);
+		void Remove(const ManagerPtr& manager);
 	};
 }

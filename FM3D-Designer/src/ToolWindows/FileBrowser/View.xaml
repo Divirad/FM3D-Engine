@@ -96,7 +96,7 @@
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource logic}" Visibility="{Binding ListVisibility, Mode=OneWay}" ItemsSource="{Binding CurrentDirectoryContent, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Width="48" Orientation="Vertical">
+                        <StackPanel  ContextMenu="{Binding CMenu}" Width="48" Orientation="Vertical">
                             <Grid VerticalAlignment="Center">
                                 <Image Source="{Binding BigImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />

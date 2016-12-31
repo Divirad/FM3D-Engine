@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using DevComponents.WpfDock;
 using System.IO;
+using DesignerLib;
 
 namespace FM3D_Designer.src.WindowLayouts
 {

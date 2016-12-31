@@ -194,6 +194,17 @@ namespace FM3D {
 		inline ReturnType operator()(Args... args) {
 			return Invoker::Invoke(*this, args...);
 		}
+
+		///Aktiviert das Event
+		/**
+		* Jede gespeicherte Funktion wird aufgerufen.
+		* Verwendet wird hierzu die Hilfsklasse Invoker
+		*
+		* @param args	Parameter welche verwendet werden, um die Funktionen aufzurufen
+		*/
+		inline ReturnType Invoke(Args... args) {
+			return Invoker::Invoke(*this, args...);
+		}
 	};
 
 	//Invoker method definitions

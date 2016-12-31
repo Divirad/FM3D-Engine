@@ -1,8 +1,13 @@
-#include <FreeImage.h>
+#pragma once
+#include"pch.h"
 
-using namespace System::Runtime::InteropServices;
+namespace DesignerLib {
 
-public ref class ExternFileLoader {
-public:
-	static array<System::Byte>^ LoadTexture(System::String^ path, [Out] int% width, [Out] int% height);
-};
+	using namespace System::Runtime::InteropServices;
+
+	public ref class ExternFileLoader {
+	public:
+		static array<System::Byte>^ LoadTexture(System::String^ path, [Out] int% width, [Out] int% height);
+	};
+
+}
