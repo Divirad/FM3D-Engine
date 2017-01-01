@@ -41,7 +41,6 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
-
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.ClearAttachedWindows();

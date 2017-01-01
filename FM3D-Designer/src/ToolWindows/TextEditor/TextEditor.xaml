@@ -39,12 +39,9 @@
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Menu x:Name="men_texteditor" Grid.Row="0">
-
             <MenuItem Header="_File">
                 <MenuItem Header="New" Command="New">
-
                 </MenuItem>
                 <MenuItem Header="Open" Command="Open"/>
                 <Separator />

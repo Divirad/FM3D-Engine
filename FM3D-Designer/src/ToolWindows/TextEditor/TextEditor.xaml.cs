@@ -33,9 +33,7 @@ namespace FM3D_Designer.src.ToolWindows.TextEditor
         public void KeyComplete(object sender, RoutedEventArgs e)
         {
            // Point point = new Point();
-
            // this.GetCaretPos(out point);
-
         }
 
         public void Open_Click()

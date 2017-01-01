@@ -15,7 +15,7 @@
     <MahApps:BaseMetroDialog.Resources>
         <lib:FoundResource x:Key="res"/>
     </MahApps:BaseMetroDialog.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -23,36 +23,65 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"  />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Label FontSize="15" Grid.Column="0" Grid.Row="0" Margin="10, 10" HorizontalAlignment="Left" Content="Create A New Resource!" ></Label>
+        <Label FontSize="15" Grid.Column="0" Grid.Row="0" Margin="10, 10" HorizontalAlignment="Left" Content="Open An Existing Resource!" ></Label>
 
         <Grid Grid.Column="0" Grid.Row="1">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"  />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            
             <StackPanel Grid.Column="0">
                 <RadioButton  GroupName="ent" Content="Entity"      Margin="4, 4" IsChecked="True"/>
                 <RadioButton  GroupName="ent" Content="Texture"     Margin="4, 4"/>
             </StackPanel>
+            
             <StackPanel Grid.Column="1">
                 <RadioButton  GroupName="ent" Content="Model"       Margin="4, 4"/>
                 <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4"/>
             </StackPanel>
-            
+
         </Grid>
 
-        
+
         <TextBox x:Name="tb_path"                                           Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30, 0">Path</TextBox>
-        <Button x:Name="btn_path"   Content="Load Path" FontWeight="Normal" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
-       
-        <Button x:Name="btn_cancel" Content="Cancel"    FontWeight="Normal" Grid.Column="0" Grid.Row ="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10" Click="cancel"/>
-        <Button x:Name="btn_add"    Content="Add"       FontWeight="Normal" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
-       
+        <Button x:Name="btn_path"   Content="Path" FontWeight="Normal" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
+
+        <Button 
+            x:Name="btn_cancel" 
+            Click = "cancel"
+            FontWeight="Normal" 
+            Grid.Column="0" 
+            Grid.Row ="3" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            FontSize="15" Width="150" 
+            Height="40"  
+            Margin="10, 10" 
+            Content="Cancel" 
+            IsCancel="True">
+        </Button>
+
+        <Button
+            x:Name="btn_add"
+            Content="Add"
+            FontWeight="Normal"
+            Grid.Column="1"
+            Grid.Row ="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="15"
+            Width="150"
+            Height="40"
+            Margin="10, 10">
+        </Button>
+
     </Grid>
 </MahApps:BaseMetroDialog>

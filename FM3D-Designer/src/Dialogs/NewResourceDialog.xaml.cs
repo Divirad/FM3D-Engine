@@ -11,12 +11,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+ 
 namespace FM3D_Designer.src.Dialogs
 {
     /// <summary>
     /// Interaction logic for NewResourceDialog.xaml
     /// </summary>
+
     public partial class NewResourceDialog
     {
         public NewResourceDialog()
@@ -26,6 +27,7 @@ namespace FM3D_Designer.src.Dialogs
 
         public void cancel(object sender, RoutedEventArgs e)
         {
+            
         }
     }
 }

@@ -206,10 +206,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             get
             {
                 var menu = new ContextMenu();
+
+                var menu_add = new MenuItem();
+                menu_add.Header = "Add File";
+                menu_add.Click += AddNewFile;
+
                 var menu_res = new MenuItem();
                 menu_res.Header = "New Resource";
                 menu_res.Click += OnNewResource;
+
                 menu.Items.Add(menu_res);
+                menu.Items.Add(menu_add);
                 return menu;
             }
         }
@@ -217,6 +224,12 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             ((MetroWindow)Application.Current.MainWindow).ShowMetroDialogAsync(new Dialogs.NewResourceDialog());
         }
+
+        private void AddNewFile(object sender, EventArgs args)
+        {
+            ((MetroWindow)Application.Current.MainWindow).ShowMetroDialogAsync(new Dialogs.AddFileDialog());
+        }
+
         #endregion
 
         #region Parent

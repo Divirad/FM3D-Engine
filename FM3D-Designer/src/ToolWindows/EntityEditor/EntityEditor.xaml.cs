@@ -18,11 +18,13 @@ namespace FM3D_Designer.src.ToolWindows.EntityEditor
     /// <summary>
     /// Interaction logic for EntityEditor.xaml
     /// </summary>
-    public partial class EntityEditor : Page
+    public partial class EntityEditor : ToolWindow
     {
-        public EntityEditor()
+        public EntityEditor(WindowLayout mainWindow)
         {
             InitializeComponent();
+            this.Header = "Entity Editor";
+            this.Initialize(mainWindow);
         }
     }
 }
