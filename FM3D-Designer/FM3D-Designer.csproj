@@ -126,6 +126,9 @@
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ToolWindows\EntityEditor\EntityEditor.xaml.cs">
+      <DependentUpon>EntityEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\ToolWindows\FileBrowser\Creator.cs" />
     <Compile Include="src\ToolWindows\FileBrowser\Item.cs" />
     <Compile Include="src\ToolWindows\FileBrowser\Logic.cs" />
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\GLControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\EntityEditor\EntityEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

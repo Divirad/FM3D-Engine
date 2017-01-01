@@ -5,7 +5,6 @@ namespace FM3D {
 	class ENGINE_DLL BasicItem2D : public Quad {
 
 	public:
-
 		enum ANCHOR
 		{
 			LEFT_CENTER,
@@ -31,8 +30,6 @@ namespace FM3D {
 			OUTFIELD,
 			ALREADY_OUTFIELD
 		};
-
-
 	protected:
 		//4 Clickcheck
 		Vector2f ccresult;
@@ -57,7 +54,10 @@ namespace FM3D {
 		void Bottom();			//DONE
 
 	public:
-		
+		BasicItem2D() {
+			/*bi = coll.CreateEntity();
+			bi->Add<PositionComponent>(Vector3f(0.0f, 0.0f, 0.0f));*/
+		}
 		bool Click(int keyID);
 		void AutoSize();		//DONE
 		void Anchor(ANCHOR ad);	//DONE
@@ -68,5 +68,30 @@ namespace FM3D {
 		FIELDCHECK FieldCecker();
 		bool Collision(Quad &quad);
 
+	};
+}
+
+namespace FM3D {
+
+	class ImageComponent : public Component {
+		const Texture* m_texture;
+
+	public: 
+		void Destruct() {}
+
+		inline const Texture* GetTexture() { return m_texture; }
+		//inline uint GetColor() { return m_color; }
+		inline uint GetTextureWidth() { return m_texture->GetWidth(); }
+		inline uint GetTextureHeight() { return m_texture->GetHeight(); }
+
+	};
+
+	class UVComponent : public Component {
+		Vector3f uv_0;
+		Vector2f uv_1;
+	public:
+		void Destruct() {}
+		inline Vector3f GetUV0() { return uv_0; }
+		inline Vector2f GetUV1() { return uv_1; }
 	};
 }

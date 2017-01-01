@@ -9,7 +9,7 @@
         xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
 
         mc:Ignorable="d"
-        Title="NewResourceDialog"
+        Title="New Resource"
         Height="300"
         HorizontalAlignment="Stretch">
 
@@ -17,61 +17,43 @@
         <lib:ExternResource x:Key="res"/>
     </MahApps:BaseMetroDialog.Resources>
     
-    <StackPanel Orientation="Vertical">
-        <!--<TreeView DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
-            <TreeView.Resources>
-                <DataTemplate x:Key="referenceTemplate" DataType="lib:ResourceReference">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="4, 0" IsChecked="{Binding Active, Mode=TwoWay}"/>
-                        <TextBlock Margin="4, 0" Text="{Binding Name}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Available}" Value="False">
-                                            <Setter Property="Foreground" Value="Red"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.Resources>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="lib:FoundResource" ItemsSource="{Binding References}" ItemTemplate="{StaticResource referenceTemplate}">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="4, 0" IsChecked="{Binding Selected, Mode=TwoWay}"/>
-                        <TextBlock Margin="4, 0" Text="{Binding Name}"/>
-                        <TextBox Margin="4, 0" Text="{Binding Path, Mode=TwoWay}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"  />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <dc:AdvTree>
-            <dc:AdvTree.ColumnDefinitions>
-                <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True" IsContextMenuEnabled="False">
-                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name" />
-                </dc:ColumnDefinitionCollection>
-            </dc:AdvTree.ColumnDefinitions>
-            <dc:AdvTree.ItemContainerStyle>
-                <Style TargetType="{x:Type dc:AdvTreeNode}">
-                    <Style.Resources>
-                        <AlternationConverter x:Key="BackgroundConverter">
-                            <SolidColorBrush>Transparent</SolidColorBrush>
-                            <SolidColorBrush>#EFEFEF</SolidColorBrush>
-                            <SolidColorBrush>#DFDFDF</SolidColorBrush>
-                        </AlternationConverter>
-                    </Style.Resources>
-                    <Setter Property="ItemsSource" Value="{Binding Children}" />
-                    <Setter Property="InheritsColumns" Value="Always" />
-                    <Setter Property="ImageSource" Value="{Binding ImageSource}" />
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=AlternationIndex, Converter={StaticResource BackgroundConverter}}" />
-                </Style>
-            </dc:AdvTree.ItemContainerStyle>
-        </dc:AdvTree>
+        <Label FontSize="15" Grid.Column="0" Grid.Row="0" Margin="10, 10" HorizontalAlignment="Left" Content="Create A New Resource!" ></Label>
 
-        <Button Name="Halloo" Margin="0,20" Click="Button_Click"/>
-    </StackPanel>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <RadioButton  GroupName="ent" Content="Entity"      Margin="4, 4" IsChecked="True"/>
+                <RadioButton  GroupName="ent" Content="Texture"     Margin="4, 4"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <RadioButton  GroupName="ent" Content="Model"       Margin="4, 4"/>
+                <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4"/>
+            </StackPanel>
+            
+        </Grid>
+
+        
+        <TextBox x:Name="tb_path"                                           Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30, 0">Path</TextBox>
+        <Button x:Name="btn_path"   Content="Load Path" FontWeight="Normal" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
+       
+        <Button x:Name="btn_cancel" Content="Cancel"    FontWeight="Normal" Grid.Column="0" Grid.Row ="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10" Click="cancel"/>
+        <Button x:Name="btn_add"    Content="Add"       FontWeight="Normal" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
+       
+    </Grid>
 </MahApps:BaseMetroDialog>

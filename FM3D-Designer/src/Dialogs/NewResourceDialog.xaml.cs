@@ -37,5 +37,9 @@ namespace FM3D_Designer.src.Dialogs
         {
             win.HideMetroDialogAsync(this);
         }
+
+        public void cancel(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
