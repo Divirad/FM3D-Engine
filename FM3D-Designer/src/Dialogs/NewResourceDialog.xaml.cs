@@ -21,25 +21,16 @@ namespace FM3D_Designer.src.Dialogs
     /// <summary>
     /// Interaction logic for NewResourceDialog.xaml
     /// </summary>
-    public partial class NewResourceDialog : BaseMetroDialog
+    public partial class NewResourceDialog : DialogBase
     {
-        private MetroWindow win;
-        public NewResourceDialog(MetroWindow window, String path)
+        public NewResourceDialog(MetroWindow window) : base(window)
         {
-            this.win = window;
             InitializeComponent();
-
-            ExternResource res = this.Resources["res"] as ExternResource;
-            res.Load(path);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            win.HideMetroDialogAsync(this);
         }
 
         public void cancel(object sender, RoutedEventArgs e)
         {
+            this.Close();
         }
     }
 }

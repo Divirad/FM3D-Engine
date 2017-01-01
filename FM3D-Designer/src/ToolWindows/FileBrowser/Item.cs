@@ -216,7 +216,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         }
         private void OnNewResource(object sender, EventArgs args)
         {
-            ((MetroWindow)Application.Current.MainWindow).ShowNewResourceDialog("C:/Users/Dyrax/Source/Repos/Project/TestGame 3/res/bobaFett.dae");
+            var window = Application.Current.MainWindow as MetroWindow;
+            window.ShowNewResourceDialog();
         }
         #endregion
 
