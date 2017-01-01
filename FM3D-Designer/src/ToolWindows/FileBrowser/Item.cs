@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
+using FM3D_Designer.src.Dialogs;
 
 namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
@@ -215,7 +216,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         }
         private void OnNewResource(object sender, EventArgs args)
         {
-            ((MetroWindow)Application.Current.MainWindow).ShowMetroDialogAsync(new Dialogs.NewResourceDialog());
+            ((MetroWindow)Application.Current.MainWindow).ShowNewResourceDialog("C:/Users/Dyrax/Source/Repos/Project/TestGame 3/res/bobaFett.dae");
         }
         #endregion
 

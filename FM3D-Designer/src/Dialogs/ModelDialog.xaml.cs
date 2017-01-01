@@ -21,10 +21,10 @@ namespace FM3D_Designer.src.Dialogs
     /// <summary>
     /// Interaction logic for NewResourceDialog.xaml
     /// </summary>
-    public partial class NewResourceDialog : BaseMetroDialog
+    public partial class ModelDialog : BaseMetroDialog
     {
         private MetroWindow win;
-        public NewResourceDialog(MetroWindow window, String path)
+        public ModelDialog(MetroWindow window, String path)
         {
             this.win = window;
             InitializeComponent();

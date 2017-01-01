@@ -105,6 +105,10 @@
     <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\Dialogs\DialogManager.cs" />
+    <Compile Include="src\Dialogs\ModelDialog.xaml.cs">
+      <DependentUpon>ModelDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Dialogs\NewResourceDialog.xaml.cs">
       <DependentUpon>NewResourceDialog.xaml</DependentUpon>
     </Compile>
@@ -159,6 +163,10 @@
     </Compile>
     <Compile Include="src\WindowLayout.cs" />
     <Page Include="src\Dialogs\AddFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\Dialogs\ModelDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,7 +295,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Designer Lib\Designer Lib.vcxproj">
       <Project>{73299801-382b-4e3c-b5ea-6b9761b403f7}</Project>
-      <Name>Designer Lib</Name>
+      <Name>DesignerLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

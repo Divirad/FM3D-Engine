@@ -1,4 +1,4 @@
-﻿<MahApps:BaseMetroDialog x:Class="FM3D_Designer.src.Dialogs.NewResourceDialog"
+﻿<MahApps:BaseMetroDialog x:Class="FM3D_Designer.src.Dialogs.ModelDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,7 @@
     <MahApps:BaseMetroDialog.Resources>
         <lib:ExternResource x:Key="res"/>
     </MahApps:BaseMetroDialog.Resources>
-    
+
     <StackPanel Orientation="Vertical">
         <!--<TreeView DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
             <TreeView.Resources>
