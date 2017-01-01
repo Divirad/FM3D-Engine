@@ -189,6 +189,7 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
     <ClInclude Include="src\FoundResource.h" />
+    <ClInclude Include="src\ExternResource.h" />
     <ClInclude Include="src\OpenGL\InternOpengl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\ExternFileLoader.h" />
@@ -201,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="src\ExternResource.cpp" />
     <ClCompile Include="src\FoundResource.cpp" />
     <ClCompile Include="src\OpenGL\InternOpenGL.cpp" />
     <ClCompile Include="src\ExternFileLoader.cpp" />
