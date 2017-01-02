@@ -36,9 +36,10 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <Button x:Name="bt_add" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Margin="0,51,0,0"/>
+            <Button x:Name="bt_add" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Margin="0,51,0,0" Click="bt_add_Click"/>
             <TextBox x:Name="textBox" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="0,20,0,0"/>
             <Button x:Name="bt_par" Content="save parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" />
+            <Button x:Name="bt_del" Content="delete parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Click="bt_del_Click"/>
         </StackPanel>
         
         <Button 

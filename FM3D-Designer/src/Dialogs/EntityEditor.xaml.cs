@@ -72,5 +72,31 @@ namespace FM3D_Designer.src.Dialogs
         {
             this.Close();
         }
+
+        private void bt_add_Click(object sender, RoutedEventArgs e)
+        {
+            AddComponent((string)cb_addcomp.SelectedItem);
+        }
+        
+        private void bt_del_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteComponent((string)cb_added.SelectedItem);
+        }
+
+        private void AddComponent(string component)
+        {
+            if(!cb_added.Items.Contains(component))
+            {
+                cb_added.Items.Add(component);
+                cb_addcomp.Items.Remove((string)cb_addcomp.SelectedItem);
+            }
+        }
+
+        private void DeleteComponent(string component)
+        {
+            cb_added.Items.Remove(component);
+            cb_addcomp.Items.Add(component);
+        }
+
     }
 }
