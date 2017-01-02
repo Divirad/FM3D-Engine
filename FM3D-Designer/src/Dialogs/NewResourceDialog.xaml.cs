@@ -28,9 +28,14 @@ namespace FM3D_Designer.src.Dialogs
             InitializeComponent();
         }
 
-        public void cancel(object sender, RoutedEventArgs e)
+        public void Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        public void Add(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

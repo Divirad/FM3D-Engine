@@ -28,13 +28,14 @@ namespace FM3D_Designer.src
 
         public Command(Action<object> action, Func<object, bool> condition)
         {
+            if (action == null) throw new ArgumentNullException("action");
             this.action = action;
             this.condition = condition;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return condition(parameter);
+            return (condition != null) ? condition(parameter) : true;
         }
         public override void Execute(object parameter)
         {

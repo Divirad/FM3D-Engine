@@ -112,6 +112,7 @@
     <Compile Include="src\Dialogs\NewResourceDialog.xaml.cs">
       <DependentUpon>NewResourceDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\Dialogs\NewResourceLogic.cs" />
     <Compile Include="src\DocumentWindow.cs" />
     <Compile Include="src\Command.cs" />
     <Compile Include="src\DocumentWindows\MeshViewPort.xaml.cs">
