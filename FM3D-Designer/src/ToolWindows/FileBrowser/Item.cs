@@ -209,15 +209,21 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 var menu = new ContextMenu();
 
                 var menu_add = new MenuItem();
-                menu_add.Header = "Add File";
-                menu_add.Click += AddNewFile;
-
                 var menu_res = new MenuItem();
+                var menu_ee = new MenuItem();
+
+                menu_add.Header = "Add File";
+                menu_add.Click += OnAddNewFile;
+                
                 menu_res.Header = "New Resource";
                 menu_res.Click += OnNewResource;
+                
+                menu_ee.Header = "Edit Entity";
+                menu_ee.Click += OnEntityEditor;
 
                 menu.Items.Add(menu_res);
                 menu.Items.Add(menu_add);
+                menu.Items.Add(menu_ee);
                 return menu;
             }
         }
@@ -227,9 +233,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             window.ShowNewResourceDialog();
         }
 
-        private void AddNewFile(object sender, EventArgs args)
+        private void OnEntityEditor(object sender, EventArgs args)
         {
-            ((MetroWindow)Application.Current.MainWindow).ShowMetroDialogAsync(new Dialogs.AddFileDialog());
+            var window = Application.Current.MainWindow as MetroWindow;
+            window.ShowEntityEditor();
+        }
+
+        private void OnAddNewFile(object sender, EventArgs args)
+        {
+            string path="blah";
+            var window = Application.Current.MainWindow as MetroWindow;
+            window.ShowAddFileDialog(path);
         }
 
         #endregion

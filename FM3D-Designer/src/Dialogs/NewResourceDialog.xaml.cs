@@ -32,5 +32,11 @@ namespace FM3D_Designer.src.Dialogs
         {
             this.Close();
         }
+
+        private void btn_add_Click(object sender, RoutedEventArgs e)
+        {
+            //STUFF
+            this.Close();
+        }
     }
 }

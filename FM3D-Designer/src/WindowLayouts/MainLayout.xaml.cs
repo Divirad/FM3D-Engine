@@ -70,18 +70,6 @@ namespace FM3D_Designer.src.WindowLayouts
             dg.UpdateVisibility();
         }
 
-        public void OpenEntityEditor(object sender, RoutedEventArgs e)
-        {
-            SplitPanel splitPanel = new SplitPanel();
-            DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.EntityEditor.EntityEditor(this));
-            splitPanel.Children.Add(dg);
-            DockSite.SetDock(splitPanel, Dock.Left);
-            DockSite.SetDockSize(splitPanel, 150);
-            this.dockSite.SplitPanels.Add(splitPanel);
-            dg.UpdateVisibility();
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PipeSystem.StartVS("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");

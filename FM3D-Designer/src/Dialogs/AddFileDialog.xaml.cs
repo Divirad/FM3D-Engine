@@ -11,18 +11,32 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using DesignerLib;
 using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
 namespace FM3D_Designer.src.Dialogs
 {
     /// <summary>
     /// Interaktionslogik für AddFileDialog.xaml
     /// </summary>
-    public partial class AddFileDialog : BaseMetroDialog
+    public partial class AddFileDialog : DialogBase
     {
-        public AddFileDialog()
+        public AddFileDialog(MetroWindow window, string path) : base(window)
         {
             InitializeComponent();
+        }
+
+        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_add_Click(object sender, RoutedEventArgs e)
+        {
+            //STUFF
+            this.Close();
         }
     }
 }

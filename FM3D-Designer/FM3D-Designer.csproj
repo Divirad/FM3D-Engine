@@ -106,6 +106,9 @@
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Dialogs\DialogManager.cs" />
+    <Compile Include="src\Dialogs\EntityEditor.xaml.cs">
+      <DependentUpon>EntityEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Dialogs\ModelDialog.xaml.cs">
       <DependentUpon>ModelDialog.xaml</DependentUpon>
     </Compile>
@@ -125,9 +128,6 @@
     <Compile Include="src\Theme.cs" />
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\ToolWindows\EntityEditor\EntityEditor.xaml.cs">
-      <DependentUpon>EntityEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\ToolWindows\FileBrowser\Creator.cs" />
     <Compile Include="src\ToolWindows\FileBrowser\Item.cs" />
@@ -169,6 +169,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\Dialogs\EntityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\Dialogs\ModelDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,10 +190,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\GLControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\ToolWindows\EntityEditor\EntityEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
