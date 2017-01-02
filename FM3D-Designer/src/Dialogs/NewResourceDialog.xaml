@@ -7,11 +7,16 @@
         xmlns:MahApps="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
         xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
-
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  
         mc:Ignorable="d"
         Title="New Resource"
         Height="250"
         HorizontalAlignment="Stretch">
+
+    <local:DialogBase.Resources>
+        <local:NewResourceLogic x:Key="logic"/>
+    </local:DialogBase.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -36,24 +41,46 @@
             </Grid.ColumnDefinitions>
             
             <StackPanel Grid.Column="0">
-                <RadioButton  GroupName="ent" Content="Entity"      Margin="4, 4" IsChecked="True"/>
-                <RadioButton  GroupName="ent" Content="Texture"     Margin="4, 4"/>
-            </StackPanel>
-            
+                <RadioButton  GroupName="ent" Content="Entity"      Margin="4, 4" Command="{Binding TypeCommand, Source={StaticResource logic}}" CommandParameter="0" IsChecked="True" />
+                <RadioButton  GroupName="ent" Content="Texture"     Margin="4, 4" Command="{Binding TypeCommand, Source={StaticResource logic}}" CommandParameter="1"/>
+            </StackPanel> 
+                                                                                                                                                 
             <StackPanel Grid.Column="1">
-                <RadioButton  GroupName="ent" Content="Model"       Margin="4, 4"/>
-                <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4"/>
+                <RadioButton  GroupName="ent" Content="Model"       Margin="4, 4" Command="{Binding TypeCommand, Source={StaticResource logic}}" CommandParameter="2"/>
+                <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4" Command="{Binding TypeCommand, Source={StaticResource logic}}" CommandParameter="3"/>
             </StackPanel>
 
         </Grid-->
 
-
-        <TextBox x:Name="tb_path"                                           Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30, 0">Path</TextBox>
-        <Button x:Name="btn_path"   Content="Load" FontWeight="Normal" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"/>
+        <TextBox x:Name="tb_path" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch"
+                 VerticalAlignment="Center" Margin="30, 0"
+                 Text="{Binding Path, Source={StaticResource logic}}">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Resources>
+                        <VisualBrush x:Key="PathBackGround" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="Path"  Foreground="LightGray" FontStyle="Italic" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource PathBackGround}" />
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource PathBackGround}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Button x:Name="btn_path"   Content="Path" FontWeight="Normal" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="150" Height="40"  Margin="10, 10"
+                Command="{Binding PathCommand, Source={StaticResource logic}}"/>
 
         <Button 
             x:Name="btn_cancel" 
-            Click = "cancel"
+            Click = "Cancel"
             FontWeight="Normal" 
             Grid.Column="0" 
             Grid.Row ="3" 
@@ -68,6 +95,7 @@
 
         <Button
             x:Name="btn_add"
+            Command="{Binding AddCommand, Source={StaticResource logic}}"
             Content="Add"
             FontWeight="Normal"
             Grid.Column="1"
