@@ -9,13 +9,21 @@ using System.Diagnostics;
 using System.Windows;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.Controls;
+using System.IO;
+using System.Collections.ObjectModel;
 
 namespace FM3D_Designer.src
 {
     public static class PipeSystem
     {
+        enum Message : UInt16
+        {
+            GET_COMPONENTS,
+        }
+
         private static Mutex mutex = new Mutex();
         private static NamedPipeServerStream pipe;
+        private static byte[] readBuffer = new byte[4096];
 
         private static bool _IsStarting = false;
         private static bool _IsStarted = false;
@@ -136,15 +144,75 @@ namespace FM3D_Designer.src
             {
                 _IsStarting = false;
                 _IsStarted = true;
-
             }
-
+            Read();
         }
 
         private static void OnVSCloses(object sender, EventArgs e)
         {
             _CloseVS();
             MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync("Visual Studio Info", "Lost Connection of Visual Studio. Maybe it was closed?\nYou can restart it from the toolbar.", MessageDialogStyle.Affirmative); }));
+        }
+
+        private static void Read()
+        {
+            try
+            {
+                pipe.BeginRead(readBuffer, 0, readBuffer.Length, ReadCallback, null);
+            }
+            catch (InvalidOperationException) //disconnected/disposed
+            {
+                return;
+            }
+        }
+
+        private static void ReadCallback(IAsyncResult ar)
+        {
+            int bytesRead;
+
+            try
+            {
+                bytesRead = pipe.EndRead(ar);
+            }
+            catch (IOException) //closed
+            {
+                return;
+            }
+
+            MessageBox.Show(bytesRead.ToString(), "FM3D-Extension-INFO");
+
+            Read();
+        }
+
+        private static void Write(byte[] buffer)
+        {
+            try
+            {
+                pipe.BeginWrite(buffer, 0, buffer.Length, WriteCallback, null);
+            }
+            catch (InvalidOperationException) //disconnected/disposed
+            {
+                return;
+            }
+        }
+
+        private static void WriteCallback(IAsyncResult ar)
+        {
+            try
+            {
+                pipe.EndWrite(ar);
+            }
+            catch (IOException) //closed
+            {
+                return;
+            }
+        }
+
+        public static ObservableCollection<string> GetComponents()
+        {
+            byte[] buffer = BitConverter.GetBytes((ushort)Message.GET_COMPONENTS);
+            Write(buffer);
+            return null;
         }
     }
 }

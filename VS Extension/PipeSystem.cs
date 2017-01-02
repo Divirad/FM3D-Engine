@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Windows.Forms;
+using System.IO;
 
 namespace VS_Extension
 {
     public static class PipeSystem
     {
+        enum Message : ushort
+        {
+            GET_COMPONENTS,
+        }
+
         private static NamedPipeClientStream pipe;
+        private static byte[] readBuffer = new byte[4096];
 
         public static bool Start(string pipename)
         {
@@ -29,8 +36,39 @@ namespace VS_Extension
                 return false;
             }
 
-            MessageBox.Show("Succesfull established a connection to the Designer!", "FM3D-Extension-Info");
+            MessageBox.Show("Succesfully established a connection to the Designer!", "FM3D-Extension-Info");
+            Read();
             return true;
+        }
+
+        private static void Read()
+        {
+            try
+            {
+                pipe.BeginRead(readBuffer, 0, 4, ReadCallback, null);
+            }
+            catch (InvalidOperationException) //disconnected/disposed
+            {
+                return;
+            }
+        }
+
+        private static void ReadCallback(IAsyncResult ar)
+        {
+            int bytesRead;
+
+            try
+            {
+                bytesRead = pipe.EndRead(ar);
+            }
+            catch (IOException) //closed
+            {
+                return;
+            }
+
+            MessageBox.Show(bytesRead.ToString(), "FM3D-Extension-INFO");
+
+            Read();
         }
     }
 }

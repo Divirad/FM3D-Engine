@@ -28,6 +28,7 @@ namespace VS_Extension
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     public sealed class MainPackage : Package, IVsSolutionEvents3
     {
+        public static MainPackage Instance { get; private set; }
 
         public const string PackageGuidString = "19abd3e3-d7cd-4675-8a73-f6c90ce7aa4f";
 
@@ -37,7 +38,11 @@ namespace VS_Extension
 
         public MainPackage()
         {
-
+            if(Instance != null)
+            {
+                throw new InvalidOperationException("Only one object of MainPackage can be created");
+            }
+            Instance = this;
         }
 
         protected override void Initialize()

@@ -36,7 +36,7 @@
                 <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
                 </Button>
-                <Button Height="30" ToolTip="Run Game">
+                <Button Height="30" ToolTip="Run Game" Click="Button_Click_1">
                     <Image Source="/FM3D-Designer;component/resources/images/start_icon.png" />
                 </Button>
             </ToolBar>

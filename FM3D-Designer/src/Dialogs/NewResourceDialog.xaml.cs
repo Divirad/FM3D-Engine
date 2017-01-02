@@ -32,10 +32,5 @@ namespace FM3D_Designer.src.Dialogs
         {
             this.Close();
         }
-
-        public void Add(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
