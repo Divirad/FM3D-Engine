@@ -1,0 +1,76 @@
+﻿<local:DialogBase x:Class="FM3D_Designer.src.Dialogs.EntityEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FM3D_Designer.src.Dialogs"
+        xmlns:MahApps="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
+        xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
+
+        mc:Ignorable="d"
+        Title="Edit Entity"
+        Height="300"
+        HorizontalAlignment="Stretch">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0">Add the components your entity needs!</Label>
+
+        <StackPanel Grid.Row="2">
+            <Label x:Name="label" Content="Avaiable Components:" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top"/>
+            <ComboBox x:Name="cb_addcomp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"  Width="150"/>
+        
+            <Label x:Name="label_Copy" Content="Added Components" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cb_added" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="150"/>
+
+            <Label Content="Some info about the components"></Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <Button x:Name="bt_add" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Margin="0,51,0,0" Click="bt_add_Click"/>
+            <TextBox x:Name="textBox" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="0,20,0,0"/>
+            <Button x:Name="bt_par" Content="save parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" />
+            <Button x:Name="bt_del" Content="delete parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Click="bt_del_Click"/>
+        </StackPanel>
+        
+        <Button 
+            x:Name="btn_cancel" 
+            FontWeight="Normal" 
+            Grid.Column="0" 
+            Grid.Row ="2" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            FontSize="15" Width="150" 
+            Height="40"  
+            Margin="10, 10" 
+            Content="Cancel" 
+            IsCancel="True"
+            Click="btn_cancel_Click">
+        </Button>
+
+        <Button
+            x:Name="btn_add"
+            Content="Save"
+            FontWeight="Normal"
+            Grid.Column="1"
+            Grid.Row ="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            FontSize="15"
+            Width="150"
+            Height="40"
+            Margin="10, 10"
+            Click="btn_add_Click">
+        </Button>
+       
+    </Grid>
+</local:DialogBase>

@@ -11,7 +11,7 @@
                   
         mc:Ignorable="d"
         Title="New Resource"
-        Height="300"
+        Height="250"
         HorizontalAlignment="Stretch">
 
     <local:DialogBase.Resources>
@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -31,9 +31,9 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Label FontSize="15" Grid.Column="0" Grid.Row="0" Margin="10, 10" HorizontalAlignment="Left" Content="Open An Existing Resource!" ></Label>
+        <Label FontSize="15" Grid.Column="0" Grid.Row="0" Margin="10, 10" HorizontalAlignment="Left" Content="Open An Existing Resource! &#10;Like Fancy Textures Or Models!" ></Label>
 
-        <Grid Grid.Column="0" Grid.Row="1">
+        <!--Grid Grid.Column="0" Grid.Row="1">
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"  />
@@ -50,7 +50,7 @@
                 <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4" Command="{Binding TypeCommand, Source={StaticResource logic}}" CommandParameter="3"/>
             </StackPanel>
 
-        </Grid>
+        </Grid-->
 
         <TextBox x:Name="tb_path" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch"
                  VerticalAlignment="Center" Margin="30, 0"
@@ -85,7 +85,7 @@
             Grid.Column="0" 
             Grid.Row ="3" 
             HorizontalAlignment="Left" 
-            VerticalAlignment="Center" 
+            VerticalAlignment="Bottom" 
             FontSize="15" Width="150" 
             Height="40"  
             Margin="10, 10" 
@@ -101,11 +101,11 @@
             Grid.Column="1"
             Grid.Row ="3"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Bottom"
             FontSize="15"
             Width="150"
             Height="40"
-            Margin="10, 10">
+            Margin="10, 10" Click="btn_add_Click">
         </Button>
 
     </Grid>

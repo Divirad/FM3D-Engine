@@ -24,7 +24,7 @@
                 <MenuItem Header="Add Window">
                     <MenuItem Header="File Browser" Click="OpenFileBrowser"/>
                     <MenuItem Header="Text Editor" Click="OpenTextEditor"/>
-                    <MenuItem Header="Entity Editor" Click="OpenEntityEditor"/>
+                    <MenuItem Header="Entity Editor" />
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Window" />

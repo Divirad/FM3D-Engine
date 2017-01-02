@@ -9,36 +9,12 @@
              x:Class="FM3D_Designer.src.ToolWindows.TextEditor.TextEditor"
              mc:Ignorable="d"
              Width="600" Height="600">
-    
-    <fm:ToolWindow.Resources>
-        <!--local:ViewModel x:Key="viewModel"/-->
-
-        <Style x:Key="ToggleStyle" TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <VisualBrush Stretch="Fill">
-                                <VisualBrush.Visual>
-                                    <Rectangle Width="26" Height="24">
-                                        <Rectangle.OpacityMask>
-                                            <ImageBrush ImageSource="/FM3D-Designer;component/resources/images/selected.png"/>
-                                        </Rectangle.OpacityMask>
-                                    </Rectangle>
-                                </VisualBrush.Visual>
-                            </VisualBrush>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </fm:ToolWindow.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <Menu x:Name="men_texteditor" Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="New" Command="New">
@@ -70,7 +46,7 @@
                 <MenuItem Header="Select All" Command="SelectAll"/>
             </MenuItem>
         </Menu>
-        <RichTextBox  AcceptsReturn="True" Grid.Row="1" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" KeyDown="KeyComplete"/>
+        <RichTextBox x:Name="rtb_text"  AcceptsReturn="True" Grid.Row="1"  SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" KeyDown="KeyComplete" FontFamily="Consolas" FontSize="13" UseLayoutRounding="False" Grid.IsSharedSizeScope="True" MinWidth="1000" IsDocumentEnabled="True"/>
     </Grid>
 
 </fm:ToolWindow>
