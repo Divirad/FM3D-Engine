@@ -105,7 +105,7 @@
             FontSize="15"
             Width="150"
             Height="40"
-            Margin="10, 10" Click="btn_add_Click">
+            Margin="10, 10">
         </Button>
 
     </Grid>

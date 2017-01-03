@@ -165,6 +165,9 @@ namespace FM3D {
 
 		Component* GetComponent(const ComponentId index) const;
 		EntityCollection* GetCollection();
+
+		template<typename C>
+		C* Get() const;
 	private:
 		///Konstruktor
 		/**
@@ -233,5 +236,10 @@ namespace FM3D {
 	EntityPtr Entity::Replace(Args&&... args) {
 		//Using std::forward to pass rvalues as rvalues and lvalues as lvalues
 		return ReplaceComponent(ComponentIds::Get<C>(), CreateComponent<C>(std::forward<Args>(args)...));
+	}
+
+	template <typename C>
+	C* Entity::Get() const {
+		return static_cast<C*>(this->GetComponent(ComponentIds::Get<C>());
 	}
 }
