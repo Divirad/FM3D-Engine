@@ -23,44 +23,69 @@ namespace FM3D_Designer.src.Dialogs
     /// <summary>
     /// Interaction logic for EntityEditor.xaml
     /// </summary>
-    public partial class EntityEditor : DialogBase
+    class Comp
     {
+            public string component { get; set; }
+            public string type { get; set; }
+            public bool m_get { get; set; }
+            public bool m_set { get; set; }
+            public bool m_custom { get; set; }
+            public bool m_const { get; set; }
+            public bool m_standard { get; set; }
+
+    }
+
+public partial class EntityEditor : DialogBase
+    {
+        List<Comp> avaiabel = new List<Comp>();
+        List<Comp> added = new List<Comp>();
+
         public EntityEditor(MetroWindow window) : base(window)
         {
             InitializeComponent();
-            InitializeComponentsInCB();
+            InitializeAvaiabel();
+
+            
+
         }
 
-        public void InitializeComponentsInCB()
+        public void InitializeAvaiabel()
         {
-            cb_addcomp.Items.Add("Position");
-            cb_addcomp.Items.Add("Size");
-            cb_addcomp.Items.Add("Blahh");
-            cb_addcomp.Items.Add("OtherStuff");
+            avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
+            avaiabel.Add(new Comp() { component = "blahhh",     type = "asd", m_get = false, m_set = true });
+            avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
+            avaiabel.Add(new Comp() { component = "blahhh",     type = "asd", m_get = false, m_set = true });
+            avaiabel.Add(new Comp() { component = "Complerial", type = "asd", m_get = false, m_set = true });
+            
+            added.Add(new Comp() { component = "Completed", type = "asd", m_custom = false, m_standard = true });
+            added.Add(new Comp() { component = "blahhh", type = "asd", m_custom = false, m_standard = true });
+            added.Add(new Comp() { component = "Complerial", type = "asd", m_custom = false, m_standard = true });
+            
 
-            cb_added.Items.Add("Size");
+
+            cb_addcomp.ItemsSource = avaiabel;
+
+            lb_auto.ItemsSource = added;
+            lb_comp.ItemsSource = added;
+            lb_custom.ItemsSource = added;
+
         }
 
         public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            //http://stackoverflow.com/questions/1268552/how-do-i-get-a-textbox-to-only-accept-numeric-input-in-wpf
-            //https://social.msdn.microsoft.com/Forums/vstudio/en-US/9180fdc0-8140-4515-ad18-a966430d68e2/creating-a-doublefloating-only-textbox-ragex-maybe?forum=wpf
-            Regex regex = new Regex(@"^[0-9]*(?:\.[0-9]*)?$");
-            //?$
-            //Regex("[0-9]*[.][0-9]*[.][0-9]*")
-            //e.Handled = regex.IsMatch(e.Text);
-            if((string)cb_added.SelectedItem =="Size")
-            {
-                foreach (char ch in e.Text)
-                {
-                    if (!((Char.IsDigit(ch) || ch.Equals('.'))))
-                    {
-                        e.Handled = true;
-                        break;
-                    }
+           
+            //if((string)cb_added.SelectedItem =="Size")
+            //{
+            //    foreach (char ch in e.Text)
+            //    {
+            //        if (!((Char.IsDigit(ch) || ch.Equals('.'))))
+            //        {
+            //            e.Handled = true;
+            //            break;
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
 
         private void btn_cancel_Click(object sender, RoutedEventArgs e)
@@ -75,28 +100,32 @@ namespace FM3D_Designer.src.Dialogs
 
         private void bt_add_Click(object sender, RoutedEventArgs e)
         {
-            AddComponent((string)cb_addcomp.SelectedItem);
+            //AddComponent((string)cb_addcomp.SelectedItem);
         }
         
         private void bt_del_Click(object sender, RoutedEventArgs e)
         {
-            DeleteComponent((string)cb_added.SelectedItem);
+            //DeleteComponent((string)cb_added.SelectedItem);
         }
 
         private void AddComponent(string component)
         {
-            if(!cb_added.Items.Contains(component))
-            {
-                cb_added.Items.Add(component);
-                cb_addcomp.Items.Remove((string)cb_addcomp.SelectedItem);
-            }
+            //if(!cb_added.Items.Contains(component))
+            //{
+            //    cb_added.Items.Add(component);
+            //    cb_addcomp.Items.Remove((string)cb_addcomp.SelectedItem);
+            //}
         }
 
         private void DeleteComponent(string component)
         {
-            cb_added.Items.Remove(component);
-            cb_addcomp.Items.Add(component);
+            //cb_added.Items.Remove(component);
+            //cb_addcomp.Items.Add(component);
         }
 
+        private void Button_Remove(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -9,68 +9,174 @@
         xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
 
         mc:Ignorable="d"
-        Title="Edit Entity"
-        Height="300"
+        Title="Edit Entity-Preset!"
+        Height="370"
         HorizontalAlignment="Stretch">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <TabControl>
+<!-- ==================== COMPONENTS ==================== -->
+        <TabItem  Header="Components">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" HorizontalAlignment="Center" Margin="0,10,0,10">Add the components your entity needs!</Label>
 
-        <Label Grid.Row="0">Add the components your entity needs!</Label>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock      Grid.Column="0"   HorizontalAlignment="Center"    Text="Component" />
+                    <TextBlock      Grid.Column="1"   HorizontalAlignment="Center"    Text="Remove" />
+                    <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Custom Value" />
+                    <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Const Value" />
+                    <TextBlock      Grid.Column="4"   HorizontalAlignment="Center"    Text="Standard" />
+                    
+                </Grid>
+                
+                <ListBox Name="lb_comp" Grid.Row="2" Margin="0,0,0,10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
+                                <Button    Grid.Column="1"   HorizontalAlignment="Center"    Content="Remove" Click="Button_Remove" />
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_custom}"/>
+                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}"/>
+                                <CheckBox  Grid.Column="4"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="0,0,0,10" ItemsSource = "{Binding component}"/>
+                    <Button Click="bt_add_Click" Grid.Column="1" Margin="0,0,0,10">Add</Button>
+                </Grid>
+            </Grid>
+        </TabItem>
+<!-- ==================== PROPERTIES ==================== -->
+        <TabItem Header="Properties">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="2">
-            <Label x:Name="label" Content="Avaiable Components:" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top"/>
-            <ComboBox x:Name="cb_addcomp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"  Width="150"/>
-        
-            <Label x:Name="label_Copy" Content="Added Components" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cb_added" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="150"/>
+                <Label Grid.Row="0">Auto:</Label>
 
-            <Label Content="Some info about the components"></Label>
-        </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock      Grid.Column="0"   HorizontalAlignment="Center"    Text="Name" />
+                    <TextBlock      Grid.Column="1"   HorizontalAlignment="Center"    Text="Type" />
+                    <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Get" />
+                    <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Set" />
+                </Grid>
+                
+                <ListBox Name="lb_auto" Grid.Row="2" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
+                                    <TextBlock Grid.Column="1"   HorizontalAlignment="Center"    Text="{Binding type}" />
+                                    <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsEnabled="False" IsChecked="{Binding m_get}"/>
+                                    <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsEnabled="False" IsChecked="{Binding m_set}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <Label Grid.Row="3">Custom:</Label>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <Button x:Name="bt_add" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Margin="0,51,0,0" Click="bt_add_Click"/>
-            <TextBox x:Name="textBox" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="0,20,0,0"/>
-            <Button x:Name="bt_par" Content="save parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" />
-            <Button x:Name="bt_del" Content="delete parameter" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26" Click="bt_del_Click"/>
-        </StackPanel>
-        
-        <Button 
-            x:Name="btn_cancel" 
-            FontWeight="Normal" 
-            Grid.Column="0" 
-            Grid.Row ="2" 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Bottom" 
-            FontSize="15" Width="150" 
-            Height="40"  
-            Margin="10, 10" 
-            Content="Cancel" 
-            IsCancel="True"
-            Click="btn_cancel_Click">
-        </Button>
+                <ListBox Name="lb_custom" Grid.Row="4" Margin="0,0,0,10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
 
-        <Button
-            x:Name="btn_add"
-            Content="Save"
-            FontWeight="Normal"
-            Grid.Column="1"
-            Grid.Row ="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            FontSize="15"
-            Width="150"
-            Height="40"
-            Margin="10, 10"
-            Click="btn_add_Click">
-        </Button>
-       
-    </Grid>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
+                                <TextBlock Grid.Column="1"   HorizontalAlignment="Center"    Text="{Binding type}" />
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_get}"/>
+                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_set}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            
+        </TabItem>
+<!-- ==================== FINISH ==================== -->
+        <TabItem Header="Finish">
+
+            <StackPanel>
+                <Label HorizontalAlignment="Center" >Name Your Fancy Entity!</Label>
+                <TextBox Name="tb_entityname"></TextBox>
+                <Button 
+                    x:Name="btn_cancel" 
+                    FontWeight="Normal" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom" 
+                    FontSize="15" Width="150" 
+                    Height="40"  
+                    Margin="10, 10" 
+                    Content="Cancel" 
+                    IsCancel="True"
+                    Click="btn_cancel_Click">
+                </Button>
+                <Button
+                    x:Name="btn_add"
+                    Content="Save"
+                    FontWeight="Normal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    FontSize="15"
+                    Width="150"
+                    Height="40"
+                    Margin="10, 10"
+                    Click="btn_add_Click">
+                </Button>
+
+               
+            </StackPanel>
+
+            
+
+        </TabItem>
+    </TabControl>
+    
 </local:DialogBase>
