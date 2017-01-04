@@ -62,7 +62,7 @@ namespace FM3D_Designer.src
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            PipeSystem.CloseVS();
+            //PipeSystem.CloseVS();
         }
     }
 

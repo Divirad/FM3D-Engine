@@ -72,12 +72,12 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PipeSystem.StartVS("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
+            //PipeSystem.StartVS("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PipeSystem.GetComponents();
+            //PipeSystem.GetComponents();
         }
     }
 }
