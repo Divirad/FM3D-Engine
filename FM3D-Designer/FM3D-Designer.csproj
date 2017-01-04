@@ -102,6 +102,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PipeSystem.cs" />
+    <Compile Include="src\Compiler.cs" />
     <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
     </Compile>

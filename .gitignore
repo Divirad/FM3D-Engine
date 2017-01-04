@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Designer Lib
+/FM3D-Designer/src/Compiler.cs

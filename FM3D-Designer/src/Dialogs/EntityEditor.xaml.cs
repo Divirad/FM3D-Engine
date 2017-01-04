@@ -18,74 +18,140 @@ using MahApps.Metro.Controls;
 
 using System.Text.RegularExpressions;
 
+namespace FM3D_Designer.src
+{
+    class Component
+    {
+        public int ID { get; set; }
+        public string component { get; set; }
+        public string type { get; set; }
+        public bool m_get { get; set; }
+        public bool m_set { get; set; }
+        public bool m_custom { get; set; }
+        public bool m_const { get; set; }
+        public bool m_standard { get; set; }
+
+
+
+    }
+}
+
 namespace FM3D_Designer.src.Dialogs
 {
     /// <summary>
     /// Interaction logic for EntityEditor.xaml
     /// </summary>
-    class Comp
-    {
-            public string component { get; set; }
-            public string type { get; set; }
-            public bool m_get { get; set; }
-            public bool m_set { get; set; }
-            public bool m_custom { get; set; }
-            public bool m_const { get; set; }
-            public bool m_standard { get; set; }
-
-    }
+   
 
 public partial class EntityEditor : DialogBase
     {
-        List<Comp> avaiabel = new List<Comp>();
-        List<Comp> added = new List<Comp>();
+        List<Component> avaiabel = new List<Component>();
+        List<Component> added = new List<Component>();
 
         public EntityEditor(MetroWindow window) : base(window)
         {
             InitializeComponent();
-            InitializeAvaiabel();
+            InitializeItems();
+            LoadCBAvaiabel();
+            LoadListBox();
 
             
-
         }
 
-        public void InitializeAvaiabel()
+        public void InitializeItems()
         {
-            avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
-            avaiabel.Add(new Comp() { component = "blahhh",     type = "asd", m_get = false, m_set = true });
-            avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
-            avaiabel.Add(new Comp() { component = "blahhh",     type = "asd", m_get = false, m_set = true });
-            avaiabel.Add(new Comp() { component = "Complerial", type = "asd", m_get = false, m_set = true });
-            
-            added.Add(new Comp() { component = "Completed", type = "asd", m_custom = false, m_standard = true });
-            added.Add(new Comp() { component = "blahhh", type = "asd", m_custom = false, m_standard = true });
-            added.Add(new Comp() { component = "Complerial", type = "asd", m_custom = false, m_standard = true });
-            
+            //avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
 
+            avaiabel.Add(new Component() { component = "Position", type = "Vector3f" });
+            avaiabel.Add(new Component() { component = "Size", type = "Vector3f" });
+            avaiabel.Add(new Component() { component = "Model", type = "Model" });
+            avaiabel.Add(new Component() { component = "Texture", type = "Texture" });
+            avaiabel.Add(new Component() { component = "2DRender", type = "??" });
+            avaiabel.Add(new Component() { component = "3DRender", type = "??" });
+        }
 
-            cb_addcomp.ItemsSource = avaiabel;
-
+        private void LoadListBox()
+        {
             lb_auto.ItemsSource = added;
             lb_comp.ItemsSource = added;
             lb_custom.ItemsSource = added;
 
+            //lb_auto.SelectionMode = SelectionMode.Multiple;
+            //lb_comp.SelectionMode = SelectionMode.Multiple;
+            //lb_custom.SelectionMode = SelectionMode.Multiple;
         }
 
-        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        private void Refresh()
         {
-           
-            //if((string)cb_added.SelectedItem =="Size")
-            //{
-            //    foreach (char ch in e.Text)
-            //    {
-            //        if (!((Char.IsDigit(ch) || ch.Equals('.'))))
-            //        {
-            //            e.Handled = true;
-            //            break;
-            //        }
+            lb_auto.Items.Refresh();
+            lb_comp.Items.Refresh();
+            lb_custom.Items.Refresh();
 
-            //    }
-            //}
+            cb_addcomp.Items.Refresh();
+        }
+
+        private void LoadCBAvaiabel()
+        {
+            cb_addcomp.Items.Clear();
+            foreach (Component ac in avaiabel)
+            {
+                cb_addcomp.Items.Add(ac.component);
+            }
+        }
+
+        private void AddComponent(string component_)
+        {
+            if (component_ != "")
+            {
+            cb_addcomp.Items.Remove(component_);
+
+                foreach (Component listed in avaiabel)
+                {
+                    if ((string)listed.component == component_)
+                    {
+                        added.Add(listed);
+                        avaiabel.Remove(listed);
+                        Refresh();
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        private void DeleteComponent(string component_)
+        {
+            if (component_ != "")
+            {
+                foreach (Component listed in added)
+                {
+                    cb_addcomp.Items.Add(component_);
+                    if ((string)listed.component == component_)
+                    {
+                        avaiabel.Add(listed);
+                        added.Remove(listed);
+                        Refresh();
+                        break;
+                    }
+                }
+            }
+            cb_addcomp.SelectedItem = 1;
+        }
+
+        private void Button_Remove(object sender, RoutedEventArgs e)
+        {
+                //avaiabel.Add(added[lb_comp.SelectedIndex]);
+                //added.RemoveAt(/*lb_comp.SelectedIndex*/lb_comp.SelectedItems.GetEnumerator();
+                //foreach(var a in lb_comp)
+                //Refresh();
+
+        }
+
+        private void bt_add_Click(object sender, RoutedEventArgs e)
+        {
+            AddComponent((string)cb_addcomp.SelectedItem);
+            
+
         }
 
         private void btn_cancel_Click(object sender, RoutedEventArgs e)
@@ -93,37 +159,12 @@ public partial class EntityEditor : DialogBase
             this.Close();
         }
 
-        private void btn_add_Click(object sender, RoutedEventArgs e)
+        private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void bt_add_Click(object sender, RoutedEventArgs e)
-        {
-            //AddComponent((string)cb_addcomp.SelectedItem);
-        }
-        
-        private void bt_del_Click(object sender, RoutedEventArgs e)
-        {
-            //DeleteComponent((string)cb_added.SelectedItem);
-        }
-
-        private void AddComponent(string component)
-        {
-            //if(!cb_added.Items.Contains(component))
-            //{
-            //    cb_added.Items.Add(component);
-            //    cb_addcomp.Items.Remove((string)cb_addcomp.SelectedItem);
-            //}
-        }
-
-        private void DeleteComponent(string component)
-        {
-            //cb_added.Items.Remove(component);
-            //cb_addcomp.Items.Add(component);
-        }
-
-        private void Button_Remove(object sender, RoutedEventArgs e)
+        private void cb_standard_Checked(object sender, RoutedEventArgs e)
         {
 
         }
