@@ -19,6 +19,7 @@
 #include <list>
 #ifndef __cplusplus_cli
 #include <mutex>
+#include <tuple>
 #else
 namespace std {
 	class mutex {

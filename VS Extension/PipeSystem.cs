@@ -8,25 +8,25 @@ using System.Diagnostics;
 using System.IO.Pipes;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.VisualStudio.VCCodeModel;
 
 namespace VS_Extension
 {
     public static class PipeSystem
     {
-        enum Message : ushort
-        {
-            GET_COMPONENTS,
-        }
 
         private static NamedPipeClientStream pipe;
         private static byte[] readBuffer = new byte[4096];
+        private static Thread thread;
 
+        private static StreamWriter writer;
+        private static StreamReader reader;
         public static bool Start(string pipename)
         {
             var current = Process.GetCurrentProcess();
             string id = current.Id.ToString();
 
-            pipe = new NamedPipeClientStream(".", pipename, PipeDirection.InOut, PipeOptions.Asynchronous);
+            pipe = new NamedPipeClientStream(".", pipename, PipeDirection.InOut);
             try
             {
                 pipe.Connect(1000);
@@ -37,38 +37,39 @@ namespace VS_Extension
             }
 
             MessageBox.Show("Succesfully established a connection to the Designer!", "FM3D-Extension-Info");
-            Read();
+            thread = new Thread(Communicate);
+            thread.Start();
             return true;
         }
 
-        private static void Read()
+        private static void Communicate()
         {
-            try
+            writer = new StreamWriter(pipe);
+            reader = new StreamReader(pipe);
+
+            string type = reader.ReadLine();
+            MessageBox.Show("Message!");
+            switch(type)
             {
-                pipe.BeginRead(readBuffer, 0, 4, ReadCallback, null);
-            }
-            catch (InvalidOperationException) //disconnected/disposed
-            {
-                return;
+                case "GetComponents":
+                    SendComponents();
+                    break;
             }
         }
 
-        private static void ReadCallback(IAsyncResult ar)
+        private static void SendComponents()
         {
-            int bytesRead;
+            MessageBox.Show("COMPONENS");
+            CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
+            var strings = code.GetComponents();
 
-            try
+            writer.WriteLine(strings.Count.ToString());
+
+            foreach(string s in strings)
             {
-                bytesRead = pipe.EndRead(ar);
+                writer.WriteLine(s);
             }
-            catch (IOException) //closed
-            {
-                return;
-            }
-
-            MessageBox.Show(bytesRead.ToString(), "FM3D-Extension-INFO");
-
-            Read();
+            writer.Flush();
         }
     }
 }

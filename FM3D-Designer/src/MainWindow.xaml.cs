@@ -34,6 +34,8 @@ namespace FM3D_Designer.src
     {
         public static MainWindow Instance { get; private set; } = null;
 
+        public VisualStudio visualStudio { get; private set; } = new VisualStudio();
+
         public MainWindow()
         {
             //Themes.DarkTheme.SetTheme();
@@ -62,7 +64,7 @@ namespace FM3D_Designer.src
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            PipeSystem.CloseVS();
+            visualStudio.Close();
         }
     }
 

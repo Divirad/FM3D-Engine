@@ -61,6 +61,7 @@ namespace FM3D {
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
 #include <src/EntitySystem/Manager.h>
+#include <src/EntitySystem/ComponentArgs.h>
 
 #include <src/BasicComponents.h>
 

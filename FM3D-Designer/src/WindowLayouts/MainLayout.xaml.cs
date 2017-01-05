@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
+using System.Collections.ObjectModel;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
@@ -72,12 +73,19 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PipeSystem.StartVS("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
+            MainWindow.Instance.visualStudio.Start("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PipeSystem.GetComponents();
+            ObservableCollection<string> components;
+            MainWindow.Instance.visualStudio.GetComponents(out components);
+            string output = "";
+            foreach(string s in components)
+            {
+                output += s + "\n";
+            }
+            MessageBox.Show(output);
         }
     }
 }

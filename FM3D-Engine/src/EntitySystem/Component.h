@@ -128,4 +128,6 @@ namespace FM3D {
 		static unsigned int s_counter;
 		static std::vector<ComponentMethods> s_methods;
 	};
+
+
 }

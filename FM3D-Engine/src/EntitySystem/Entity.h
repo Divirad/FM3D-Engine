@@ -240,6 +240,6 @@ namespace FM3D {
 
 	template <typename C>
 	C* Entity::Get() const {
-		return static_cast<C*>(this->GetComponent(ComponentIds::Get<C>());
+		return static_cast<C*>(this->GetComponent(ComponentIds::Get<C>()));
 	}
 }
