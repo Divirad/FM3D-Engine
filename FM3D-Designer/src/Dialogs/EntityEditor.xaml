@@ -9,9 +9,12 @@
         xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
 
         mc:Ignorable="d"
-        Title="Edit Entity-Preset!"
-        Height="370"
+        Title="Entity-Preset Editor"
+        Height="400"
         HorizontalAlignment="Stretch">
+    <local:DialogBase.Resources>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
+    </local:DialogBase.Resources>
     <TabControl>
 <!-- ==================== COMPONENTS ==================== -->
         <TabItem  Header="Components">
@@ -30,17 +33,15 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock      Grid.Column="0"   HorizontalAlignment="Center"    Text="Component" />
-                    <TextBlock      Grid.Column="1"   HorizontalAlignment="Center"    Text="Remove" />
-                    <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Custom Value" />
-                    <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Const Value" />
-                    <TextBlock      Grid.Column="4"   HorizontalAlignment="Center"    Text="Standard" />
+                    <TextBlock      Grid.Column="1"   HorizontalAlignment="Center"    Text="Custom Value" />
+                    <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Const Value" />
+                    <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Standard" />
                     
                 </Grid>
-                
-                <ListBox Name="lb_comp" Grid.Row="2" Margin="0,0,0,10">
+
+                <ListBox Name="lb_comp" Grid.Row="2" Margin="10,10,10,10" BorderThickness="0.5">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,2">
@@ -49,13 +50,11 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
-                                <Button    Grid.Column="1"   HorizontalAlignment="Center"    Content="Remove" Click="Button_Remove" />
-                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_custom}"/>
-                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}"/>
-                                <CheckBox  Grid.Column="4"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}"/>
+                                <CheckBox  Grid.Column="1"   HorizontalAlignment="Center"    IsChecked="{Binding m_custom}"/>
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}"/>
+                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Checked="cb_standard_Checked"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -63,10 +62,12 @@
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="0,0,0,10" ItemsSource = "{Binding component}"/>
-                    <Button Click="bt_add_Click" Grid.Column="1" Margin="0,0,0,10">Add</Button>
+                    <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="10,0,0,10" ItemsSource = "{Binding component}"/>
+                    <Button Click="bt_add_Click" Width="100" Grid.Column="1" Margin="10,0,0,10">Add</Button>
+                    <Button Click="Button_Remove" Width="100" Grid.Column="2" Margin="10,0,0,10">Remove</Button>
                 </Grid>
             </Grid>
         </TabItem>
@@ -95,8 +96,8 @@
                     <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Get" />
                     <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Set" />
                 </Grid>
-                
-                <ListBox Name="lb_auto" Grid.Row="2" >
+
+                <ListBox Name="lb_auto" Grid.Row="2" Margin="10,10,10,10" BorderThickness="0.5" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             
@@ -118,7 +119,7 @@
                 
                 <Label Grid.Row="3">Custom:</Label>
 
-                <ListBox Name="lb_custom" Grid.Row="4" Margin="0,0,0,10">
+                <ListBox Name="lb_custom" Grid.Row="4" Margin="10,10,10,10" BorderThickness="0.5">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
 
@@ -168,7 +169,7 @@
                     Width="150"
                     Height="40"
                     Margin="10, 10"
-                    Click="btn_add_Click">
+                    Click="btn_save_Click">
                 </Button>
 
                
