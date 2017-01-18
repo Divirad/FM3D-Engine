@@ -67,6 +67,8 @@ public partial class EntityEditor : DialogBase
         private Component selectedc = new Component();
         private Props selectedp = new Props();
 
+        private string thepath = "";
+
         private ObservableCollection<string> allcomponents = new ObservableCollection<string>();
 
         public EntityEditor(MetroWindow window, string path, bool newent) : base(window)
@@ -75,8 +77,7 @@ public partial class EntityEditor : DialogBase
             InitializeItems();
             LoadCBAvaiabel();
             LoadListBox();
-            //if (newent == false){LoadEntity(@"C:\entity.ent"); }
-            LoadEntity("D:\\entity.ent");
+            if (newent == false){LoadEntity(path); }
         }
 
         public void InitializeItems()
@@ -202,7 +203,7 @@ public partial class EntityEditor : DialogBase
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            WriteEntity("D:\\entity.ent");
+            WriteEntity(thepath);
         }
 
         private void cb_standard_Checked(object sender, RoutedEventArgs e)
