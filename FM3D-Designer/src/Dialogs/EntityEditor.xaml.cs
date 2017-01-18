@@ -30,6 +30,7 @@ namespace FM3D_Designer.src
         public string type { get; set; }
         public bool m_get { get; set; }
         public bool m_set { get; set; }
+        public bool m_selected { get; set; }
     }
 
     class Component
@@ -62,6 +63,7 @@ public partial class EntityEditor : DialogBase
         private List<Component> _avaiabel = new List<Component>();
         private List<Props> _propauto = new List<Props>();
         private List<Props> _propcustom = new List<Props>();
+
         private Component selectedc = new Component();
         private Props selectedp = new Props();
 
@@ -97,13 +99,9 @@ public partial class EntityEditor : DialogBase
         private void LoadListBox()
         {
             lb_comp.ItemsSource = _entity.components;
-            
             lb_auto.ItemsSource = _propauto;
             lb_custom.ItemsSource = _propcustom;
-
-            //lb_auto.SelectionMode = SelectionMode.Multiple;
-            //lb_comp.SelectionMode = SelectionMode.Multiple;
-            //lb_custom.SelectionMode = SelectionMode.Multiple;
+            
         }
 
         private void Refresh()
@@ -174,8 +172,15 @@ public partial class EntityEditor : DialogBase
                     break;
                 }
             }
+            _avaiabel.Add(selectedc);
+
+            var löla = MessageBox.Show(_avaiabel.ToString() + " comp!!");
             _entity.components.Remove(selectedc);
+
+            var aa = MessageBox.Show(selectedc.name + " selected!!");
             this.Refresh();
+            LoadCBAvaiabel();
+
 
         }
 
@@ -402,6 +407,19 @@ public partial class EntityEditor : DialogBase
             this.Refresh();
             //.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
-        
+
+        private void bt_deletecustomprop(object sender, RoutedEventArgs e)
+        {
+            foreach (Props temp in _propcustom)
+            {
+                if (temp.m_selected == true)
+                {
+                    selectedp = temp;
+                    break;
+                }
+            }
+            _propcustom.Remove(selectedp);
+            this.Refresh();
+        }
     }
 }
