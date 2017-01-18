@@ -276,9 +276,11 @@ public partial class EntityEditor : DialogBase
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             XmlReader xml = XmlReader.Create(path, settings);
-            xml.ReadToDescendant("EntityPreset");
-            LoadXmlFile(path, xml.ReadSubtree());
-
+            if (xml.ReadToDescendant("EntityPreset"))
+            {
+                LoadXmlFile(path, xml.ReadSubtree());
+            }
+            else { var a = MessageBox.Show("No Entity!\nChoose another File!!"); }
             xml.Close();
         }
         private void LoadXmlFile(string path,  XmlReader xml)
