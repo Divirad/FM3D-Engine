@@ -139,6 +139,11 @@
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)$(ConfigurationName)\FM3D-Engine.dll" "$(SolutionDir)FM3D-Designer\bin\$(ConfigurationName)\"
+copy "$(SolutionDir)FM3D-Engine\Dependencies\FreeImage\FreeImage.dll" "$(SolutionDir)FM3D-Designer\bin\$(ConfigurationName)\"
+copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir)FM3D-Designer\bin\$(ConfigurationName)\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -450,6 +455,7 @@
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram.mdj" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\material.inl" />

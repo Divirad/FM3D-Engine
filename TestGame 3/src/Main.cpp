@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "Resources.h"
 
-using namespace FM3D;
+using ALL_FM3D_NAMESPACES;
 
 void Move(Camera& camera);
 Vector3f& SetHill(Vector3f& vec);

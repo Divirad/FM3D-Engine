@@ -19,7 +19,7 @@ namespace FM3D {
 		GL3NullShader m_nullShader;
 		GL3Shader3D m_shader3D;
 
-		std::map<const Mesh*, std::map<const Model*, std::vector<const Entity*>>> m_meshModelEntityMap;
+		std::map<const Mesh*, std::map<const Model*, std::vector<const EntitySystem::Entity*>>> m_meshModelEntityMap;
 		std::vector<PointLight*> m_pointLights;
 
 		GL3Mesh* m_bsphere;
@@ -29,7 +29,7 @@ namespace FM3D {
 		friend class GL4RenderSystem;
 		GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target);
 	public:
-		void Submit(const Entity* e) override;
+		void Submit(const EntitySystem::Entity* e) override;
 		void Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) override;
 		void SetProjectionMatrix(const Matrix4f& projectionMatrix) override;
 	private:

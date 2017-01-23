@@ -73,7 +73,7 @@ namespace FM3D {
 
 namespace FM3D {
 
-	class ImageComponent : public Component {
+	class ImageComponent : public EntitySystem::Component {
 		const Texture* m_texture;
 
 	public: 
@@ -86,7 +86,7 @@ namespace FM3D {
 
 	};
 
-	class UVComponent : public Component {
+	class UVComponent : public EntitySystem::Component {
 		Vector3f uv_0;
 		Vector2f uv_1;
 	public:

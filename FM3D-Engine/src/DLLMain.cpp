@@ -10,7 +10,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 		break;
 	}
 #ifdef _DEBUG
-	OutputDebugString(L"Engine DLL loaded!");
+	OutputDebugString(L"Engine dll loaded!\n");
+	_CrtSetDbgFlag(_CRTDBG_CHECK_ALWAYS_DF);
 #endif
 
 	return TRUE;

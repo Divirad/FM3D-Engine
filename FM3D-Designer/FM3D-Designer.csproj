@@ -18,6 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -102,8 +102,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PipeSystem.cs" />
+    <Compile Include="src\InvBooleanToVisibilityConverter.cs" />
+    <Compile Include="src\ToolWindows\Mesh\PartsPropWindow.xaml.cs">
+      <DependentUpon>PartsPropWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\Mesh\PartsWindow.xaml.cs">
+      <DependentUpon>PartsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\Mesh\VerticesWindow.xaml.cs">
+      <DependentUpon>VerticesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualStudio.cs" />
-    <Compile Include="src\Compiler.cs" />
     <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
     </Compile>
@@ -196,6 +205,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\ToolWindows\Mesh\PartsPropWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\Mesh\PartsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\Mesh\VerticesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\WindowLayouts\CreateProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -250,6 +271,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -268,6 +290,7 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\hidden.png" />
     <Resource Include="resources\images\start_icon.png" />
     <Resource Include="resources\images\vs_icon.png" />
     <Resource Include="resources\images\file browser\refresh_icon.png" />
@@ -311,9 +334,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)$(ConfigurationName)\FM3D-Engine.dll" "$(TargetDir)"
-copy "$(SolutionDir)FM3D-Engine\Dependencies\FreeImage\FreeImage.dll" "$(TargetDir)"
-copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

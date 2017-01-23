@@ -19,9 +19,7 @@ namespace FM3D {
 		FILE* file;
 		fopen_s(&file, filepath.c_str(), "rt");
 		if (file == nullptr) {
-			wchar_t* wtext = new wchar_t[filepath.length()];
-			mbstowcs(wtext, filepath.c_str(), filepath.length());
-			MessageBox(NULL, wtext, L"Error", MB_OK | MB_ICONERROR);
+			OUTPUT_ERROR(1, "Filemanager Error", filepath);
 		}
 		fseek(file, 0, SEEK_END);
 		unsigned long length = ftell(file);

@@ -3,7 +3,7 @@
 
 namespace FM3D {
 
-	class PositionComponent : public Component {
+	class PositionComponent : public EntitySystem::Component {
 		Vector3f m_position;
 	public:
 		void Construct(const Vector3f position) {
@@ -14,9 +14,9 @@ namespace FM3D {
 		inline const Vector3f& GetPosition() const { return m_position; }
 		inline void SetPosition(const Vector3f& position) { m_position = position; }
 	};
-#define PositionComponentId FM3D::ComponentIds::Get<FM3D::PositionComponent>()
+#define PositionComponentId FM3D::EntitySystem::ComponentIds::Get<FM3D::PositionComponent>()
 
-	class RotationComponent : public Component {
+	class RotationComponent : public EntitySystem::Component {
 		Vector3f m_rotation;
 	public:
 		void Construct(const Vector3f rotation) {
@@ -35,9 +35,9 @@ namespace FM3D {
 		inline void SetYaw(float yaw) { m_rotation.y = yaw; }
 		inline void SetRoll(float roll) { m_rotation.z = roll; }
 	};
-#define RotationComponentId FM3D::ComponentIds::Get<FM3D::RotationComponent>()
+#define RotationComponentId FM3D::EntitySystem::ComponentIds::Get<FM3D::RotationComponent>()
 
-	class ScaleComponent : public Component {
+	class ScaleComponent : public EntitySystem::Component {
 		Vector3f m_scale;
 	public:
 		void Construct(const Vector3f scale) {
@@ -48,5 +48,5 @@ namespace FM3D {
 		inline const Vector3f& GetScale() const { return m_scale; }
 		inline void SetScale(const Vector3f& scale) { m_scale = scale; }
 	};
-#define ScaleComponentId FM3D::ComponentIds::Get<FM3D::ScaleComponent>()
+#define ScaleComponentId FM3D::EntitySystem::ComponentIds::Get<FM3D::ScaleComponent>()
 }

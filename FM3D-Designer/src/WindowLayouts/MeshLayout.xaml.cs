@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DevComponents.WpfDock;
+using FM3D_Designer.src.ToolWindows.Mesh;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
@@ -20,6 +21,10 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class MeshLayout : WindowLayout
     {
+        private PartsWindow partsWin;
+        private PartsPropWindow partsPropWin;
+        private VerticesWindow verticesWin;
+        private DocumentWindows.MeshViewPort viewPort;
         public MeshLayout()
         {
             InitializeComponent();
@@ -27,14 +32,115 @@ namespace FM3D_Designer.src.WindowLayouts
             this.Header = "Mesh";
             this.Initialize(mainWindow, this.dockSite);
 
-            SplitPanel splitPanel = new SplitPanel();
-            DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new DocumentWindows.MeshViewPort(this));
-            splitPanel.Children.Add(dg);
-            DockSite.SetDock(splitPanel, Dock.Right);
-            DockSite.SetDockSize(splitPanel, 150);
-            this.dockSite.SplitPanels.Add(splitPanel);
-            dg.UpdateVisibility();
+            {
+                SplitPanel splitPanel = new SplitPanel();
+                DockWindowGroup dg = new DockWindowGroup();
+                dg.Items.Add(partsWin = new PartsWindow(this.Resources["mesh"] as DesignerLib.Mesh));
+                splitPanel.Children.Add(dg);
+                DockWindowGroup dg2 = new DockWindowGroup();
+                dg2.Items.Add(partsPropWin = new PartsPropWindow());
+                splitPanel.Children.Add(dg2);
+                DockSite.SetDock(splitPanel, Dock.Right);
+                DockSite.SetDockSize(splitPanel, 300);
+                this.dockSite.SplitPanels.Add(splitPanel);
+                dg.UpdateVisibility();
+                dg2.UpdateVisibility();
+            }
+            {
+                SplitPanel splitPanel = new SplitPanel();
+                DockWindowGroup dg = new DockWindowGroup();
+                dg.Items.Add(verticesWin = new VerticesWindow(partsWin));
+                splitPanel.Children.Add(dg);
+                DockSite.SetDock(splitPanel, Dock.Left);
+                DockSite.SetDockSize(splitPanel, 200);
+                this.dockSite.SplitPanels.Add(splitPanel);
+                dg.UpdateVisibility();
+            }
+            {
+                SplitPanel splitPanel = new SplitPanel();
+                DockWindowGroup dg = new DockWindowGroup();
+                dg.Items.Add(viewPort = new DocumentWindows.MeshViewPort(this));
+                splitPanel.Children.Add(dg);
+                this.dockSite.Content = splitPanel;
+                dg.UpdateVisibility();
+            }
+
+            partsWin.Closed += OnPartsWinClosed;
+            partsPropWin.Closed += OnPartsPropWinClosed;
+            verticesWin.Closed += OnVerticesWinClosed;
+            viewPort.Closed += OnViewPortClosed;
+        }
+
+        void Menu_View_ViewPort(object sender, RoutedEventArgs e)
+        {
+            if (this.viewPort != null)
+            {
+                this.viewPort.FocusContent();
+            }
+            else
+            {
+                dockSite.FloatWindow(this.viewPort = new DocumentWindows.MeshViewPort(this));
+                viewPort.Closed += OnViewPortClosed;
+            }
+        }
+
+        void Menu_View_Parts(object sender, RoutedEventArgs e)
+        {
+            if (this.partsWin != null)
+            {
+                this.partsWin.FocusContent();
+            }
+            else
+            {
+                dockSite.FloatWindow(this.partsWin = new PartsWindow(this.Resources["mesh"] as DesignerLib.Mesh));
+                partsWin.Closed += OnPartsWinClosed;
+            }
+        }
+
+        void Menu_View_PartProperties(object sender, RoutedEventArgs e)
+        {
+            if (this.partsPropWin != null)
+            {
+                this.partsPropWin.FocusContent();
+            }
+            else
+            {
+                dockSite.FloatWindow(this.partsPropWin = new PartsPropWindow());
+                partsPropWin.Closed += OnPartsPropWinClosed;
+            }
+        }
+
+        void Menu_View_Vertices(object sender, RoutedEventArgs e)
+        {
+            if (this.verticesWin != null)
+            {
+                this.verticesWin.FocusContent();
+            }
+            else
+            {
+                dockSite.FloatWindow(this.verticesWin = new VerticesWindow(this.partsWin));
+                verticesWin.Closed += OnVerticesWinClosed;
+            }
+        }
+
+        void OnPartsWinClosed(object sender, RoutedEventArgs e)
+        {
+            this.partsWin = null;
+        }
+
+        void OnPartsPropWinClosed(object sender, RoutedEventArgs e)
+        {
+            this.partsPropWin = null;
+        }
+
+        void OnViewPortClosed(object sender, RoutedEventArgs e)
+        {
+            this.viewPort = null;
+        }
+
+        void OnVerticesWinClosed(object sender, RoutedEventArgs e)
+        {
+            this.verticesWin = null;
         }
     }
 }

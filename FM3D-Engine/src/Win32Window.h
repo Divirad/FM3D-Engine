@@ -9,7 +9,7 @@ namespace FM3D {
 
 		MSG m_msg;
 		HWND m_hWnd;
-		LPCWSTR m_name;
+		std::wstring m_name;
 		HINSTANCE m_hInstance;
 
 		Win32Window(HINSTANCE hInstance);

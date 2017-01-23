@@ -1,10 +1,12 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows;
 
 namespace FM3D_Designer.src.Dialogs
 {
@@ -47,7 +49,8 @@ namespace FM3D_Designer.src.Dialogs
 
         private void OnAddClick(object param)
         {
-
+            var window = System.Windows.Application.Current.MainWindow as MetroWindow;
+            window.ShowModelDialog(this.Path);
         }
         public Command AddCommand { get; private set; }
         #endregion

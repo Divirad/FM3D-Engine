@@ -4,7 +4,7 @@ namespace FM3D {
 
 	WCHAR Win32Window::s_maxWindowID = 1;
 
-	Win32Window::Win32Window(HINSTANCE hInstance) : m_msg({ 0 }), m_hWnd(nullptr), m_name(nullptr), m_hInstance(hInstance) {
+	Win32Window::Win32Window(HINSTANCE hInstance) : m_msg({ 0 }), m_hWnd(nullptr), m_name(), m_hInstance(hInstance) {
 		/*/HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
 		if (FAILED(hr)) {
 		std::cout << "Error on CoInitializeEx()" << std::endl;
@@ -22,8 +22,8 @@ namespace FM3D {
 		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 		wcex.lpszMenuName = nullptr;
-		m_name = L"EngineMainWindow", s_maxWindowID++;
-		wcex.lpszClassName = m_name;
+		m_name = (L"EngineMainWindow" + std::to_wstring(s_maxWindowID++));
+		wcex.lpszClassName = m_name.c_str();
 		wcex.hIconSm = LoadIcon(wcex.hInstance, L"IDI_ICON");
 		if (!RegisterClassEx(&wcex)) {
 			std::cout << "Error on Registering WNDCLASSEX" << std::endl;
@@ -35,7 +35,7 @@ namespace FM3D {
 		RECT rc = { 0, 0, width, height };
 		DWORD windowStyle = (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SIZEBOX );
 		AdjustWindowRect(&rc, windowStyle, 0);
-		m_hWnd = CreateWindow(m_name, title, windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, m_hInstance, nullptr);
+		m_hWnd = CreateWindow(m_name.c_str(), title, windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, m_hInstance, nullptr);
 		if (!m_hWnd) {
 			std::cout << "Error on Creating Window" << std::endl;
 			return false;

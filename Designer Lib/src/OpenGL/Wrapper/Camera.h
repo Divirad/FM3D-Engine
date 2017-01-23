@@ -1,73 +1,73 @@
 #pragma once
 #include "../../pch.h"
+#define NO_FM3D
+#include "../InternCamera.h"
 
 namespace DesignerLib {
 
 	public ref class Camera {
 	private:
-		FM3D::Camera* m_camera;
+		InternCamera* m_camera;
 	public:
 		Camera(float x, float y, float z, float rx, float ry, float rz, float zoom) {
-			m_camera = new FM3D::Camera(FM3D::Vector3f(x, y, z), FM3D::Vector3f(rx, ry, rz), zoom);
+			m_camera = new InternCamera(x, y, z, rx, ry, rz, zoom);
 		}
-		Camera() {
-			m_camera = new FM3D::Camera();
-		}
+
 		~Camera() {
 			delete m_camera;
 		}
 
 		FM3D::Camera* GetCamera() {
-			return m_camera;
+			return m_camera->GetCamera();
 		}
 
 		property float X {
 			float get() {
-				return m_camera->GetPosition().x;
+				return m_camera->GetX();
 			}
 			void set(float value) {
-				m_camera->GetPosition().x = value;
+				m_camera->SetX(value);
 			}
 		}
 		property float Y {
 			float get() {
-				return m_camera->GetPosition().y;
+				return m_camera->GetY();
 			}
 			void set(float value) {
-				m_camera->GetPosition().y = value;
+				m_camera->SetY(value);
 			}
 		}
 		property float Z {
 			float get() {
-				return m_camera->GetPosition().z;
+				return m_camera->GetZ();
 			}
 			void set(float value) {
-				m_camera->GetPosition().z = value;
+				m_camera->SetZ(value);
 			}
 		}
 
 		property float RotX {
 			float get() {
-				return m_camera->GetRotation().x;
+				return m_camera->GetRotX();
 			}
 			void set(float value) {
-				m_camera->GetRotation().x = value;
+				m_camera->SetRotX(value);
 			}
 		}
 		property float RotY {
 			float get() {
-				return m_camera->GetRotation().y;
+				return m_camera->GetRotY();
 			}
 			void set(float value) {
-				m_camera->GetRotation().y = value;
+				m_camera->SetRotY(value);
 			}
 		}
 		property float RotZ {
 			float get() {
-				return m_camera->GetRotation().z;
+				return m_camera->GetZ();
 			}
 			void set(float value) {
-				m_camera->GetRotation().z = value;
+				m_camera->SetRotZ(value);
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace DesignerLib {
 				return m_camera->GetZoom();
 			}
 			void set(float value) {
-				m_camera->GetZoom() = value;
+				m_camera->SetZoom(value);
 			}
 		}
 	};

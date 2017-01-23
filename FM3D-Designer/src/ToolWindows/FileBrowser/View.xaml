@@ -7,8 +7,7 @@
              xmlns:fm="clr-namespace:FM3D_Designer.src"
              xmlns:Controls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
              x:Class="FM3D_Designer.src.ToolWindows.FileBrowser.View"
-             mc:Ignorable="d"
-             Width="300" Height="600">
+             mc:Ignorable="d">
 
     <fm:ToolWindow.Resources>
         <local:Logic x:Key="logic"/>
