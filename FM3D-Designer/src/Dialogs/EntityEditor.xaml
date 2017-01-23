@@ -35,26 +35,30 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock      Grid.Column="0"   HorizontalAlignment="Center"    Text="Component" />
-                    <TextBlock      Grid.Column="1"   HorizontalAlignment="Center"    Text="Custom Value" />
                     <TextBlock      Grid.Column="2"   HorizontalAlignment="Center"    Text="Const Value" />
                     <TextBlock      Grid.Column="3"   HorizontalAlignment="Center"    Text="Standard" />
                     
                 </Grid>
 
-                <ListBox Name="lb_comp" Grid.Row="2" Margin="10,10,10,10" BorderThickness="0.5">
+                <ListBox Name="lb_comp" Grid.Row="2" Margin="10,10,10,10" BorderThickness="0.5" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="IsSelected" Value="{Binding m_selected, Mode=TwoWay}"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,2">
+                            <Grid Margin="0,2" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
-                                <CheckBox  Grid.Column="1"   HorizontalAlignment="Center"    IsChecked="{Binding m_custom}"/>
-                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}"/>
-                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Checked="cb_standard_Checked"/>
+                                
+                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding name}" />
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}" />
+                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Unchecked="CheckBox_Unchecked" Checked="cb_standard_Checked"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -65,9 +69,9 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="10,0,0,10" ItemsSource = "{Binding component}"/>
+                    <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="0,0,10,10" ItemsSource = "{Binding name}"/>
                     <Button Click="bt_add_Click" Width="100" Grid.Column="1" Margin="10,0,0,10">Add</Button>
-                    <Button Click="Button_Remove" Width="100" Grid.Column="2" Margin="10,0,0,10">Remove</Button>
+                    <Button Click="Button_Remove" Width="100" Grid.Column="2" Margin="10,0,0,10">Delete Selected</Button>
                 </Grid>
             </Grid>
         </TabItem>
@@ -78,6 +82,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -108,7 +113,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
+                                    <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding name}" />
                                     <TextBlock Grid.Column="1"   HorizontalAlignment="Center"    Text="{Binding type}" />
                                     <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsEnabled="False" IsChecked="{Binding m_get}"/>
                                     <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsEnabled="False" IsChecked="{Binding m_set}"/>
@@ -118,8 +123,25 @@
                 </ListBox>
                 
                 <Label Grid.Row="3">Custom:</Label>
-
-                <ListBox Name="lb_custom" Grid.Row="4" Margin="10,10,10,10" BorderThickness="0.5">
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tb_propnam" Grid.Column="0">Name</TextBox>
+                    <TextBox x:Name="tb_proptype" Grid.Column="1">Type</TextBox>
+                    <Button Grid.Column="2" Click="tb_propcustom_Click">Add</Button>
+                    <Button Grid.Column="3" Click="bt_deletecustomprop">Delete Selected</Button>
+                </Grid>
+                
+                <ListBox Name="lb_custom" Grid.Row="5" Margin="10,10,10,10" BorderThickness="0.5" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="IsSelected" Value="{Binding m_selected, Mode=TwoWay}"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
 
@@ -130,7 +152,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding component}" />
+                                <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding name}" />
                                 <TextBlock Grid.Column="1"   HorizontalAlignment="Center"    Text="{Binding type}" />
                                 <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_get}"/>
                                 <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_set}"/>
@@ -146,7 +168,7 @@
 
             <StackPanel>
                 <Label HorizontalAlignment="Center" >Name Your Fancy Entity!</Label>
-                <TextBox Name="tb_entityname"></TextBox>
+                <TextBox Name="tb_entityname" TextChanged="tb_entityname_TextChanged"></TextBox>
                 <Button 
                     x:Name="btn_cancel" 
                     FontWeight="Normal" 
@@ -172,10 +194,7 @@
                     Click="btn_save_Click">
                 </Button>
 
-               
             </StackPanel>
-
-            
 
         </TabItem>
     </TabControl>
