@@ -30,11 +30,9 @@ namespace FM3D_Designer.src.Dialogs
             window.ShowMetroDialogAsync(new NewResourceDialog(window));
         }
 
-        public static void ShowEntityEditor(this MetroWindow window)
+        public static void ShowEntityEditor(this MetroWindow window, bool isnewentity, string path)
         {
-            bool isnew = false;
-            string path = "";
-            window.ShowMetroDialogAsync(new EntityEditor(window, path, isnew ));
+            window.ShowMetroDialogAsync(new EntityEditor(window, path, isnewentity ));
         }
 
         public static void ShowAddFileDialog(this MetroWindow window, String path)

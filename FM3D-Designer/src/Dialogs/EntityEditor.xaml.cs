@@ -67,7 +67,7 @@ public partial class EntityEditor : DialogBase
         private Component selectedc = new Component();
         private Props selectedp = new Props();
 
-        private string thepath = "";
+        private string thepath { get; set; }
 
         private ObservableCollection<string> allcomponents = new ObservableCollection<string>();
 
@@ -77,19 +77,16 @@ public partial class EntityEditor : DialogBase
             InitializeItems();
             LoadCBAvaiabel();
             LoadListBox();
-            if (newent == false){LoadEntity(path); }
+            if (newent == false)
+            {
+                LoadEntity(path);
+            }
+            thepath = path;
         }
 
         public void InitializeItems()
         {
-            //avaiabel.Add(new Comp() { component = "Completed",  type = "asd", m_get = false, m_set = true });
-            //VisualStudio aa = new VisualStudio();
-            //aa.GetComponents(out allcomponents);
-
-            //foreach (string compname in allcomponents)
-            //{
-            //    entity.components.Add(new Component() { component = compname, type = "??" });
-            //}
+            
             _avaiabel.Add(new Component() { name = "Rotation" });
             _avaiabel.Add(new Component() { name = "Position" });
             _avaiabel.Add(new Component() { name = "Size"});
@@ -208,6 +205,20 @@ public partial class EntityEditor : DialogBase
 
         private void cb_standard_Checked(object sender, RoutedEventArgs e)
         {
+            _propauto.Clear();
+            AutoProps();
+            this.Refresh();
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _propauto.Clear();
+            AutoProps();
+            this.Refresh();
+
+        }
+        private void AutoProps()
+        {
             foreach (Component check in _entity.components)
             {
                 if (check.m_standard == true)
@@ -231,33 +242,7 @@ public partial class EntityEditor : DialogBase
                     }
                 }
             }
-        }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            foreach (Component check in _entity.components)
-            {
-                if (check.m_standard == false)
-                {
-                    switch (check.name)
-                    {
-                        case "3DRender":
-                            DeletePropauto("m_model");
-                            break;
-                        case "Position":
-                            DeletePropauto("m_position");
-                            break;
-                        //case "Rotation":
-                        //    _propauto.Remove(new Props() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
-                        //    break;
-                        //case "Size":
-                        //    _propauto.Remove(new Props() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
-                        //    break;
-                        default:
-                            break;
-                    }
-                }
-            }
         }
 
         private void DeletePropauto(string prop)
