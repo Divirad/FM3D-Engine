@@ -4,8 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dd="clr-namespace:DevComponents.WpfDock;assembly=DevComponents.WpfDock"
+        xmlns:mesh="clr-namespace:FM3D_Designer.src.ToolWindows.Mesh"
+        xmlns:doc="clr-namespace:FM3D_Designer.src.DocumentWindows"
+        xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:FM3D_Designer.src">
+
+    <local:WindowLayout.Resources>
+        <lib:Mesh x:Key="mesh"/>
+    </local:WindowLayout.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,11 +24,15 @@
                 <MenuItem Header="_Save"/>
             </MenuItem>
             <MenuItem Header="_Edit" />
-            <MenuItem Header="_View" />
+            <MenuItem Header="_View" >
+                <MenuItem Header="_View Port" Click="Menu_View_ViewPort"/>
+                <MenuItem Header="_Parts" Click="Menu_View_Parts"/>
+                <MenuItem Header="_Part Properties" Click="Menu_View_PartProperties"/>
+                <MenuItem Header="_Vertices" Click="Menu_View_Vertices"/>
+            </MenuItem>
             <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>
-        <dd:DockSite  Grid.Row="1"  Name="dockSite" VisualStyle="Office2016">
-        </dd:DockSite>
+        <dd:DockSite Margin="4,0,4,0" Grid.Row="1"  Name="dockSite" VisualStyle="Office2016"/>
     </Grid>
 </local:WindowLayout>

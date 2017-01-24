@@ -1,5 +1,6 @@
 #include "ExternFileLoader.h"
 #include <stdexcept>
+#include <FreeImage.h>
 
 namespace DesignerLib {
 

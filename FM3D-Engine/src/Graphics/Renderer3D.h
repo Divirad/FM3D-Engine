@@ -11,7 +11,7 @@ namespace FM3D {
 
 		Renderer3D(RenderTarget2D* target): m_target(target) {};
 	public:
-		virtual void Submit(const Entity* e) = 0;
+		virtual void Submit(const EntitySystem::Entity* e) = 0;
 		virtual void Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) = 0;
 		virtual void SetProjectionMatrix(const Matrix4f& projectionMatrix) = 0;
 	};

@@ -17,15 +17,8 @@
 #include <map>
 #include <forward_list>
 #include <list>
-#ifndef __cplusplus_cli
 #include <mutex>
 #include <tuple>
-#else
-namespace std {
-	class mutex {
-	};
-}
-#endif
 #include <functional>
 #include <stack>
 #include <unordered_set>

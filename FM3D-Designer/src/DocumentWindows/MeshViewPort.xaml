@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:FM3D_Designer.src"
         mc:Ignorable="d">
     <Grid>
+        <TextBox Height="200">
+            "Hallooo"
+        </TextBox>
         <local:GLControl x:Name="glView"/>
     </Grid>
 </local:DocumentWindow>

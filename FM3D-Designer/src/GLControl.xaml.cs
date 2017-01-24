@@ -25,7 +25,7 @@ namespace FM3D_Designer.src
     {
         private OpenGL gl = new OpenGL();
         private Renderable renderable = new Renderable();
-        private Camera camera = new Camera();
+        private Camera camera = new Camera(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
         public GLControl()
         {
@@ -56,7 +56,7 @@ namespace FM3D_Designer.src
 
             lock(gl)
             {
-                gl.Update();
+                gl.Update(renderable);
                 gl.Render(this.image);
             }
         }

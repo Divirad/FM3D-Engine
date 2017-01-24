@@ -8,10 +8,9 @@ namespace FM3D {
 				     GLenum GLCall_error = glGetError();\
 				     if (GLCall_error != GL_NO_ERROR) {\
 						std::stringstream errorStream;\
-						errorStream << "[OpenGL Error] (" << GLCall_error << ": " << gluErrorString(GLCall_error) << "): " << #x << " " << __FILE__ << ":" << __LINE__ << std::endl;\
+						errorStream << GLCall_error << ": " << gluErrorString(GLCall_error) << ": " << #x;\
 						std::string errorStr = errorStream.str();\
-						std::cout << errorStr;\
-						OutputDebugStringA(errorStr.c_str());\
+						OUTPUT_ERROR(1, "OpenGL Error", errorStr); \
 						__debugbreak();\
 				     }\
 					 }

@@ -71,7 +71,5 @@
                 </Style>
             </dc:AdvTree.ItemContainerStyle>
         </dc:AdvTree>
-
-        <Button Name="Halloo" Margin="0,20" Click="Button_Click"/>
     </StackPanel>
 </local:DialogBase>

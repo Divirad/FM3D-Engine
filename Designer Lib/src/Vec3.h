@@ -22,14 +22,7 @@ namespace DesignerLib {
 			Z = z;
 		}
 
-		Vec3(const FM3D::Vector3f& other) {
-			X = other.x;
-			Y = other.y;
-			Z = other.z;
-		}
-
-		FM3D::Vector3f Convert() {
-			return FM3D::Vector3f(X, Y, Z);
-		}
+#define Convert_To_Vec3(vec) gcnew Vec3(vec.x, vec.y, vec.z)
+#define Convert_From_Vec3(vec) vec->X, vec->Y, vec->Z
 	};
 }

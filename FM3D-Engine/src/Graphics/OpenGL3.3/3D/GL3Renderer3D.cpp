@@ -23,14 +23,14 @@ namespace FM3D {
 		m_projectionMatrix = projectionMatrix;
 	}
 
-	void GL3Renderer3D::Submit(const Entity* e) {
-		if (!e->HasComponents(std::vector<ComponentId>({ PositionComponentId, RotationComponentId, ScaleComponentId, RenderableComponentId })))
+	void GL3Renderer3D::Submit(const EntitySystem::Entity* e) {
+		if (!e->HasComponents(std::vector<EntitySystem::ComponentId>({ PositionComponentId, RotationComponentId, ScaleComponentId, RenderableComponentId })))
 			throw std::runtime_error("Entity doesn't has necessary components for rendering");
-		Model* model = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId))->GetModel();
+		const Model* model = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId))->GetModel();
 		const Mesh* mesh = model->GetMesh();
 
-		std::map<const Model*, std::vector<const Entity*>>& map = m_meshModelEntityMap[mesh];
-		std::vector<const Entity*>& vec = map[model];
+		std::map<const Model*, std::vector<const EntitySystem::Entity*>>& map = m_meshModelEntityMap[mesh];
+		std::vector<const EntitySystem::Entity*>& vec = map[model];
 		vec.push_back(e);
 	}
 
@@ -69,12 +69,12 @@ namespace FM3D {
 
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
-		for (std::map<const Mesh*, std::map<const Model*, std::vector<const Entity*>>>::iterator it = m_meshModelEntityMap.begin(); it != m_meshModelEntityMap.end(); ++it) {
+		for (std::map<const Mesh*, std::map<const Model*, std::vector<const EntitySystem::Entity*>>>::iterator it = m_meshModelEntityMap.begin(); it != m_meshModelEntityMap.end(); ++it) {
 			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
 				((const GL3Mesh*)it->first)->Bind(i);
-				for (std::map<const Model*, std::vector<const Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+				for (std::map<const Model*, std::vector<const EntitySystem::Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
 					((GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
-					for (const Entity*& e : it2->second) {
+					for (const EntitySystem::Entity*& e : it2->second) {
 						if (it->first->IsAnimated()) {
 							if (it2->first->IsAnimated()) {
 								AnimatedModel* a = (AnimatedModel*)it2->first;

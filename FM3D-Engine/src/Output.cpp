@@ -133,9 +133,6 @@ namespace FM3D {
 			}
 
 			if ((target & OUTPUT_TARGET_CONSOLE) != 0) {
-				if (type == OUTPUT_TYPE_ERROR || type == OUTPUT_TYPE_FATAL)
-					std::cerr << str << std::endl;
-				else
 					std::cout << str << std::endl;
 			}
 			if ((target & OUTPUT_TARGET_DEBUG) != 0) {

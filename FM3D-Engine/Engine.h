@@ -19,6 +19,8 @@
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 
+#define ALL_FM3D_NAMESPACES namespace FM3D; using namespace FM3D::EntitySystem;
+
 namespace FM3D {
 
 	using byte = unsigned char;
