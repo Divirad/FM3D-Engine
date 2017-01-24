@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using System.IO;
 using System.Collections.ObjectModel;
@@ -30,7 +31,9 @@ namespace FM3D_Designer.src
                 this.Files = new ObservableCollection<File>();
                 this.SubFolders = new ObservableCollection<Folder>();
             }
+
             public string Name { get; set; }
+
             public ObservableCollection<Folder> SubFolders { get; set; }
             public ObservableCollection<File> Files { get; set; }
             public string Path { get; set; }
@@ -61,6 +64,7 @@ namespace FM3D_Designer.src
         {
             this._Directory = new FileInfo(path).Directory.FullName;
             this.ProjectFiles = new Folder("ProjectFiles", this._Directory + ProjectFilesDirectory);
+
         }
 
         public static Project Load(string path)
@@ -95,6 +99,7 @@ namespace FM3D_Designer.src
                     LoadProjectFiles(proj.ProjectFiles, xml);
                     proj.ProjectFiles.SetFilePaths();
                 }
+               //else { var a = MessageBox.Show("Error! Project Could Not Load"); }
             }
             xml.Close();
         }

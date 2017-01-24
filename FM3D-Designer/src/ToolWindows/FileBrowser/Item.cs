@@ -209,10 +209,12 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             get
             {
+
                 var menu = new ContextMenu();
 
                 var menu_add = new MenuItem();
                 var menu_res = new MenuItem();
+                var menu_adde = new MenuItem();
                 var menu_ee = new MenuItem();
 
                 menu_add.Header = "Add File";
@@ -220,12 +222,16 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 
                 menu_res.Header = "New Resource";
                 menu_res.Click += OnNewResource;
-                
+
+                menu_adde.Header = "Add Entity";
+                menu_adde.Click += OnEntityEditorNew;
+
                 menu_ee.Header = "Edit Entity";
                 menu_ee.Click += OnEntityEditor;
 
-                menu.Items.Add(menu_res);
                 menu.Items.Add(menu_add);
+                menu.Items.Add(menu_res);
+                menu.Items.Add(menu_adde);
                 menu.Items.Add(menu_ee);
                 return menu;
             }
@@ -239,7 +245,13 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         private void OnEntityEditor(object sender, EventArgs args)
         {
             var window = Application.Current.MainWindow as MetroWindow;
-            window.ShowEntityEditor();
+            window.ShowEntityEditor(false, "D:/entity.ent");
+        }
+
+        private void OnEntityEditorNew(object sender, EventArgs args)
+        {
+            var window = Application.Current.MainWindow as MetroWindow;
+            window.ShowEntityEditor(true, "D:/entity.ent");
         }
 
         private void OnAddNewFile(object sender, EventArgs args)
