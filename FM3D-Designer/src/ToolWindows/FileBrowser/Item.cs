@@ -115,14 +115,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         public Logic logic { get; private set; }
         public ItemType type { get; private set; }
 
+        public string Path { get; private set; }
+
         //Constructor
-        public Item(Item parent, Logic logic, ItemType type, string name, ItemState state)
+        public Item(Item parent, Logic logic, ItemType type, string name, string path, ItemState state)
         {
             this.Parent = parent;
             this.logic = logic;
             this.type = type;
             this._Name = name;
             this._State = state;
+            this.Path = path;
         }
 
         //Properties and Methods

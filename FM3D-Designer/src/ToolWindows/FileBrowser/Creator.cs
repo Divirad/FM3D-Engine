@@ -25,7 +25,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             if (dirInfo.Exists && state == Item.ItemState.NOT_FOUND)
                 throw new ArgumentException("Directory exists but is in a NOT_FOUND content!");
 
-            Item result = new Item(parent, logic, ItemTypes.Directory, dirInfo.Name, GetNewItemState(dirInfo.Exists, state, pFolder != null));
+            var newState = GetNewItemState(dirInfo.Exists, state, pFolder != null);
+            Item result = new Item(parent, logic, ItemTypes.Directory, dirInfo.Name, newState == Item.ItemState.NOT_FOUND ? null : dirInfo.FullName, newState);
 
             ObservableCollection<Project.Folder> folders = pFolder != null ? new ObservableCollection<Project.Folder>(pFolder.SubFolders) : null;
             ObservableCollection<Project.File> files = pFolder != null ? new ObservableCollection<Project.File>(pFolder.Files) : null;
@@ -108,7 +109,9 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             if (parent == null)
                 throw new ArgumentNullException("parent", "Item parent cannot be null. Files cannot be used as root items!");
 
-            Item result = new Item(parent, parent.logic, GetType(fileInfo.Extension), fileInfo.Name, GetNewItemState(fileInfo.Exists, parent.State, isInProject));
+
+            var newState = GetNewItemState(fileInfo.Exists, parent.State, isInProject);
+            Item result = new Item(parent, parent.logic, GetType(fileInfo.Extension), fileInfo.Name, newState == Item.ItemState.NOT_FOUND ? null : fileInfo.FullName, newState);
             return result;
         }
 
