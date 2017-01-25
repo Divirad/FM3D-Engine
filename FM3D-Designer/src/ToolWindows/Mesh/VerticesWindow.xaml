@@ -5,16 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.Mesh"
         xmlns:fm="clr-namespace:FM3D_Designer.src"
+        xmlns:lay="clr-namespace:FM3D_Designer.src.WindowLayouts"
         mc:Ignorable="d"
         Header="Vertices">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0"  />
-    </Grid>
+    
+    <DataGrid x:Name="grid" ItemsSource="{Binding partsWin.SelectedPart.Vertices}"/>
 </fm:ToolWindow>

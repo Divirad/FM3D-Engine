@@ -13,18 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DevComponents.WpfDock;
 using FM3D_Designer.src.ToolWindows.Mesh;
+using System.ComponentModel;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
     /// Interaction logic for MeshLayout.xaml
     /// </summary>
-    public partial class MeshLayout : WindowLayout
+    public partial class MeshLayout : WindowLayout, INotifyPropertyChanged
     {
-        private PartsWindow partsWin;
-        private PartsPropWindow partsPropWin;
-        private VerticesWindow verticesWin;
-        private DocumentWindows.MeshViewPort viewPort;
+        public PartsWindow partsWin { get; private set; }
+        public PartsPropWindow partsPropWin { get; private set; }
+        public VerticesWindow verticesWin { get; private set; }
+        public DocumentWindows.MeshViewPort viewPort { get; private set; }
         public MeshLayout()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace FM3D_Designer.src.WindowLayouts
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(verticesWin = new VerticesWindow(partsWin));
+                dg.Items.Add(verticesWin = new VerticesWindow(this));
                 splitPanel.Children.Add(dg);
                 DockSite.SetDock(splitPanel, Dock.Left);
                 DockSite.SetDockSize(splitPanel, 200);
@@ -70,6 +71,8 @@ namespace FM3D_Designer.src.WindowLayouts
             verticesWin.Closed += OnVerticesWinClosed;
             viewPort.Closed += OnViewPortClosed;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         void Menu_View_ViewPort(object sender, RoutedEventArgs e)
         {
@@ -94,6 +97,7 @@ namespace FM3D_Designer.src.WindowLayouts
             {
                 dockSite.FloatWindow(this.partsWin = new PartsWindow(this.Resources["mesh"] as DesignerLib.Mesh));
                 partsWin.Closed += OnPartsWinClosed;
+                OnPropertyChanged("partsWin");
             }
         }
 
@@ -118,7 +122,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             else
             {
-                dockSite.FloatWindow(this.verticesWin = new VerticesWindow(this.partsWin));
+                dockSite.FloatWindow(this.verticesWin = new VerticesWindow(this));
                 verticesWin.Closed += OnVerticesWinClosed;
             }
         }
@@ -126,6 +130,7 @@ namespace FM3D_Designer.src.WindowLayouts
         void OnPartsWinClosed(object sender, RoutedEventArgs e)
         {
             this.partsWin = null;
+            OnPropertyChanged("partsWin");
         }
 
         void OnPartsPropWinClosed(object sender, RoutedEventArgs e)
@@ -141,6 +146,11 @@ namespace FM3D_Designer.src.WindowLayouts
         void OnVerticesWinClosed(object sender, RoutedEventArgs e)
         {
             this.verticesWin = null;
+        }
+
+        private void OnPropertyChanged(string name)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

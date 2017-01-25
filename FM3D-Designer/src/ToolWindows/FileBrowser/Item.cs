@@ -11,6 +11,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using FM3D_Designer.src.Dialogs;
+using System.IO;
 
 namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
@@ -209,30 +210,36 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             get
             {
-
                 var menu = new ContextMenu();
 
-                var menu_add = new MenuItem();
-                var menu_res = new MenuItem();
-                var menu_adde = new MenuItem();
-                var menu_ee = new MenuItem();
+                if (this.type == ItemTypes.Directory)
+                {
+                    var menu_add = new MenuItem();
+                    var menu_res = new MenuItem();
+                    var menu_adde = new MenuItem();
 
-                menu_add.Header = "Add File";
-                menu_add.Click += OnAddNewFile;
-                
-                menu_res.Header = "New Resource";
-                menu_res.Click += OnNewResource;
+                    menu_add.Header = "Add File";
+                    menu_add.Click += OnAddNewFile;
 
-                menu_adde.Header = "Add Entity";
-                menu_adde.Click += OnEntityEditorNew;
+                    menu_res.Header = "New Resource";
+                    menu_res.Click += OnNewResource;
 
-                menu_ee.Header = "Edit Entity";
-                menu_ee.Click += OnEntityEditor;
+                    menu_adde.Header = "Add Entity";
+                    menu_adde.Click += OnEntityEditorNew;
 
-                menu.Items.Add(menu_add);
-                menu.Items.Add(menu_res);
-                menu.Items.Add(menu_adde);
-                menu.Items.Add(menu_ee);
+
+                    menu.Items.Add(menu_add);
+                    menu.Items.Add(menu_res);
+                    menu.Items.Add(menu_adde);
+                }
+                else
+                {
+                    var menu_ee = new MenuItem();
+                    menu_ee.Header = "Edit Entity";
+                    menu_ee.Click += OnEntityEditor;
+                    menu.Items.Add(menu_ee);
+                }
+
                 return menu;
             }
         }
@@ -256,9 +263,12 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         private void OnAddNewFile(object sender, EventArgs args)
         {
-            string path="blah";
-            var window = Application.Current.MainWindow as MetroWindow;
-            window.ShowAddFileDialog(path);
+            //string path="blah";
+            //var window = Application.Current.MainWindow as MetroWindow;
+            //window.ShowAddFileDialog(path);
+
+            Item i;
+            CreateFile("test.xD", ItemTypes.UnknownFile, out i);
         }
 
         #endregion
@@ -380,6 +390,33 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             {
                 i.CollapseAll();
             }
+        }
+
+        public bool CreateFile(string name, ItemType type, out Item item, bool addToProject = true)
+        {
+            if (this.type != ItemTypes.Directory) throw new InvalidOperationException("Item is not a directory");
+            if (name.Contains('/') || name.Contains('\\')) throw new ArgumentException("Name has to be the filename not the path", "name");
+            if (this.State != ItemState.NORMAL) throw new InvalidOperationException("Itemstate must be normal");
+
+            string path = this.Path + "/" + name;
+            if (File.Exists(path))
+            {
+                MessageBox.Show("File already exists");
+                item = null;
+                return false;
+            }
+            try
+            {
+                File.Create(path);
+            } catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                item = null;
+                return false;
+            }
+            item = new Item(this, this.logic, type, name, path, addToProject ? ItemState.NORMAL : ItemState.NOT_PROJECT);
+            this.AllChildren.Add(item);
+            return true;
         }
 
         #region NotifyPropertyChanged

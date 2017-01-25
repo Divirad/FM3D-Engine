@@ -93,6 +93,10 @@ namespace FM3D {
 
 			inline Scalar& operator[](byte x) { return components[x]; };
 			inline const Scalar& operator[](byte x) const { return components[x]; };
+
+			inline std::string ToString() const {
+				std::stringstream ss; ss << x << ", " << y << ", " << z; return ss.str();
+			}
 		};
 	}
 }

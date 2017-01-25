@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,11 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
     /// <summary>
     /// Interaction logic for PartsWindow.xaml
     /// </summary>
-    public partial class PartsWindow : ToolWindow
+    public partial class PartsWindow : ToolWindow, INotifyPropertyChanged
     {
         DesignerLib.Mesh mesh;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public PartsWindow(DesignerLib.Mesh mesh)
         {
@@ -29,6 +32,7 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
 
             this.Parts.DataContext = mesh;
             this.mesh = mesh;
+            this.Parts.SelectionChanged += OnSelectedChanged;
         }
 
         private void Parts_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -84,6 +88,16 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
                 }
                 else return null;
             }
+        }
+
+        private void OnSelectedChanged(object sender, EventArgs e)
+        {
+            OnPropertyChanged("SelectedPart");
+        }
+
+        private void OnPropertyChanged(string name)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

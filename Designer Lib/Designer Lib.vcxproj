@@ -90,7 +90,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>EXPORT_DESIGNER_DLL;WIN32;_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
@@ -107,7 +107,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>EXPORT_DESIGNER_DLL;_DEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
     </ClCompile>
@@ -119,7 +119,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>EXPORT_DESIGNER_DLL;WIN32;NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -131,7 +131,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>EXPORT_DESIGNER_DLL;NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -188,6 +188,7 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\vector3.h" />
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
+    <ClInclude Include="src\Dll.h" />
     <ClInclude Include="src\Resources\FoundResource.h" />
     <ClInclude Include="src\Resources\ExternResource.h" />
     <ClInclude Include="src\Global.h" />

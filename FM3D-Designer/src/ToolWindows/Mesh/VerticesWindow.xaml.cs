@@ -19,11 +19,11 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
     /// </summary>
     public partial class VerticesWindow : ToolWindow
     {
-        private PartsWindow partsWindow;
-        public VerticesWindow(PartsWindow partsWindow)
+        public VerticesWindow(WindowLayouts.MeshLayout layout)
         {
-            this.partsWindow = partsWindow;
             InitializeComponent();
+
+            this.grid.DataContext = layout;
         }
     }
 }
