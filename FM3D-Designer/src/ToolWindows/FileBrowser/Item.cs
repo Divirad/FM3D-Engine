@@ -118,8 +118,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         public string Path { get; private set; }
 
+        private Project.FileObject fileObject;
+
         //Constructor
-        public Item(Item parent, Logic logic, ItemType type, string name, string path, ItemState state)
+        public Item(Item parent, Logic logic, ItemType type, string name, string path, ItemState state, Project.FileObject fileObject)
         {
             this.Parent = parent;
             this.logic = logic;
@@ -127,6 +129,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this._Name = name;
             this._State = state;
             this.Path = path;
+            this.fileObject = fileObject;
         }
 
         //Properties and Methods
@@ -414,7 +417,14 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 item = null;
                 return false;
             }
-            item = new Item(this, this.logic, type, name, path, addToProject ? ItemState.NORMAL : ItemState.NOT_PROJECT);
+            if(addToProject)
+            {
+               var dir = new Project.Directory(name, path);
+                (this.fileObject as Project.Directory).Content.Add(dir);
+                (this.fileObject as Project.Directory).SubDirectories.Add(dir);
+                item = new Item(this, this.logic, type, name, path, ItemState.NORMAL, dir);
+            }
+            else item = new Item(this, this.logic, type, name, path, ItemState.NOT_PROJECT, null);
             this.AllChildren.Add(item);
             return true;
         }
