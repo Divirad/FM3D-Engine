@@ -13,57 +13,67 @@ namespace FM3D_Designer.src
 {
     public class Project
     {
-        public class File
+        public class FileObject
         {
-            public File(string name)
+            public string Name { get; protected set; }
+            public string Path { get; set; } = "";
+            public FileObject(string name)
             {
                 this.Name = name;
             }
-            public string Name { get; set; }
-            public string Path { get; set; }
         }
-        public class Folder
+        public class File : FileObject
         {
-            public Folder(string name, string path = "")
+            public File(string name): base(name)
             {
-                this.Name = name;
-                this.Path = path;
-                this.Files = new ObservableCollection<File>();
-                this.SubFolders = new ObservableCollection<Folder>();
+
             }
-
-            public string Name { get; set; }
-
-            public ObservableCollection<Folder> SubFolders { get; set; }
-            public ObservableCollection<File> Files { get; set; }
-            public string Path { get; set; }
+        }
+        public class Directory : FileObject
+        {
+            public Directory(string name, string path = ""): base(name)
+            {
+                this.Content = new ObservableCollection<FileObject>();
+                this.Files = new ObservableCollection<File>();
+                this.SubDirectories = new ObservableCollection<Directory>();
+            }
+            public ObservableCollection<FileObject> Content { get; protected set; }
+            public ObservableCollection<File> Files { get; protected set; }
+            public ObservableCollection<Directory> SubDirectories { get; protected set; }
 
             public void SetFilePaths()
             {
-                foreach (File file in this.Files)
+                foreach (FileObject fo in this.Content)
                 {
-                    file.Path = this.Path + "/" + file.Name;
-                }
-                foreach (Folder folder in this.SubFolders)
-                {
-                    folder.Path = this.Path + "/" + folder.Name;
-                    folder.SetFilePaths();
+                    fo.Path = this.Path + "/" + fo.Name;
+                    (fo as Directory)?.SetFilePaths();
                 }
             }
+        }
+
+        public class RootDirectory : Directory
+        {
+            public RootDirectory(string name, string path, bool visibleInBrowser = true) : base(name)
+            {
+                this.VisibleInBrowser = visibleInBrowser;
+                this.Path = path;
+            }
+
+            public bool VisibleInBrowser { get; protected set; }
         }
 
         private const string ProjectFilesDirectory = "/ProjectFiles";
 
         public string _Name { get; set; }
         public string _Directory { get; set; }
-        public Folder ProjectFiles { get; set; }
+        public RootDirectory ProjectFiles { get; set; }
         private static Project _CurrentProject = null;
         public static Project CurrentProject { get { return _CurrentProject; } }
 
         public Project(string path)
         {
             this._Directory = new FileInfo(path).Directory.FullName;
-            this.ProjectFiles = new Folder("ProjectFiles", this._Directory + ProjectFilesDirectory);
+            this.ProjectFiles = new RootDirectory("ProjectFiles", this._Directory + ProjectFilesDirectory);
 
         }
 
@@ -104,7 +114,7 @@ namespace FM3D_Designer.src
             xml.Close();
         }
 
-        private static void LoadProjectFiles(Folder folder, XmlReader xml)
+        private static void LoadProjectFiles(Directory folder, XmlReader xml)
         {
             while(xml.Read())
             {
@@ -113,19 +123,22 @@ namespace FM3D_Designer.src
                     if(xml.Name == "File")
                     {
                         xml.MoveToAttribute("name");
-                        folder.Files.Add(new File(xml.Value));
+                        var xf = new File(xml.Value);
+                        folder.Content.Add(xf);
+                        folder.Files.Add(xf);
                     }
                     else if(xml.Name == "Folder")
                     {
                         xml.MoveToAttribute("name");
-                        Folder f = new Folder(xml.Value);
+                        Directory f = new Directory(xml.Value);
                         xml.MoveToElement();
                         if (xml.IsStartElement())
                         {
                             xml.MoveToContent();
                             LoadProjectFiles(f, xml);
                         }
-                        folder.SubFolders.Add(f);
+                        folder.Content.Add(f);
+                        folder.SubDirectories.Add(f);
                     }
                 } else if(xml.NodeType == XmlNodeType.EndElement)
                 {
@@ -145,9 +158,9 @@ namespace FM3D_Designer.src
             string scen = path + @"\" + @"ProjectFiles\Scenes";
             string pathtofile = path + @"\" + dirname + ".fmproj";
 
-            Directory.CreateDirectory(text);
-            Directory.CreateDirectory(ent);
-            Directory.CreateDirectory(scen);
+            System.IO.Directory.CreateDirectory(text);
+            System.IO.Directory.CreateDirectory(ent);
+            System.IO.Directory.CreateDirectory(scen);
             ///
             ///XML - Neues XML Element
             ///
@@ -211,7 +224,7 @@ namespace FM3D_Designer.src
             
         }
 
-        public static void InsertDir(Folder folder)
+        public static void InsertDir(Directory folder)
         {
 
         }

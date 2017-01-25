@@ -10,7 +10,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     public static class Creator
     {
-        public static Item CreateItem(DirectoryInfo dirInfo, Project.Folder pFolder, Item parent)
+        public static Item CreateItem(DirectoryInfo dirInfo, Project.Directory pFolder, Item parent)
         {
             if (parent == null)
                 throw new ArgumentNullException("parent", "Item parent cannot be null. For root items use the other overloaded method.");
@@ -18,7 +18,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             return CreateItem(dirInfo, pFolder, parent.State, parent, parent.logic);
         }
 
-        public static Item CreateItem(DirectoryInfo dirInfo, Project.Folder pFolder, Item.ItemState state, Item parent, Logic logic)
+        public static Item CreateItem(DirectoryInfo dirInfo, Project.Directory pFolder, Item.ItemState state, Item parent, Logic logic)
         {
             if (!dirInfo.Exists && state == Item.ItemState.NOT_PROJECT)
                 throw new ArgumentException("Directory doesn't exist but is in a NOT_PROJECT content!");
@@ -28,7 +28,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             var newState = GetNewItemState(dirInfo.Exists, state, pFolder != null);
             Item result = new Item(parent, logic, ItemTypes.Directory, dirInfo.Name, newState == Item.ItemState.NOT_FOUND ? null : dirInfo.FullName, newState);
 
-            ObservableCollection<Project.Folder> folders = pFolder != null ? new ObservableCollection<Project.Folder>(pFolder.SubFolders) : null;
+            ObservableCollection<Project.Directory> folders = pFolder != null ? new ObservableCollection<Project.Directory>(pFolder.SubDirectories) : null;
             ObservableCollection<Project.File> files = pFolder != null ? new ObservableCollection<Project.File>(pFolder.Files) : null;
             try
             {
@@ -37,7 +37,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     if ((d.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                         continue;
 
-                    Project.Folder folder = null;
+                    Project.Directory folder = null;
 
                     if (pFolder != null)
                     {
