@@ -150,13 +150,13 @@
     <ClInclude Include="src\OpenGL\InternCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Dll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Resources\ExternResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Resources\FoundResource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Resources\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Resources\InternMesh.h">
@@ -165,7 +165,7 @@
     <ClInclude Include="src\Resources\InternMeshW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Dll.h">
+    <ClInclude Include="src\Resources\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,10 +200,10 @@
     <ClCompile Include="src\Resources\InternMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\Mesh.cpp">
+    <ClCompile Include="src\Resources\InternMeshW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\InternMeshW.cpp">
+    <ClCompile Include="src\Resources\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

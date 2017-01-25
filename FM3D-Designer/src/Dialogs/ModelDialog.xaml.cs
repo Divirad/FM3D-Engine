@@ -36,4 +36,19 @@ namespace FM3D_Designer.src.Dialogs
             Close();
         }
     }
+
+    [ValueConversion(typeof(FoundResource.Type), typeof(string))]
+    public class ModelDialogIconConverter: IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            
+            return "/FM3D-Designer;component/resources/images/ModelDialog/" + Enum.GetName(typeof(FoundResource.Type), value) + "_icon.png";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
 }

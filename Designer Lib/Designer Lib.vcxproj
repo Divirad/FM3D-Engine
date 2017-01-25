@@ -189,12 +189,7 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
     <ClInclude Include="src\Dll.h" />
-    <ClInclude Include="src\Resources\FoundResource.h" />
-    <ClInclude Include="src\Resources\ExternResource.h" />
     <ClInclude Include="src\Global.h" />
-    <ClInclude Include="src\Resources\InternMesh.h" />
-    <ClInclude Include="src\Resources\InternMeshW.h" />
-    <ClInclude Include="src\Resources\Mesh.h" />
     <ClInclude Include="src\OpenGL\InternCamera.h" />
     <ClInclude Include="src\OpenGL\InternOpengl.h" />
     <ClInclude Include="resource.h" />
@@ -203,12 +198,15 @@
     <ClInclude Include="src\OpenGL\Wrapper\Camera.h" />
     <ClInclude Include="src\OpenGL\Wrapper\Opengl.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Resources\ExternResource.h" />
+    <ClInclude Include="src\Resources\FoundResource.h" />
+    <ClInclude Include="src\Resources\InternMesh.h" />
+    <ClInclude Include="src\Resources\InternMeshW.h" />
+    <ClInclude Include="src\Resources\Mesh.h" />
     <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="src\Resources\ExternResource.cpp" />
-    <ClCompile Include="src\Resources\FoundResource.cpp" />
     <ClCompile Include="src\Global.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </CompileAsManaged>
@@ -224,8 +222,16 @@
     <ClCompile Include="src\ExternFileLoader.cpp" />
     <ClCompile Include="src\OpenGL\Wrapper\Renderable.cpp" />
     <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
+    <ClCompile Include="src\Resources\ExternResource.cpp" />
+    <ClCompile Include="src\Resources\FoundResource.cpp" />
     <ClCompile Include="src\Resources\InternMesh.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\Resources\InternMeshW.cpp" />

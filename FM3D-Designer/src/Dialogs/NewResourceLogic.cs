@@ -12,6 +12,8 @@ namespace FM3D_Designer.src.Dialogs
 {
     class NewResourceLogic : INotifyPropertyChanged
     {
+        public DialogBase Dialog { get; set; }
+
         #region Commands
         public Command TypeCommand { get; private set; }
         private void OnRadioChanged(object param)
@@ -49,8 +51,16 @@ namespace FM3D_Designer.src.Dialogs
 
         private void OnAddClick(object param)
         {
-            var window = System.Windows.Application.Current.MainWindow as MetroWindow;
-            window.ShowModelDialog(this.Path);
+            Dialog.Close();
+            switch (selectedType)
+            {
+                case 0:
+                    throw new NotImplementedException("Texture loading not implemented");
+                case 1:
+                    var window = System.Windows.Application.Current.MainWindow as MetroWindow;
+                    window.ShowModelDialog(this.Path);
+                    break;
+            }
         }
         public Command AddCommand { get; private set; }
         #endregion

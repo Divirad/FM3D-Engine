@@ -290,6 +290,7 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\chain.png" />
     <Resource Include="resources\images\hidden.png" />
     <Resource Include="resources\images\start_icon.png" />
     <Resource Include="resources\images\vs_icon.png" />

@@ -26,6 +26,7 @@ namespace FM3D_Designer.src.Dialogs
         public NewResourceDialog(MetroWindow window) : base(window)
         {
             InitializeComponent();
+            (this.Resources["logic"] as NewResourceLogic).Dialog = this;
         }
 
         public void Cancel(object sender, RoutedEventArgs e)

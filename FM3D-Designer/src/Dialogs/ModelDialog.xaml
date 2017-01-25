@@ -15,6 +15,8 @@
 
     <MahApps:BaseMetroDialog.Resources>
         <lib:ExternResource x:Key="res"/>
+        <BooleanToVisibilityConverter x:Key=" BToVConv"/>
+        <local:ModelDialogIconConverter x:Key="IconConv"/>
     </MahApps:BaseMetroDialog.Resources>
 
     <StackPanel Orientation="Vertical">
@@ -48,28 +50,23 @@
             </TreeView.ItemTemplate>
         </TreeView>-->
 
-        <dc:AdvTree>
+        <dc:AdvTree DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
             <dc:AdvTree.ColumnDefinitions>
                 <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True" IsContextMenuEnabled="False">
-                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name" />
+                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name" >
+                        <dc:ColumnDefinition.CellContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="20" Source="/FM3D-Designer;component/resources/images/chain.png" /> <!--Visibility="{Binding IsReference, Converter={StaticResource BToVConv}}"/>-->
+                                    <Image Height="20" Source="{Binding Type, Converter={StaticResource IconConv}}"/>
+                                    <TextBlock Height="20" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </dc:ColumnDefinition.CellContentTemplate>
+                    </dc:ColumnDefinition>
+                    <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path" CellIsEditable="True"/>
                 </dc:ColumnDefinitionCollection>
             </dc:AdvTree.ColumnDefinitions>
-            <dc:AdvTree.ItemContainerStyle>
-                <Style TargetType="{x:Type dc:AdvTreeNode}">
-                    <Style.Resources>
-                        <AlternationConverter x:Key="BackgroundConverter">
-                            <SolidColorBrush>Transparent</SolidColorBrush>
-                            <SolidColorBrush>#EFEFEF</SolidColorBrush>
-                            <SolidColorBrush>#DFDFDF</SolidColorBrush>
-                        </AlternationConverter>
-                    </Style.Resources>
-                    <Setter Property="ItemsSource" Value="{Binding Children}" />
-                    <Setter Property="InheritsColumns" Value="Always" />
-                    <Setter Property="ImageSource" Value="{Binding ImageSource}" />
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=AlternationIndex, Converter={StaticResource BackgroundConverter}}" />
-                </Style>
-            </dc:AdvTree.ItemContainerStyle>
         </dc:AdvTree>
     </StackPanel>
 </local:DialogBase>
