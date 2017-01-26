@@ -52,21 +52,49 @@
 
         <dc:AdvTree DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
             <dc:AdvTree.ColumnDefinitions>
-                <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True" IsContextMenuEnabled="False">
-                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name" >
-                        <dc:ColumnDefinition.CellContentTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Height="20" Source="/FM3D-Designer;component/resources/images/chain.png" /> <!--Visibility="{Binding IsReference, Converter={StaticResource BToVConv}}"/>-->
-                                    <Image Height="20" Source="{Binding Type, Converter={StaticResource IconConv}}"/>
-                                    <TextBlock Height="20" Text="{Binding Name}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </dc:ColumnDefinition.CellContentTemplate>
+                <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True" IsContextMenuEnabled="True">
+                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name"/>
+                    <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path">
+                        <dc:ColumnDefinition.CellStyle>
+                            <Style TargetType="{x:Type dc:AdvTreeCell}">
+                                <Setter Property="IsEditable" Value="{Binding IsReference}"/>
+                            </Style>
+                        </dc:ColumnDefinition.CellStyle>
                     </dc:ColumnDefinition>
-                    <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path" CellIsEditable="True"/>
                 </dc:ColumnDefinitionCollection>
             </dc:AdvTree.ColumnDefinitions>
+            <dc:AdvTree.ItemContainerStyle>
+                <Style TargetType="{x:Type dc:AdvTreeNode}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsReference}" Value="True">
+                            <Setter Property="ImageSource">
+                                <Setter.Value>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup>
+                                                <ImageDrawing Rect="0,0,18,18" ImageSource="/FM3D-Designer;component/resources/images/chain.png"/>
+                                                <ImageDrawing Rect="20,0,18,18" ImageSource="{Binding ResType, Converter={StaticResource IconConv}}"/>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsReference}" Value="False">
+                            <Setter Property="ImageSource">
+                                <Setter.Value>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <ImageDrawing Rect="20,0,18,18" ImageSource="{Binding ResType, Converter={StaticResource IconConv}}"/>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
+                </Style>
+            </dc:AdvTree.ItemContainerStyle>
         </dc:AdvTree>
     </StackPanel>
 </local:DialogBase>

@@ -43,7 +43,8 @@ namespace FM3D_Designer.src.Dialogs
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             
-            return "/FM3D-Designer;component/resources/images/ModelDialog/" + Enum.GetName(typeof(FoundResource.Type), value) + "_icon.png";
+            string s =  "/FM3D-Designer;component/resources/images/ModelDialog/" + Enum.GetName(typeof(FoundResource.Type), value) + "_icon.png";
+            return s;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

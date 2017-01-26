@@ -31,10 +31,10 @@ namespace FM3D_Designer.src.Dialogs
             fileDialog.Filter = textureFiles + "|" + modelFiles + "|" + allFiles;
             switch(selectedType)
             {
-                case 1:
+                case 0:
                     fileDialog.FilterIndex = 1;
                     break;
-                case 2:
+                case 1:
                     fileDialog.FilterIndex = 2;
                     break;
                 default:
