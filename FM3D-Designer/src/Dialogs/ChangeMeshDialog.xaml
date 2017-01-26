@@ -1,0 +1,51 @@
+﻿<local:DialogBase x:Class="FM3D_Designer.src.Dialogs.ChangeMeshDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FM3D_Designer.src.Dialogs"
+        xmlns:MahApps="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
+        xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
+
+        mc:Ignorable="d"
+        Title="Choose a Mesh"
+        Height="300"
+        HorizontalAlignment="Stretch">
+    <local:DialogBase.Resources>
+        <local:IntUnequalToBoolConverter x:Key="IUBConv"/>
+    </local:DialogBase.Resources>
+    <Grid x:Name="grid" Width="421">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="40, 0" Orientation="Vertical">
+            <TextBlock Text="Meshes" Margin="0, 0, 0, 5" FontSize="16"/>
+            <ListBox BorderThickness="2" x:Name="list" ItemsSource="{Binding Meshes}" Grid.Row="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <Grid Height="70" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Grid.Column="1" Click="Button_Accept" IsEnabled="{Binding SelectedIndex, ElementName=list, Converter={StaticResource IUBConv}, ConverterParameter=-1}">Accept</Button>
+            <Button Grid.Row="1" Grid.Column="3" Click="Button_Cancel">Cancel</Button>
+        </Grid>
+
+    </Grid>
+</local:DialogBase>

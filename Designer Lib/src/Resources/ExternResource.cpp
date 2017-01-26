@@ -15,7 +15,7 @@ void DesignerLib::ExternResource::Load(System::String^ path) {
 	if (!scene) System::Windows::Forms::MessageBox::Show(ConvertString("Assimp Error: Failed loading " + ConvertString(path)), "DesignerLib Error");
 
 	if (scene->mNumMeshes != 0) {
-		FoundResource^ mesh = gcnew FoundResource("Combined Mesh", "Mesh-Path", FoundResource::Type::Mesh);
+		FoundResource^ mesh = gcnew FoundResource("Combined Mesh", "Mesh-Path", ResourceType::Mesh, this);
 		this->Resources->Add(mesh);
 		for (uint i = 0U; i < scene->mNumMeshes; i++) {
 			std::string name = scene->mMeshes[i]->mName.data;
@@ -23,8 +23,8 @@ void DesignerLib::ExternResource::Load(System::String^ path) {
 			if (name.length() == 0) {
 				name = "Part " + std::to_string(i);
 			}
-			auto part = gcnew FoundResource(name, name + "-Path", FoundResource::Type::MeshPart);
-			mesh->Content->Add(gcnew FoundResource(mesh, part));
+			auto part = gcnew FoundResource(name, name + "-Path", ResourceType::MeshPart, this);
+			mesh->Content->Add(gcnew FoundResource(mesh, part, this));
 			this->Resources->Add(part);
 		}
 	}
