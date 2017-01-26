@@ -14,7 +14,7 @@ namespace FM3D {
 	void Camera::Preset(PRESET pre, bool showcursor) {
 		Window *win = Window::GetInstance();
 		Vector2i CenterCursor(win->GetWinPos() + (win->GetWinSize() / 2));
-
+		std::cout << "Diplaycount" << ShowCursor(false);
 		if (showcursor) {
 			ShowCursor(true);
 		}else{ ShowCursor(false); }
@@ -33,10 +33,28 @@ namespace FM3D {
 
 	}
 
-	void Camera::FP_pres(float percent){
+	void Camera::FP_pres(float percent) {
 
-			Vector2f dif = INPUT->GetLastposInst().Subtract(last);
-			last = INPUT->GetLastposInst();
-			m_rotation = m_rotation.Subtract(Vector3f(dif.y, dif.x, 0.0f));
+		//Vector2f mousePos = INPUT->GetLastposInst();// .Subtract(last);
+			//last = INPUT->GetLastposInst();
+			//m_rotation = m_rotation.Subtract(Vector3f(dif.y, dif.x, 0.0f));
+		tagPOINT mp;
+		GetCursorPos(&mp);
+		ScreenToClient(((Win32Window*)Window::GetInstance())->GetHWND(), &mp);
+		Vector2f mousePos(mp.x, mp.y);
+		Vector2f center = Vector2f(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
+		center *= 0.5f;
+		Vector2f dif = Vector2f::Subtract(mousePos, center);
+		std::cout << "Mouse: " << dif << std::endl;
+		dif *= -0.3f;
+		m_rotation.y += dif.x;
+		m_rotation.x += dif.y;
+
+		//Set Mouse to Center
+		tagPOINT p;
+		p.x = Window::GetInstance()->GetWidth() / 2;
+		p.y = Window::GetInstance()->GetHeight() / 2;
+		ClientToScreen(((Win32Window*)Window::GetInstance())->GetHWND(), &p);
+		SetCursorPos(p.x, p.y);
 	}
 }

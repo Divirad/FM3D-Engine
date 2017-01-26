@@ -9,7 +9,7 @@ void Move(Camera& camera);
 Vector3f& SetHill(Vector3f& vec);
 Vector3f SetHillNormal(Vector3f& vec);
 EntityPtr CreateEntity(EntityCollection&, const Vector3f&, const Vector3f&, const Vector3f&, Model*);
-AnimatedModel* GetModel(EntityPtr& e);
+const AnimatedModel* GetModel(EntityPtr& e);
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
@@ -140,18 +140,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->EndRendering();
 
-			GetModel(boba)->AddToAnimationTime(1.0f / 60.0f);
-			if (GetModel(boba)->GetAnimationTime() >= GetModel(boba)->GetAnimation()->GetDuration())
-				GetModel(boba)->SetAnimationTime(0.0);
+			//GetModel(boba)->AddToAnimationTime(1.0f / 60.0f);
+			//if (GetModel(boba)->GetAnimationTime() >= GetModel(boba)->GetAnimation()->GetDuration())
+			//	GetModel(boba)->SetAnimationTime(0.0);
 
-			GetModel(shuttle)->AddToAnimationTime(1.0f / 60.0f);
-			if (GetModel(shuttle)->GetAnimationTime() >= GetModel(shuttle)->GetAnimation()->GetDuration())
-				GetModel(shuttle)->SetAnimationTime(0.0);
+			//GetModel(shuttle)->AddToAnimationTime(1.0f / 60.0f);
+			//if (GetModel(shuttle)->GetAnimationTime() >= GetModel(shuttle)->GetAnimation()->GetDuration())
+			//	GetModel(shuttle)->SetAnimationTime(0.0);
 
 
 			Move(camera);
 			
-				camera.Preset(camera.FIRSTPERSON, true);
+			camera.Preset(camera.FIRSTPERSON, false);
 			
 			QueryPerformanceCounter(&time2);
 			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;
@@ -254,7 +254,7 @@ EntityPtr CreateEntity(EntityCollection& col, const Vector3f& pos, const Vector3
 	e->Add<RenderableComponent>(mod);
 	return e;
 }
-AnimatedModel* GetModel(EntityPtr& e) {
+const AnimatedModel* GetModel(EntityPtr& e) {
 	RenderableComponent* r = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId));
-	return static_cast<AnimatedModel*>(r->GetModel());
+	return static_cast<const AnimatedModel*>(r->GetModel());
 }
