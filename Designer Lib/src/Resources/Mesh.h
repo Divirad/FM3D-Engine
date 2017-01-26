@@ -49,7 +49,7 @@ namespace DesignerLib {
 
 		property System::Collections::ObjectModel::ObservableCollection<Vertex^>^ Vertices {
 			System::Collections::ObjectModel::ObservableCollection<Vertex^>^ get() {
-				auto vec = m_part->GetVertices();
+ 				auto vec = m_part->GetVertices();
 				if (vec == nullptr) return nullptr;
 				auto coll = gcnew System::Collections::ObjectModel::ObservableCollection<Vertex^>();
 				for (const auto& v : *vec) {
