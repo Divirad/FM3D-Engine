@@ -8,52 +8,45 @@ using namespace System::Windows::Controls;
 namespace DesignerLib {
 
 	ref class ResourceReference;
+	ref class FoundResource;
+	ref class ExternResource;
+
+	public enum class ResourceType {
+		Unknown,
+		Mesh,
+		MeshPart,
+		Animation,
+		Texture,
+		Material,
+		Skeleton,
+	};
+
+	public interface class IResourceContainer {
+	public:
+		virtual void OnRemove(FoundResource^) = 0;
+		virtual void OnDelete(FoundResource^) = 0;
+		virtual void OnChangeMesh(FoundResource^) = 0;
+	};
 
 	public ref class FoundResource : INotifyPropertyChanged {
 	public:
-		enum class Type {
-			Unknown,
-			Mesh,
-			MeshPart,
-			Animation,
-			Texture,
-			Material,
-			Skeleton,
-		};
 
 		property System::String^ Name;
 		property System::String^ Path;
-		property Type^ ResType;
+		property ResourceType ResType;
 		property ObservableCollection<FoundResource^>^ Content;
 		property bool IsReference;
 		property FoundResource^ Parent;
 		property FoundResource^ Reference;
+		property ExternResource^ Master;
 
 		property ContextMenu^ CMenu {
-			ContextMenu^ get() {
-				auto menu = gcnew ContextMenu();
-
-				if (*ResType == Type::MeshPart) {
-					auto changeMesh = gcnew MenuItem();
-					changeMesh->Click += gcnew System::Windows::RoutedEventHandler(this, &FoundResource::OnChangeMesh);
-					menu->Items->Add(changeMesh);
-				}
-				if (IsReference) {
-					auto remove = gcnew MenuItem();
-					remove->Click += gcnew System::Windows::RoutedEventHandler(this, &FoundResource::OnRemove);
-					menu->Items->Add(remove);
-				}
-				else {
-					auto delet = gcnew MenuItem();
-					delet->Click += gcnew System::Windows::RoutedEventHandler(this, &FoundResource::OnDelete);
-					menu->Items->Add(delet);
-				}
-				return menu;
-			}
+			ContextMenu^ get();
 		}
 
-		FoundResource(std::string name, std::string path, Type^ type);
-		FoundResource(FoundResource^ parent, FoundResource^ reference);
+		FoundResource(std::string name, std::string path, ResourceType type, ExternResource^ master);
+		FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master);
+		FoundResource(FoundResource^ parent, FoundResource^ reference, ExternResource^ master);
 		FoundResource();
 
 		virtual event PropertyChangedEventHandler^ PropertyChanged;
@@ -63,14 +56,12 @@ namespace DesignerLib {
 			this->PropertyChanged(this, gcnew PropertyChangedEventArgs(name));
 		}
 
-		void OnRemove(Object^ sender, System::Windows::RoutedEventArgs^ e) {
-
+		void OnResourcesChanged(Object^ sender, System::Collections::Specialized::NotifyCollectionChangedEventArgs^ e) {
+			OnPropertyChanged("CMenu");
 		}
-		void OnDelete(Object^ sender, System::Windows::RoutedEventArgs^ e) {
 
-		}
-		void OnChangeMesh(Object^ sender, System::Windows::RoutedEventArgs^ e) {
-
-		}
+		void OnRemove(Object^ sender, System::Windows::RoutedEventArgs^ e);
+		void OnDelete(Object^ sender, System::Windows::RoutedEventArgs^ e);
+		void OnChangeMesh(Object^ sender, System::Windows::RoutedEventArgs^ e);
 	};
 }

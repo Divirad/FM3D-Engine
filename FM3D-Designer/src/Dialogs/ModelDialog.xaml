@@ -7,52 +7,44 @@
         xmlns:MahApps="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
         xmlns:dc="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
-
+        x:Name="dialog"
         mc:Ignorable="d"
         Title="NewResourceDialog"
-        Height="300"
+        Height="600"
         HorizontalAlignment="Stretch">
 
     <MahApps:BaseMetroDialog.Resources>
         <lib:ExternResource x:Key="res"/>
         <BooleanToVisibilityConverter x:Key=" BToVConv"/>
         <local:ModelDialogIconConverter x:Key="IconConv"/>
+        <local:MeshTypeConverter x:Key="MTConv"/>
     </MahApps:BaseMetroDialog.Resources>
 
-    <StackPanel Orientation="Vertical">
-        <!--<TreeView DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
-            <TreeView.Resources>
-                <DataTemplate x:Key="referenceTemplate" DataType="lib:ResourceReference">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="4, 0" IsChecked="{Binding Active, Mode=TwoWay}"/>
-                        <TextBlock Margin="4, 0" Text="{Binding Name}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Available}" Value="False">
-                                            <Setter Property="Foreground" Value="Red"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.Resources>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="lib:FoundResource" ItemsSource="{Binding References}" ItemTemplate="{StaticResource referenceTemplate}">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="4, 0" IsChecked="{Binding Selected, Mode=TwoWay}"/>
-                        <TextBlock Margin="4, 0" Text="{Binding Name}"/>
-                        <TextBox Margin="4, 0" Text="{Binding Path, Mode=TwoWay}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
 
-        <dc:AdvTree DataContext="{StaticResource res}" ItemsSource="{Binding Resources, Mode=OneWay}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Grid.Column="1" Click="Button_Mesh" VerticalAlignment="Top">Add new Mesh</Button>
+            <Button Grid.Row="1" Grid.Column="1" Click="Button_Accept" VerticalAlignment="Center">Accept</Button>
+            <Button Grid.Row="1" Grid.Column="1" Click="Button_Cancel" VerticalAlignment="Bottom">Cancel</Button>
+        </Grid>
+
+        <dc:AdvTree Margin="0, 30" Grid.Column="1" DataContext="{StaticResource res}" SelectionMode="Single" SelectionBoxType="Full" ItemsSource="{Binding Resources, Mode=OneWay}">
             <dc:AdvTree.ColumnDefinitions>
-                <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True" IsContextMenuEnabled="True">
+                <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True">
                     <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name"/>
                     <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path">
                         <dc:ColumnDefinition.CellStyle>
@@ -65,6 +57,19 @@
             </dc:AdvTree.ColumnDefinitions>
             <dc:AdvTree.ItemContainerStyle>
                 <Style TargetType="{x:Type dc:AdvTreeNode}">
+                    <!--<Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Change Mesh" Command="{Binding ChangeMeshCommand, ElementName=dialog}"
+                                          Visibility="{Binding ResType, Converter={StaticResource MTConv}, ConverterParameter={x:Static lib:ResourceType.MeshPart}}" Click="MenuItem_Click"/>
+                                <MenuItem Header="Remove" Command="{Binding RemoveCommand, Source={RelativeSource FindAncestor, AncestorType={x:Type local:DialogBase}}}"
+                                          Visibility="{Binding ResType, Converter={StaticResource MTConv}, ConverterParameter={x:Static lib:ResourceType.MeshPart}}"/>
+                                <MenuItem Header="Delete" Command="{Binding DeleteCommand, Source={RelativeSource FindAncestor, AncestorType={x:Type local:DialogBase}}}"
+                                          Visibility="{Binding ResType, Converter={StaticResource MTConv}, ConverterParameter={x:Static lib:ResourceType.MeshPart}}"/>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>-->
+                    <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsReference}" Value="True">
                             <Setter Property="ImageSource">
@@ -92,9 +97,8 @@
                             </Setter>
                         </DataTrigger>
                     </Style.Triggers>
-                    <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
                 </Style>
             </dc:AdvTree.ItemContainerStyle>
         </dc:AdvTree>
-    </StackPanel>
+    </Grid>
 </local:DialogBase>

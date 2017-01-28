@@ -17,6 +17,11 @@ namespace FM3D_Designer.src.Dialogs
             Window = win;
         }
 
+        public DialogBase()
+        {
+            Window = MainWindow.Instance;
+        }
+
         public void Close()
         {
             Window.HideMetroDialogAsync(this);
@@ -44,6 +49,10 @@ namespace FM3D_Designer.src.Dialogs
         {
             window.ShowMetroDialogAsync(new ModelDialog(window, path));
         }
-        
+
+        public static void ShowChangeMeshDialog(this MetroWindow window, DesignerLib.ExternResource res, DesignerLib.FoundResource fres)
+        {
+            window.ShowMetroDialogAsync(new ChangeMeshDialog(window, res, fres));
+        }
     }
 }

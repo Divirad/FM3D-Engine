@@ -102,6 +102,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="PipeSystem.cs" />
+    <Compile Include="src\Dialogs\ChangeMeshDialog.xaml.cs">
+      <DependentUpon>ChangeMeshDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\InvBooleanToVisibilityConverter.cs" />
     <Compile Include="src\ToolWindows\Mesh\PartsPropWindow.xaml.cs">
       <DependentUpon>PartsPropWindow.xaml</DependentUpon>
@@ -178,6 +181,10 @@
     </Compile>
     <Compile Include="src\WindowLayout.cs" />
     <Page Include="src\Dialogs\AddFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\Dialogs\ChangeMeshDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

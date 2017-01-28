@@ -26,7 +26,7 @@ namespace FM3D_Designer.src
         private Action<object> action;
         private Func<object, bool> condition;
 
-        public Command(Action<object> action, Func<object, bool> condition)
+        public Command(Action<object> action, Func<object, bool> condition = null)
         {
             if (action == null) throw new ArgumentNullException("action");
             this.action = action;

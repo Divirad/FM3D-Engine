@@ -16,6 +16,7 @@ namespace DesignerLib {
 		const aiScene* scene;
 	public:
 		property ObservableCollection<FoundResource^>^ Resources;
+		property IResourceContainer^ Master;
 
 		ExternResource();
 		~ExternResource();
