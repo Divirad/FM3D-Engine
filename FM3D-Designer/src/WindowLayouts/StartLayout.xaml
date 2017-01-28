@@ -24,48 +24,18 @@
         <Menu x:Name="menu" Grid.Row="0">
 
             <MenuItem Header="_File">
-                <!--MenuItem Header="New" Command="New"/>
+                <MenuItem Header="New" Command="New"/>
                 <MenuItem Header="Open" Command="Open"/>
                 <Separator />
-                <MenuItem Header="Add Item" />
-                <Separator /-->
                 <MenuItem Header="Close" />
-                <MenuItem Header="Close Project" />
                 <Separator />
-                <MenuItem Header="Save" Command="Save" />
-                <MenuItem Header="Save All" />
-                <MenuItem Header="Save As..." Command="SaveAs" />
-                <Separator />
-                <MenuItem Header="Last File" />
+            </MenuItem>
+            <MenuItem Header="Last File" />
                 <MenuItem Header="Last Project" />
-                <Separator />
-                <MenuItem Header="Exit" Command="Close"/>
-            </MenuItem>
-            <MenuItem Header="_Edit">
-                <MenuItem Header="Undo" Command="Undo"/>
-                <MenuItem Header="Redo" Command="Redo"/>
-                <Separator />
-                <MenuItem Header="Cut" Command="Cut" />
-                <MenuItem Header="Copy" Command="Copy"/>
-                <MenuItem Header="Paste" Command="Paste"/>
-                <MenuItem Header="Delete" Command="Delete"/>
-                <MenuItem Header="Select All" Command="SelectAll"/>
-            </MenuItem>
-
-            <MenuItem Header="_View">
-                <MenuItem Header="Code"/>
-                <MenuItem Header="Designer"/>
-                <MenuItem Header="Open with..."/>
-                <Separator />
-                <MenuItem Header="File Browser"/>
-                <Separator />
-                <MenuItem Header="Start Page"/>
-                <Separator/>
+                <MenuItem Header="_View">
                 <MenuItem Header="Minimize"/>
                 <MenuItem Header="Maximize"/>
-                <MenuItem Header="Close"/>
             </MenuItem>
-            <MenuItem Header="_Window" />
             <MenuItem Header="_Help" />
         </Menu>
         <!--GRID DEFINITION-->
@@ -128,19 +98,20 @@
 
 
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
-	            Text="GIVE ME UR CODE"
+	            Text="For more help click 'Help' in the context menu."
 	            HorizontalAlignment="Stretch" Margin="10,200,10,10" VerticalAlignment="Top" Padding="5" FontSize="20"></TextBlock>
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
-	            Text="USE ME"
+	            Text="Start with loading or creating a new project."
 	            HorizontalAlignment="Stretch" Margin="10,170,10,10" VerticalAlignment="Top" Padding="5" FontSize="20"></TextBlock>
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
-	            Text="BIATCH "
+	            Text="to use them in your game with the FM3D Engine!"
 	            HorizontalAlignment="Stretch" Margin="10,140,10,10" VerticalAlignment="Top" Padding="5" FontSize="20"></TextBlock>
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
-	            Text="This is a fancy designer for the fanciest Engine EUW!"
+	            Text="The FM3D Designer is a usefull tool to edit your Entities"
 	            HorizontalAlignment="Stretch" Margin="10,110,10,10" VerticalAlignment="Top" Padding="5" FontSize="20"></TextBlock>
+            
             <TextBlock Grid.Column="1" Grid.Row ="0" Background="Beige"
-	            Text="Have Fun With This Fancy Engine"
+	            Text="Quick Start"
 	            HorizontalAlignment="Stretch" Margin="10,70,10,10" VerticalAlignment="Top" Padding="5" FontSize="30"></TextBlock>
 
             <Image
