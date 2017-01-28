@@ -23,7 +23,7 @@ namespace FM3D {
 		};
 		std::vector<Buffer> m_glBuffers;
 	public:
-		GL3Mesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<Part>& parts);
+		GL3Mesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<MeshPart>& parts);
 		~GL3Mesh();
 
 		void Bind(uint index) const;

@@ -92,7 +92,7 @@ namespace FM3D {
 		}
 	}
 
-	static void InitializePart(Mesh::Part& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
+	static void InitializePart(MeshPart& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
 
 		for (unsigned int j = 0; j < mesh->mNumBones; j++) {
@@ -366,7 +366,7 @@ namespace FM3D {
 		//MESH SECTION
 		map<string, unsigned int> boneIndex;
 		DynamicRawArray<Matrix4f> boneOffsetMatrices(0);
-		Array<Mesh::Part> parts(meshIds.size());
+		Array<MeshPart> parts(meshIds.size());
 		uint c = 0;
 		for (uint meshIndex : meshIds) {
 			InitializePart(parts[c], scene, meshIndex, meshMatrices[c], boneIndex, boneOffsetMatrices, supportsInstancing, useAnimation, modelMatrix);
@@ -386,7 +386,7 @@ namespace FM3D {
 		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(RawArray<Matrix4f>(boneOffsetMatrices), RawArray<Animation>(animations)) : nullptr, supportsInstancing, parts);
 		boneOffsetMatrices.Delete();
 		animations.Delete();
-		for (Mesh::Part& p : parts) {
+		for (MeshPart& p : parts) {
 			delete[] (uint*) p.indices;
 		}
 		if(isAnimated && useAnimation) *result = new AnimatedModel(mesh, RawArray<const Material*>(parts.Size()), nullptr, 0.0);

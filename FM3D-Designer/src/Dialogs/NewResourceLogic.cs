@@ -51,7 +51,7 @@ namespace FM3D_Designer.src.Dialogs
 
         private void OnAddClick(object param)
         {
-            Dialog.Close();
+            Dialog.CloseW();
             switch (selectedType)
             {
                 case 0:

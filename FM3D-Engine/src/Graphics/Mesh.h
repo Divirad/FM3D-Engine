@@ -3,6 +3,16 @@
 
 namespace FM3D {
 
+	struct ENGINE_DLL MeshPart {
+		uint indicesCount;
+		void* indices;
+		Vertices vertices;
+		uint indexSize;
+		bool supportsInstancing;
+
+		MeshPart(uint indicesCount, void* indices, Vertices vertices, uint indexSize, bool supportsInstancing);
+	};
+
 	///<summary>
 	///Collection of polygons for presenting a game object on the screen
 	///</summary>
@@ -15,16 +25,6 @@ namespace FM3D {
 		struct InstanceData {
 			Matrix4f modelMatrix;
 			uint color;
-		};
-		
-		struct ENGINE_DLL Part {
-			uint indicesCount;
-			void* indices;
-			Vertices vertices;
-			uint indexSize;
-			bool supportsInstancing;
-
-			Part(uint indicesCount, void* indices, Vertices vertices, uint indexSize, bool supportsInstancing);
 		};
 
 	private:

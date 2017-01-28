@@ -23,11 +23,13 @@ namespace FM3D_Designer.src.Dialogs
     public partial class ChangeMeshDialog : DialogBase
     {
         public ObservableCollection<DesignerLib.FoundResource> Meshes { get; private set; }
+        private DesignerLib.FoundResource res;
 
         public ChangeMeshDialog(MetroWindow window, DesignerLib.ExternResource res, DesignerLib.FoundResource fres) : base(window)
         {
 
             this.Meshes = new ObservableCollection<DesignerLib.FoundResource>();
+            this.res = fres;
 
             foreach (var fr in res.Resources)
             {
@@ -53,6 +55,9 @@ namespace FM3D_Designer.src.Dialogs
 
         private void Button_Accept(object sender, RoutedEventArgs e)
         {
+            var mesh = this.Meshes[this.list.SelectedIndex];
+            this.res.Parent.Content.Remove(this.res);
+            mesh.Content.Add(this.res);
             this.Close();
         }
 

@@ -9,17 +9,19 @@ using namespace std;
 namespace DesignerLib {
 
 	Vertex::Vertex(const InternVertex* v) {
-		this->Position = ConvertString(v->position);
-		this->TexCoord = ConvertString(v->texCoord);
-		this->Normal = ConvertString(v->normal);
-		this->Color = ConvertString(v->color);
-		this->BoneIndex = ConvertString(v->boneIndex);
-		this->BoneWeight = ConvertString(v->boneWeight);
-		this->Tangent = ConvertString(v->tangent);
+		this->Position = v->position.empty() ? nullptr : ConvertString(v->position);
+		this->TexCoord = v->texCoord.empty() ? nullptr : ConvertString(v->texCoord);
+		this->Normal = v->normal.empty() ? nullptr : ConvertString(v->normal);
+		this->Color = v->color.empty() ? nullptr : ConvertString(v->color);
+		this->BoneIndex = v->boneIndex.empty() ? nullptr : ConvertString(v->boneIndex);
+		this->BoneWeight = v->boneWeight.empty() ? nullptr : ConvertString(v->boneWeight);
+		this->Tangent = v->tangent.empty() ? nullptr : ConvertString(v->tangent);
 	}
 
-	MeshPart::MeshPart() {
-		m_part = new InternMeshPart();
+	MeshPart::MeshPart(System::String^ name, bool vis, FM3D::MeshPart* part) {
+		this->Name = name;
+		this->Visible = vis;
+		m_part = new InternMeshPart(part);
 	}
 
 	ObservableCollection<String^>^ MeshPart::Conv(vector<string>* str) {
@@ -29,6 +31,13 @@ namespace DesignerLib {
 			coll->Add(ConvertString(s));
 		}
 		return coll;
+	}
+
+	Mesh::Mesh(ObservableCollection<MeshPart^>^ parts) {
+		this->Parts = gcnew ObservableCollection<MeshPart^>();
+		for each(auto p in parts) {
+			this->Parts->Add(p);
+		}
 	}
 
 }
