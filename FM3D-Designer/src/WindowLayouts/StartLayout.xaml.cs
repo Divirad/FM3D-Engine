@@ -43,16 +43,66 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
+            LoadProj(sender,  e);
+        }
+
+        private bool LoadProj(object sender, RoutedEventArgs e)
+        {
+            string xmlfile = System.IO.File.ReadAllText(this.tb_path.Text);
+            if (!xmlfile.Contains("<Project>") || !xmlfile.Contains("</Project>"))
+            {
+                ShowMessage("Errorcode EIFOK", "No FM3D Project!\nOpen a ~REAL~ FM3D Project!\n;)");
+                return false;
+            }
+
+            if (!xmlfile.Contains("ProjectFiles") || !xmlfile.Contains("/ProjectFiles"))
+            {
+                ShowMessage("Error", "This project is damaged!\nNo ProjectFiles found!");
+                return false;
+            }
+
+            if (!xmlfile.Contains("CPlusPlus") || !xmlfile.Contains("/CPlusPlus"))
+            {
+                ShowMessage("Error", "This project is damaged!\nNo CPlusPlus found!");
+                return false;
+            }
+
+            if (!xmlfile.Contains("<FM3D_File") )
+            {
+                ShowMessage("Error", "This project is damaged!\nNo FM3D_File found!");
+                return false;
+            }
+
+            if (!xmlfile.Contains("<Solution"))
+            {
+                ShowMessage("Error", "This project is damaged!\nNo Solution found!");
+                return false;
+            }
+
+
+            if (!xmlfile.Contains("<Folder"))
+            {
+                ShowMessage("Warning!", "This project does not contain any directory!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
+            }
+
+            if (!xmlfile.Contains("<File"))
+            {
+                ShowMessage("Warning!", "This project does not contain any file!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
+            }
+
             mainWindow.ClearAttachedWindows();
-
             Project.Load(this.tb_path.Text);
-
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
             WindowLayout layout = new TextureLayout();
             mainWindow.AttachNewWindowLayout(layout);
             WindowLayout layout2 = new MeshLayout();
             mainWindow.AttachNewWindowLayout(layout2);
+            return true;
+        }
 
+        private async void ShowMessage(string titel, string message)
+        {
+            await mainWindow.ShowMessageAsync(titel, message);
         }
         private void NewProj(object sender, ExecutedRoutedEventArgs e)
         {
