@@ -64,14 +64,16 @@ public partial class EntityEditor : DialogBase
         private List<Props> _propauto = new List<Props>();
         private List<Props> _propcustom = new List<Props>();
 
-        private Component selectedc = new Component();
-        private Props selectedp = new Props();
+        private Component _selectedc = new Component();
+        private Props _selectedp = new Props();
 
-        private string thepath { get; set; }
+        private string _path { get; set; }
 
         private ObservableCollection<string> allcomponents = new ObservableCollection<string>();
 
         private MetroWindow _window { get; set; }
+
+        private bool _newent { get; set; }
 
         public EntityEditor(MetroWindow window, string path, bool newent) : base(window)
         {
@@ -83,14 +85,13 @@ public partial class EntityEditor : DialogBase
             {
                 LoadEntity(path);
             }
-            thepath = path;
-
+            _newent = newent;
+            _path = path;
             _window = window;
         }
 
         public void InitializeItems()
         {
-            
             _avaiabel.Add(new Component() { name = "Rotation" });
             _avaiabel.Add(new Component() { name = "Position" });
             _avaiabel.Add(new Component() { name = "Size"});
@@ -170,16 +171,16 @@ public partial class EntityEditor : DialogBase
                 if (temp.m_selected == true)
                 {
                     var a = MessageBox.Show(temp.name + " selected!!");
-                    selectedc = temp;
+                    _selectedc = temp;
                     break;
                 }
             }
-            _avaiabel.Add(selectedc);
+            _avaiabel.Add(_selectedc);
 
             var lola = MessageBox.Show(_avaiabel.ToString() + " comp!!");
-            _entity.components.Remove(selectedc);
+            _entity.components.Remove(_selectedc);
 
-            var aa = MessageBox.Show(selectedc.name + " selected!!");
+            var aa = MessageBox.Show(_selectedc.name + " selected!!");
             this.Refresh();
             LoadCBAvaiabel();
 
@@ -199,13 +200,17 @@ public partial class EntityEditor : DialogBase
 
         private void btn_cancel_Click(object sender, RoutedEventArgs e)
         {
-            //_window.HideMetroDialogAsync(this);
-            this.CloseW();
+            this.Close();
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            WriteEntity(thepath);
+        //    ToolWindows.FileBrowser.Item item;
+        //    item.CreateFile();
+
+            //ToolWindows.FileBrowser.Item.
+            //ToolWindows.FileBrowser.Item.CreateFile(_entity.name+".ent", ToolWindows.FileBrowser.ItemTypes.UnknownFile);
+            WriteEntity(_path);
         }
 
         private void cb_standard_Checked(object sender, RoutedEventArgs e)
@@ -407,11 +412,11 @@ public partial class EntityEditor : DialogBase
             {
                 if (temp.m_selected == true)
                 {
-                    selectedp = temp;
+                    _selectedp = temp;
                     break;
                 }
             }
-            _propcustom.Remove(selectedp);
+            _propcustom.Remove(_selectedp);
             this.Refresh();
         }
     }

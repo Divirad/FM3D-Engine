@@ -175,7 +175,7 @@
                     FontSize="15" Width="150" 
                     Height="40"  
                     Margin="10, 10" 
-                    Content="Cancel" 
+                    Content="Close" 
                     IsCancel="True"
                     Click="btn_cancel_Click">
                 </Button>

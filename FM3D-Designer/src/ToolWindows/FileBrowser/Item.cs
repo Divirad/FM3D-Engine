@@ -224,11 +224,11 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     menu_add.Header = "Add File";
                     menu_add.Click += OnAddNewFile;
 
-                    menu_res.Header = "New Resource";
-                    menu_res.Click += OnNewResource;
-
                     menu_adde.Header = "Add Entity";
                     menu_adde.Click += OnEntityEditorNew;
+
+                    menu_res.Header = "New Resource";
+                    menu_res.Click += OnNewResource;
 
 
                     menu.Items.Add(menu_add);
@@ -258,20 +258,22 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             window.ShowEntityEditor(false, "D:/entity.ent");
         }
 
-        private void OnEntityEditorNew(object sender, EventArgs args)
+        private async void OnEntityEditorNew(object sender, EventArgs args)
         {
             var window = Application.Current.MainWindow as MetroWindow;
-            window.ShowEntityEditor(true, "D:/entity.ent");
+            string x = await window.ShowInputAsync("New Entity!", "Give your Entity a fancy name!\nLike Pumuckel, Mister Eder... Or Something like that...\n");
+            if (!x.Contains(".ent")) { x += ".ent"; }
+            Item i;
+            CreateFile(x, ItemTypes.UnknownFile, out i);
         }
 
-        private void OnAddNewFile(object sender, EventArgs args)
+        private async void OnAddNewFile(object sender, EventArgs args)
         {
-            //string path="blah";
-            //var window = Application.Current.MainWindow as MetroWindow;
-            //window.ShowAddFileDialog(path);
-
+            var window = Application.Current.MainWindow as MetroWindow;
+            string x = await window.ShowInputAsync("New File!", "Give your file a fancy name!");
+            if (!x.Contains(".")) { x += ".txt"; }
             Item i;
-            CreateFile("test.xD", ItemTypes.UnknownFile, out i);
+            CreateFile(x, ItemTypes.UnknownFile, out i);
         }
 
         #endregion
@@ -428,6 +430,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this.AllChildren.Add(item);
             return true;
         }
+        
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
