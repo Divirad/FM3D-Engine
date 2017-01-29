@@ -49,7 +49,7 @@ namespace FM3D_Designer.src.WindowLayouts
         private bool LoadProj(object sender, RoutedEventArgs e)
         {
             string xmlfile = System.IO.File.ReadAllText(this.tb_path.Text);
-            if (!xmlfile.Contains("<Project>") || !xmlfile.Contains("</Project>"))
+            if (!xmlfile.Contains("<Project") || !xmlfile.Contains("</Project>"))
             {
                 ShowMessage("Errorcode EIFOK", "No FM3D Project!\nOpen a ~REAL~ FM3D Project!\n;)");
                 return false;

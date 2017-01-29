@@ -71,6 +71,8 @@ public partial class EntityEditor : DialogBase
 
         private ObservableCollection<string> allcomponents = new ObservableCollection<string>();
 
+        private MetroWindow _window { get; set; }
+
         public EntityEditor(MetroWindow window, string path, bool newent) : base(window)
         {
             InitializeComponent();
@@ -82,6 +84,8 @@ public partial class EntityEditor : DialogBase
                 LoadEntity(path);
             }
             thepath = path;
+
+            _window = window;
         }
 
         public void InitializeItems()
@@ -172,7 +176,7 @@ public partial class EntityEditor : DialogBase
             }
             _avaiabel.Add(selectedc);
 
-            var löla = MessageBox.Show(_avaiabel.ToString() + " comp!!");
+            var lola = MessageBox.Show(_avaiabel.ToString() + " comp!!");
             _entity.components.Remove(selectedc);
 
             var aa = MessageBox.Show(selectedc.name + " selected!!");
@@ -195,7 +199,8 @@ public partial class EntityEditor : DialogBase
 
         private void btn_cancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //_window.HideMetroDialogAsync(this);
+            this.CloseW();
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
