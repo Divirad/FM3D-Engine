@@ -147,77 +147,106 @@ namespace FM3D_Designer.src
             }
         }
 
-        public static void CreateProject(string dirpath, string dirname)
+        public static bool CreateProject(string dirpath, string dirname)
         {
 
             //XmlWriter writer = new XmlWriter();
             string path = dirpath + @"\" + dirname;
-            string projfiles = path + @"\" + @"ProjectFiles";
-            string text = path + @"\" + @"ProjectFiles\Textures";
-            string ent = path + @"\" + @"ProjectFiles\Entities";
-            string scen = path + @"\" + @"ProjectFiles\Scenes";
+            string cppdir = path + @"\Cpp";
+            string projfiles = path + @"\ProjectFiles";
+            string ent = path + @"\ProjectFiles\Entities";
+            string text = path + @"\ProjectFiles\Textures";
+            string mesh = path + @"\ProjectFiles\Models";
             string pathtofile = path + @"\" + dirname + ".fmproj";
+            string fm3dxml = path + @"\Cpp\fm3d.xml";
 
-            System.IO.Directory.CreateDirectory(text);
-            System.IO.Directory.CreateDirectory(ent);
-            System.IO.Directory.CreateDirectory(scen);
-            ///
-            ///XML - Neues XML Element
-            ///
-            XmlDocument projfile = new XmlDocument();
-            //projfile.CreateDocumentFragment(pathtofile);
-            ///
-            ///Main Knoten & "initialisierung"cdes knotens in das projekt
-            /// 
+            if (System.IO.File.Exists(pathtofile))
+            {
+                return false;
+            }
+            else
+            {
+                System.IO.Directory.CreateDirectory(cppdir);
+                System.IO.Directory.CreateDirectory(text);
+                System.IO.Directory.CreateDirectory(ent);
+                System.IO.Directory.CreateDirectory(mesh);
 
-            XmlNode mainproj = projfile.CreateElement("Project");
-            ///
-            ///Hinzufügen des knotens in den geschrieben werden soll 
-            ///         <Project>   
-            ///
-            ///         </Project>
-            ///
-            projfile.AppendChild(mainproj);
+                ///
+                /// #################################FM3D PROJECT-FILE ####################################################
+                /// 
 
-            XmlNode projectfilesdir = projfile.CreateElement("ProjectFiles");
-            XmlNode folder = projfile.CreateElement("Folder");
-            XmlNode entfolder = projfile.CreateElement("Folder");
-            XmlNode textfolder = projfile.CreateElement("Folder");
-            XmlNode scenesfolder = projfile.CreateElement("Folder");
+                using (XmlWriter writer = XmlWriter.Create(pathtofile))
+                {
+                    writer.WriteStartDocument();
+                        writer.WriteStartElement("Project");
+                        writer.WriteAttributeString("name", dirname);
 
-            XmlNode file = projfile.CreateElement("File");
+                            writer.WriteStartElement("ProjectFiles");
+                            
+                                writer.WriteStartElement("Folder");
+                                writer.WriteAttributeString("name", "Entities");
+                                writer.WriteString(" ");
+                                writer.WriteEndElement();
 
-            XmlAttribute name = projfile.CreateAttribute("name");
-            XmlAttribute namescen = projfile.CreateAttribute("name"); ///Neues Attribut
-            XmlAttribute nameent = projfile.CreateAttribute("name");
-            XmlAttribute nametext = projfile.CreateAttribute("name");
-            //ProjectFile Dir
-            name.Value = "ProjectFiles";
-            projectfilesdir.Attributes.Append(name);
-            mainproj.AppendChild(projectfilesdir);
+                                writer.WriteStartElement("Folder");
+                                writer.WriteAttributeString("name", "Textures");
+                                writer.WriteString(" ");
+                                writer.WriteEndElement();
 
-            //Entitie Dir
-            nameent.Value = "Entities";
-            entfolder.Attributes.Append(nameent);
-            entfolder.InnerText = " ";
-            projectfilesdir.AppendChild(entfolder);
+                                writer.WriteStartElement("Folder");
+                                writer.WriteAttributeString("name", "Models");
+                                writer.WriteString(" ");
+                                writer.WriteEndElement();
 
-            //Textures Dir
-            nametext.Value = "Textures";
-            textfolder.Attributes.Append(nametext);
-            textfolder.InnerText = " ";
-            projectfilesdir.AppendChild(textfolder);
+                            writer.WriteEndElement();
 
-            //Scenes Dir
-            namescen.Value = "Scenes";
-            scenesfolder.Attributes.Append(namescen);
-            scenesfolder.InnerText = " ";
-            projectfilesdir.AppendChild(scenesfolder);
+                            writer.WriteStartElement("CPlusPlus");
+                                writer.WriteStartElement("FM3D_File");
+                                writer.WriteAttributeString("name", "fm3d.xml");
+                                writer.WriteEndElement();
+                                writer.WriteStartElement("Solution");
+                                writer.WriteAttributeString("name", dirname+".sln");
+                                writer.WriteEndElement();
 
-            projfile.Save(pathtofile);
+                            writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    writer.WriteEndDocument();
+                }
 
-            Project.Load(pathtofile);
+                /// 
+                /// #################################FM3D XML ####################################################
+                /// 
+
+                System.Random t = new Random(23);
+                int rb = t.Next(100000, 1000000);
+
+                System.Random a = new Random(rb);
+                int b = a.Next(100000, 1000000);
+                string projid = Convert.ToString(b);
+
+                using (XmlWriter writer = XmlWriter.Create(fm3dxml))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("FM3D_Project");
+                    writer.WriteAttributeString("Name", dirname);
+
+                    writer.WriteStartElement("MainProject");
+                    writer.WriteAttributeString("Name", dirname);
+                    writer.WriteEndElement();
+
+                    writer.WriteStartElement("Pipe");
+                    writer.WriteAttributeString("Name", "FM3D_" + dirname + "_" + projid);
+                    writer.WriteEndElement();
+
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
+                }
+
+                Project.Load(pathtofile);
+                return true;
+            }
         }
+        
 
         public static void InsertFile(File file)
         {

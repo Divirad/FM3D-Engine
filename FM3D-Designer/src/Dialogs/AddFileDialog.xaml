@@ -38,13 +38,13 @@
             <StackPanel Grid.Column="0">
                 <Label>Empty:</Label>
                 <RadioButton  GroupName="ent" Content="Entity"      Margin="4, 4" IsChecked="True"/>
-                <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4"/>
+                <RadioButton  GroupName="ent" Content="Scene"       Margin="4, 4" IsEnabled="false"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
                 <Label>Preset Objects:</Label>
-                <RadioButton  GroupName="ent" Content="Static Model"       Margin="4, 4"/>
-                <RadioButton  GroupName="ent" Content="Interactive"       Margin="4, 4"/>
+                <RadioButton  GroupName="ent" Content="Static Model"       Margin="4, 4" IsEnabled="false"/>
+                <RadioButton  GroupName="ent" Content="Interactive"       Margin="4, 4" IsEnabled="false"/>
             </StackPanel>
 
         </Grid>
@@ -56,8 +56,8 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <Label>Preset Players:</Label>
-                <RadioButton  GroupName="ent" Content="1rd Person Player"       Margin="4, 4"/>
-                <RadioButton  GroupName="ent" Content="3st Person Player"       Margin="4, 4"/>
+                <RadioButton  GroupName="ent" Content="1rd Person Player"       Margin="4, 4" IsEnabled="false"/>
+                <RadioButton  GroupName="ent" Content="3st Person Player"       Margin="4, 4" IsEnabled="false"/>
             </StackPanel>
             
         </Grid>

@@ -45,12 +45,15 @@ namespace FM3D_Designer.src.WindowLayouts
             if (openbrowserdialog.ShowDialog() == DialogResult.OK)
             { tb_path.Text = openbrowserdialog.SelectedPath; }
         }
-        
-        public void startdev(object sender, RoutedEventArgs e)
+
+        public async void startdev(object sender, RoutedEventArgs e)
         {
-            Project.CreateProject(tb_path.Text, tb_name.Text);
-            mainWindow.ClearAttachedWindows();
-            mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
+            if (Project.CreateProject(tb_path.Text, tb_name.Text))
+            {
+                mainWindow.ClearAttachedWindows();
+                mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
+            }
+            else { await mainWindow.ShowMessageAsync("Error", "Something went wrong!\nThe file "+ tb_path.Text+ @"\" + tb_name.Text + ".fmproj\nalready exists!"); }
         }
     }
 }

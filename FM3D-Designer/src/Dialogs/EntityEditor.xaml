@@ -12,9 +12,7 @@
         Title="Entity-Preset Editor"
         Height="400"
         HorizontalAlignment="Stretch">
-    <local:DialogBase.Resources>
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
-    </local:DialogBase.Resources>
+    
     <TabControl>
 <!-- ==================== COMPONENTS ==================== -->
         <TabItem  Header="Components">
@@ -177,7 +175,7 @@
                     FontSize="15" Width="150" 
                     Height="40"  
                     Margin="10, 10" 
-                    Content="Cancel" 
+                    Content="Close" 
                     IsCancel="True"
                     Click="btn_cancel_Click">
                 </Button>

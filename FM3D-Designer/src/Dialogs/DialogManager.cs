@@ -64,5 +64,10 @@ namespace FM3D_Designer.src.Dialogs
         {
             window.ShowMetroDialogAsync(new ChangeMeshDialog(window, res, fres));
         }
+
+        //public static string ShowInputDialog(this MetroWindow window, string Titel)
+        //{
+        //    return "";
+        //}
     }
 }
