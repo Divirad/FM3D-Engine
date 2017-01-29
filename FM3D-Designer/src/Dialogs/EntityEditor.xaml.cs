@@ -81,13 +81,15 @@ public partial class EntityEditor : DialogBase
             InitializeItems();
             LoadCBAvaiabel();
             LoadListBox();
+
+            _newent = newent;
+            _path = path;
+            _window = window;
+
             if (newent == false)
             {
                 LoadEntity(path);
             }
-            _newent = newent;
-            _path = path;
-            _window = window;
         }
 
         public void InitializeItems()
@@ -264,20 +266,27 @@ public partial class EntityEditor : DialogBase
         }
 
         #region LOAD
-        private void LoadEntity(string path)
+        private async void LoadEntity(string path)
         {
-            Project result = new Project(path);
 
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.IgnoreWhitespace = true;
-            XmlReader xml = XmlReader.Create(path, settings);
-            if (xml.ReadToDescendant("EntityPreset"))
+            string xmlfile = System.IO.File.ReadAllText(_path);
+            if (xmlfile.Contains("EntityPreset"))
             {
+                Project result = new Project(path);
+
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.IgnoreWhitespace = true;
+                XmlReader xml = XmlReader.Create(path, settings);
+
+                xml.ReadToDescendant("EntityPreset");
+
                 LoadXmlFile(path, xml.ReadSubtree());
-            }
-            else { var a = MessageBox.Show("No Entity!\nChoose another File!!"); }
-            xml.Close();
+                
+                xml.Close();
+            } else { await _window.ShowMessageAsync("ERROR", "No Entityfile!"); }
+
         }
+
         private void LoadXmlFile(string path,  XmlReader xml)
         {
             while (xml.Read())

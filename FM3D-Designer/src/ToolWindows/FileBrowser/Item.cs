@@ -255,7 +255,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         private void OnEntityEditor(object sender, EventArgs args)
         {
             var window = Application.Current.MainWindow as MetroWindow;
-            window.ShowEntityEditor(false, "D:/entity.ent");
+            window.ShowEntityEditor(false, this.Path);
         }
 
         private async void OnEntityEditorNew(object sender, EventArgs args)
@@ -265,6 +265,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             if (!x.Contains(".ent")) { x += ".ent"; }
             Item i;
             CreateFile(x, ItemTypes.UnknownFile, out i);
+            string filepath = this.Path + x;
+            System.IO.File.WriteAllText(filepath, @"<EntityPreset preset=" + '\u0022' + x + '\u0022' +" +></EntityPreset>");
         }
 
         private async void OnAddNewFile(object sender, EventArgs args)
