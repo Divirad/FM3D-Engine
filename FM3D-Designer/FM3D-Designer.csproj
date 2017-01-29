@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\NullToVisibilityConverter.cs" />
     <Compile Include="src\PipeSystem.cs" />
     <Compile Include="src\Dialogs\ChangeMeshDialog.xaml.cs">
       <DependentUpon>ChangeMeshDialog.xaml</DependentUpon>

@@ -27,7 +27,7 @@ namespace FM3D_Designer.src.WindowLayouts
         public VerticesWindow verticesWin { get; private set; }
         public DocumentWindows.MeshViewPort viewPort { get; private set; }
 
-        private DesignerLib.Mesh mesh;
+        public DesignerLib.Mesh mesh { get; private set; }
         public MeshLayout(DesignerLib.Mesh mesh)
         {
             this.mesh = mesh;

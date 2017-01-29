@@ -43,6 +43,42 @@ namespace DesignerLib {
 			OnPropertyChanged("Visible");
 		}
 
+		property bool HasPositionData {
+			bool get() {
+				return m_part->HasPositionData();
+			}
+		}
+
+		property bool HasTexCoordData {
+			bool get() {
+				return m_part->HasTexCoordData();
+			}
+		}
+
+		property bool HasNormalData {
+			bool get() {
+				return m_part->HasNormalData();
+			}
+		}
+
+		property bool HasColorData {
+			bool get() {
+				return m_part->HasColorData();
+			}
+		}
+
+		property bool HasBoneData {
+			bool get() {
+				return m_part->HasBoneData();
+			}
+		}
+
+		property bool HasTangentData {
+			bool get() {
+				return m_part->HasTangentData();
+			}
+		}
+
 		MeshPart(System::String^ name, bool vis, FM3D::MeshPart* part);
 
 		property System::Collections::ObjectModel::ObservableCollection<Vertex^>^ Vertices {

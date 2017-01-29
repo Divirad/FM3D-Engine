@@ -22,4 +22,11 @@ namespace DesignerLib {
 		}
 		return result;
 	}
+
+	bool InternMeshPart::HasPositionData() { return m_part->vertices.HasPositionData(); }
+	bool InternMeshPart::HasTexCoordData() { return m_part->vertices.HasTexCoordData(); }
+	bool InternMeshPart::HasNormalData() { return m_part->vertices.HasNormalData(); }
+	bool InternMeshPart::HasColorData() { return m_part->vertices.HasColorData(); }
+	bool InternMeshPart::HasBoneData() { return m_part->vertices.HasBoneData(); }
+	bool InternMeshPart::HasTangentData() { return m_part->vertices.HasTangentData(); }
 }
