@@ -30,9 +30,8 @@
                 <MenuItem Header="Close" />
                 <Separator />
             </MenuItem>
-            <MenuItem Header="Last File" />
-                <MenuItem Header="Last Project" />
-                <MenuItem Header="_View">
+                <MenuItem Header="Last Project" Click="MenuItem_Click"/>
+            <MenuItem Header="_View">
                 <MenuItem Header="Minimize"/>
                 <MenuItem Header="Maximize"/>
             </MenuItem>

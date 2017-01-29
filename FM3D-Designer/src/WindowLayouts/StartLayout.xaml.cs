@@ -67,7 +67,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 return false;
             }
 
-            if (!xmlfile.Contains("<FM3D_File") )
+            if (!xmlfile.Contains("<FM3D_File"))
             {
                 ShowMessage("Error", "This project is damaged!\nNo FM3D_File found!");
                 return false;
@@ -90,6 +90,9 @@ namespace FM3D_Designer.src.WindowLayouts
                 ShowMessage("Warning!", "This project does not contain any file!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
             }
 
+            Properties.Settings.Default.lastpath = tb_path.Text;
+            Properties.Settings.Default.Save();
+
             mainWindow.ClearAttachedWindows();
             Project.Load(this.tb_path.Text);
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
@@ -97,6 +100,8 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(layout);
             //WindowLayout layout2 = new MeshLayout();
             //mainWindow.AttachNewWindowLayout(layout2);
+            return true;
+        }
 
         private async void ShowMessage(string titel, string message)
         {
@@ -156,6 +161,11 @@ namespace FM3D_Designer.src.WindowLayouts
 
 
 
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+             tb_path.Text = Properties.Settings.Default.lastpath;
         }
     }
 }
