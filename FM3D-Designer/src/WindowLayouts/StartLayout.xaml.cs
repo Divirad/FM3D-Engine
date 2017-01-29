@@ -67,7 +67,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 return false;
             }
 
-            if (!xmlfile.Contains("<FM3D_File") )
+            if (!xmlfile.Contains("<FM3D_File"))
             {
                 ShowMessage("Error", "This project is damaged!\nNo FM3D_File found!");
                 return false;
@@ -100,6 +100,8 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(layout);
             //WindowLayout layout2 = new MeshLayout();
             //mainWindow.AttachNewWindowLayout(layout2);
+            return true;
+        }
 
         private async void ShowMessage(string titel, string message)
         {
