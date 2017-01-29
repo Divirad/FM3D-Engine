@@ -38,10 +38,15 @@ namespace FM3D_Designer.src.Dialogs
             res.Resources.Remove(A_0);
         }
 
-        public void OnDelete(FoundResource A_0)
+        public async void OnDelete(FoundResource A_0)
         {
-            ExternResource res = this.Resources["res"] as ExternResource;
-            res.Resources.Remove(A_0);
+            var result = await MainWindow.Instance.ShowMessageAsync("Delete Item", "This will delete the selected item, so it will not be loaded in the engine.", MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                ExternResource res = this.Resources["res"] as ExternResource;
+                if (A_0.Parent == null) res.Resources.Remove(A_0);
+                else A_0.Parent.Content.Remove(A_0);
+            }
         }
 
         public void OnChangeMesh(FoundResource A_0)
@@ -57,7 +62,14 @@ namespace FM3D_Designer.src.Dialogs
 
         private void Button_Accept(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Close();
+            var meshes = (this.Resources["res"] as ExternResource).GetMeshes();
+            bool first = true;
+            foreach (var mesh in meshes)
+            {
+                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
+                first = false;
+            }
         }
 
         private void Button_Cancel(object sender, RoutedEventArgs e)

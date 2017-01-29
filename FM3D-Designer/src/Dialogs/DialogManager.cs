@@ -22,9 +22,19 @@ namespace FM3D_Designer.src.Dialogs
             Window = MainWindow.Instance;
         }
 
+        protected DialogBase(MetroWindow win, DialogBase parent)
+        {
+            Window = MainWindow.Instance;
+        }
+
         public void Close()
         {
             Window.HideMetroDialogAsync(this);
+        }
+
+        public async void CloseW()
+        {
+            await Window.HideMetroDialogAsync(this);
         }
     }
 
@@ -45,9 +55,9 @@ namespace FM3D_Designer.src.Dialogs
             window.ShowMetroDialogAsync(new AddFileDialog(window, path));
         }
 
-        public static void ShowModelDialog(this MetroWindow window, String path)
+        public async static void ShowModelDialog(this MetroWindow window, String path)
         {
-            window.ShowMetroDialogAsync(new ModelDialog(window, path));
+            await window.ShowMetroDialogAsync(new ModelDialog(window, path));
         }
 
         public static void ShowChangeMeshDialog(this MetroWindow window, DesignerLib.ExternResource res, DesignerLib.FoundResource fres)

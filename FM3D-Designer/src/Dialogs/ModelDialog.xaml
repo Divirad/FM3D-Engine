@@ -70,6 +70,7 @@
                         </Setter.Value>
                     </Setter>-->
                     <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
+                    <Setter Property="ItemsSource" Value="{Binding Content}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsReference}" Value="True">
                             <Setter Property="ImageSource">

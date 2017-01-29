@@ -1,19 +1,23 @@
 #pragma once
+#define NO_FM3D
 #include "../pch.h"
 #include "FoundResource.h"
-#include <Assimp/Importer.hpp>
-#include <Assimp/scene.h>
-#include <Assimp/postprocess.h>
+#pragma managed(push, off)
+#include "ResourceLoader.h"
+#pragma managed(pop)
 
 using namespace System::ComponentModel;
 using namespace System::Collections::ObjectModel;
+using namespace System::Collections::Generic;
 
 namespace DesignerLib {
 
+	ref class Mesh;
+
 	public ref class ExternResource : INotifyPropertyChanged {
 	private:
-		Assimp::Importer* importer;
-		const aiScene* scene;
+		ResourceLoader* m_loader;
+		Dictionary<FoundResource^, uint>^ m_meshPartMap;
 	public:
 		property ObservableCollection<FoundResource^>^ Resources;
 		property IResourceContainer^ Master;
@@ -23,6 +27,8 @@ namespace DesignerLib {
 		void Load(System::String^ path);
 
 		virtual event PropertyChangedEventHandler^ PropertyChanged;
+
+		ObservableCollection<Mesh^>^ GetMeshes();
 
 	private:
 		void OnPropertyChanged(System::String^ name) {

@@ -9,10 +9,6 @@
         xmlns:lib="clr-namespace:DesignerLib;assembly=DesignerLib"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:FM3D_Designer.src">
-
-    <local:WindowLayout.Resources>
-        <lib:Mesh x:Key="mesh"/>
-    </local:WindowLayout.Resources>
     
     <Grid>
         <Grid.RowDefinitions>

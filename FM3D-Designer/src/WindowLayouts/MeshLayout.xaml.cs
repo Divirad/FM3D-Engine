@@ -26,8 +26,11 @@ namespace FM3D_Designer.src.WindowLayouts
         public PartsPropWindow partsPropWin { get; private set; }
         public VerticesWindow verticesWin { get; private set; }
         public DocumentWindows.MeshViewPort viewPort { get; private set; }
-        public MeshLayout()
+
+        private DesignerLib.Mesh mesh;
+        public MeshLayout(DesignerLib.Mesh mesh)
         {
+            this.mesh = mesh;
             InitializeComponent();
 
             this.Header = "Mesh";
@@ -36,7 +39,7 @@ namespace FM3D_Designer.src.WindowLayouts
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(partsWin = new PartsWindow(this.Resources["mesh"] as DesignerLib.Mesh));
+                dg.Items.Add(partsWin = new PartsWindow(this.mesh));
                 splitPanel.Children.Add(dg);
                 DockWindowGroup dg2 = new DockWindowGroup();
                 dg2.Items.Add(partsPropWin = new PartsPropWindow());
@@ -95,7 +98,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             else
             {
-                dockSite.FloatWindow(this.partsWin = new PartsWindow(this.Resources["mesh"] as DesignerLib.Mesh));
+                dockSite.FloatWindow(this.partsWin = new PartsWindow(this.mesh));
                 partsWin.Closed += OnPartsWinClosed;
                 OnPropertyChanged("partsWin");
             }

@@ -98,10 +98,8 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
             WindowLayout layout = new TextureLayout();
             mainWindow.AttachNewWindowLayout(layout);
-            WindowLayout layout2 = new MeshLayout();
-            mainWindow.AttachNewWindowLayout(layout2);
-            return true;
-        }
+            //WindowLayout layout2 = new MeshLayout();
+            //mainWindow.AttachNewWindowLayout(layout2);
 
         private async void ShowMessage(string titel, string message)
         {

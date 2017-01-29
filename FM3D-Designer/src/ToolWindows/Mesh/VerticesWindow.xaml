@@ -9,5 +9,5 @@
         mc:Ignorable="d"
         Header="Vertices">
     
-    <DataGrid x:Name="grid" ItemsSource="{Binding partsWin.SelectedPart.Vertices}"/>
+    <DataGrid x:Name="grid" Margin="5,5" ItemsSource="{Binding partsWin.SelectedPart.Vertices}"/>
 </fm:ToolWindow>

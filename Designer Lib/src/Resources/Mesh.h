@@ -6,9 +6,12 @@ namespace FM3D {
 #define NO_FM3D
 #include "InternMesh.h"
 
+using namespace System::Collections::ObjectModel;
+
 namespace DesignerLib {
 
 	using StringCollection = System::Collections::ObjectModel::ObservableCollection<System::String^>^;
+	ref class ExternResource;
 
 	public ref class Vertex {
 	public:
@@ -30,8 +33,6 @@ namespace DesignerLib {
 		property System::String^ Name;
 		property bool Visible;
 
-		MeshPart();
-
 		void SetName(System::String^ name) {
 			this->Name = name;
 			OnPropertyChanged("Name");
@@ -42,10 +43,7 @@ namespace DesignerLib {
 			OnPropertyChanged("Visible");
 		}
 
-		MeshPart(System::String^ name, bool vis) {
-			this->Name = name;
-			this->Visible = vis;
-		}
+		MeshPart(System::String^ name, bool vis, FM3D::MeshPart* part);
 
 		property System::Collections::ObjectModel::ObservableCollection<Vertex^>^ Vertices {
 			System::Collections::ObjectModel::ObservableCollection<Vertex^>^ get() {
@@ -70,13 +68,9 @@ namespace DesignerLib {
 
 	public ref class Mesh : System::ComponentModel::INotifyPropertyChanged {
 	public:
-		property System::Collections::ObjectModel::ObservableCollection<MeshPart^>^ Parts;
+		property ObservableCollection<MeshPart^>^ Parts;
 
-		Mesh() {
-			this->Parts = gcnew System::Collections::ObjectModel::ObservableCollection<MeshPart^>();
-			this->Parts->Add(gcnew MeshPart("Halllo 1", false));
-			this->Parts->Add(gcnew MeshPart("Byebye 2", true ));
-		}
+		Mesh(ObservableCollection<MeshPart^>^ parts);
 
 		void RemovePart(MeshPart^ part) {
 			if (Parts->Remove(part)) {

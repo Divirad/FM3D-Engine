@@ -98,7 +98,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	RawArray<const Material*> materials(1);
 	materials[0] = &terrainMaterial;
 
-	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<Mesh::Part>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
+	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<MeshPart>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
 
 	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 

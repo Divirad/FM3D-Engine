@@ -203,6 +203,7 @@
     <ClInclude Include="src\Resources\InternMesh.h" />
     <ClInclude Include="src\Resources\InternMeshW.h" />
     <ClInclude Include="src\Resources\Mesh.h" />
+    <ClInclude Include="src\Resources\ResourceLoader.h" />
     <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +237,16 @@
     </ClCompile>
     <ClCompile Include="src\Resources\InternMeshW.cpp" />
     <ClCompile Include="src\Resources\Mesh.cpp" />
+    <ClCompile Include="src\Resources\ResourceLoader.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </CompileAsManaged>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
