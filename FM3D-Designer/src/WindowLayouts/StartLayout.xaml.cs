@@ -90,6 +90,9 @@ namespace FM3D_Designer.src.WindowLayouts
                 ShowMessage("Warning!", "This project does not contain any file!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
             }
 
+            Properties.Settings.Default.lastpath = tb_path.Text;
+            Properties.Settings.Default.Save();
+
             mainWindow.ClearAttachedWindows();
             Project.Load(this.tb_path.Text);
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
@@ -158,6 +161,11 @@ namespace FM3D_Designer.src.WindowLayouts
 
 
 
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+             tb_path.Text = Properties.Settings.Default.lastpath;
         }
     }
 }
