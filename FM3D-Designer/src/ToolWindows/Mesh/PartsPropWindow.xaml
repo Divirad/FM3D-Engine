@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.Mesh"
         xmlns:fm="clr-namespace:FM3D_Designer.src"
+        xmlns:ctrls="clr-namespace:DevComponents.WPF.Controls;assembly=DevComponents.WPF.Controls"
         mc:Ignorable="d"
         Header="Part Properties">
     <Grid>
-        
+        <ctrls:PropertyGrid x:Name="grid" 
+                            SelectedObject="{Binding partsWin.SelectedPart}"
+                            ShowToolBar="False"
+                            ShowSubProperties="False"
+                            ShowReadOnlyProperties="True"
+                            ShowToolTips="True"
+                            ShowHelpPanel="True"/>
     </Grid>
 </fm:ToolWindow>

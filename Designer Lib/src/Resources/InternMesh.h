@@ -29,5 +29,12 @@ namespace DesignerLib {
 		InternMeshPart(FM3D::MeshPart* part);
 
 		std::vector<InternVertex>* GetVertices();
+
+		bool HasPositionData();
+		bool HasTexCoordData();
+		bool HasNormalData();
+		bool HasColorData();
+		bool HasBoneData();
+		bool HasTangentData();
 	};
 }

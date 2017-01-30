@@ -8,6 +8,20 @@
         xmlns:lay="clr-namespace:FM3D_Designer.src.WindowLayouts"
         mc:Ignorable="d"
         Header="Vertices">
-    
-    <DataGrid x:Name="grid" Margin="5,5" ItemsSource="{Binding partsWin.SelectedPart.Vertices}"/>
+    <fm:ToolWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BToVConv"/>
+        <fm:NullToVisibilityConverter x:Key="NToVConv"/>
+    </fm:ToolWindow.Resources>
+
+    <DataGrid x:Name="grid" Margin="5,5,5,5"  DataContext="" ItemsSource="{Binding partsWin.SelectedPart.Vertices}" CanUserReorderColumns="False" CanUserSortColumns ="False" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Position"     Binding="{Binding Position}"  />
+            <DataGridTextColumn Header="Tex coord"    Binding="{Binding TexCoord}"  />
+            <DataGridTextColumn Header="Normal"       Binding="{Binding Normal}"    />
+            <DataGridTextColumn Header="Color"        Binding="{Binding Color}"     />
+            <DataGridTextColumn Header="Bone index"   Binding="{Binding BoneIndex}" />
+            <DataGridTextColumn Header="Bone weight"  Binding="{Binding BoneWeight}"/>
+            <DataGridTextColumn Header="Tangent"      Binding="{Binding Tangent}"   />
+        </DataGrid.Columns>
+    </DataGrid>
 </fm:ToolWindow>
