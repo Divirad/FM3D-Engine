@@ -19,9 +19,11 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
     /// </summary>
     public partial class PartsPropWindow : ToolWindow
     {
-        public PartsPropWindow()
+        public PartsPropWindow(WindowLayouts.MeshLayout layout)
         {
             InitializeComponent();
+
+            this.grid.DataContext = layout;
         }
     }
 }

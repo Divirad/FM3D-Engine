@@ -42,7 +42,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 dg.Items.Add(partsWin = new PartsWindow(this.mesh));
                 splitPanel.Children.Add(dg);
                 DockWindowGroup dg2 = new DockWindowGroup();
-                dg2.Items.Add(partsPropWin = new PartsPropWindow());
+                dg2.Items.Add(partsPropWin = new PartsPropWindow(this));
                 splitPanel.Children.Add(dg2);
                 DockSite.SetDock(splitPanel, Dock.Right);
                 DockSite.SetDockSize(splitPanel, 300);
@@ -112,7 +112,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             else
             {
-                dockSite.FloatWindow(this.partsPropWin = new PartsPropWindow());
+                dockSite.FloatWindow(this.partsPropWin = new PartsPropWindow(this));
                 partsPropWin.Closed += OnPartsPropWinClosed;
             }
         }

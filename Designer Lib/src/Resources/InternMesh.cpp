@@ -11,7 +11,7 @@ namespace DesignerLib {
 		auto result = new std::vector<InternVertex>(m_part->vertices.GetVertexCount());
 		for (uint i = 0, c = m_part->vertices.GetVertexCount(); i < c; i++) {
 			(*result)[i] = InternVertex {
-				m_part->vertices.HasPositionData() ? m_part->vertices.GetTexCoord(i).ToString() : "",
+				m_part->vertices.HasPositionData() ? m_part->vertices.GetPosition(i).ToString() : "",
 				m_part->vertices.HasTexCoordData() ? m_part->vertices.GetTexCoord(i).ToString() : "",
 				m_part->vertices.HasNormalData() ? m_part->vertices.GetNormal(i).ToString() : "",
 				m_part->vertices.HasColorData() ? m_part->vertices.GetColor(i).ToString() : "",

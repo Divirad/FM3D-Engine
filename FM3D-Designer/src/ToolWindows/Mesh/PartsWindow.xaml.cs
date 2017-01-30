@@ -61,7 +61,7 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
             {
                 var window = System.Windows.Application.Current.MainWindow as MetroWindow;
                 var name = await window.ShowInputAsync("Rename Mesh-Part", "Enter the new name of the Mesh-Part");
-                this.SelectedPart.SetName(name);
+                this.SelectedPart.Name = name;
             }
         }
 
@@ -77,7 +77,7 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
                 }
             }
         }
-
+        
         public DesignerLib.MeshPart SelectedPart
         {
             get
