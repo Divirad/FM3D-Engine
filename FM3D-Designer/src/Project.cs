@@ -237,13 +237,18 @@ namespace FM3D_Designer.src
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
-    /// 
-    /// ################################# FILES ####################################################
-    /// 
-                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.sln", cppdir +@"\"+ dirname + ".sln");
-                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.vcxproj", cppdir + @"\" + dirname + ".vcxproj");
-                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
-
+        /// 
+        /// ################################# FILES ####################################################
+        /// 
+                if (!System.IO.File.Exists(@"\..\..\resources\proj\GameProject.sln") )
+                {
+                    MessageBox.Show("Wuschl!!!");
+                    return false;
+                }
+                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.sln", cppdir + @"\" + dirname + ".sln");
+                ////&&
+                //System.IO.File.Exists(@"\..\..\resources\proj\GameProject.vcxproj") &&
+                //System.IO.File.Exists(@"\..\..\resources\proj\GameProject.vcxproj.filters")
                 //.vcxproj
                 Project.Load(pathtofile);
                 return true;
