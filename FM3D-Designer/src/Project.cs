@@ -109,7 +109,6 @@ namespace FM3D_Designer.src
                     LoadProjectFiles(proj.ProjectFiles, xml);
                     proj.ProjectFiles.SetFilePaths();
                 }
-               //else { var a = MessageBox.Show("Error! Project Could Not Load"); }
             }
             xml.Close();
         }
@@ -149,7 +148,6 @@ namespace FM3D_Designer.src
 
         public static bool CreateProject(string dirpath, string dirname)
         {
-
             //XmlWriter writer = new XmlWriter();
             string path = dirpath + @"\" + dirname;
             string cppdir = path + @"\Cpp";
@@ -171,10 +169,9 @@ namespace FM3D_Designer.src
                 System.IO.Directory.CreateDirectory(ent);
                 System.IO.Directory.CreateDirectory(mesh);
 
-                ///
-                /// #################################FM3D PROJECT-FILE ####################################################
-                /// 
-
+    ///
+    /// #################################FM3D PROJECT-FILE ####################################################
+    /// 
                 using (XmlWriter writer = XmlWriter.Create(pathtofile))
                 {
                     writer.WriteStartDocument();
@@ -213,10 +210,9 @@ namespace FM3D_Designer.src
                     writer.WriteEndDocument();
                 }
 
-                /// 
-                /// #################################FM3D XML ####################################################
-                /// 
-
+    /// 
+    /// #################################FM3D XML ####################################################
+    /// 
                 System.Random t = new Random(23);
                 int rb = t.Next(100000, 1000000);
 
@@ -241,21 +237,23 @@ namespace FM3D_Designer.src
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
+    /// 
+    /// ################################# FILES ####################################################
+    /// 
+                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.sln", cppdir +@"\"+ dirname + ".sln");
+                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.vcxproj", cppdir + @"\" + dirname + ".vcxproj");
+                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
 
+                //.vcxproj
                 Project.Load(pathtofile);
                 return true;
             }
         }
-        
 
-        public static void InsertFile(File file)
+        private static void SaveProject()
         {
             
         }
 
-        public static void InsertDir(Directory folder)
-        {
-
-        }
     }
 }

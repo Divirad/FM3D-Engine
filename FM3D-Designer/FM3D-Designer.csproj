@@ -287,6 +287,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="resources\proj\GameProject.vcxproj" />
+    <None Include="resources\proj\GameProject.vcxproj.filters" />
     <None Include="TestProjects\Project 0\project 0.fmproj" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
@@ -298,6 +300,9 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\proj\fm3d.xml" />
+    <Content Include="resources\proj\GameProject.sln" />
+    <Content Include="resources\proj\Quelle.cpp" />
     <Resource Include="resources\images\ModelDialog\MeshPart_icon.png" />
     <Resource Include="resources\images\ModelDialog\Mesh_icon.png" />
     <Resource Include="resources\images\chain.png" />
