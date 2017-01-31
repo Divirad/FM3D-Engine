@@ -32,24 +32,29 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
 
-        public static ItemType MaterialFile { get; } = new ItemType("Material File", "mat",
-            new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
-            new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
+        public static ItemType MaterialFile { get; } = new ItemType("Material File", ".mat",
+            //http://www.flaticon.com/free-icon/rgb_266259#term=color%20file&page=1&position=22 31.01.2017
+            new Uri("/FM3D-Designer;component/resources/images/file browser/material_icon.png", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/material_bigIcon.png", UriKind.Relative));
 
-        public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", "skel",
-            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_icon.ico", UriKind.Relative),
+        public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", ".skel",
+            //http://www.flaticon.com/free-icon/standing-up-man_10522 31.01.2017
+            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_bigIcon.png", UriKind.Relative));
 
-        public static ItemType MeshFile { get; } = new ItemType("Mesh File", "mesh",
-            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_icon.ico", UriKind.Relative),
+        public static ItemType MeshFile { get; } = new ItemType("Mesh File", ".mesh",
+            //http://www.flaticon.com/free-icon/cubes_106841#term=cubes&page=1&position=69 31.01.2017
+            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_bigIcon.png", UriKind.Relative));
 
-        public static ItemType TextureFile { get; } = new ItemType("Texture File", "tex",
-            new Uri("/FM3D-Designer;component/resources/images/file browser/texture_icon.ico", UriKind.Relative),
+        public static ItemType TextureFile { get; } = new ItemType("Texture File", ".tex",
+            //http://de.seaicons.com/microsoft-paint-net-symbol/ 31.01.2017
+            new Uri("/FM3D-Designer;component/resources/images/file browser/texture_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/texture_bigIcon.png", UriKind.Relative));
 
-        public static ItemType ModelFile { get; } = new ItemType("Texture File", "mod",
-            new Uri("/FM3D-Designer;component/resources/images/file browser/model_icon.ico", UriKind.Relative),
+        public static ItemType ModelFile { get; } = new ItemType("Texture File", ".mod",
+            //https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/filesystems/blockdevice.png 31.01.2017
+            new Uri("/FM3D-Designer;component/resources/images/file browser/model_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/model_bigIcon.png", UriKind.Relative));
     }
 

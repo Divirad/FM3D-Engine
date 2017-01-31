@@ -328,6 +328,10 @@
     <None Include="TestProjects\Project 0\project 0.fmproj" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.mat" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.mesh" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\SkelettTest.skel" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\TextureTest.tex" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\App.config" />
@@ -336,6 +340,9 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Content Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.mod">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
     <Resource Include="resources\images\file browser\bigicons_icon.png" />
     <Resource Include="resources\images\file browser\collapseAll_icon.png" />
     <Resource Include="resources\images\file browser\file_bigIcon.png" />

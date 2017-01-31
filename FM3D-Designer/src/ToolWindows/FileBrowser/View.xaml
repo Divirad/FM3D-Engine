@@ -73,7 +73,7 @@
                     <HierarchicalDataTemplate DataType="{x:Type local:Item}" AlternationCount="2" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <Grid>
-                                <Image Source="{Binding ImageSource}"/>
+                                <Image Width="16" Height="16" Source="{Binding ImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
                             </Grid>
                             <TextBlock Text="{Binding Name}" Margin="2"/>
@@ -95,12 +95,12 @@
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="2"  DataContext="{StaticResource logic}" Visibility="{Binding ListVisibility, Mode=OneWay}" ItemsSource="{Binding CurrentDirectoryContent, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel  ContextMenu="{Binding CMenu}" Width="48" Orientation="Vertical">
+                        <StackPanel  ContextMenu="{Binding CMenu}" Width="125" Orientation="Vertical">
                             <Grid VerticalAlignment="Center">
-                                <Image Source="{Binding BigImageSource}"/>
+                                <Image Width="48" Source="{Binding BigImageSource}"/>
                                 <Image Source="{Binding ExtraImageSource}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="8" Height="8" />
                             </Grid>
-                            <TextBlock Text="{Binding Name}" Margin="2"/>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" Margin="2"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

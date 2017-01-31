@@ -5,6 +5,13 @@
     <Folder name="SATAAN">
       <File name="6.x"/>
       <File name="6.y"/>
+      <Folder name="resources test">
+        <File name="Modeltest.mod"/>
+        <File name="SkelettTest.skel"/>
+        <File name="MaterialTest.mat"/>
+        <File name="meshTest.mesh"/>
+        <File name="TextureTest.tex"/>
+      </Folder>
       <Folder name="Foolder">
         <File name="Wer das liest ist dumm"/>
       </Folder>
