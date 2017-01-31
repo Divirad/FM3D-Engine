@@ -23,6 +23,14 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
     {
         public static View Instance { get; private set; }
 
+        public Logic logic
+        {
+            get
+            {
+                return this.logic;
+            }
+        }
+
         public View(WindowLayout mainWindow)
         {
             if (Instance != null)
