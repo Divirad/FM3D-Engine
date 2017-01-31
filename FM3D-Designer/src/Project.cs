@@ -252,8 +252,7 @@ namespace FM3D_Designer.src
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp", cppdir + @"\Quelle.cpp");
-                //System.IO.File.Exists(@"\..\..\resources\proj\GameProject.vcxproj.filters")
-                //.vcxproj
+                
                 Project.Load(pathtofile);
                 return true;
             }

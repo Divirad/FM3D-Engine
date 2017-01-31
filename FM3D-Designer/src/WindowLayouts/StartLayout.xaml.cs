@@ -16,6 +16,8 @@ using Microsoft.Win32;
 
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.IO;
+
 namespace FM3D_Designer.src.WindowLayouts
 {
     /// <summary>
@@ -33,6 +35,13 @@ namespace FM3D_Designer.src.WindowLayouts
             this.Header = "StartPage";
 
             this.Initialize(mainWindow, null);
+
+           
+                //FileInfo file = new FileInfo(start_path[0]);
+                if (start_path!="")
+                {
+                    tb_path.Text = start_path;
+                }
         }
 
 
@@ -41,9 +50,9 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
-        private void btn_start_Click(object sender, RoutedEventArgs e)
+        public void btn_start_Click(object sender, RoutedEventArgs e)
         {
-            LoadProj(sender,  e);
+            this.LoadProj(sender,  e);
         }
 
         private bool LoadProj(object sender, RoutedEventArgs e)
@@ -114,7 +123,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void OpenProj(object sender, ExecutedRoutedEventArgs e)
         {
-            openFileDialog.FileName = "fmproj";
+            openFileDialog.FileName = ".fmproj";
             openFileDialog.Title = "Open your FM3D Project-File";
 
             if (openFileDialog.ShowDialog() == true)

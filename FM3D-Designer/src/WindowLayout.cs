@@ -18,8 +18,8 @@ namespace FM3D_Designer.src
         [Category("Appearance")]
         [DefaultValue(false)]
         public bool IsMainLayout { get; set; }
-
-        private DockSite docksite;
+        public static string start_path { get; set; }
+        private DockSite docksite; 
 
         public MainWindow mainWindow { get; private set; }
         protected void Initialize(MainWindow inMainWindow, DockSite docksite)
