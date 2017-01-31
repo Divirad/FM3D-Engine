@@ -122,6 +122,8 @@ namespace DesignerLib {
 			}
 		}
 
+		InternMeshPart* GetIntern() { return m_part; }
+
 		virtual event System::ComponentModel::PropertyChangedEventHandler^ PropertyChanged;
 	private:
 		void OnPropertyChanged(System::String^ name) {

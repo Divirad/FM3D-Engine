@@ -55,7 +55,7 @@ namespace FM3D {
 				GLCall(glEnableVertexAttribArray(index + 1));
 				GLCall(glEnableVertexAttribArray(index + 2));
 				GLCall(glEnableVertexAttribArray(index + 3));
-				GLCall(glEnableVertexAttribArray(index));
+				GLCall(glEnableVertexAttribArray(index + 4));
 
 				GLCall(glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (const GLvoid*)0));
 				GLCall(glVertexAttribPointer(index + 1, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (const GLvoid*)(sizeof(Vector4f))));

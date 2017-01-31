@@ -17,6 +17,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
     public static class ItemTypes
     {
+        public static Dictionary<string, ItemType> FileTypes { get; } = new Dictionary<string, ItemType>();
+
         //Static Properties
         public static ItemType Directory { get; } = new ItemType("Directory", "",
             new Uri("/FM3D-Designer;component/resources/images/file browser/folder_closed_icon.ico", UriKind.Relative),
@@ -30,7 +32,25 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
 
-        public static Dictionary<string, ItemType> FileTypes { get; } = new Dictionary<string, ItemType>();
+        public static ItemType MaterialFile { get; } = new ItemType("Material File", "mat",
+            new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
+
+        public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", "skel",
+            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_icon.ico", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_bigIcon.png", UriKind.Relative));
+
+        public static ItemType MeshFile { get; } = new ItemType("Mesh File", "mesh",
+            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_icon.ico", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_bigIcon.png", UriKind.Relative));
+
+        public static ItemType TextureFile { get; } = new ItemType("Texture File", "tex",
+            new Uri("/FM3D-Designer;component/resources/images/file browser/texture_icon.ico", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/texture_bigIcon.png", UriKind.Relative));
+
+        public static ItemType ModelFile { get; } = new ItemType("Texture File", "mod",
+            new Uri("/FM3D-Designer;component/resources/images/file browser/model_icon.ico", UriKind.Relative),
+            new Uri("/FM3D-Designer;component/resources/images/file browser/model_bigIcon.png", UriKind.Relative));
     }
 
     public class ItemType
@@ -105,6 +125,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
     public class Item : INotifyPropertyChanged
     {
+        public static Dictionary<ItemType, List<Item>> AllItems { get; } = new Dictionary<ItemType, List<Item>>();
         //Types
         public enum ItemState
         {
@@ -130,6 +151,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this._State = state;
             this.Path = path;
             this.fileObject = fileObject;
+
+            if (!Item.AllItems.ContainsKey(type))
+                Item.AllItems.Add(type, new List<Item>());
+            Item.AllItems[type].Add(this);
         }
 
         //Properties and Methods

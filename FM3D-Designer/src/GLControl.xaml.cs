@@ -24,8 +24,9 @@ namespace FM3D_Designer.src
     public partial class GLControl : UserControl
     {
         private OpenGL gl = new OpenGL();
-        private Renderable renderable = new Renderable();
-        private Camera camera = new Camera(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+        public Renderable renderable { get; private set; }
+        public Camera camera { get; private set; }  = new Camera(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+        public Mesh mesh { get; set; }
 
         public GLControl()
         {
@@ -46,7 +47,7 @@ namespace FM3D_Designer.src
 
             lock(gl)
             {
-                gl.Initialize(100, 100, renderable, camera);
+                this.renderable = gl.Initialize(100, 100, camera, mesh);
             }
         }
 

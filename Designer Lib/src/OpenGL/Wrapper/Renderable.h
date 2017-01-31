@@ -13,10 +13,9 @@ namespace DesignerLib {
 		Vec3^ m_position;
 		Vec3^ m_rotation;
 		Vec3^ m_scale;
-		const FM3D::Model* m_model = nullptr;
+		const FM3D::Model* m_model;
 	public:
-		Renderable();
-		Renderable(Vec3^ pos, Vec3^ rot, Vec3^ scale);
+		Renderable(const FM3D::Model* model);
 
 		Vec3^ GetPosition() { return m_position; }
 		Vec3^ GetRotation() { return m_rotation; }

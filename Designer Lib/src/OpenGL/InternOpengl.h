@@ -7,6 +7,9 @@ namespace FM3D {
 	class RenderTarget2D;
 	class Renderer3D;
 	class Model;
+	class Mesh;
+	class Texture;
+	class Material;
 	namespace EntitySystem {
 		class EntityCollection;
 		class Entity;
@@ -33,11 +36,15 @@ namespace DesignerLib {
 		std::unique_ptr<FM3D::EntitySystem::EntityCollection> m_collection;
 		FM3D::EntitySystem::EntityPtr m_entity;
 		FM3D::Camera* m_camera;
+		FM3D::Mesh* m_mesh;
+		FM3D::Model* m_model;
+		FM3D::Texture* m_emptyTex;
+		FM3D::Material* m_emptyMat;
 	public:
 		InternOpenGL(HINSTANCE hInst);
 		~InternOpenGL();
 
-		void Initialize(double width, double height, FM3D::Camera* cam, float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz, const FM3D::Model* model);
+		FM3D::Model* Initialize(double width, double height, FM3D::Camera* cam, std::vector<FM3D::MeshPart*>& parts);
 		void ChangeSize(double width, double height);
 		void Update(float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz);
 		std::vector<unsigned char> Render();

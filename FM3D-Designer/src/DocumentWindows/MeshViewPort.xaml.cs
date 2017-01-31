@@ -19,13 +19,12 @@ namespace FM3D_Designer.src.DocumentWindows
     /// </summary>
     public partial class MeshViewPort : DocumentWindow
     {
-        public MeshViewPort(WindowLayout mainWindow)
+        public MeshViewPort(WindowLayouts.MeshLayout mainWindow)
         {
             InitializeComponent();
-
-            this.Header = "View Port";
-            this.Initialize(mainWindow);
             
+            this.Initialize(mainWindow);
+            this.glView.mesh = mainWindow.mesh;
         }
     }
 }

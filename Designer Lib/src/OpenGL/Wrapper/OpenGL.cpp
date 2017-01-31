@@ -16,8 +16,12 @@ namespace DesignerLib {
 		delete m_gl;
 	}
 
-	void OpenGL::Initialize(double width, double height, Renderable^ r, DesignerLib::Camera^ cam) {
-		m_gl->Initialize(width, height, cam->GetCamera(), Convert_From_Vec3(r->GetPosition()), Convert_From_Vec3(r->GetRotation()), Convert_From_Vec3(r->GetScale()), r->GetModel());
+	Renderable^ OpenGL::Initialize(double width, double height, DesignerLib::Camera^ cam, Mesh^ mesh) {
+		std::vector<FM3D::MeshPart*> parts;
+		for each(auto p in mesh->Parts) {
+			parts.push_back((p->GetIntern()->GetRaw()));
+		}
+		return gcnew Renderable(m_gl->Initialize(width, height, cam->GetCamera(), parts));
 	}
 
 	void OpenGL::ChangeSize(Size^ size) {

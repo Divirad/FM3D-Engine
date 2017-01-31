@@ -2,6 +2,7 @@
 #include "../../pch.h"
 #include "Renderable.h"
 #include "Camera.h"
+#include "../../Resources/Mesh.h"
 
 using namespace System::Windows;
 using namespace System::Windows::Controls;
@@ -23,7 +24,7 @@ namespace DesignerLib {
 		OpenGL();
 		~OpenGL();
 
-		void Initialize(double width, double height, Renderable^ r, DesignerLib::Camera^ cam);
+		Renderable^ Initialize(double width, double height, DesignerLib::Camera^ cam, Mesh^ mesh);
 		void ChangeSize(Size^ size);
 		void Update(Renderable^ renderable);
 		void Render(Image^ image);

@@ -4,6 +4,7 @@
 #ifdef NO_FM3D
 namespace FM3D {
  struct MeshPart;
+ class Mesh;
 }
 #else
 #include <Engine.h>
@@ -36,5 +37,7 @@ namespace DesignerLib {
 		bool HasColorData();
 		bool HasBoneData();
 		bool HasTangentData();
+
+		FM3D::MeshPart* GetRaw() { return m_part; }
 	};
 }

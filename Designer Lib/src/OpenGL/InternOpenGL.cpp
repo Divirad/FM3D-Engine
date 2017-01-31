@@ -11,9 +11,11 @@ namespace DesignerLib {
 	}
 
 	InternOpenGL::~InternOpenGL() {
+		delete m_emptyTex;
+		delete m_mesh;
 	}
 
-	void InternOpenGL::Initialize(double width, double height, Camera* cam, float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz, const Model* model) {
+	FM3D::Model* InternOpenGL::Initialize(double width, double height, Camera* cam, std::vector<MeshPart*>& parts) {
 		m_width = width;
 		m_height = height;
 
@@ -37,12 +39,33 @@ namespace DesignerLib {
 
 		m_camera = cam;
 
+		Array<MeshPart> aParts(parts.size());
+		for (size_t i = 0U; i < parts.size(); i++) {
+			aParts[i] = *parts[i];
+		}
+
+		m_emptyTex = m_renderSystem->CreateTexture();
+		float pixels[] = {
+			1.0f, 1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f, 1.0f
+		};
+		m_emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+		m_emptyMat = new Material({ 0xffffffff, m_emptyTex });
+
+		m_mesh = m_renderSystem->CreateMesh(nullptr, false, aParts);
+		RawArray<const Material*> materials(m_mesh->GetCountOfParts());
+		for (uint i = 0U; i < m_mesh->GetCountOfParts(); i++)
+			materials[i] = m_emptyMat;
+		m_model = new FM3D::Model(m_mesh, materials);
+
 		m_collection.reset(new EntityCollection());
 		m_entity = m_collection->CreateEntity();
-		m_entity->Add<PositionComponent>(Vector3f(x, y, z));
-		m_entity->Add<RotationComponent>(Vector3f(rx, ry, rz));
-		m_entity->Add<ScaleComponent>(Vector3f(sx, sy, sz));
-		m_entity->Add<RenderableComponent>(model);
+		m_entity->Add<PositionComponent>(Vector3f(0.0f, 0.0f, 0.0f));
+		m_entity->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
+		m_entity->Add<ScaleComponent>(Vector3f(1.0f, 1.0f, 1.0f));
+		m_entity->Add<RenderableComponent>(m_model);
 	}
 
 	void InternOpenGL::ChangeSize(double width, double height) {
