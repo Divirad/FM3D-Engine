@@ -20,29 +20,32 @@ namespace FM3D_Designer.src.WindowLayouts
 {
     public partial class MainLayout : WindowLayout
     {
-        public void startFileBrowser(Dock dock, int docksize)
-        {
-            SplitPanel splitPanel = new SplitPanel();
-            DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.FileBrowser.View(this));
-            splitPanel.Children.Add(dg);
-            DockSite.SetDock(splitPanel, dock);
-            DockSite.SetDockSize(splitPanel, docksize);
-            this.dockSite.SplitPanels.Add(splitPanel);
-            dg.UpdateVisibility();
-        }
-        public void startFileBrowser(Dock dock)
-        {
-            startFileBrowser(dock, 150);
-        }
-        public void startFileBrowser()
-        {
-            startFileBrowser(Dock.Right, 150);
-        }
-        public void startFileBrowser(object sender, RoutedEventArgs e)
-        {
-            startFileBrowser();
-        }
+        // Removed by Felix
+        // You need to assign Filebrowser to a member variable
+        //
+        //public void startFileBrowser(Dock dock, int docksize)
+        //{
+        //    SplitPanel splitPanel = new SplitPanel();
+        //    DockWindowGroup dg = new DockWindowGroup();
+        //    dg.Items.Add(new ToolWindows.FileBrowser.View(this));
+        //    splitPanel.Children.Add(dg);
+        //    DockSite.SetDock(splitPanel, dock);
+        //    DockSite.SetDockSize(splitPanel, docksize);
+        //    this.dockSite.SplitPanels.Add(splitPanel);
+        //    dg.UpdateVisibility();
+        //}
+        //public void startFileBrowser(Dock dock)
+        //{
+        //    startFileBrowser(dock, 150);
+        //}
+        //public void startFileBrowser()
+        //{
+        //    startFileBrowser(Dock.Right, 150);
+        //}
+        //public void startFileBrowser(object sender, RoutedEventArgs e)
+        //{
+        //    startFileBrowser();
+        //}
 
         public void startTextEditor(Dock dock, int docksize)
         {

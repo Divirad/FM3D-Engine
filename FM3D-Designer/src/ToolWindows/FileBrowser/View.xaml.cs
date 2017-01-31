@@ -21,12 +21,23 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
     /// </summary>
     public partial class View : ToolWindow
     {
+        public static View Instance { get; private set; }
+
         public View(WindowLayout mainWindow)
         {
+            if (Instance != null)
+                throw new InvalidOperationException("You cant create multiple objects of class Filebrowser.View");
+            Instance = this;
+
             InitializeComponent();
             this.Header = "File Browser";
             
             this.Initialize(mainWindow);
+        }
+
+        ~View()
+        {
+            Instance = null;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

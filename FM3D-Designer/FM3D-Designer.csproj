@@ -116,6 +116,15 @@
     <Compile Include="src\ToolWindows\Mesh\VerticesWindow.xaml.cs">
       <DependentUpon>VerticesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ToolWindows\Skeleton\AnimationsWindow.xaml.cs">
+      <DependentUpon>AnimationsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\Skeleton\MeshWindow.xaml.cs">
+      <DependentUpon>MeshWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ToolWindows\Skeleton\PropertiesWindow.xaml.cs">
+      <DependentUpon>PropertiesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\VisualStudio.cs" />
     <Compile Include="src\Dialogs\AddFileDialog.xaml.cs">
       <DependentUpon>AddFileDialog.xaml</DependentUpon>
@@ -166,8 +175,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\Project.cs" />
+    <Compile Include="src\WindowLayouts\MaterialLayout.xaml.cs">
+      <DependentUpon>MaterialLayout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\WindowLayouts\MeshLayout.xaml.cs">
       <DependentUpon>MeshLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\WindowLayouts\SkeletonLayout.xaml.cs">
+      <DependentUpon>SkeletonLayout.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\WindowLayouts\StartLayout.xaml.cs">
       <DependentUpon>StartLayout.xaml</DependentUpon>
@@ -225,6 +240,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\ToolWindows\Skeleton\AnimationsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\Skeleton\MeshWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\ToolWindows\Skeleton\PropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\WindowLayouts\CreateProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,7 +268,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\WindowLayouts\MaterialLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\WindowLayouts\MeshLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\WindowLayouts\SkeletonLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

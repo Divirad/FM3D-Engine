@@ -24,8 +24,14 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class MainLayout : WindowLayout
     {
+        public static MainLayout Instance { get; set; }
+        public ToolWindows.FileBrowser.View fileBrowser { get; private set; }
         public MainLayout(MainWindow mainWindow)
         {
+            if (Instance != null)
+                throw new InvalidOperationException("You cant create multiple objects of MainLayout!");
+            Instance = this;
+
             InitializeComponent();
             
             this.Header = "Main Page";
@@ -34,6 +40,23 @@ namespace FM3D_Designer.src.WindowLayouts
                 startFileBrowser();
                 startTextEditor();
             }
+        }
+
+        private void startFileBrowser()
+        {
+            SplitPanel splitPanel = new SplitPanel();
+            DockWindowGroup dg = new DockWindowGroup();
+            dg.Items.Add(this.fileBrowser = new ToolWindows.FileBrowser.View(this));
+            splitPanel.Children.Add(dg);
+            DockSite.SetDock(splitPanel, Dock.Right);
+            DockSite.SetDockSize(splitPanel, 200);
+            this.dockSite.SplitPanels.Add(splitPanel);
+            dg.UpdateVisibility();
+        }
+
+        ~MainLayout()
+        {
+            Instance = null;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
@@ -50,7 +73,7 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.FileBrowser.View(this));
+            dg.Items.Add(this.fileBrowser = new ToolWindows.FileBrowser.View(this));
 
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, Dock.Left);
