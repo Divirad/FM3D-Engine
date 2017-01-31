@@ -53,7 +53,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 mainWindow.ClearAttachedWindows();
                 mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
             }
-            else { await mainWindow.ShowMessageAsync("Error", "Something went wrong!\nThe file "+ tb_path.Text+ @"\" + tb_name.Text + ".fmproj\nalready exists!"); }
+            else { await mainWindow.ShowMessageAsync("Error", "Something went wrong!\nThe file "+ tb_path.Text+ @"\" + tb_name.Text + ".fmproj\ncouldn't be created completly"); }
         }
     }
 }

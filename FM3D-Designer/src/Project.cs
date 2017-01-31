@@ -237,17 +237,21 @@ namespace FM3D_Designer.src
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
-        /// 
-        /// ################################# FILES ####################################################
-        /// 
-                if (!System.IO.File.Exists(@"\..\..\resources\proj\GameProject.sln") )
-                {
-                    MessageBox.Show("Wuschl!!!");
-                    return false;
-                }
-                System.IO.File.Copy(@"\..\..\resources\proj\GameProject.sln", cppdir + @"\" + dirname + ".sln");
-                ////&&
-                //System.IO.File.Exists(@"\..\..\resources\proj\GameProject.vcxproj") &&
+                /// 
+                /// ################################# FILES ####################################################
+                /// 
+                //System.Diagnostics.Process.Start(Environment.CurrentDirectory+ "\\..\\..\\resources\\proj"); //GameProject.sln
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\" + dirname + ".sln");
+
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\" + dirname + ".vcxproj");
+
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
+
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp", cppdir + @"\Quelle.cpp");
                 //System.IO.File.Exists(@"\..\..\resources\proj\GameProject.vcxproj.filters")
                 //.vcxproj
                 Project.Load(pathtofile);
