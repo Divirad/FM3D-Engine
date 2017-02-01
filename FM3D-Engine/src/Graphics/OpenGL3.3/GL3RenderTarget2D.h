@@ -10,11 +10,18 @@ namespace FM3D {
 		GLuint m_depthBuffer;
 	public:
 		GL3RenderTarget2D(const Vector2i& size, bool useDepth);
+		~GL3RenderTarget2D();
 		
 		void ReSize(const Vector2i& size) override;
 		void PresentOnScreen(const Vector2i& screenSize) override;
 		void BindAsTarget() const override;
 		void BindAsSource() const override;
 		std::shared_ptr<const Texture> GetTexture() override;
+
+		std::vector<byte> GetPixelData() override;
+
+	private:
+		void Create(bool useDepth);
+		void Delete();
 	};
 }

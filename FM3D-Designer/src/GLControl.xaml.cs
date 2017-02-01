@@ -25,7 +25,7 @@ namespace FM3D_Designer.src
     {
         private OpenGL gl = new OpenGL();
         public Renderable renderable { get; private set; }
-        public Camera camera { get; private set; }  = new Camera(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+        public Camera camera { get; private set; }  = new Camera(0.0f, 3.0f, 5.0f, 0.0f, 0.0f, 0.0f, 1.0f);
         public Mesh mesh { get; set; }
 
         public GLControl()
@@ -37,7 +37,8 @@ namespace FM3D_Designer.src
         {
             lock(gl)
             {
-                //gl.ChangeSize(e.NewSize);
+                gl.ChangeSize(e.NewSize);
+                this.UpdateLayout();
             }
         }
 
@@ -47,7 +48,7 @@ namespace FM3D_Designer.src
 
             lock(gl)
             {
-                this.renderable = gl.Initialize(100, 100, camera, mesh);
+                this.renderable = gl.Initialize(1000, 1000, camera, mesh);
             }
         }
 

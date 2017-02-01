@@ -21,8 +21,10 @@ namespace FM3D_Designer.src.WindowLayouts
     public partial class SkeletonLayout : WindowLayout
     {
         public ToolWindows.Skeleton.MeshWindow meshWindow { get; private set; }
-        public SkeletonLayout()
+        public DesignerLib.Skeleton skeleton { get; private set; }
+        public SkeletonLayout(DesignerLib.Skeleton skeleton)
         {
+            this.skeleton = skeleton;
             InitializeComponent();
 
             {

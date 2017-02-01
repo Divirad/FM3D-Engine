@@ -5,6 +5,7 @@ namespace FM3D {
 }
 #define NO_FM3D
 #include "InternMesh.h"
+#include "Skeleton.h"
 
 using namespace System::Collections::ObjectModel;
 using namespace System::ComponentModel;
@@ -134,10 +135,16 @@ namespace DesignerLib {
 	};
 
 	public ref class Mesh : System::ComponentModel::INotifyPropertyChanged {
+		Skeleton^ skeleton;
 	public:
 		property ObservableCollection<MeshPart^>^ Parts;
+		property Skeleton^ Skelet {
+			Skeleton^ get() {
+				return skeleton;
+			}
+		}
 
-		Mesh(ObservableCollection<MeshPart^>^ parts);
+		Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton);
 
 		void RemovePart(MeshPart^ part) {
 			if (Parts->Remove(part)) {

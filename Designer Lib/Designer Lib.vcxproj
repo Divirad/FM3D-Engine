@@ -204,6 +204,7 @@
     <ClInclude Include="src\Resources\InternMeshW.h" />
     <ClInclude Include="src\Resources\Mesh.h" />
     <ClInclude Include="src\Resources\ResourceLoader.h" />
+    <ClInclude Include="src\Resources\Skeleton.h" />
     <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
   <ItemGroup>

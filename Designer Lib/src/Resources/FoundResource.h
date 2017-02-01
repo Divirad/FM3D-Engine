@@ -19,6 +19,7 @@ namespace DesignerLib {
 		Texture,
 		Material,
 		Skeleton,
+		Reference,
 	};
 
 	public interface class IResourceContainer {
@@ -39,13 +40,13 @@ namespace DesignerLib {
 		property FoundResource^ Parent;
 		property FoundResource^ Reference;
 		property ExternResource^ Master;
+		property bool NeedsSkeleton;
 
 		property ContextMenu^ CMenu {
 			ContextMenu^ get();
 		}
 
-		FoundResource(std::string name, std::string path, ResourceType type, ExternResource^ master);
-		FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master);
+		FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master, bool needSkeleton);
 		FoundResource(FoundResource^ parent, FoundResource^ reference, ExternResource^ master);
 		FoundResource();
 

@@ -15,7 +15,7 @@ namespace DesignerLib {
 		delete m_mesh;
 	}
 
-	FM3D::Model* InternOpenGL::Initialize(double width, double height, Camera* cam, std::vector<MeshPart*>& parts) {
+	FM3D::Model* InternOpenGL::Initialize(double width, double height, Camera* cam, std::vector<MeshPart*>& parts, Skeleton* skeleton) {
 		m_width = width;
 		m_height = height;
 
@@ -54,7 +54,7 @@ namespace DesignerLib {
 		m_emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
 		m_emptyMat = new Material({ 0xffffffff, m_emptyTex });
 
-		m_mesh = m_renderSystem->CreateMesh(nullptr, false, aParts);
+		m_mesh = m_renderSystem->CreateMesh(skeleton, false, aParts);
 		RawArray<const Material*> materials(m_mesh->GetCountOfParts());
 		for (uint i = 0U; i < m_mesh->GetCountOfParts(); i++)
 			materials[i] = m_emptyMat;
@@ -72,14 +72,11 @@ namespace DesignerLib {
 		m_width = static_cast<uint>(width);
 		m_height = static_cast<uint>(height);
 
-		throw std::runtime_error("Resizing is not implemented yet!");
+		m_renderTarget->ReSize(Vector2i(m_width, m_height));
 	}
 
 	std::vector<unsigned char> InternOpenGL::Render() {
-		m_renderTarget->BindAsSource();
-
-		std::vector<std::uint8_t> data(m_width * m_height * 4);
-		return data;
+		return m_renderTarget->GetPixelData();
 	}
 
 	void InternOpenGL::Update(float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz) {
@@ -89,7 +86,7 @@ namespace DesignerLib {
 
 		m_renderSystem->BeginRendering(FM3D::Color4f(0.0f, 0.0f, 0.0f, 1.0f));
 
-		//m_renderer->Submit(m_entity.get());
+		m_renderer->Submit(m_entity.get());
 		m_renderer->Flush(m_camera->GetViewMatrix(), m_camera->GetPosition());
 
 		m_renderSystem->EndRendering();

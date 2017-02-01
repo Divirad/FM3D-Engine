@@ -87,6 +87,7 @@ namespace FM3D {
 			meshmatrix[m] = result;
 		}
 
+
 		for (unsigned int i = 0; i < node->mNumChildren; i++) {
 			FindMeshTransformations(meshmatrix, result, node->mChildren[i]);
 		}

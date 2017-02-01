@@ -21,7 +21,7 @@ namespace DesignerLib {
 		for each(auto p in mesh->Parts) {
 			parts.push_back((p->GetIntern()->GetRaw()));
 		}
-		return gcnew Renderable(m_gl->Initialize(width, height, cam->GetCamera(), parts));
+		return gcnew Renderable(m_gl->Initialize(width, height, cam->GetCamera(), parts, mesh->Skelet != nullptr ? mesh->Skelet->GetIntern() : nullptr));
 	}
 
 	void OpenGL::ChangeSize(Size^ size) {
@@ -30,8 +30,10 @@ namespace DesignerLib {
 
 	void OpenGL::Render(Image^ image) {
 		auto bytes = m_gl->Render();
+		std::reverse(bytes.begin(), bytes.end());
 		cliext::vector<unsigned char> data(bytes.begin(), bytes.end());
-		BitmapSource^ bitmapSource = BitmapSource::Create(m_gl->GetWidth(), m_gl->GetHeight(), 300, 300, PixelFormats::Bgra32, BitmapPalettes::Gray256, data.to_array(), m_gl->GetWidth() * 4);
+		BitmapSource^ bitmapSource = BitmapSource::Create(m_gl->GetWidth(), m_gl->GetHeight(), 300, 300, PixelFormats::Rgb24, BitmapPalettes::Gray256, data.to_array(), m_gl->GetWidth() * 3);
+		image->Source = bitmapSource;
 	}
 
 	void OpenGL::Update(Renderable^ renderable) {

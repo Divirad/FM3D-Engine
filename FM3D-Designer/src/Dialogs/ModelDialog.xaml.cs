@@ -35,7 +35,8 @@ namespace FM3D_Designer.src.Dialogs
         public void OnRemove(FoundResource A_0)
         {
             ExternResource res = this.Resources["res"] as ExternResource;
-            res.Resources.Remove(A_0);
+            if (A_0.Parent == null) res.Resources.Remove(A_0);
+            else A_0.Parent.Content.Remove(A_0);
         }
 
         public async void OnDelete(FoundResource A_0)
@@ -57,19 +58,27 @@ namespace FM3D_Designer.src.Dialogs
         private void Button_Mesh(object sender, RoutedEventArgs e)
         {
             ExternResource res = this.Resources["res"] as ExternResource;
-            res.Resources.Add(new FoundResource("New Mesh", "Path", ResourceType.Mesh, res));
+            res.Resources.Add(new FoundResource("New Mesh", "Path", ResourceType.Mesh, res, false));
         }
 
         private void Button_Accept(object sender, RoutedEventArgs e)
         {
             this.Close();
-            var meshes = (this.Resources["res"] as ExternResource).GetMeshes();
+
             bool first = true;
+            var skel = (this.Resources["res"] as ExternResource).GetSkeleton();
+            if (skel != null)
+            {
+                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
+                first = false;
+            }
+            var meshes = (this.Resources["res"] as ExternResource).GetMeshes(skel);
             foreach (var mesh in meshes)
             {
                 MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
                 first = false;
             }
+
         }
 
         private void Button_Cancel(object sender, RoutedEventArgs e)

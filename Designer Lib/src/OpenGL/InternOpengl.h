@@ -10,6 +10,7 @@ namespace FM3D {
 	class Mesh;
 	class Texture;
 	class Material;
+	class Skeleton;
 	namespace EntitySystem {
 		class EntityCollection;
 		class Entity;
@@ -44,7 +45,7 @@ namespace DesignerLib {
 		InternOpenGL(HINSTANCE hInst);
 		~InternOpenGL();
 
-		FM3D::Model* Initialize(double width, double height, FM3D::Camera* cam, std::vector<FM3D::MeshPart*>& parts);
+		FM3D::Model* Initialize(double width, double height, FM3D::Camera* cam, std::vector<FM3D::MeshPart*>& parts, FM3D::Skeleton* skeleton);
 		void ChangeSize(double width, double height);
 		void Update(float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz);
 		std::vector<unsigned char> Render();

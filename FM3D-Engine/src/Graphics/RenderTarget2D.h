@@ -17,5 +17,7 @@ namespace FM3D {
 
 		int GetWidth() const;
 		int GetHeight() const;
+
+		virtual std::vector<byte> GetPixelData() = 0;
 	};
 }

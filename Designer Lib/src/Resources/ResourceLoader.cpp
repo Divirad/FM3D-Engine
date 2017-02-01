@@ -47,7 +47,7 @@ namespace DesignerLib {
 		}
 	}
 
-	bool ResourceLoader::Load(const std::string& path, std::string& mesh, std::vector<std::string>& parts) {
+	bool ResourceLoader::Load(const std::string& path, std::string& mesh, std::vector<std::string>& parts, bool& needSkelet, std::vector<bool>& animated) {
 		importer = new Assimp::Importer();
 		importer->SetPropertyInteger(AI_CONFIG_PP_LBW_MAX_WEIGHTS, 4);
 		scene = importer->ReadFile(path.c_str(), aiProcess_LimitBoneWeights | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
@@ -58,10 +58,13 @@ namespace DesignerLib {
 
 		//Return Mesh
 		mesh = "Combined Mesh";
+		needSkelet = false;
 
 		for (uint i = 0; i < scene->mNumMeshes; i++) {
 			if (scene->mMeshes[i]->mFaces[0].mNumIndices == 3) {
 				meshIds.push_back(i);
+				if (scene->mMeshes[i]->mNumBones != 0) needSkelet = true;
+				animated.push_back(scene->mMeshes[i]->mNumBones != 0);
 
 				//Return Mesh-part
 				std::string name = scene->mMeshes[i]->mName.data;
@@ -79,6 +82,7 @@ namespace DesignerLib {
 		*globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
 
 		boneOffsetMatrices = new DynamicRawArray<Matrix4f>(0);
+		animations = new DynamicRawArray<Animation>(0);
 
 		return true;
 	}
@@ -172,7 +176,14 @@ namespace DesignerLib {
 		return result;
 	}
 
+	Skeleton* ResourceLoader::GetSkeleton(int& bcount) {
+		bcount = boneOffsetMatrices->Size();
+		return new FM3D::Skeleton(RawArray<Matrix4f>(*boneOffsetMatrices), RawArray<Animation>(*animations));
+	}
+
 	ResourceLoader::~ResourceLoader() {
+		boneOffsetMatrices->Delete();
+		animations->Delete();
 		delete[] meshMatrices;
 		delete boneOffsetMatrices;
 		delete globalInverseTransformation;

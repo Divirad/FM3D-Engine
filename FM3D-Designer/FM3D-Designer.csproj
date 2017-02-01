@@ -357,10 +357,6 @@
     <Resource Include="resources\images\file browser\tree_bigicons_icon.png" />
     <Resource Include="resources\images\file browser\tree_icon.png" />
     <Resource Include="resources\proj\fm3d.xml" />
-    <Resource Include="resources\images\ModelDialog\Material.png" />
-    <Resource Include="resources\images\ModelDialog\Mesh.png" />
-    <Resource Include="resources\images\ModelDialog\MeshPart.png" />
-    <Resource Include="resources\images\ModelDialog\Model.png" />
     <Resource Include="resources\images\file browser\cube.png" />
     <Resource Include="resources\images\file browser\material_bigIcon.png" />
     <Resource Include="resources\images\file browser\material_icon.png" />

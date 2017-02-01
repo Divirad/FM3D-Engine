@@ -4,24 +4,14 @@
 
 namespace DesignerLib {
 
-	FoundResource::FoundResource(std::string name, std::string path, ResourceType type, ExternResource^ master) {
-		this->Name = ConvertString(name);
-		this->Path = ConvertString(path);
-		this->ResType = type;
-		this->Content = gcnew ObservableCollection<FoundResource^>();
-		this->IsReference = false;
-		this->Master = master;
-
-		this->Master->Resources->CollectionChanged += gcnew System::Collections::Specialized::NotifyCollectionChangedEventHandler(this, &FoundResource::OnResourcesChanged);
-	}
-
-	FoundResource::FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master) {
+	FoundResource::FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master, bool needSkeleton) {
 		this->Name = name;
 		this->Path = path;
 		this->ResType = type;
 		this->Content = gcnew ObservableCollection<FoundResource^>();
 		this->IsReference = false;
 		this->Master = master;
+		this->NeedsSkeleton = needSkeleton;
 
 		this->Master->Resources->CollectionChanged += gcnew System::Collections::Specialized::NotifyCollectionChangedEventHandler(this, &FoundResource::OnResourcesChanged);
 	}
@@ -29,10 +19,13 @@ namespace DesignerLib {
 	FoundResource::FoundResource(FoundResource^ parent, FoundResource^ reference, ExternResource^ master) {
 		this->Name = reference->Name;
 		this->Path = "";
-		this->ResType = reference->ResType;
+		this->ResType = ResourceType::Reference;
 		this->Content = nullptr;
 		this->IsReference = true;
 		this->Master = master;
+		this->NeedsSkeleton = false;
+		this->Parent = parent;
+		this->Reference = reference;
 
 		this->Master->Resources->CollectionChanged += gcnew System::Collections::Specialized::NotifyCollectionChangedEventHandler(this, &FoundResource::OnResourcesChanged);
 	}

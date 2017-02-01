@@ -5,6 +5,8 @@
 #pragma managed(push, off)
 #include "ResourceLoader.h"
 #pragma managed(pop)
+#include "Mesh.h"
+#include "Skeleton.h"
 
 using namespace System::ComponentModel;
 using namespace System::Collections::ObjectModel;
@@ -28,7 +30,8 @@ namespace DesignerLib {
 
 		virtual event PropertyChangedEventHandler^ PropertyChanged;
 
-		ObservableCollection<Mesh^>^ GetMeshes();
+		ObservableCollection<Mesh^>^ GetMeshes(Skeleton^ skeleton);
+		Skeleton^ GetSkeleton();
 
 	private:
 		void OnPropertyChanged(System::String^ name) {

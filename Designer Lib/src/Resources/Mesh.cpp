@@ -33,11 +33,12 @@ namespace DesignerLib {
 		return coll;
 	}
 
-	Mesh::Mesh(ObservableCollection<MeshPart^>^ parts) {
+	Mesh::Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton) {
 		this->Parts = gcnew ObservableCollection<MeshPart^>();
 		for each(auto p in parts) {
 			this->Parts->Add(p);
 		}
+		this->skeleton = skeleton;
 	}
 
 }
