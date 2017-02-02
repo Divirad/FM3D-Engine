@@ -124,5 +124,9 @@ namespace FM3D_Designer.src
         {
             Close();
         }
+
+        public void AddClass(string name) {
+            pipeSystem.SendAddClass(name);
+        }
     }
 }

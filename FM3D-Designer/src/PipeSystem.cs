@@ -81,5 +81,11 @@ namespace FM3D_Designer
             return true;
         }
 
+        public void SendAddClass(string name) {
+            writer.WriteLine("AddClass");
+            writer.WriteLine(name);
+            writer.Flush();
+        }
+
     }
 }

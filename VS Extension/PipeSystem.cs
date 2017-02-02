@@ -54,6 +54,9 @@ namespace VS_Extension
                 case "GetComponents":
                     SendComponents();
                     break;
+                case "AddClass":
+                    AddClass();
+                    break;
             }
         }
 
@@ -70,6 +73,12 @@ namespace VS_Extension
                 writer.WriteLine(s);
             }
             writer.Flush();
+        }
+
+        private static void AddClass() {
+            string name = reader.ReadLine();
+            CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
+            code.AddClass(name);
         }
     }
 }
