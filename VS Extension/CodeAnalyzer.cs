@@ -11,10 +11,12 @@ namespace VS_Extension
     class CodeAnalyzer
     {
         private VCCodeModel model;
+        private Project p;
 
         public CodeAnalyzer(Project p)
         {
             model = p.CodeModel as VCCodeModel;
+            this.p = p;
         }
 
         public List<string> GetComponents()
@@ -53,6 +55,11 @@ namespace VS_Extension
                 if (ns.Namespaces != null) result.AddRange(GetComponentNamespace(ns.Namespaces));
             }
             return result;
+        }
+
+        public void AddClass(string name) {
+            var file = p.ProjectItems.Item(1).FileCodeModel;
+            file.AddClass("");
         }
     }
 }
