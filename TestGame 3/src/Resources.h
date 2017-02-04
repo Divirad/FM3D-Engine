@@ -166,6 +166,19 @@ struct Resources {
 	}
 #pragma endregion
 
+#pragma region Allosaurus
+	Model* alloModel;
+	Texture* texAllo;
+	Material matAllo;
+	void InitAllo(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, true);
+		texAllo = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR);
+		matAllo = { 0xffffffff, texAllo };
+		alloModel->GetMaterials()[0] = &matAllo;
+	}
+#pragma endregion 
+
 #pragma region Shuttle
 	Model* shuttleModel;
 	Texture* shuttleBody;
@@ -240,6 +253,7 @@ struct Resources {
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
+		InitAllo(r);
 		InitIsland(r);
 		InitBoba(r);
 		InitTree(r);

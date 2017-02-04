@@ -59,6 +59,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	EntityPtr boba = CreateEntity(scene, Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
 	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
+	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 0.0f, 10.0f), Vector3f(180.0f, 0.0f, 180.0f), Vector3f(1.0f, 1.0f, 1.0f), res.alloModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -121,6 +122,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderer3D->Submit(terrain.get());
 			renderer3D->Submit(island.get());
 			renderer3D->Submit(shuttle.get());
+			renderer3D->Submit(allosaurus.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 

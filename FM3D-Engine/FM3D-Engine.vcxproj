@@ -413,6 +413,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3NullShader.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Renderer3D.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.h" />
+    <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3Mesh.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderSystem.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.h" />
@@ -428,6 +429,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\RenderTarget2D.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
     <ClInclude Include="src\Graphics\Skeleton.h" />
+    <ClInclude Include="src\Graphics\Terrain.h" />
     <ClInclude Include="src\Graphics\Texture.h" />
     <ClInclude Include="src\Graphics\Vertices.h" />
     <ClInclude Include="src\input.h" />
@@ -512,6 +514,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3NullShader.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Renderer3D.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.cpp" />
+    <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3Mesh.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.cpp" />
@@ -524,6 +527,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\RenderTarget2D.cpp" />
     <ClCompile Include="src\Graphics\Skeleton.cpp" />
+    <ClCompile Include="src\Graphics\Terrain.cpp" />
     <ClCompile Include="src\Graphics\Texture.cpp" />
     <ClCompile Include="src\Graphics\Vertices.cpp" />
     <ClCompile Include="src\input.cpp" />

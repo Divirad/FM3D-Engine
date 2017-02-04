@@ -81,6 +81,7 @@ namespace FM3D {
 #include <src/Graphics/Mesh.h>
 #include <src/Graphics/Model.h>
 #include <src/Graphics/RenderableComponent.h>
+#include <src/Graphics/Terrain.h>
 
 //#include <src/Entity.h>
 
@@ -113,6 +114,8 @@ namespace FM3D {
 #include <src/Graphics/OpenGL3.3/3D/GL3LightShader.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3Shader3D.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3Renderer3D.h>
+#include <src/Graphics/OpenGL3.3/3D/GL3Terrain.h>
+
 #include <src/Graphics/OpenGL3.3/GL3RenderSystem.h>
 
 //OpenGL4.4
