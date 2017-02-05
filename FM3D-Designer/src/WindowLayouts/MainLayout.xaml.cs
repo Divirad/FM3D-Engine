@@ -110,5 +110,10 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             MessageBox.Show(output);
         }
+
+        private void ExportProj(object sender, RoutedEventArgs e)
+        {
+            Project.SaveProject();
+        }
     }
 }

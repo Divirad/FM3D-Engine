@@ -258,9 +258,9 @@ namespace FM3D_Designer.src
             }
         }
 
-        private static void SaveProject()
+        public static void SaveProject()
         {
-            
+            MainWindow.Instance.visualStudio.AddClass("");
         }
 
     }

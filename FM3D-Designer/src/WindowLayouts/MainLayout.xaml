@@ -16,7 +16,8 @@
         </Grid.RowDefinitions>
        <Menu x:Name="menu" Grid.Row="0">
             <MenuItem Header="_Edit">
-                <MenuItem Header="_New" Command="New"/>
+                <MenuItem Header="_New" Command="New" />
+                <MenuItem Header="Export" Click="ExportProj"></MenuItem>
             </MenuItem>
             <MenuItem Header="_File" />
             <MenuItem Header="_Edit" />

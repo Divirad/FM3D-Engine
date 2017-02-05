@@ -62,7 +62,7 @@ namespace VS_Extension
 
         private static void SendComponents()
         {
-            MessageBox.Show("COMPONENS");
+            MessageBox.Show("COMPONENTS");
             CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
             var strings = code.GetComponents();
 
