@@ -55,7 +55,7 @@ namespace VS_Extension
                     SendComponents();
                     break;
                 case "AddClass":
-                    AddClass();
+                    AddClassPipe();
                     break;
             }
         }
@@ -75,10 +75,10 @@ namespace VS_Extension
             writer.Flush();
         }
 
-        private static void AddClass() {
+        private static void AddClassPipe() {
             string name = reader.ReadLine();
             CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
-            code.AddClass(name);
+            code.AddClassAnalyzer(name);
         }
     }
 }

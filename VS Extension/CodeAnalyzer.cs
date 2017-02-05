@@ -59,7 +59,7 @@ namespace VS_Extension
             return result;
         }
 
-        public void AddClass(string name) {
+        public void AddClassAnalyzer(string name) {
             var file = p.ProjectItems.Item(1).FileCodeModel;
             file.AddClass("");
             AddClassExample2(file);
@@ -69,15 +69,8 @@ namespace VS_Extension
 
         public void AddClassExample2(FileCodeModel bruh)
         {
-            // Before running this example, open a code document from 
-            // a project.
             try
             {
-                //ProjectItem projItem = dte.ActiveDocument.ProjectItem;
-                //CodeModel cm = bruh;
-                //ProjectItem projItem = bruh.
-                // Initialize the base classes array and the implemented 
-                // interfaces array.
                 object[] bases = { ConvertFullName(bruh, "Hallu") };
           
                 // Create a new class.
