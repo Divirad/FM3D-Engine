@@ -325,6 +325,37 @@
     <AppDesigner Include="Properties\" />
     <None Include="resources\proj\GameProject.vcxproj" />
     <None Include="resources\proj\GameProject.vcxproj.filters" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.VC.db" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.vcxproj" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.vcxproj.filters" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\CL.command.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\CL.read.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\CL.write.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\ConsoleApplication1.lastbuildstate" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\link.command.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\link.read.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleA.CCEC2C01.tlog\link.write.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.ilk" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.log" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\Source.obj" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\vc140.idb" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\ConsoleApplication2.VC.db" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\ConsoleApplication2.vcxproj" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\ConsoleApplication2.vcxproj.filters" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\CL.command.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\CL.read.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\CL.write.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\ConsoleApplication2.lastbuildstate" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\link.command.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\link.read.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleA.F394A3F0.tlog\link.write.1.tlog" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleApplication2.ilk" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleApplication2.log" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\Main.obj" />
+    <None Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\vc140.idb" />
+    <None Include="TestProjects\Project 0\C++\GameProject.VC.db" />
+    <None Include="TestProjects\Project 0\C++\GameProject.vcxproj" />
+    <None Include="TestProjects\Project 0\C++\GameProject.vcxproj.filters" />
     <None Include="TestProjects\Project 0\project 0.fmproj" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
@@ -340,6 +371,20 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.sln" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\vc140.pdb" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Source.cpp" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication2\ConsoleApplication2.sln" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleApplication2.exe" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\ConsoleApplication2.pdb" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication2\Debug\vc140.pdb" />
+    <Content Include="TestProjects\Project 0\C++\ConsoleApplication2\Main.cpp" />
+    <Resource Include="TestProjects\Project 0\C++\fm3d.xml" />
+    <Content Include="TestProjects\Project 0\C++\GameProject.sln" />
+    <Content Include="TestProjects\Project 0\C++\Main.cpp" />
+    <Content Include="TestProjects\Project 0\C++\Quelle.cpp" />
     <Content Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.mod">
       <Generator>MSBuild:Compile</Generator>
     </Content>
@@ -399,7 +444,9 @@
       <Name>DesignerLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TestProjects\Project 0\C++\Debug\GameProject.tlog\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

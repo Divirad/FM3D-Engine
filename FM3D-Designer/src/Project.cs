@@ -260,7 +260,8 @@ namespace FM3D_Designer.src
 
         public static void SaveProject()
         {
-            MainWindow.Instance.visualStudio.AddClass("");
+            //MainWindow.Instance.visualStudio.AddClass("");
+            throw new NotImplementedException();
         }
 
     }

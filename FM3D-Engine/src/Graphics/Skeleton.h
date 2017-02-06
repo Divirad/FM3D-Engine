@@ -5,12 +5,12 @@ namespace FM3D {
 
 	class ENGINE_DLL Skeleton {
 	private:
-		Array<Matrix4f> m_boneOffsetMatrices;
-		Array<Animation> m_animations;
+		std::vector<Matrix4f> m_boneOffsetMatrices;
+		std::vector<Animation> m_animations;
 	public:
-		Skeleton(RawArray<Matrix4f>& boneOffsetMatrices, RawArray<Animation>& animations);
+		Skeleton(std::vector<Matrix4f>& boneOffsetMatrices, std::vector<Animation>& animations);
 
-		const Array<Matrix4f>& GetOffsetMatrices() const;
-		const Array<Animation>& GetAnimations() const;
+		const std::vector<Matrix4f>& GetOffsetMatrices() const;
+		const std::vector<Animation>& GetAnimations() const;
 	};
 }

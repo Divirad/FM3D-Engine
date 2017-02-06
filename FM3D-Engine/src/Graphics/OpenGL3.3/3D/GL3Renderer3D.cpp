@@ -79,13 +79,13 @@ namespace FM3D {
 							if (it2->first->IsAnimated()) {
 								AnimatedModel* a = (AnimatedModel*)it2->first;
 								if (a->GetAnimation() != nullptr) {
-									Array<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
+									std::vector<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
 									m_shader3D.SetBones(bones);
 								} else {
-									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().Size());
+									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
 								}
 							} else {
-								m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().Size());
+								m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
 							}
 						}
 						const Vector3f& position = static_cast<PositionComponent*>(e->GetComponent(PositionComponentId))->GetPosition();

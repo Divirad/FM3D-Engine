@@ -39,9 +39,10 @@ namespace DesignerLib {
 
 		m_camera = cam;
 
-		Array<MeshPart> aParts(parts.size());
+		std::vector<MeshPart> aParts;
+		aParts.reserve(parts.size());
 		for (size_t i = 0U; i < parts.size(); i++) {
-			aParts[i] = *parts[i];
+			aParts.push_back(*parts[i]);
 		}
 
 		m_emptyTex = m_renderSystem->CreateTexture();
@@ -55,7 +56,7 @@ namespace DesignerLib {
 		m_emptyMat = new Material({ 0xffffffff, m_emptyTex });
 
 		m_mesh = m_renderSystem->CreateMesh(skeleton, false, aParts);
-		RawArray<const Material*> materials(m_mesh->GetCountOfParts());
+		std::vector<const Material*> materials(m_mesh->GetCountOfParts());
 		for (uint i = 0U; i < m_mesh->GetCountOfParts(); i++)
 			materials[i] = m_emptyMat;
 		m_model = new FM3D::Model(m_mesh, materials);

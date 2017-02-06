@@ -31,7 +31,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
-	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 10000.0f);
+	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 1000.0f);
 
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
@@ -59,7 +59,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	EntityPtr boba = CreateEntity(scene, Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
 	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
-	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 0.0f, 10.0f), Vector3f(180.0f, 0.0f, 180.0f), Vector3f(1.0f, 1.0f, 1.0f), res.alloModel);
+	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.alloModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -96,12 +96,12 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Texture* terrainTexture = renderSystem->CreateTexture();
 	ExternFileManager::ReadTextureFile("grass.jpg", terrainTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 	Material terrainMaterial = { 0xffffffff, terrainTexture };
-	RawArray<const Material*> materials(1);
+	std::vector<const Material*> materials(1);
 	materials[0] = &terrainMaterial;
 
-	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, Array<MeshPart>({ { indices.size(), (void*)&(indices[0]), vertices, sizeof(uint), false } })), materials);
+	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { indices.size(), (void*)&(indices[0]), std::move(vertices), sizeof(uint), false } })), materials);
 
-	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 
 	OUTPUT_INFO(3, "Hallo", "Infooo");
 	OUTPUT_ERROR(4, "Hallu", "Yeeeaah");
@@ -111,6 +111,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Text text1{ "", font, 0xff000000 };
 	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, res.emptyTex);
 	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, res.leavesTexture);
+
+	Matrix4f m0 = Matrix4f::Identity();
+	Matrix4f m1(Vector4f(0.0f, 1.0f, 2.0f, 5.0f), Vector4f(0.5f, 12.0f, 0.0f, 9.0f), Vector4f(0.7f, 2.0f, 7.0f, 6.0f), Vector4f(3.0f, 1.0f, 22.0f, 15.0f));
+	Matrix4f m2(Vector4f(4.5f, 2.7f, 10.4f, 50.0f), Vector4f(3.7f, 1.8f, 2.0f, 19.0f), Vector4f(3.77f, 0.4f, 77.3f, 3.3f), Vector4f(3.33f, 3.3333f, 4.7f, 2.001f));
+	std::cout << ((m1*0.5f) + (m2*0.5f)) << std::endl;
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -142,13 +147,17 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->EndRendering();
 
-			//GetModel(boba)->AddToAnimationTime(1.0f / 60.0f);
-			//if (GetModel(boba)->GetAnimationTime() >= GetModel(boba)->GetAnimation()->GetDuration())
-			//	GetModel(boba)->SetAnimationTime(0.0);
+			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 600.0f);
+			if (static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimation()->GetDuration())
+				static_cast<AnimatedModel*>(res.bobaMesh)->SetAnimationTime(0.0);
 
-			//GetModel(shuttle)->AddToAnimationTime(1.0f / 60.0f);
-			//if (GetModel(shuttle)->GetAnimationTime() >= GetModel(shuttle)->GetAnimation()->GetDuration())
-			//	GetModel(shuttle)->SetAnimationTime(0.0);
+			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 600.0f);
+			if (static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimation()->GetDuration())
+				static_cast<AnimatedModel*>(res.shuttleModel)->SetAnimationTime(0.0);
+
+			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 600.0f);
+			if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
+				static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
 
 			Move(camera);

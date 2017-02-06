@@ -14,7 +14,7 @@ namespace FM3D {
 		virtual void EndRendering() = 0;
 		virtual void Shutdown() = 0;
 
-		virtual Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<MeshPart>& parts) const = 0;
+		virtual Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const std::vector<MeshPart>& parts) const = 0;
 		virtual Texture* CreateTexture() = 0;
 		virtual Renderer2D* CreateRenderer2D(const RenderTarget2D* renderTarget) = 0;
 		virtual Renderer3D* CreateRenderer3D(Matrix4f& projectionMatrix, uint width, uint height, RenderTarget2D* target) = 0;

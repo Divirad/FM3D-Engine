@@ -9,10 +9,6 @@
 #ifdef NO_FM3D
 namespace FM3D {
 	class Matrix4f;
-
-	template <class T>
-	class DynamicRawArray;
-
 	struct MeshPart;
 	class Skeleton;
 	class Animation;
@@ -32,8 +28,8 @@ namespace DesignerLib {
 		FM3D::Matrix4f* meshMatrices;
 		FM3D::Matrix4f* globalInverseTransformation;
 		std::map<std::string, unsigned int> boneIndex;
-		FM3D::DynamicRawArray<FM3D::Matrix4f>* boneOffsetMatrices;
-		FM3D::DynamicRawArray<FM3D::Animation>* animations;
+		std::vector<FM3D::Matrix4f>* boneOffsetMatrices;
+		std::vector<FM3D::Animation>* animations;
 	public:
 		~ResourceLoader();
 		bool Load(const std::string& path, std::string& mesh, std::vector<std::string>& parts, bool& needSkelet, std::vector<bool>& animated);

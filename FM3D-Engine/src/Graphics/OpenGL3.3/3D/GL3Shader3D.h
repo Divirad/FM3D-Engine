@@ -17,7 +17,7 @@ namespace FM3D {
 		void SetWVP(const Matrix4f& WVP);
 		void SetWorldMatrix(const Matrix4f& WVP);
 		void SetColorTextureUnit(unsigned int TextureUnit);
-		void SetBones(const Array<Matrix4f>& bones);
+		void SetBones(const std::vector<Matrix4f>& bones);
 		void ReSetBones(uint i);
 	};
 }

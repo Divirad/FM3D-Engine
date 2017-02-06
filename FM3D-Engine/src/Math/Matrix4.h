@@ -335,9 +335,9 @@ namespace FM3D {
 			return result;
 		}
 
-		static void MassMultiplication(ArrayBase<Matrix4f>& m1, const ArrayBase<Matrix4f>& m2) {
-			if (m1.Size() != m2.Size()) throw std::exception();
-			for (uint i = 0; i < m1.Size(); i++) {
+		static void MassMultiplication(std::vector<Matrix4f>& m1, const std::vector<Matrix4f>& m2) {
+			if (m1.size() != m2.size()) throw std::exception();
+			for (uint i = 0; i < m1.size(); i++) {
 				m1[i] *= m2[i];
 			}
 		}

@@ -30,6 +30,8 @@ namespace FM3D {
 		*/
 		static std::string ReadShaderFile(std::string filepath);
 
+		static std::vector<std::vector<float>> ReadTerrainFile(std::string filepath);
+
 		static void Initialize(std::string resourcePath, std::string enginePath, std::string fileEnding);
 	private:
 		/*static void readStaticModelFile(std::ifstream* file, StaticModel::VertexData** data, uint** indices, int* indicesCount);

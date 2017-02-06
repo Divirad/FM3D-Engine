@@ -172,8 +172,27 @@ struct Resources {
 	Material matAllo;
 	void InitAllo(RenderSystem* renderSystem) {
 		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, true);
+		AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
+		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
+		bobaAnimModel->SetAnimationTime(1.5);
 		texAllo = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR);
+		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR, Texture::REPEAT);
+		matAllo = { 0xffffffff, texAllo };
+		alloModel->GetMaterials()[0] = &matAllo;
+	}
+#pragma endregion 
+
+#pragma region Allosaurus
+	Model* alloModel;
+	Texture* texAllo;
+	Material matAllo;
+	void InitAllo(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, true);
+		AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
+		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
+		bobaAnimModel->SetAnimationTime(1.5);
+		texAllo = renderSystem->CreateTexture();
+		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR, Texture::REPEAT);
 		matAllo = { 0xffffffff, texAllo };
 		alloModel->GetMaterials()[0] = &matAllo;
 	}
@@ -225,15 +244,15 @@ struct Resources {
 		ExternFileManager::ReadTextureFile("Buster_Col_1.jpg", shuttleBuster, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 
 
-		matShuttleBody = { 0xffffffff, shuttleBody };
-		matShuttleHover = { 0xffffffff, shuttleHover };
-		matShuttleInside = { 0xffffffff, shuttleInside };
-		matShuttleLegs = { 0xffffffff, shuttleLegs };
-		matShuttleRest = { 0xffffffff, shuttleRest };
-		matShuttleSite = { 0xffffffff, shuttleSite };
-		matShuttleWire = { 0xffffffff, shuttleWire };
-		matShuttleOutside= { 0xffffffff, shuttleOutside };
-		matShuttleBuster = { 0xffffffff, shuttleBuster };
+		matShuttleBody =    { 0xffffffff, shuttleBody };
+		matShuttleHover =   { 0xffffffff, shuttleHover };
+		matShuttleInside =  { 0xffffffff, shuttleInside };
+		matShuttleLegs =    { 0xffffffff, shuttleLegs };
+		matShuttleRest =    { 0xffffffff, shuttleRest };
+		matShuttleSite =    { 0xffffffff, shuttleSite };
+		matShuttleWire =    { 0xffffffff, shuttleWire };
+		matShuttleOutside = { 0xffffffff, shuttleOutside };
+		matShuttleBuster =  { 0xffffffff, shuttleBuster };
 
 		auto& materials = shuttleModel->GetMaterials();
 		materials[0] = &disabledMat; //strange thing

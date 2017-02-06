@@ -80,10 +80,6 @@ namespace DesignerLib {
 
 		globalInverseTransformation = new Matrix4f();
 		*globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
-
-		boneOffsetMatrices = new DynamicRawArray<Matrix4f>(0);
-		animations = new DynamicRawArray<Animation>(0);
-
 		return true;
 	}
 
@@ -96,8 +92,7 @@ namespace DesignerLib {
 			unsigned int jointIndex = boneIndex.size();
 			if (it == boneIndex.end()) {
 				boneIndex[bone->mName.data] = jointIndex;
-				boneOffsetMatrices->AdvanceBy(1);
-				(*boneOffsetMatrices)[boneOffsetMatrices->Size() - 1] = CreateMatrix4f(bone->mOffsetMatrix);
+				boneOffsetMatrices->push_back(CreateMatrix4f(bone->mOffsetMatrix));
 			}
 			else {
 				jointIndex = it->second;
@@ -177,15 +172,12 @@ namespace DesignerLib {
 	}
 
 	Skeleton* ResourceLoader::GetSkeleton(int& bcount) {
-		bcount = boneOffsetMatrices->Size();
-		return new FM3D::Skeleton(RawArray<Matrix4f>(*boneOffsetMatrices), RawArray<Animation>(*animations));
+		bcount = boneOffsetMatrices->size();
+		return new FM3D::Skeleton(*boneOffsetMatrices, *animations);
 	}
 
 	ResourceLoader::~ResourceLoader() {
-		boneOffsetMatrices->Delete();
-		animations->Delete();
 		delete[] meshMatrices;
-		delete boneOffsetMatrices;
 		delete globalInverseTransformation;
 		//delete scene;
 		//delete importer;

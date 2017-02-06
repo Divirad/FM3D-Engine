@@ -10,7 +10,7 @@ namespace FM3D {
 		uint indexSize;
 		bool supportsInstancing;
 
-		MeshPart(uint indicesCount, void* indices, Vertices vertices, uint indexSize, bool supportsInstancing);
+		MeshPart(uint indicesCount, void* indices, Vertices&& vertices, uint indexSize, bool supportsInstancing);
 	};
 
 	///<summary>

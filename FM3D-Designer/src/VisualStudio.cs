@@ -51,11 +51,6 @@ namespace FM3D_Designer.src
         private Process process;
         private PipeSystem pipeSystem = new PipeSystem();
 
-        public bool GetComponents(out ObservableCollection<string> components)
-        {
-            return pipeSystem.GetComponents(out components);
-        }
-
         public void Start(string pipename, string solution)
         {
             if (IsActive) return;
@@ -78,6 +73,9 @@ namespace FM3D_Designer.src
                 MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync("FM3D-Designer-Error", "Could not start Visual Studio!\n" + e.Message, MessageDialogStyle.Affirmative); }));
                 return;
             }
+            pipeSystem.ConnectEvent += this.OnConnected;
+            pipeSystem.DisconnectEvent += this.OnDisconnected;
+
             pipeSystem.Start(pipename);
         }
 
@@ -125,8 +123,24 @@ namespace FM3D_Designer.src
             Close();
         }
 
-        public void AddClass(string name) {
-            pipeSystem.SendAddClass(name);
+        public void AddClass(string name, string file, string[] bases = null) {
+            lock (mutex)
+            {
+                if (!_IsStarted)
+                    throw new InvalidOperationException("Visual Studio is not started!");
+                pipeSystem.SendAddClass(name, file, bases);
+            }
+        }
+
+        public bool GetComponents(out ObservableCollection<string> components)
+        {
+            lock (mutex)
+            {
+                if (!_IsStarted)
+                    throw new InvalidOperationException("Visual Studio is not started!");
+                return pipeSystem.GetComponents(out components);
+            }
+
         }
     }
 }

@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
-namespace FM3D_Designer
+namespace FM3D_Designer.src
 {
     public class PipeSystem
     { 
@@ -81,9 +83,28 @@ namespace FM3D_Designer
             return true;
         }
 
-        public void SendAddClass(string name) {
+        public void SendAddClass(string name, string file, string[] bases) {
             writer.WriteLine("AddClass");
+
             writer.WriteLine(name);
+            writer.WriteLine(file);
+            writer.Flush();
+            var result = reader.ReadLine();
+            if(result == "InvalidFile")
+            {
+                throw new ArgumentException(file + " is not a valid code file", "file");
+            }
+            if(bases != null)
+            {
+                writer.WriteLine(bases.Length);
+                foreach(var b in bases)
+                {
+                    writer.WriteLine(b);
+                }
+            } else
+            {
+                writer.WriteLine("0");
+            }
             writer.Flush();
         }
 

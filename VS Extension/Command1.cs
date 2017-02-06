@@ -96,15 +96,7 @@ namespace VS_Extension
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            string output = "";
-
-            CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
-            var strings = code.GetComponents();
-            foreach(string s in strings)
-            {
-                output += s + "\n";
-            }
-            MessageBox.Show(output);
+            throw new NotImplementedException();
         }
 
         private void OutputCode(ref string output, CodeElements elements, string space)

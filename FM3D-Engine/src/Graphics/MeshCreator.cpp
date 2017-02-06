@@ -22,7 +22,7 @@ namespace FM3D {
 
 		byte indices[] = { 0, 11, 5,0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1 };
 	
-		return renderSystem->CreateMesh(nullptr, false, Array<MeshPart>({ { 60, (void*)indices, vertices, sizeof(byte), false } }));
+		return renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { 60, (void*)indices, std::move(vertices), sizeof(byte), false } }));
 	}
 
 	Mesh * MeshCreator::CreateRectangle(const RenderSystem* renderSystem, Vector3f pos, Vector2f size) {
@@ -38,7 +38,7 @@ namespace FM3D {
 		vertices.GetPosition(3) = Vector3f(pos.x + size.x, pos.y, pos.z);
 		vertices.GetTexCoord(3) = Vector2f(1.0f, 0.0f);
 
-		return renderSystem->CreateMesh(nullptr, false, Array<MeshPart>({ { 6, (void*)indices, vertices, sizeof(byte), false } }));
+		return renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { 6, (void*)indices, std::move(vertices), sizeof(byte), false } }));
 	}
 
 }

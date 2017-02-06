@@ -41,11 +41,11 @@ namespace FM3D {
 	void GL3Shader3D::SetColorTextureUnit(unsigned int TextureUnit) {
 		SetUniform1i(m_colorTextureUnitLocation, TextureUnit);
 	}
-	void GL3Shader3D::SetBones(const Array<Matrix4f>& bones) {
-		for (uint i = 0; i < bones.Size(); i ++) {
+	void GL3Shader3D::SetBones(const std::vector<Matrix4f>& bones) {
+		for (uint i = 0; i < bones.size(); i ++) {
 			SetUniformMat4(m_bonesLocation + i, Matrix4f::Transpose(bones[i]));
 		}
-		if (bones.Size() > m_boneEnd) m_boneEnd = bones.Size();
+		if (bones.size() > m_boneEnd) m_boneEnd = bones.size();
 		m_boneBegin = 0;
 	}
 

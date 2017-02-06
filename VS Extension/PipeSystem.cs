@@ -48,7 +48,6 @@ namespace VS_Extension
             reader = new StreamReader(pipe);
 
             string type = reader.ReadLine();
-            MessageBox.Show("Message!");
             switch(type)
             {
                 case "GetComponents":
@@ -62,7 +61,6 @@ namespace VS_Extension
 
         private static void SendComponents()
         {
-            MessageBox.Show("COMPONENTS");
             CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
             var strings = code.GetComponents();
 
@@ -75,10 +73,36 @@ namespace VS_Extension
             writer.Flush();
         }
 
-        private static void AddClassPipe() {
+        private static void AddClassPipe()
+        {
             string name = reader.ReadLine();
-            CodeAnalyzer code = new CodeAnalyzer(MainPackage.Instance.MainProject);
-            code.AddClassAnalyzer(name);
+            string file = reader.ReadLine();
+
+            CodeManipulator manipulator = null;
+            try
+            {
+                manipulator = new CodeManipulator(file);
+            }
+            catch (ArgumentException e)
+            {
+                if (e.ParamName == "filename")
+                {
+                    writer.WriteLine("InvalidFile");
+                    writer.Flush();
+                    return;
+                }
+            }
+            writer.WriteLine("ValidFile");
+            writer.Flush();
+            int baseCount = Convert.ToInt32(reader.ReadLine());
+
+            var bases = new string[baseCount];
+            for (int i = 0; i < baseCount; i++)
+            {
+                bases[i] = reader.ReadLine();
+            }
+
+            manipulator.AddClass(name, bases);
         }
     }
 }

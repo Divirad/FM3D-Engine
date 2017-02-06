@@ -34,6 +34,49 @@ namespace FM3D {
 		return result;
 	}
 
+	std::vector<std::vector<float>> FileManager::ReadTerrainFile(std::string filepath) {
+		string path = FileManager::resourcePath + filepath;
+
+		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+		FIBITMAP* dib = nullptr;
+		fif = FreeImage_GetFileType(path.c_str(), 0);
+		if (fif == FIF_UNKNOWN)
+			fif = FreeImage_GetFIFFromFilename(path.c_str());
+		if (fif == FIF_UNKNOWN) {
+			OUTPUT_ERROR(1, "Filemanager Error", filepath + " has unknown image format");
+			return std::vector<std::vector<float>>();
+		}
+
+		if (FreeImage_FIFSupportsReading(fif))
+			dib = FreeImage_Load(fif, path.c_str());
+
+		//MessageBox(hWnd, filename, "Could not load image '", MB_OK);
+
+		BYTE* pixels = FreeImage_GetBits(dib);
+		uint width = FreeImage_GetWidth(dib);
+		uint height = FreeImage_GetHeight(dib);
+		uint bits = FreeImage_GetBPP(dib);
+
+		uint size = width * height * (bits / 8);
+		BYTE* result = new BYTE[size];
+		memcpy(result, pixels, size);
+		FreeImage_Unload(dib);
+
+		if (result == NULL) {
+			OUTPUT_ERROR(1, "Filemanager Error", "can't read "+ filepath);
+			return std::vector<std::vector<float>>();
+		}
+
+		std::vector<std::vector<float>> heights(width, std::vector<float>(height));
+
+		for (size_t i = 0U; i < size; i += 4) {
+			float* f = reinterpret_cast<float*>(result + i);
+			heights[i / width][i % width] = *f;
+		}
+
+		return heights;
+	}
+
 	/*
 	void FileManager::readStaticModelFile(string path, StaticModel::VertexData** data, uint** indices, int* indicesCount) {
 		path = resourcePath + path;

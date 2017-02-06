@@ -39,7 +39,7 @@ namespace FM3D {
 		void EndRendering() override;
 		void Shutdown() override;
 
-		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const ArrayBase<MeshPart>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
+		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const std::vector<MeshPart>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
 		Texture* CreateTexture() override { return new GL3Texture(); }
 		Renderer2D* CreateRenderer2D(const RenderTarget2D* renderTarget) override { return new GL3Renderer2D(renderTarget); }
 		Renderer3D* CreateRenderer3D(Matrix4f& projectionMatrix, uint width, uint height, RenderTarget2D* target) override { return new GL3Renderer3D(projectionMatrix, width, height, this, target); }

@@ -93,8 +93,10 @@ namespace FM3D {
 		}
 	}
 
-	static void InitializePart(MeshPart& result, const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, DynamicRawArray<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
+	static MeshPart InitializePart(const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, std::vector<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
+		uint uvidnex = 0;
+		if (mesh->GetNumUVChannels() != 1) uvidnex = 1;
 
 		for (unsigned int j = 0; j < mesh->mNumBones; j++) {
 			aiBone *bone = mesh->mBones[j];
@@ -102,8 +104,7 @@ namespace FM3D {
 			unsigned int jointIndex = boneIndex.size();
 			if (it == boneIndex.end()) {
 				boneIndex[bone->mName.data] = jointIndex;
-				boneOffsetMatrices.AdvanceBy(1);
-				boneOffsetMatrices[boneOffsetMatrices.Size()-1] = CreateMatrix4f(bone->mOffsetMatrix);
+				boneOffsetMatrices.push_back(CreateMatrix4f(bone->mOffsetMatrix));
 			} else {
 				jointIndex = it->second;
 				if (boneOffsetMatrices[jointIndex] != CreateMatrix4f(bone->mOffsetMatrix)) {
@@ -116,13 +117,8 @@ namespace FM3D {
 
 		uint vertexData = Vertices::POSITION | Vertices::TEXCOORD | Vertices::NORMAL;
 		if (isAnimated) vertexData = vertexData | Vertices::BONE_DATA;
-		result.indicesCount = mesh->mNumFaces * 3;
-		result.indexSize = sizeof(uint);
-		result.supportsInstancing = supportsInstancing;
-		result.vertices = Vertices(mesh->mNumVertices, vertexData);
-		result.indices = nullptr;
-		uint* indices = new uint[result.indicesCount];
-		Vertices& vertices = result.vertices;
+		Vertices vertices(mesh->mNumVertices, vertexData);
+		uint* indices = new uint[mesh->mNumFaces * 3];
 		
 		for (uint i = 0; i < mesh->mNumFaces; i++) {
 			indices[(i * 3) + 0] = mesh->mFaces[i].mIndices[0];
@@ -134,7 +130,7 @@ namespace FM3D {
 			aiVector3D pos = mesh->mVertices[i];
 			/*if(isAnimated)*/ vertices.SetPosition(modelMatrix * (meshMatrix * Vector3f(pos.x, pos.y, pos.z)), i);
 			//else vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
-			aiVector3D uv = mesh->mTextureCoords[0][i];
+			aiVector3D uv = mesh->mTextureCoords[uvidnex][i];
 			vertices.SetTexCoord(Vector2f(uv.x, 1.0f - uv.y), i);
 			aiVector3D norm = mesh->mNormals[i];
 			vertices.SetNormal(Vector3f(norm.x, norm.y, norm.z), i);
@@ -176,8 +172,7 @@ namespace FM3D {
 				}
 			}
 		}
-
-		result.indices = indices;
+		return MeshPart(mesh->mNumFaces * 3, indices, std::move(vertices), sizeof(uint), supportsInstancing);
 	}
 
 	static aiNode* FindNode(aiNode *node, const char *name) {
@@ -201,24 +196,24 @@ namespace FM3D {
 #define UNUSEDCHANNEL 0xffffffff
 	};
 
-	static void CalcMatricesWithNodes(RawArray<Array<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
+	static void CalcMatricesWithNodes(std::vector<std::vector<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
 		for (uint c = 0; c < numChannels; c++) {
 			uint bone = channels[c].bone;
 			if (bone == UNUSEDCHANNEL) continue;
 			uint numKeys = channels[c].mat.size();
-			new (&matrices[bone]) Array<Matrix4f>(numKeys);
+			new (&matrices[bone]) std::vector<Matrix4f>(numKeys);
 			for (uint key = 0; key < numKeys; key++) {
 				Matrix4f mat = Matrix4f::Identity();
 				for (Channel* node = &channels[c]; node; node = node->parent) {
 					mat = node->mat[key] * mat;
 				}
-				mat = globalInverseTransformation * mat;
+				//mat = globalInverseTransformation * mat;
 				matrices[bone][key] = mat;
 			}
 		}
 	}
 
-	static void InitializeAnimation(Animation* inAnimation, const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation) {
+	static Animation InitializeAnimation(const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation) {
 		aiAnimation *animation = scene->mAnimations[animationIndex];
 		uint numChannels = animation->mNumChannels;
 		if (numChannels == 0)
@@ -273,7 +268,7 @@ namespace FM3D {
 		vector<uint> keyIndices(numChannels);
 		for (uint i = 0; i < numChannels; i++) keyIndices[i] = 0u;
 		vector<uint> channelIndices;
-		DynamicRawArray<double> times(0);
+		std::vector<double> times(0);
 		double time = -1.0;
 		double startTime = channels[0].node->mPositionKeys[0].mTime;
 		double endTime = channels[0].node->mPositionKeys[channels[0].node->mNumPositionKeys - 1].mTime;
@@ -306,7 +301,7 @@ namespace FM3D {
 					cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Channel " << c << " Keys " << keyIndices[c] << " have different times" << endl;
 				}
 			}
-			times.Push_Back(time - startTime);
+			times.push_back(time - startTime);
 			if (time == endTime) break;
 			for (uint i : channelIndices) keyIndices[i]++;
 
@@ -332,10 +327,10 @@ namespace FM3D {
 			channels[c].mat.push_back(CreateMatrix4f(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
 		}
 
-		RawArray<Array<Matrix4f>> matrices(boneCount);
+		std::vector<std::vector<Matrix4f>> matrices(boneCount);
 		CalcMatricesWithNodes(matrices, channels, numChannels, globalInverseTransformation);
 
-		new (inAnimation) Animation(animation->mName.data, matrices, RawArray<double>(times), animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
+		return Animation(animation->mName.data, matrices, times, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
 	}
 	
 	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
@@ -344,7 +339,7 @@ namespace FM3D {
 		const aiScene* scene;
 
 		importer.SetPropertyInteger(AI_CONFIG_PP_LBW_MAX_WEIGHTS, 4);
-		scene = importer.ReadFile(path.c_str(), aiProcess_LimitBoneWeights | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+		scene = importer.ReadFile(path.c_str(), aiProcess_LimitBoneWeights | aiProcess_GenUVCoords | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 		if (!scene) cout << "Assimp loading " << filename << ": " << importer.GetErrorString() << endl;
 
 		vector<uint> meshIds;
@@ -366,32 +361,30 @@ namespace FM3D {
 
 		//MESH SECTION
 		map<string, unsigned int> boneIndex;
-		DynamicRawArray<Matrix4f> boneOffsetMatrices(0);
-		Array<MeshPart> parts(meshIds.size());
+		std::vector<Matrix4f> boneOffsetMatrices(0);
+		std::vector<MeshPart> parts;
+		parts.reserve(meshIds.size());
 		uint c = 0;
 		for (uint meshIndex : meshIds) {
-			InitializePart(parts[c], scene, meshIndex, meshMatrices[c], boneIndex, boneOffsetMatrices, supportsInstancing, useAnimation, modelMatrix);
+			parts.push_back(InitializePart(scene, meshIndex, meshMatrices[c], boneIndex, boneOffsetMatrices, supportsInstancing, useAnimation, modelMatrix));
 			c++;
 		}
 
 		//ANIMATION SECTION
-		DynamicRawArray<Animation> animations(0);
+		std::vector<Animation> animations;
 		for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
-			animations.AdvanceBy(1);
-			InitializeAnimation(&animations[animations.Size() - 1], scene, i, filename, boneOffsetMatrices.Size(), boneIndex, globalInverseTransformation);
+			animations.push_back(InitializeAnimation(scene, i, filename, boneOffsetMatrices.size(), boneIndex, globalInverseTransformation));
 		}
 
 		for (Matrix4f& offset : boneOffsetMatrices) {
 			offset *= Matrix4f::Invert(meshMatrices[0]);
 		}
-		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(RawArray<Matrix4f>(boneOffsetMatrices), RawArray<Animation>(animations)) : nullptr, supportsInstancing, parts);
-		boneOffsetMatrices.Delete();
-		animations.Delete();
+		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(std::vector<Matrix4f>(boneOffsetMatrices), std::vector<Animation>(animations)) : nullptr, supportsInstancing, parts);
 		for (MeshPart& p : parts) {
 			delete[] (uint*) p.indices;
 		}
-		if(isAnimated && useAnimation) *result = new AnimatedModel(mesh, RawArray<const Material*>(parts.Size()), nullptr, 0.0);
-		else *result = new Model(mesh, RawArray<const Material*>(parts.Size()));
+		if(isAnimated && useAnimation) *result = new AnimatedModel(mesh, std::vector<const Material*>(parts.size()), nullptr, 0.0);
+		else *result = new Model(mesh, std::vector<const Material*>(parts.size()));
 	}
 
 	/*void ExternFileManager::ReadModelFile(const char* filename, StaticModel* model) {

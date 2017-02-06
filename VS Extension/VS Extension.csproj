@@ -52,6 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeAnalyzer.cs" />
+    <Compile Include="CodeManipulator.cs" />
     <Compile Include="Command1.cs" />
     <Compile Include="FM3DPropertyFile.cs" />
     <Compile Include="MainPackage.cs" />

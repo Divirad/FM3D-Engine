@@ -5,15 +5,15 @@ namespace FM3D {
 
 	class ENGINE_DLL Model {
 	protected:
-		Array<const Material*> m_materials;
+		std::vector<const Material*> m_materials;
 		const Mesh* m_mesh;
 		bool m_isAnimated;
-		Model(const Mesh* mesh, RawArray<const Material*>& materials, bool isAnimated);
+		Model(const Mesh* mesh, std::vector<const Material*>& materials, bool isAnimated);
 	public:
-		Model(const Mesh* mesh, RawArray<const Material*>& materials);
+		Model(const Mesh* mesh, std::vector<const Material*>& materials);
 
-		const Array<const Material*>& GetMaterials() const { return m_materials; }
-		Array<const Material*>& GetMaterials() { return m_materials; }
+		const std::vector<const Material*>& GetMaterials() const { return m_materials; }
+		std::vector<const Material*>& GetMaterials() { return m_materials; }
 		const Mesh* const& GetMesh() const { return m_mesh; }
 		bool IsAnimated() const { return m_isAnimated; }
 	};
@@ -24,7 +24,7 @@ namespace FM3D {
 
 		double m_animationTime;
 	public:
-		AnimatedModel(const Mesh* mesh, RawArray<const Material*>& materials, const Animation* animation, double animationStartTime = 0.0);
+		AnimatedModel(const Mesh* mesh, std::vector<const Material*>& materials, const Animation* animation, double animationStartTime = 0.0);
 
 		const Animation* GetAnimation() const { return m_animation; }
 		double GetAnimationTime() const { return m_animationTime; }
