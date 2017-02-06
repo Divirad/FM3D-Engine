@@ -434,7 +434,9 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\Vertices.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\Math\Math.h" />
+    <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Math\Matrix4.h" />
+    <ClInclude Include="src\Math\Vector.h" />
     <ClInclude Include="src\Math\Vector2.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Math\Vector4.h" />

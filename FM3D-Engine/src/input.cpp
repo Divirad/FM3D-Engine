@@ -5,7 +5,7 @@ using namespace std;
 namespace FM3D
 {
 	Inputsystem Inputsystem::s_instance = Inputsystem();
-	Inputsystem::Inputsystem() {}
+	Inputsystem::Inputsystem(): lastposinst(Vector2f::Zero()) {}
 	Inputsystem::~Inputsystem() {}
 
 	void Inputsystem::keyPressed(WPARAM wParam) {

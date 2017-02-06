@@ -133,7 +133,7 @@ namespace FM3D {
 	void GL3Renderer3D::PointLightPass(PointLight& light, const Matrix4f& viewProjMatrix, const Vector3f& cameraPos) {
 		float maxChannel = fmax(fmax(light.color.x, light.color.y), light.color.z);
 		float scale = Math::QuadraticEquation(light.attenuation.exp, light.attenuation.linear, light.attenuation.exp - 256 * maxChannel * light.diffuseIntensity);
-		Matrix4f wvp = viewProjMatrix * Matrix4f::Scale(Vector3f(scale)) * Matrix4f::Translate(light.position);
+		Matrix4f wvp = viewProjMatrix * Matrix4f::Scale(Vector3f(scale, scale, scale)) * Matrix4f::Translate(light.position);
 
 		StencilPass(light, wvp);
 

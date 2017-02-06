@@ -3,7 +3,7 @@
 namespace FM3D {
 
 	Camera::Camera(Vector3f& position, Vector3f& rotation, float zoom):
-	m_position(position), m_rotation(rotation), m_zoom(zoom), fpstat(0){
+	m_position(position), m_rotation(rotation), m_zoom(zoom), fpstat(0), last(Vector2f::Zero()){
 
 	}
 

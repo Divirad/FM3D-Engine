@@ -1,99 +1,104 @@
 #pragma once
 #include <Engine.h>
 
-#define ZERO (Scalar) 0.0f
-#define ONE (Scalar) 1.0f
-
 namespace FM3D {
 	namespace Math {
 
 		template<typename Scalar>
-		class Vector2 {
+		class Vector<2U, Scalar> {
+			static_assert(std::is_arithmetic<Scalar>::value, "Scalar must be an arithmetic type (int, float..)");
 		public:
 			union {
 				struct { Scalar x; Scalar y; };
 				Scalar components[2];
 			};
 
-			Vector2() : x(ZERO), y(ZERO) {}
-			Vector2(Scalar x, Scalar y) : x(x), y(y) {}
+			Vector(Scalar x, Scalar y) : x(x), y(y) {}
+			Vector(const Scalar* components) {
+				memcpy(this->components, components, 2); //Copy input in vector
+			}
 
-			inline static Vector2 Zero() { return ZERO, ZERO, }
-			inline static Vector2 XAxis() { return ONE, ZERO, }
-			inline static Vector2 YAxis() { return ZERO, ONE, }
+			//Constant vectors
+			inline static Vector Zero()  { return Vector(0, 0); }
+			inline static Vector XAxis() { return Vector(1, 0); }
+			inline static Vector YAxis() { return Vector(0, 1); }
 
-			inline Vector2& Add(const Vector2& other) { x += other.x; y += other.y; return *this; }
-			inline Vector2& Subtract(const Vector2& other) { x -= other.x; y -= other.y; return *this; }
-			inline Vector2& Multiply(const Vector2& other) { x *= other.x; y *= other.y; return *this; }
-			inline Vector2& Divide(const Vector2& other) { x /= other.x; y /= other.y; return *this; }
+			//Element Access
+			inline Scalar& operator[](uint x) { return components[x]; };
+			inline const Scalar& operator[](uint x) const { return components[x]; };
 
-			inline Vector2& Add(Scalar other) { x += other; y += other; return *this; }
-			inline Vector2& Subtract(Scalar other) { x -= other; y -= other; return *this; }
-			inline Vector2& Multiply(Scalar other) { x *= other; y *= other; return *this; }
-			inline Vector2& Divide(Scalar other) { x /= other; y /= other; return *this; }
+			//Methods
+			inline Vector& Add(const Vector& other) { x += other.x; y += other.y; return *this; }
+			inline Vector& Subtract(const Vector& other) { x -= other.x; y -= other.y; return *this; }
+			inline Vector& Multiply(const Vector& other) { x *= other.x; y *= other.y; return *this; }
+			inline Vector& Divide(const Vector& other) { x /= other.x; y /= other.y; return *this; }
 
-			inline static Vector2& Add(Vector2 left, const Vector2& right) { return left.Add(right); }
-			inline static Vector2& Subtract(Vector2 left, const Vector2& right) { return left.Subtract(right); }
-			inline static Vector2& Multiply(Vector2 left, const Vector2& right) { return left.Multiply(right); }
-			inline static Vector2& Divide(Vector2 left, const Vector2& right) { return left.Divide(right); }
+			inline Vector& Add(Scalar scalar) { x += scalar; y += scalar; return *this; }
+			inline Vector& Subtract(Scalar scalar) { x -= scalar; y -= scalar; return *this; }
+			inline Vector& Multiply(Scalar scalar) { x *= scalar; y *= scalar; return *this; }
+			inline Vector& Divide(Scalar scalar) { x /= scalar; y /= scalar; return *this; }
 
-			inline static Vector2& Add(Vector2 left, Scalar right) { return left.Add(right); }
-			inline static Vector2& Subtract(Vector2 left, Scalar right) { return left.Subtract(right); }
-			inline static Vector2& Multiply(Vector2 left, Scalar right) { return left.Multiply(right); }
-			inline static Vector2 Divide(Vector2 left, Scalar right) { return left.Divide(right); }
+			inline bool IsEqual(const Vector& other) const { return x == other.x && y == other.y; }
+			inline bool IsUnequal(const Vector& other) const { return x != other.x && y != other.y; }
 
-			inline friend Vector2 operator+(Vector2 left, const Vector2& right) { return left.Add(right); }
-			inline friend Vector2 operator-(Vector2 left, const Vector2& right) { return left.Subtract(right); }
-			inline friend Vector2 operator*(Vector2 left, const Vector2& right) { return left.Multiply(right); }
-			inline friend Vector2 operator/(Vector2 left, const Vector2& right) { return left.Divide(right); }
-
-			inline friend Vector2 operator+(Vector2 left, Scalar right) { return left.Add(right); }
-			inline friend Vector2 operator-(Vector2 left, Scalar right) { return left.Subtract(right); }
-			inline friend Vector2 operator*(Vector2 left, Scalar right) { return left.Multiply(right); }
-			inline friend Vector2 operator/(Vector2 left, Scalar right) { return left.Divide(right); }
-
-			inline Vector2& operator+=(const Vector2& other) { return Add(other); }
-			inline Vector2& operator-=(const Vector2& other) { return Subtract(other); }
-			inline Vector2& operator*=(const Vector2& other) { return Multiply(other); }
-			inline Vector2& operator/=(const Vector2& other) { return Divide(other); }
-
-			inline Vector2& operator+=(Scalar other) { return Add(other); }
-			inline Vector2& operator-=(Scalar other) { return Subtract(other); }
-			inline Vector2& operator*=(Scalar other) { return Multiply(other); }
-			inline Vector2& operator/=(Scalar other) { return Divide(other); }
-
-			inline bool operator<(const Vector2& other) const { return x < other.x && y < other.y; }
-			inline bool operator<=(const Vector2& other) const { return x <= other.x && y <= other.y; }
-			inline bool operator>(const Vector2& other) const { return x > other.x && y > other.y; }
-			inline bool operator>=(const Vector2& other) const { return x >= other.x && y >= other.y; }
-			inline bool operator==(const Vector2& other) const { return x == other.x && y == other.y; }
-			inline bool operator!=(const Vector2& other) const { return !(*this == other); }
-
-			inline Vector2 operator-(const Vector2& Vector2tor) { return Vector2(-Vector2tor.x, -Vector2tor.y); }
-
-			inline Scalar Dot(const Vector2& other) const { return x * other.x + y * other.y; }
-
+			inline Scalar Dot(const Vector& other) const { return x * other.x + y * other.y; }
 			inline Scalar LengthSquared() const { return x * x + y * y; }
+			inline float Length() const { return std::sqrtf((float)LengthSquared()); }
+			inline double LengthD() const { return std::sqrt((double)LengthSquared()); }
+			inline Vector& Normalize() { return Divide((Scalar)Length()); }
 
-			inline static float Length(const Vector2& vec) { return (float)sqrt(vec.x * vec.x + vec.y * vec.y); }
-			inline float Length() const { return (float)sqrt(x * x + y * y); }
+			//Member operators
+			inline Vector& operator+=(const Vector& other) { return Add(other); }
+			inline Vector& operator-=(const Vector& other) { return Subtract(other); }
+			inline Vector& operator*=(const Vector& other) { return Multiply(other); }
+			inline Vector& operator/=(const Vector& other) { return Divide(other); }
 
-			inline Vector2& Normalize() { return Divide((Scalar)Length()); }
-			inline static Vector2 Normalize(Vector2& v) { return Divide(v, v.Length()); }
+			inline Vector& operator+=(Scalar other) { return Add(other); }
+			inline Vector& operator-=(Scalar other) { return Subtract(other); }
+			inline Vector& operator*=(Scalar other) { return Multiply(other); }
+			inline Vector& operator/=(Scalar other) { return Divide(other); }
 
-			inline float Distance(const Vector2& other) const { return Divide(*this, other).Length(); }
+			inline bool operator==(const Vector& other) const { return IsEqual(other); }
+			inline bool operator!=(const Vector& other) const { return IsUnequal(other); }
 
-			inline friend std::ostream& operator<<(std::ostream& stream, const Vector2& vector) { return stream << "Vector2: (" << vector.x << ", " << vector.y << ")"; }
+			//Static methods
+			inline static Vector Add(Vector left, const Vector& right) { return left.Add(right); }
+			inline static Vector Subtract(Vector left, const Vector& right) { return left.Subtract(right); }
+			inline static Vector Multiply(Vector left, const Vector& right) { return left.Multiply(right); }
+			inline static Vector Divide(Vector left, const Vector& right) { return left.Divide(right); }
 
-			inline Scalar& operator[](byte x) { return components[x]; };
-			inline const Scalar& operator[](byte x) const { return components[x]; };
+			inline static Vector Add(Vector left, Scalar right) { return left.Add(right); }
+			inline static Vector Subtract(Vector left, Scalar right) { return left.Subtract(right); }
+			inline static Vector Multiply(Vector left, Scalar right) { return left.Multiply(right); }
+			inline static Vector Divide(Vector left, Scalar right) { return left.Divide(right); }
 
-			inline std::string ToString() const { 
-				std::stringstream ss; ss << x << ", " << y; return ss.str();
+			inline static Scalar Dot(const Vector& left, const Vector& right) { return left.Dot(right); }
+			inline static Scalar LengthSquared(const Vector& vec) { return vec.LengthSquared(); }
+			inline static float  Length(const Vector& vec) { return std::sqrtf((float)vec.LengthSquared()); }
+			inline static double LengthD(const Vector& vec) { return std::sqrt((double)vec.LengthSquared()); }
+			inline static Vector Normalize(Vector vec) { return vec.Divide((Scalar)Length()); }
+
+			//Static operators
+			inline friend Vector operator+(Vector left, const Vector& right) { return left.Add(right); }
+			inline friend Vector operator-(Vector left, const Vector& right) { return left.Subtract(right); }
+			inline friend Vector operator*(Vector left, const Vector& right) { return left.Multiply(right); }
+			inline friend Vector operator/(Vector left, const Vector& right) { return left.Divide(right); }
+
+			inline friend Vector operator+(Vector left, Scalar right) { return left.Add(right); }
+			inline friend Vector operator-(Vector left, Scalar right) { return left.Subtract(right); }
+			inline friend Vector operator*(Vector left, Scalar right) { return left.Multiply(right); }
+			inline friend Vector operator/(Vector left, Scalar right) { return left.Divide(right); }
+
+			//Output - Not optimized for performance
+			inline static constexpr std::string Name() { return "Vector 2"; }
+			inline std::string ToString() const {
+				std::stringstream ss;
+				ss << "(" << x << ", " << y ")";
+				return ss.str();
+			}
+			inline friend std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
+				return stream << "(" << vector.x << ", " << vector.y << ")";
 			}
 		};
 	}
 }
-
-#undef ZERO
-#undef ONE

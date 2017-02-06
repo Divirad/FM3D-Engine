@@ -4,53 +4,100 @@
 namespace FM3D {
 	namespace Math {
 
-		template<typename Scalar>
-		class Vector<4U, Scalar> {
-			static_assert(std::is_arithmetic<Scalar>::value, "Scalar must be an arithmetic type (int, float..)");
+		template<uint D, typename Scalar>
+		class Vector {
 		public:
-			union {
-				struct { Scalar x; Scalar y; Scalar z; Scalar w; };
-				struct { Vector<2U, Scalar> xy; Scalar z; Scalar w; };
-				struct { Vector<3U, Scalar> xyz; Scalar w; };
-				Scalar components[4];
-			};
+			Scalar components[D];
 
-			Vector(Scalar x, Scalar y, Scalar z, Scalar w) : x(x), y(y), z(z), w(w) {}
-			Vector(const Vector<2U, Scalar>& xy, Scalar z, Scalar w) : xy(xy), z(z), w(w) {}
-			Vector(const Vector<3U, Scalar>& xyz, Scalar w) : xyz(xyz), w(w) {}
 			Vector(const Scalar* components) {
-				memcpy(this->components, components, 4); //Copy input in vector
+				memcpy(this->components, components, D); //Copy input in vector
 			}
 
 			//Constant vectors
-			inline static Vector Zero()  { return Vector(0, 0, 0, 0); }
-			inline static Vector XAxis() { return Vector(1, 0, 0, 0); }
-			inline static Vector YAxis() { return Vector(0, 1, 0, 0); }
-			inline static Vector ZAxis() { return Vector(0, 0, 1, 0); }
-			inline static Vector WAxis() { return Vector(0, 0, 0, 1); }
+			inline static Vector Zero() {
+				return Vector({ 0 });
+			}
 
 			//Element Access
 			inline Scalar& operator[](uint x) { return components[x]; };
 			inline const Scalar& operator[](uint x) const { return components[x]; };
 
 			//Methods
-			Vector& Add(const Vector& other) { x += other.x; y += other.y; z += other.z; w += other.w; return *this; }
-			Vector& Subtract(const Vector& other) { x -= other.x; y -= other.y; z -= other.z; w -= other.w; return *this; }
-			Vector& Multiply(const Vector& other) { x *= other.x; y *= other.y; z *= other.z; w *= other.w; return *this; }
-			Vector& Divide(const Vector& other) { x /= other.x; y /= other.y; z /= other.z; w /= other.w; return *this; }
+			Vector& Add(const Vector& other) {
+				for (uint i = 0; i < D; i++) {
+					components[i] += other.components;
+				}
+			}
+			Vector& Subtract(const Vector& other) {
+				for (uint i = 0; i < D; i++) {
+					components[i] -= other.components;
+				}
+			}
+			Vector& Multiply(const Vector& other) {
+				for (uint i = 0; i < D; i++) {
+					components[i] *= other.components;
+				}
+			}
+			Vector& Divide(const Vector& other) {
+				for (uint i = 0; i < D; i++) {
+					components[i] /= other.components;
+				}
+			}
 
-			Vector& Add(Scalar scalar) { x += scalar; y += scalar; z += scalar; w += scalar; return *this; }
-			Vector& Subtract(Scalar scalar) { x -= scalar; y -= scalar; z -= scalar; w -= scalar; return *this; }
-			Vector& Multiply(Scalar scalar) { x *= scalar; y *= scalar; z *= scalar; w *= scalar; return *this; }
-			Vector& Divide(Scalar scalar) { x /= scalar; y /= scalar; z /= scalar; w /= scalar; return *this; }
+			Vector& Add(Scalar scalar) {
+				for (uint i = 0; i < D; i++) {
+					components[i] += scalar;
+				}
+			}
+			Vector& Subtract(Scalar scalar) {
+				for (uint i = 0; i < D; i++) {
+					components[i] -= scalar;
+				}
+			}
+			Vector& Multiply(Scalar scalar) {
+				for (uint i = 0; i < D; i++) {
+					components[i] *= scalar;
+				}
+			}
+			Vector& Divide(Scalar scalar) {
+				for (uint i = 0; i < D; i++) {
+					components[i] /= scalar;
+				}
+			}
 
-			bool IsEqual(const Vector& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; }
-			bool IsUnequal(const Vector& other) const { return x != other.x && y != other.y && z != other.z && w != other.w; }
+			bool IsEqual(const Vector& other) const {
+				for (uint i = 0; i < D; i++) {
+					if (components[i] != other.components[i])
+						return false;
+				}
+				return true;
+			}
+			bool IsUnequal(const Vector& other) const {
+				for (uint i = 0; i < D; i++) {
+					if (components[i] == other.components[i])
+						return false;
+				}
+				return true;
+			}
 
-			Scalar Dot(const Vector& other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
-			Scalar LengthSquared() const { return x * x + y * y + z * z + w * w; }
-			float Length() const { return std::sqrtf((float)LengthSquared()); }
-			double LengthD() const { return std::sqrt((double)LengthSquared()); }
+			Scalar Dot(const Vector& other) const {
+				Scalar result = 0;
+				for (uint i = 0; i < D; i++) {
+					result += components[i] * other.components[i];
+				}
+			}
+			Scalar LengthSquared() const {
+				Scalar result = 0;
+				for (uint i = 0; i < D; i++) {
+					result += components[i] * components[i];
+				}
+			}
+			float Length() const {
+				return std::sqrtf((float)LengthSquared());
+			}
+			double LengthD() const {
+				return std::sqrt((double)LengthSquared());
+			}
 			Vector& Normalize() { return Divide((Scalar)Length()); }
 
 			//Member operators
@@ -78,8 +125,8 @@ namespace FM3D {
 			inline static Vector Multiply(Vector left, Scalar right) { return left.Multiply(right); }
 			inline static Vector Divide(Vector left, Scalar right) { return left.Divide(right); }
 
-			inline static Scalar Dot(const Vector& left, const Vector& right) { return left.Dot(right); }
-			inline static Scalar LengthSquared(const Vector& vec) { return vec.LengthSquared(); }
+			inline static Scalar Dot(const Vector& left, const Vector& right) { return left.Dot(right);	}
+			inline static Scalar LengthSquared(const Vector& vec) {	return vec.LengthSquared();	}
 			inline static float  Length(const Vector& vec) { return std::sqrtf((float)vec.LengthSquared()); }
 			inline static double LengthD(const Vector& vec) { return std::sqrt((double)vec.LengthSquared()); }
 			inline static Vector Normalize(Vector vec) { return vec.Divide((Scalar)Length()); }
@@ -96,14 +143,24 @@ namespace FM3D {
 			inline friend Vector operator/(Vector left, Scalar right) { return left.Divide(right); }
 
 			//Output - Not optimized for performance
-			inline static constexpr std::string Name() { return "Vector 4"; }
+			inline static constexpr std::string Name() { return "Vector " + std::to_string(D); }
 			std::string ToString() const {
 				std::stringstream ss;
-				ss << "(" << x << ", " << y << ", " << z << ", " << w << ")";
+				ss << "(";
+				for (uint i = 0; i < D; i++) {
+					if (i != 0) ss << ", ";
+					ss << components[i];
+				}
+				ss << ")";
 				return ss.str();
 			}
 			friend std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
-				return stream << "Vector4: (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
+				stream << "(";
+				for (uint i = 0; i < D; i++) {
+					if (i != 0) stream << ", ";
+					stream << vector.components[i];
+				}
+				stream << ")";
 			}
 		};
 	}

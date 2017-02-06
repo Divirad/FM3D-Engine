@@ -20,7 +20,7 @@ namespace FM3D {
 		Quad(Vector3f position, Vector2f size, uint color, const Texture* tex, Vector2f uvposition, Vector2f uvsize) :
 			m_position0(position), m_position1(Vector2f(position.x + size.x, position.y + size.y)), m_color(color), m_texture(tex), m_uv0(uvposition), m_uv1(uvposition + uvsize) {};
 		
-		Quad() {}; 
+		Quad() : m_position0(Vector3f::Zero()), m_position1(Vector2f::Zero()), m_uv0(Vector2f::Zero()), m_uv1(Vector2f::Zero()) {};
 
 #pragma region GET
 

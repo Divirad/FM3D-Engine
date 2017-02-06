@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vector.h"
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -7,6 +8,14 @@
 #define PI 3.14159265358f
 
 namespace FM3D {
+	namespace Math {
+		template<typename Scalar>
+		using Vector2 = Vector<2U, Scalar>;
+		template<typename Scalar>
+		using Vector3 = Vector<3U, Scalar>;
+		template<typename Scalar>
+		using Vector4 = Vector<4U, Scalar>;
+	}
 
 	using Vector3f = Math::Vector3<float>;
 	using Vector3i = Math::Vector3<int>;

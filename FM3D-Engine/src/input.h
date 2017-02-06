@@ -128,7 +128,7 @@ namespace FM3D
 		struct MOUSE
 		{
 			KEYCLICK clicked = NOCLICK;
-			Vector2f lastposclick;
+			Vector2f lastposclick = Vector2f::Zero();
 		};
 
 	private:

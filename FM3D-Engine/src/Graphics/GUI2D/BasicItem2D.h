@@ -54,7 +54,7 @@ namespace FM3D {
 		void Bottom();			//DONE
 
 	public:
-		BasicItem2D() {
+		BasicItem2D(): ccresult(Vector2f::Zero()) {
 			/*bi = coll.CreateEntity();
 			bi->Add<PositionComponent>(Vector3f(0.0f, 0.0f, 0.0f));*/
 		}

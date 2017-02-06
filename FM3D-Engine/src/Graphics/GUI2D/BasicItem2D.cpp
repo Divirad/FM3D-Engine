@@ -148,22 +148,19 @@ namespace FM3D {
 	
 	BasicItem2D::FIELDCHECK BasicItem2D::FieldCecker(){
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposInst());
-		///
-		///IN FIELD
-		///
-		if (GetPosition0().xy <= ccresult &&
-			GetPosition1() >= ccresult) {
-			return INFIELD;
-		}
 
-		///
-		///OUT OF FIELD
-		///
-		else if
-			(!(GetPosition0().xy < ccresult &&
-				GetPosition1() > ccresult)) {
-			return OUTFIELD;
-		}
+		//IN FIELD
+		//if (GetPosition0().xy <= ccresult &&
+		//	GetPosition1() >= ccresult) {
+		//	return INFIELD;
+		//}
+
+		//OUT OF FIELD
+		//else if
+		//	(!(GetPosition0().xy < ccresult &&
+		//		GetPosition1() > ccresult)) {
+		//	return OUTFIELD;
+		//}
 		return OUTFIELD;
 	}
 	
