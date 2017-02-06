@@ -10,7 +10,7 @@ namespace FM3D {
 			Scalar components[D];
 
 			Vector(const Scalar* components) {
-				memcpy(this->components, components, D); //Copy input in vector
+				memcpy(this->components, components, D * sizeof(Scalar)); //Copy input in vector
 			}
 
 			//Constant vectors

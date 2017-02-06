@@ -19,7 +19,7 @@ namespace FM3D {
 			Vector(const Vector<2U, Scalar>& xy, Scalar z, Scalar w) : xy(xy), z(z), w(w) {}
 			Vector(const Vector<3U, Scalar>& xyz, Scalar w) : xyz(xyz), w(w) {}
 			Vector(const Scalar* components) {
-				memcpy(this->components, components, 4); //Copy input in vector
+				memcpy(this->components, components, 4 * sizeof(Scalar)); //Copy input in vector
 			}
 
 			//Constant vectors
