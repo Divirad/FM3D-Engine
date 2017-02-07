@@ -49,7 +49,7 @@ namespace FM3D {
 			inline float Length() const { return std::sqrtf((float)LengthSquared()); }
 			inline double LengthD() const { return std::sqrt((double)LengthSquared()); }
 			inline Vector& Normalize() { return Divide((Scalar)Length()); }
-			inline Vector& Cross(const Vector& other) { return  x = y * other.z - z * other.y; y = z * other.x - x * other.z; z = x * other.y - y * other.x; }
+			inline Vector& Cross(const Vector& other) { x = y * other.z - z * other.y; y = z * other.x - x * other.z; z = x * other.y - y * other.x; return *this; }
 
 			//Member operators
 			inline Vector& operator+=(const Vector& other) { return Add(other); }

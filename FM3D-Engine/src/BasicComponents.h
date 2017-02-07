@@ -6,6 +6,7 @@ namespace FM3D {
 	class PositionComponent : public EntitySystem::Component {
 		Vector3f m_position;
 	public:
+		PositionComponent() : m_position(Vector3f::Zero()) {}
 		void Construct(const Vector3f position) {
 			m_position = position;
 		}
@@ -19,6 +20,7 @@ namespace FM3D {
 	class RotationComponent : public EntitySystem::Component {
 		Vector3f m_rotation;
 	public:
+		RotationComponent() : m_rotation(Vector3f::Zero()) {}
 		void Construct(const Vector3f rotation) {
 			m_rotation = rotation;
 		}
@@ -40,6 +42,7 @@ namespace FM3D {
 	class ScaleComponent : public EntitySystem::Component {
 		Vector3f m_scale;
 	public:
+		ScaleComponent() : m_scale(Vector3f::Zero()) {}
 		void Construct(const Vector3f scale) {
 			m_scale = scale;
 		}

@@ -6,6 +6,7 @@ namespace FM3D {
 
 		template<uint D, typename Scalar>
 		class Vector {
+			static_assert(std::is_arithmetic<Scalar>::value, "Scalar must be an arithmetic type (int, float..)");
 		public:
 			Scalar components[D];
 

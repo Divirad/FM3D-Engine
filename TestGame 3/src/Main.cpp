@@ -4,6 +4,7 @@
 #include "Resources.h"
 
 using ALL_FM3D_NAMESPACES;
+using namespace FM3D::Math;
 
 void Move(Camera& camera);
 Vector3f& SetHill(Vector3f& vec);
@@ -13,6 +14,16 @@ const AnimatedModel* GetModel(EntityPtr& e);
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
+
+	float data0[2 * 3] = { 0.3f, 2.0f, 1.0f, 2.0f, 0.2f, 3.0f };
+	float data1[3 * 4] = { 2.7f, 5.0f, 2.0f, 7.0f, 5.0f, 6.0f, 0.3f, 2.2f, 1.6f, 2.2f, 0.2f, 3.7f };
+	Matrix<2, 3, float> m0(data0);
+	Matrix<3, 4, float> m1(data1);
+	Vector3f v(3.0f, 2.0f, 1.0f);
+	auto m2 = MultiplyMatrices(m0, m1);
+	auto m3 = MultiplyMatrices(m0, v);
+	auto m4 = AddMatrices(m0, m0);
+	std::cout << m0 << std::endl << m1 << std::endl << v << std::endl << m2 << std::endl << m3 << std::endl << m4;
 
 	Output::Initialize();
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
@@ -112,11 +123,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, res.emptyTex);
 	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, res.leavesTexture);
 
-	Matrix4f m0 = Matrix4f::Identity();
-	Matrix4f m1(Vector4f(0.0f, 1.0f, 2.0f, 5.0f), Vector4f(0.5f, 12.0f, 0.0f, 9.0f), Vector4f(0.7f, 2.0f, 7.0f, 6.0f), Vector4f(3.0f, 1.0f, 22.0f, 15.0f));
-	Matrix4f m2(Vector4f(4.5f, 2.7f, 10.4f, 50.0f), Vector4f(3.7f, 1.8f, 2.0f, 19.0f), Vector4f(3.77f, 0.4f, 77.3f, 3.3f), Vector4f(3.33f, 3.3333f, 4.7f, 2.001f));
-	std::cout << ((m1*0.5f) + (m2*0.5f)) << std::endl;
-
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
 			QueryPerformanceCounter(&time1);
@@ -208,14 +214,14 @@ void Move(Camera& camera) {
 	}
 
 	if (forward && !backward) {
-		camera.GetPosition() += speedFW * look;
+		camera.GetPosition() += look * speedFW;
 	} else if (!forward && backward) {
-		camera.GetPosition() += -speedFW * look;
+		camera.GetPosition() += look * -speedFW;
 	}
 	if (left && !right) {
-		camera.GetPosition() += speedSW * orthLook;
+		camera.GetPosition() += orthLook * speedSW;
 	} else if (!left && right) {
-		camera.GetPosition() += -speedSW * orthLook;
+		camera.GetPosition() += orthLook * -speedSW;
 	}
 	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_SPACE)) {
 		camera.GetPosition().y += 0.1f;

@@ -68,6 +68,7 @@ namespace FM3D {
 		Color4b ConvertColor(const Color4f& color);
 	}
 }
+#include "Matrix.h"
 #include "Matrix4.h"
 
 namespace FM3D {
