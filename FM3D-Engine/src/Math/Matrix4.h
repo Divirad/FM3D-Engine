@@ -2,22 +2,79 @@
 #include <Engine.h>
 
 namespace FM3D {
+	namespace Math {
 
-	class ENGINE_DLL Matrix4f {
-	public:
-		union {
-			float elements[4 * 4];
-			Vector4f rows[4];
-		};
+		template<typename Scalar>
+		class Matrix<4U, 4U, Scalar> {
+			static_assert(std::is_arithmetic<Scalar>::value, "Scalar must be an arithmetic type (int, float..)");
+		public:
+			union {
+				float elements[16];
+				Vector4<Scalar> rows[4];
+			};
 
-		Matrix4f() { memset(elements, 0, 4 * 4 * sizeof(float)); }
-		Matrix4f(float diagonal) { memset(elements, 0, 4 * 4 * sizeof(float)); elements[0 + 0 * 4] = diagonal; elements[1 + 1 * 4] = diagonal; elements[2 + 2 * 4] = diagonal; elements[3 + 3 * 4] = diagonal; }
-		Matrix4f(float* elements) { memcpy(this->elements, elements, 4 * 4 * sizeof(float)); }
-		Matrix4f(const Vector4f& row0, const Vector4f& row1, const Vector4f& row2, const Vector4f& row3) { rows[0] = row0; rows[1] = row1; rows[2] = row2; rows[3] = row3; }
+			//Constructors
+			Matrix(const Scalar* elements) {
+				memcpy(this->elements, elements, 16 * sizeof(Scalar));
+			}
+			Matrix(const Vector<4, Scalar>* rows) {
+				memcpy(this->rows, rows, 16 * sizeof(Scalar));
+			}
+			Matrix(const Vector4<Scalar>& row0, const Vector4<Scalar>& row1, const Vector4<Scalar>& row2, const Vector4<Scalar>& row3) {
+				rows[0] = row0; rows[1] = row1; rows[2] = row2; rows[3] = row3;
+			}
 
-		static Matrix4f Identity() { return 1.0f; }
+			//Constant matrices
+			static Matrix Null() {
+				float elements[16];
+				memset(elements, 0, 16 * sizeof(Scalar));
+				return Matrix(elements);
+			}
+			static Matrix Diagonal(Scalar scalar) {
+				float elements[16];
+				memset(elements, 0, 16 * sizeof(Scalar));
+				elements[0 + 0 * 4] = scalar;
+				elements[1 + 1 * 4] = scalar;
+				elements[2 + 2 * 4] = scalar;
+				elements[3 + 3 * 4] = scalar;
+				return Matrix(elements);
+			}
+			static Matrix Identity() {
+				float elements[16];
+				memset(elements, 0, 16 * sizeof(Scalar));
+				elements[0 + 0 * 4] = 1.0f;
+				elements[1 + 1 * 4] = 1.0f;
+				elements[2 + 2 * 4] = 1.0f;
+				elements[3 + 3 * 4] = 1.0f;
+				return Matrix(elements);
+			}
 
-		Matrix4f& Multiply(const Matrix4f& other) {
+			//Element access
+			inline Scalar At(uint row, uint column) const {
+				return elements[column + row * 4];
+			}
+			inline const Vector4<Scalar>& operator[](uint row) const {
+				return rows[row];
+			}
+			inline Vector4<Scalar> GetColumn(int index) {
+				return Vector4<Scalar>(elements[index + 0 * 4], elements[index + 1 * 4], elements[index + 2 * 4], elements[index + 3 * 4]);
+			}
+
+
+			//Member functions
+			Matrix& Add(const Matrix& other) {
+				for (uint i = 0; i < 16; i++) {
+					elements[i] += other.elements[i];
+				}
+				return *this;
+			}
+			Matrix& Multiply(Scalar scalar) {
+				for (uint i = 0; i < 16; i++) {
+					elements[i] += scalar;
+				}
+				return *this;
+			}
+			Matrix& Multiply(const Matrix& other) {
 				float data[16];
 				for (int row = 0; row < 4; row++) {
 					for (int col = 0; col < 4; col++) {
@@ -28,341 +85,352 @@ namespace FM3D {
 						data[col + row * 4] = sum;
 					}
 				}
-				memcpy(elements, data, 4 * 4 * sizeof(float));
+				memcpy(elements, data, 16 * sizeof(Scalar));
 				return *this;
-		}
-		friend Matrix4f operator*(Matrix4f left, const Matrix4f& right) { return left.Multiply(right); }
-		Matrix4f& operator*=(const Matrix4f& other) { return Multiply(other); }
-
-		Matrix4f& Multiply(float scalar) {
-			for (int i = 0; i < 16; i++) {
-				elements[i] *= scalar;
 			}
-			return *this;
-		}
-		friend Matrix4f operator*(Matrix4f left, float scalar) { return left.Multiply(scalar); }
-		Matrix4f& operator*=(float scalar) { return Multiply(scalar); }
+			Matrix& Invert() {
+				Scalar temp[16];
 
-		Matrix4f& Add(const Matrix4f& other) {
-			for (int i = 0; i < 16; i++) {
-				elements[i] += other.elements[i];
+				temp[0] = elements[5] * elements[10] * elements[15] -
+					elements[5] * elements[11] * elements[14] -
+					elements[9] * elements[6] * elements[15] +
+					elements[9] * elements[7] * elements[14] +
+					elements[13] * elements[6] * elements[11] -
+					elements[13] * elements[7] * elements[10];
+
+				temp[4] = -elements[4] * elements[10] * elements[15] +
+					elements[4] * elements[11] * elements[14] +
+					elements[8] * elements[6] * elements[15] -
+					elements[8] * elements[7] * elements[14] -
+					elements[12] * elements[6] * elements[11] +
+					elements[12] * elements[7] * elements[10];
+
+				temp[8] = elements[4] * elements[9] * elements[15] -
+					elements[4] * elements[11] * elements[13] -
+					elements[8] * elements[5] * elements[15] +
+					elements[8] * elements[7] * elements[13] +
+					elements[12] * elements[5] * elements[11] -
+					elements[12] * elements[7] * elements[9];
+
+				temp[12] = -elements[4] * elements[9] * elements[14] +
+					elements[4] * elements[10] * elements[13] +
+					elements[8] * elements[5] * elements[14] -
+					elements[8] * elements[6] * elements[13] -
+					elements[12] * elements[5] * elements[10] +
+					elements[12] * elements[6] * elements[9];
+
+				temp[1] = -elements[1] * elements[10] * elements[15] +
+					elements[1] * elements[11] * elements[14] +
+					elements[9] * elements[2] * elements[15] -
+					elements[9] * elements[3] * elements[14] -
+					elements[13] * elements[2] * elements[11] +
+					elements[13] * elements[3] * elements[10];
+
+				temp[5] = elements[0] * elements[10] * elements[15] -
+					elements[0] * elements[11] * elements[14] -
+					elements[8] * elements[2] * elements[15] +
+					elements[8] * elements[3] * elements[14] +
+					elements[12] * elements[2] * elements[11] -
+					elements[12] * elements[3] * elements[10];
+
+				temp[9] = -elements[0] * elements[9] * elements[15] +
+					elements[0] * elements[11] * elements[13] +
+					elements[8] * elements[1] * elements[15] -
+					elements[8] * elements[3] * elements[13] -
+					elements[12] * elements[1] * elements[11] +
+					elements[12] * elements[3] * elements[9];
+
+				temp[13] = elements[0] * elements[9] * elements[14] -
+					elements[0] * elements[10] * elements[13] -
+					elements[8] * elements[1] * elements[14] +
+					elements[8] * elements[2] * elements[13] +
+					elements[12] * elements[1] * elements[10] -
+					elements[12] * elements[2] * elements[9];
+
+				temp[2] = elements[1] * elements[6] * elements[15] -
+					elements[1] * elements[7] * elements[14] -
+					elements[5] * elements[2] * elements[15] +
+					elements[5] * elements[3] * elements[14] +
+					elements[13] * elements[2] * elements[7] -
+					elements[13] * elements[3] * elements[6];
+
+				temp[6] = -elements[0] * elements[6] * elements[15] +
+					elements[0] * elements[7] * elements[14] +
+					elements[4] * elements[2] * elements[15] -
+					elements[4] * elements[3] * elements[14] -
+					elements[12] * elements[2] * elements[7] +
+					elements[12] * elements[3] * elements[6];
+
+				temp[10] = elements[0] * elements[5] * elements[15] -
+					elements[0] * elements[7] * elements[13] -
+					elements[4] * elements[1] * elements[15] +
+					elements[4] * elements[3] * elements[13] +
+					elements[12] * elements[1] * elements[7] -
+					elements[12] * elements[3] * elements[5];
+
+				temp[14] = -elements[0] * elements[5] * elements[14] +
+					elements[0] * elements[6] * elements[13] +
+					elements[4] * elements[1] * elements[14] -
+					elements[4] * elements[2] * elements[13] -
+					elements[12] * elements[1] * elements[6] +
+					elements[12] * elements[2] * elements[5];
+
+				temp[3] = -elements[1] * elements[6] * elements[11] +
+					elements[1] * elements[7] * elements[10] +
+					elements[5] * elements[2] * elements[11] -
+					elements[5] * elements[3] * elements[10] -
+					elements[9] * elements[2] * elements[7] +
+					elements[9] * elements[3] * elements[6];
+
+				temp[7] = elements[0] * elements[6] * elements[11] -
+					elements[0] * elements[7] * elements[10] -
+					elements[4] * elements[2] * elements[11] +
+					elements[4] * elements[3] * elements[10] +
+					elements[8] * elements[2] * elements[7] -
+					elements[8] * elements[3] * elements[6];
+
+				temp[11] = -elements[0] * elements[5] * elements[11] +
+					elements[0] * elements[7] * elements[9] +
+					elements[4] * elements[1] * elements[11] -
+					elements[4] * elements[3] * elements[9] -
+					elements[8] * elements[1] * elements[7] +
+					elements[8] * elements[3] * elements[5];
+
+				temp[15] = elements[0] * elements[5] * elements[10] -
+					elements[0] * elements[6] * elements[9] -
+					elements[4] * elements[1] * elements[10] +
+					elements[4] * elements[2] * elements[9] +
+					elements[8] * elements[1] * elements[6] -
+					elements[8] * elements[2] * elements[5];
+
+				float determinant = elements[0] * temp[0] + elements[1] * temp[4] + elements[2] * temp[8] + elements[3] * temp[12];
+				determinant = 1.0f / determinant;
+
+				for (int i = 0; i < 4 * 4; i++)
+					elements[i] = temp[i] * determinant;
+
+				return *this;
 			}
-			return *this;
-		}
-		friend Matrix4f operator+(Matrix4f left, const Matrix4f& right) { return left.Add(right); }
-		Matrix4f& operator+=(const Matrix4f& other) { return Add(other); }
+			Matrix& Transpose() {
+				Matrix copy(elements);
+				rows[0].x = copy.rows[0].x;
+				rows[0].y = copy.rows[1].x;
+				rows[0].z = copy.rows[2].x;
+				rows[0].w = copy.rows[3].x;
 
-		Vector3f Multiply(const Vector3f& other) const {
-			return Vector3f(
-				rows[0].x * other.x + rows[0].y * other.y + rows[0].z * other.z + rows[0].w,
-				rows[1].x * other.x + rows[1].y * other.y + rows[1].z * other.z + rows[1].w,
-				rows[2].x * other.x + rows[2].y * other.y + rows[2].z * other.z + rows[2].w
-			);															
-		}
-		friend Vector3f operator*(const Matrix4f& left, const Vector3f& right) { return left.Multiply(right); }
+				rows[1].x = copy.rows[0].y;
+				rows[1].y = copy.rows[1].y;
+				rows[1].z = copy.rows[2].y;
+				rows[1].w = copy.rows[3].y;
 
-		Vector4f Multiply(const Vector4f& other) const {
-			return Vector4f(
-				rows[0].x * other.x + rows[0].y * other.y + rows[0].z * other.z + rows[0].w * other.w,
-				rows[1].x * other.x + rows[1].y * other.y + rows[1].z * other.z + rows[1].w * other.w,
-				rows[2].x * other.x + rows[2].y * other.y + rows[2].z * other.z + rows[2].w * other.w,
-				rows[3].x * other.x + rows[3].y * other.y + rows[3].z * other.z + rows[3].w * other.w
-			);
-		}
-		friend Vector4f operator*(const Matrix4f& left, const Vector4f& right) { return left.Multiply(right); }
+				rows[2].x = copy.rows[0].z;
+				rows[2].y = copy.rows[1].z;
+				rows[2].z = copy.rows[2].z;
+				rows[2].w = copy.rows[3].z;
 
-		Matrix4f& Invert() {
-			float temp[16];
+				rows[3].x = copy.rows[0].w;
+				rows[3].y = copy.rows[1].w;
+				rows[3].z = copy.rows[2].w;
+				rows[3].w = copy.rows[3].w;
 
-			temp[0] = elements[5] * elements[10] * elements[15] -
-				elements[5] * elements[11] * elements[14] -
-				elements[9] * elements[6] * elements[15] +
-				elements[9] * elements[7] * elements[14] +
-				elements[13] * elements[6] * elements[11] -
-				elements[13] * elements[7] * elements[10];
-
-			temp[4] = -elements[4] * elements[10] * elements[15] +
-				elements[4] * elements[11] * elements[14] +
-				elements[8] * elements[6] * elements[15] -
-				elements[8] * elements[7] * elements[14] -
-				elements[12] * elements[6] * elements[11] +
-				elements[12] * elements[7] * elements[10];
-
-			temp[8] = elements[4] * elements[9] * elements[15] -
-				elements[4] * elements[11] * elements[13] -
-				elements[8] * elements[5] * elements[15] +
-				elements[8] * elements[7] * elements[13] +
-				elements[12] * elements[5] * elements[11] -
-				elements[12] * elements[7] * elements[9];
-
-			temp[12] = -elements[4] * elements[9] * elements[14] +
-				elements[4] * elements[10] * elements[13] +
-				elements[8] * elements[5] * elements[14] -
-				elements[8] * elements[6] * elements[13] -
-				elements[12] * elements[5] * elements[10] +
-				elements[12] * elements[6] * elements[9];
-
-			temp[1] = -elements[1] * elements[10] * elements[15] +
-				elements[1] * elements[11] * elements[14] +
-				elements[9] * elements[2] * elements[15] -
-				elements[9] * elements[3] * elements[14] -
-				elements[13] * elements[2] * elements[11] +
-				elements[13] * elements[3] * elements[10];
-
-			temp[5] = elements[0] * elements[10] * elements[15] -
-				elements[0] * elements[11] * elements[14] -
-				elements[8] * elements[2] * elements[15] +
-				elements[8] * elements[3] * elements[14] +
-				elements[12] * elements[2] * elements[11] -
-				elements[12] * elements[3] * elements[10];
-
-			temp[9] = -elements[0] * elements[9] * elements[15] +
-				elements[0] * elements[11] * elements[13] +
-				elements[8] * elements[1] * elements[15] -
-				elements[8] * elements[3] * elements[13] -
-				elements[12] * elements[1] * elements[11] +
-				elements[12] * elements[3] * elements[9];
-
-			temp[13] = elements[0] * elements[9] * elements[14] -
-				elements[0] * elements[10] * elements[13] -
-				elements[8] * elements[1] * elements[14] +
-				elements[8] * elements[2] * elements[13] +
-				elements[12] * elements[1] * elements[10] -
-				elements[12] * elements[2] * elements[9];
-
-			temp[2] = elements[1] * elements[6] * elements[15] -
-				elements[1] * elements[7] * elements[14] -
-				elements[5] * elements[2] * elements[15] +
-				elements[5] * elements[3] * elements[14] +
-				elements[13] * elements[2] * elements[7] -
-				elements[13] * elements[3] * elements[6];
-
-			temp[6] = -elements[0] * elements[6] * elements[15] +
-				elements[0] * elements[7] * elements[14] +
-				elements[4] * elements[2] * elements[15] -
-				elements[4] * elements[3] * elements[14] -
-				elements[12] * elements[2] * elements[7] +
-				elements[12] * elements[3] * elements[6];
-
-			temp[10] = elements[0] * elements[5] * elements[15] -
-				elements[0] * elements[7] * elements[13] -
-				elements[4] * elements[1] * elements[15] +
-				elements[4] * elements[3] * elements[13] +
-				elements[12] * elements[1] * elements[7] -
-				elements[12] * elements[3] * elements[5];
-
-			temp[14] = -elements[0] * elements[5] * elements[14] +
-				elements[0] * elements[6] * elements[13] +
-				elements[4] * elements[1] * elements[14] -
-				elements[4] * elements[2] * elements[13] -
-				elements[12] * elements[1] * elements[6] +
-				elements[12] * elements[2] * elements[5];
-
-			temp[3] = -elements[1] * elements[6] * elements[11] +
-				elements[1] * elements[7] * elements[10] +
-				elements[5] * elements[2] * elements[11] -
-				elements[5] * elements[3] * elements[10] -
-				elements[9] * elements[2] * elements[7] +
-				elements[9] * elements[3] * elements[6];
-
-			temp[7] = elements[0] * elements[6] * elements[11] -
-				elements[0] * elements[7] * elements[10] -
-				elements[4] * elements[2] * elements[11] +
-				elements[4] * elements[3] * elements[10] +
-				elements[8] * elements[2] * elements[7] -
-				elements[8] * elements[3] * elements[6];
-
-			temp[11] = -elements[0] * elements[5] * elements[11] +
-				elements[0] * elements[7] * elements[9] +
-				elements[4] * elements[1] * elements[11] -
-				elements[4] * elements[3] * elements[9] -
-				elements[8] * elements[1] * elements[7] +
-				elements[8] * elements[3] * elements[5];
-
-			temp[15] = elements[0] * elements[5] * elements[10] -
-				elements[0] * elements[6] * elements[9] -
-				elements[4] * elements[1] * elements[10] +
-				elements[4] * elements[2] * elements[9] +
-				elements[8] * elements[1] * elements[6] -
-				elements[8] * elements[2] * elements[5];
-
-			float determinant = elements[0] * temp[0] + elements[1] * temp[4] + elements[2] * temp[8] + elements[3] * temp[12];
-			determinant = 1.0f / determinant;
-
-			for (int i = 0; i < 4 * 4; i++)
-				elements[i] = temp[i] * determinant;
-
-			return *this;
-		}
-
-		Vector4f GetColumn(int index) { return Vector4f(elements[index + 0 * 4], elements[index + 1 * 4], elements[index + 2 * 4], elements[index + 3 * 4]); }
-
-		static Matrix4f Orthographic(float left, float right, float bottom, float top, float near, float far) {
-			Matrix4f result(1.0f);
-
-			result.elements[0 + 0 * 4] = 2.0f / (right - left);
-
-			result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
-
-			result.elements[2 + 2 * 4] = 2.0f / (near - far);
-
-			result.elements[3 + 0 * 4] = (left + right) / (left - right);
-			result.elements[3 + 1 * 4] = (bottom + top) / (bottom - top);
-			result.elements[3 + 2 * 4] = (far + near) / (far - near);
-
-			return result;
-		}
-		static Matrix4f Perspective(float fov, float aspectRatio, float near, float far) {
-			Matrix4f result(1.0f);
-
-			float q = 1.0f / tan(Math::toRadians(0.5f * fov));
-			float a = q / aspectRatio;
-
-			float b = (near + far) / (near - far);
-			float c = (2.0f * near * far) / (near - far);
-
-			result.elements[0 + 0 * 4] = a;
-			result.elements[1 + 1 * 4] = q;
-			result.elements[2 + 2 * 4] = b;
-			result.elements[2 + 3 * 4] = -1.0f;
-			result.elements[3 + 2 * 4] = c;
-
-			return result;
-		}
-		static Matrix4f Translate(const Vector3f& translation) {
-			Matrix4f result(1.0f);
-
-			result.elements[3 + 0 * 4] = translation.x;
-			result.elements[3 + 1 * 4] = translation.y;
-			result.elements[3 + 2 * 4] = translation.z;
-
-			return result;
-		}
-
-		static Matrix4f Rotate(float angle, const Vector3f& axis) {
-			Matrix4f result(1.0f);
-
-			float r = Math::toRadians(angle);
-			float c = cos(r);
-			float s = sin(r);
-			float omc = 1.0f - c;
-
-			float x = axis.x;
-			float y = axis.y;
-			float z = axis.z;
-
-			result.elements[0 + 0 * 4] = x * omc + c;
-			result.elements[0 + 1 * 4] = y * x * omc + z * s;
-			result.elements[0 + 2 * 4] = x * z * omc - y * s;
-
-			result.elements[1 + 0 * 4] = x * y * omc - z * s;
-			result.elements[1 + 1 * 4] = y * omc + c;
-			result.elements[1 + 2 * 4] = y * z * omc + x * s;
-
-			result.elements[2 + 0 * 4] = x * z * omc + y * s;
-			result.elements[2 + 1 * 4] = y * z * omc - x * s;
-			result.elements[2 + 2 * 4] = z * omc + c;
-
-			return result;
-		}
-
-		static Matrix4f Scale(const Vector3f& scale) {
-			Matrix4f result(1.0f);
-
-			result.elements[0 + 0 * 4] = scale.x;
-			result.elements[1 + 1 * 4] = scale.y;
-			result.elements[2 + 2 * 4] = scale.z;
-
-			return result;
-		}
-
-		static inline Matrix4f Rotation(Vector3f angle) {
-			return Matrix4f::Rotate(angle.z, Vector3f(0.0f, 0.0f, 1.0f)) *  Matrix4f::Rotate(angle.y, Vector3f(0.0f, 1.0f, 0.0f)) * Matrix4f::Rotate(angle.x, Vector3f(1.0f, 0.0f, 0.0f));
-		}
-
-		static Matrix4f Transformation(const Vector3f& translation, const Vector3f& scale, const Vector3f& angle) {
-			return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
-		}
-
-		static Matrix4f Invert(const Matrix4f& matrix) {
-			Matrix4f result = matrix;
-			return result.Invert();
-		}
-
-		static Matrix4f Transpose(const Matrix4f& matrix) {
-			return Matrix4f(
-				Vector4f(matrix.rows[0].x, matrix.rows[1].x, matrix.rows[2].x, matrix.rows[3].x),
-				Vector4f(matrix.rows[0].y, matrix.rows[1].y, matrix.rows[2].y, matrix.rows[3].y),
-				Vector4f(matrix.rows[0].z, matrix.rows[1].z, matrix.rows[2].z, matrix.rows[3].z),
-				Vector4f(matrix.rows[0].w, matrix.rows[1].w, matrix.rows[2].w, matrix.rows[3].w)
-			);
-		}
-
-		void Transpose() {
-			Matrix4f copy(elements);
-			rows[0].x = copy.rows[0].x;
-			rows[0].y = copy.rows[1].x;
-			rows[0].z = copy.rows[2].x;
-			rows[0].w = copy.rows[3].x;
-
-			rows[1].x = copy.rows[0].y;
-			rows[1].y = copy.rows[1].y;
-			rows[1].z = copy.rows[2].y;
-			rows[1].w = copy.rows[3].y;
-
-			rows[2].x = copy.rows[0].z;
-			rows[2].y = copy.rows[1].z;
-			rows[2].z = copy.rows[2].z;
-			rows[2].w = copy.rows[3].z;
-
-			rows[3].x = copy.rows[0].w;
-			rows[3].y = copy.rows[1].w;
-			rows[3].z = copy.rows[2].w;
-			rows[3].w = copy.rows[3].w;
-		}
-
-		static Matrix4f Interpolate(const Matrix4f& left, const Matrix4f& right, double timeLeft, double timeMiddle, double timeRight) {
-			float f = (float)((timeMiddle - timeLeft) / (timeRight - timeLeft));
-			return (left * (1.0f - f)) + (right * f);
-		}
-
-		static std::vector<Matrix4f> MassMultiplication(const std::vector<Matrix4f>& m1, const std::vector<Matrix4f>& m2) {
-			if (m1.size() != m2.size()) throw std::exception();
-			std::vector<Matrix4f> result(m1.size());
-			for (uint i = 0; i < m1.size(); i++) {
-				result[i] = m1[i] * m2[i];
+				return *this;
 			}
-			return result;
-		}
-
-		static void MassMultiplication(std::vector<Matrix4f>& m1, const std::vector<Matrix4f>& m2) {
-			if (m1.size() != m2.size()) throw std::exception();
-			for (uint i = 0; i < m1.size(); i++) {
-				m1[i] *= m2[i];
+			bool IsEqualTo(const Matrix& other) const {
+				for (uint i = 0; i < 16; i++) {
+					if (elements[i] != other.elements[i]) return false;
+				}
+				return true;
 			}
-		}
-
-		friend bool operator==(Matrix4f& left, Matrix4f& right) {
-			for (int i = 0; i < 16; i++) {
-				if (left.elements[i] != right.elements[i]) return false;
+			bool IsUnequalTo(const Matrix& other) const {
+				for (uint i = 0; i < 16; i++) {
+					if (elements[i] == other.elements[i]) return false;
+				}
+				return true;
 			}
-			return true;
-		}
-		friend bool operator!=(Matrix4f& left, Matrix4f& right) {
-			for (int i = 0; i < 16; i++) {
-				if (left.elements[i] != right.elements[i]) return true;
-			}
-			return false;
-		}
 
-		inline friend std::ostream& operator<<(std::ostream& stream, const Matrix4f& matrix) { 
+			//Static functions
+			static Matrix Multiply(const Matrix& left, const Matrix& right) {
+				float data[16];
+				for (int row = 0; row < 4; row++) {
+					for (int col = 0; col < 4; col++) {
+						float sum = 0.0f;
+						for (int e = 0; e < 4; e++) {
+							sum += left.elements[e + row * 4] * right.elements[col + e * 4];
+						}
+						data[col + row * 4] = sum;
+					}
+				}
+				return Matrix(data);
+			}
+			inline Matrix Add(Matrix left, const Matrix& right) { return left.Add(right); }
+			static Vector4<Scalar> Multiply(const Matrix& left, const Vector4<Scalar>& right) {
+				return Vector4<Scalar>(
+					left.rows[0].x * right.x + left.rows[0].y * right.y + left.rows[0].z * right.z + left.rows[0].w * right.w,
+					left.rows[1].x * right.x + left.rows[1].y * right.y + left.rows[1].z * right.z + left.rows[1].w * right.w,
+					left.rows[2].x * right.x + left.rows[2].y * right.y + left.rows[2].z * right.z + left.rows[2].w * right.w,
+					left.rows[3].x * right.x + left.rows[3].y * right.y + left.rows[3].z * right.z + left.rows[3].w * right.w
+				);
+			}
+			static Vector3<Scalar> Multiply(const Matrix& left, const Vector3<Scalar>& right) {
+				return Vector3<Scalar>(
+					left.rows[0].x * right.x + left.rows[0].y * right.y + left.rows[0].z * right.z + left.rows[0].w,
+					left.rows[1].x * right.x + left.rows[1].y * right.y + left.rows[1].z * right.z + left.rows[1].w,
+					left.rows[2].x * right.x + left.rows[2].y * right.y + left.rows[2].z * right.z + left.rows[2].w
+					);
+			}
+			inline static Matrix Multiply(Matrix matrix, Scalar scalar) {
+				return matrix.Multiply(scalar);
+			}
+			static Matrix Invert(const Matrix& matrix) {
+				Matrix result = matrix;
+				return result.Invert();
+			}
+			static Matrix Transpose(const Matrix& matrix) {
+				return Matrix(
+					Vector4f(matrix.rows[0].x, matrix.rows[1].x, matrix.rows[2].x, matrix.rows[3].x),
+					Vector4f(matrix.rows[0].y, matrix.rows[1].y, matrix.rows[2].y, matrix.rows[3].y),
+					Vector4f(matrix.rows[0].z, matrix.rows[1].z, matrix.rows[2].z, matrix.rows[3].z),
+					Vector4f(matrix.rows[0].w, matrix.rows[1].w, matrix.rows[2].w, matrix.rows[3].w)
+				);
+			}
+
+			//Member operators
+			inline Matrix& operator+=(const Matrix& other) { return Add(other); }
+			inline Matrix& operator*=(Scalar scalar) { return Multiply(scalar); }
+			inline Matrix& operator*=(const Matrix& other) { return Multiply(other); }
+
+			//Static operators
+			inline friend Matrix operator*(const Matrix& left, const Matrix& right) { return Multiply(left, right); }
+			inline friend Matrix operator+(Matrix left, const Matrix& right) { return left.Add(right); }
+			inline friend Vector4<Scalar> operator*(const Matrix& left, const Vector4<Scalar>& right) { return Multiply(left, right); }
+			inline friend Vector3<Scalar> operator*(const Matrix& left, const Vector3<Scalar>& right) { return Multiply(left, right); }
+			inline friend Matrix operator*(Matrix matrix, Scalar scalar) { return Multiply(matrix, scalar); }
+			inline friend Vector4<Scalar>& operator *=(Vector4<Scalar>& vec, const Matrix& matrix) {
+				vec.x = matrix.rows[0].x * vec.x + matrix.rows[0].y * vec.y + matrix.rows[0].z * vec.z + matrix.rows[0].w * vec.w,
+				vec.y = matrix.rows[1].x * vec.x + matrix.rows[1].y * vec.y + matrix.rows[1].z * vec.z + matrix.rows[1].w * vec.w,
+				vec.z = matrix.rows[2].x * vec.x + matrix.rows[2].y * vec.y + matrix.rows[2].z * vec.z + matrix.rows[2].w * vec.w,
+				vec.w =	matrix.rows[3].x * vec.x + matrix.rows[3].y * vec.y + matrix.rows[3].z * vec.z + matrix.rows[3].w * vec.w
+			}
+			inline friend bool operator==(const Matrix& left, const Matrix& right) {
+				return left.IsEqualTo(right);
+			}
+			inline friend bool operator!=(const Matrix& left, const Matrix& right) {
+				return left.IsUnequalTo(right);
+			}
+
+			//Special Matrices
+			static Matrix Orthographic(float left, float right, float bottom, float top, float near, float far) {
+				Matrix4f result = Identity();
+
+				result.elements[0 + 0 * 4] = 2.0f / (right - left);
+
+				result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
+
+				result.elements[2 + 2 * 4] = 2.0f / (near - far);
+
+				result.elements[3 + 0 * 4] = (left + right) / (left - right);
+				result.elements[3 + 1 * 4] = (bottom + top) / (bottom - top);
+				result.elements[3 + 2 * 4] = (far + near) / (far - near);
+
+				return result;
+			}
+			static Matrix Perspective(float fov, float aspectRatio, float near, float far) {
+				Matrix4f result = Identity();
+
+				float q = 1.0f / tan(Math::toRadians(0.5f * fov));
+				float a = q / aspectRatio;
+
+				float b = (near + far) / (near - far);
+				float c = (2.0f * near * far) / (near - far);
+
+				result.elements[0 + 0 * 4] = a;
+				result.elements[1 + 1 * 4] = q;
+				result.elements[2 + 2 * 4] = b;
+				result.elements[2 + 3 * 4] = -1.0f;
+				result.elements[3 + 2 * 4] = c;
+
+				return result;
+			}
+			static Matrix Translate(const Vector3<Scalar>& translation) {
+				Matrix4f result = Identity();
+
+				result.elements[3 + 0 * 4] = translation.x;
+				result.elements[3 + 1 * 4] = translation.y;
+				result.elements[3 + 2 * 4] = translation.z;
+
+				return result;
+			}
+			static Matrix Rotate(float angle, const Vector3<Scalar>& axis) {
+				Matrix4f result = Identity();
+
+				float r = Math::toRadians(angle);
+				float c = cos(r);
+				float s = sin(r);
+				float omc = 1.0f - c;
+
+				float x = axis.x;
+				float y = axis.y;
+				float z = axis.z;
+
+				result.elements[0 + 0 * 4] = x * x * omc + c;
+				result.elements[0 + 1 * 4] = y * x * omc + z * s;
+				result.elements[0 + 2 * 4] = x * z * omc - y * s;
+
+				result.elements[1 + 0 * 4] = x * y * omc - z * s;
+				result.elements[1 + 1 * 4] = y * y * omc + c;
+				result.elements[1 + 2 * 4] = y * z * omc + x * s;
+
+				result.elements[2 + 0 * 4] = x * z * omc + y * s;
+				result.elements[2 + 1 * 4] = y * z * omc - x * s;
+				result.elements[2 + 2 * 4] = z * z * omc + c;
+
+				return result;
+			}
+			static Matrix Scale(const Vector3<Scalar>& scale) {
+				Matrix4f result = Identity();
+
+				result.elements[0 + 0 * 4] = scale.x;
+				result.elements[1 + 1 * 4] = scale.y;
+				result.elements[2 + 2 * 4] = scale.z;
+
+				return result;
+			}
+			static inline Matrix Rotation(Vector3<Scalar> angle) {
+				return Matrix::Rotate(angle.z, Vector3<Scalar>(0.0f, 0.0f, 1.0f)) *  Matrix4f::Rotate(angle.y, Vector3<Scalar>(0.0f, 1.0f, 0.0f)) * Matrix4f::Rotate(angle.x, Vector3<Scalar>(1.0f, 0.0f, 0.0f));
+			}
+			static inline Matrix Transformation(const Vector3<Scalar>& translation, const Vector3<Scalar>& scale, const Vector3<Scalar>& angle) {
+				return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
+			}
+
+			//Output
+			static inline constexpr std::string Name() { return "Matrix 4x4"; }
+			friend std::ostream& operator<<(std::ostream& stream, const Matrix& matrix) {
 #define width 12
-			stream << "/"  << std::setw(width) << matrix.rows[0].x << ", " << std::setw(width) << matrix.rows[0].y << ", " << std::setw(width) << matrix.rows[0].z << ", " << std::setw(width) << matrix.rows[0].w << "\\" << std::endl;
-			stream << "|"  << std::setw(width) << matrix.rows[1].x << ", " << std::setw(width) << matrix.rows[1].y << ", " << std::setw(width) << matrix.rows[1].z << ", " << std::setw(width) << matrix.rows[1].w << "|"  << std::endl;
-			stream << "|"  << std::setw(width) << matrix.rows[2].x << ", " << std::setw(width) << matrix.rows[2].y << ", " << std::setw(width) << matrix.rows[2].z << ", " << std::setw(width) << matrix.rows[2].w << "|"  << std::endl;
-			stream << "\\" << std::setw(width) << matrix.rows[3].x << ", " << std::setw(width) << matrix.rows[3].y << ", " << std::setw(width) << matrix.rows[3].z << ", " << std::setw(width) << matrix.rows[3].w << "/"  << std::endl;
-			return stream;
+				stream << "/";
+				for (int c = 0; c < 4; c++) {
+					if (c != 0) stream << ", ";
+					stream << std::setw(width) << matrix.elements[c + 0 * 4];
+				}
+				stream << "\\" << std::endl;
+				for (uint i = 1; i < 4 - 1; i++) {
+					stream << "|";
+					for (int c = 0; c < 4; c++) {
+						if (c != 0) stream << ", ";
+						stream << std::setw(width) << matrix.elements[c + i * 4];
+					}
+					stream << "|" << std::endl;
+				}
+				stream << "\\";
+				for (int c = 0; c < 4; c++) {
+					if (c != 0) stream << ", ";
+					stream << std::setw(width) << matrix.elements[c + (4 - 1) * 4];
+				}
+				stream << "/" << std::endl;
 #undef width
-		}
-	};
+				return stream;
+			}
+		};
+
+
+	}
 }

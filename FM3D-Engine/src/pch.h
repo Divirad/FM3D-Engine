@@ -24,6 +24,7 @@
 #include <unordered_set>
 #include <utility>
 #include <unordered_map>
+#include <algorithm>
 
 #include <smmintrin.h>
 

@@ -23,7 +23,36 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	auto m2 = MultiplyMatrices(m0, m1);
 	auto m3 = MultiplyMatrices(m0, v);
 	auto m4 = AddMatrices(m0, m0);
-	std::cout << m0 << std::endl << m1 << std::endl << v << std::endl << m2 << std::endl << m3 << std::endl << m4;
+	//std::cout << m0 << std::endl << m1 << std::endl << v << std::endl << m2 << std::endl << m3 << std::endl << m4;
+
+	Quaternionf q0(4.0f, 1.0f, 5.0f, 7.0f);
+	Quaternionf q1(1.0f, 2.0f, 7.0f, 3.0f);
+	q0.Normalize();
+	q1.Normalize();
+	std::cout << q0 << std::endl;
+	std::cout << q1 << std::endl;
+	std::cout << Quaternionf::Slerp(q0, q1, 0.0f) << std::endl;
+	std::cout << Quaternionf::Slerp(q0, q1, 1.0f) << std::endl;
+	std::cout << Quaternionf::Slerp(q0, q1, 0.5f) << std::endl;
+
+	Quaternionf rot0 = Quaternionf::FromAngles(Vector3f(30.0f, 10.0f, 90.0f));
+	Quaternionf rot1 = Quaternionf::FromAngles(Vector3f(90.0f, 17.0f, 20.0f));
+	rot0.Normalize();
+	rot1.Normalize();
+
+	Matrix4f rmat0 =Matrix4f::Rotation(Vector3f(30.0f, 10.0f, 90.0f));
+	Matrix4f rmat1 =Matrix4f::Rotation(Vector3f(90.0f, 17.0f, 20.0f));
+	Vector3f rvec(0.0f, 1.0f, 0.0f);
+	std::cout << rot0.ToMatrix44().Transpose() << std::endl;
+	std::cout << rmat0 << std::endl;
+	std::cout << rot0 << std::endl;
+	//std::cout << rot1 << std::endl;
+	//Transformation trans0{ Vector3f(2.0f, 3.0f, 0.0f), rot0, Vector3f(2.0f, 2.0f, 1.0f) };
+	//Transformation trans1{ Vector3f(5.0f, 30.0f, 7.0f), rot1, Vector3f(1.0f, 3.0f, 1.0f) };
+	//Transformation trans2 = trans0 * trans1;
+	//Transformation trans3 = trans1 * trans0;
+	//std::cout << trans2.rotation << std::endl;
+	//std::cout << trans3.rotation << std::endl;
 
 	Output::Initialize();
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);

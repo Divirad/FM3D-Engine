@@ -5,16 +5,16 @@ namespace FM3D {
 
 	class Animation {
 	private:
-		std::vector<std::vector<Matrix4f>> m_bones;
+		std::vector<std::vector<Transformation>> m_bones;
 		std::string m_name;
 		std::vector<double> m_times;
 		double m_keysPerSecond;
 		double m_duration;
 		friend class ExternFileManager;
 	public:
-		Animation(std::string, std::vector<std::vector<Matrix4f>>&, std::vector<double>&, double, double);
+		Animation(std::string, const std::vector<std::vector<Transformation>>&, std::vector<double>&, double, double);
 
-		inline const Matrix4f& GetBone(int bone, int key) const {
+		inline const Transformation& GetBone(int bone, int key) const {
 			return m_bones[bone][key];
 		}
 

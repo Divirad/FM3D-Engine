@@ -52,7 +52,7 @@ namespace FM3D {
 	}
 
 	static Matrix4f CreateMatrix4f(const aiMatrix4x4 mat) {
-		Matrix4f result;
+		Matrix4f result = Matrix4f::Null();
 		result.elements[0] = mat.a1;
 		result.elements[1] = mat.b1;
 		result.elements[2] = mat.c1;
@@ -76,6 +76,12 @@ namespace FM3D {
 	static Matrix4f CreateMatrix4f(const aiVector3D& position, const aiQuaternion& rotation, const aiVector3D& scaling) {
 		Matrix4f m = CreateMatrix4f(aiMatrix4x4(rotation.GetMatrix()));
 		return Matrix4f::Translate(Vector3f(position.x, position.y, position.z)) * CreateMatrix4f(aiMatrix4x4(rotation.GetMatrix())) * Matrix4f::Scale(Vector3f(scaling.x, scaling.y, scaling.z));
+	}
+
+	static Transformation CreateTransformation(const aiVector3D& position, const aiQuaternion& rotation, const aiVector3D& scaling) {
+		return{ Vector3f(position.x, position.y, position.z),
+			Quaternionf(rotation.w, rotation.x, rotation.y, rotation.z),
+			Vector3f(scaling.x, scaling.y, scaling.z) };
 	}
 
 	static void FindMeshTransformations(Matrix4f* meshmatrix, const Matrix4f& base, const aiNode* node) {
@@ -189,21 +195,21 @@ namespace FM3D {
 	}
 
 	struct Channel {
-		vector<Matrix4f> mat;
+		vector<Transformation> mat;
 		Channel *parent;
 		aiNodeAnim *node;
 		uint bone;
 #define UNUSEDCHANNEL 0xffffffff
 	};
 
-	static void CalcMatricesWithNodes(std::vector<std::vector<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
+	static void CalcMatricesWithNodes(std::vector<std::vector<Transformation>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
 		for (uint c = 0; c < numChannels; c++) {
 			uint bone = channels[c].bone;
 			if (bone == UNUSEDCHANNEL) continue;
 			uint numKeys = channels[c].mat.size();
-			new (&matrices[bone]) std::vector<Matrix4f>(numKeys);
+			matrices[bone] = std::vector<Transformation>(numKeys, Transformation{ Vector3f::Zero(), Quaternionf(), Vector3f(1.0f, 1.0f, 1.0f) });
 			for (uint key = 0; key < numKeys; key++) {
-				Matrix4f mat = Matrix4f::Identity();
+				Transformation mat { Vector3f::Zero(), Quaternionf(), Vector3f(1.0f, 1.0f, 1.0f) };
 				for (Channel* node = &channels[c]; node; node = node->parent) {
 					mat = node->mat[key] * mat;
 				}
@@ -310,13 +316,14 @@ namespace FM3D {
 				aiNodeAnim* node = channels[c].node;
 				uint index0 = keyIndices[c] - 1;
 				uint index1 = keyIndices[c];
-				Matrix4f left = CreateMatrix4f(node->mPositionKeys[index0].mValue, node->mRotationKeys[index0].mValue, node->mScalingKeys[index0].mValue);
-				Matrix4f right = CreateMatrix4f(node->mPositionKeys[index1].mValue, node->mRotationKeys[index1].mValue, node->mScalingKeys[index1].mValue);
+				Transformation left = CreateTransformation(node->mPositionKeys[index0].mValue, node->mRotationKeys[index0].mValue, node->mScalingKeys[index0].mValue);
+				Transformation right = CreateTransformation(node->mPositionKeys[index1].mValue, node->mRotationKeys[index1].mValue, node->mScalingKeys[index1].mValue);
 				double timeLeft = node->mPositionKeys[index0].mTime;
 				double timeRight = node->mPositionKeys[index1].mTime;
 
-				Matrix4f m = Matrix4f::Interpolate(left, right, timeLeft, time, timeRight);
-				channels[c].mat.push_back(m);
+				//Matrix4f m = Matrix4f::Interpolate(left, right, timeLeft, time, timeRight);
+				auto trans = left.Interpolate(right, (time - timeLeft) / (timeRight - timeLeft));
+				channels[c].mat.push_back(trans);
 			}
 		}
 
@@ -324,13 +331,15 @@ namespace FM3D {
 		for (uint c = 0u; c < numChannels; c++) {
 			aiNodeAnim* node = channels[c].node;
 			uint key = node->mNumPositionKeys - 1;
-			channels[c].mat.push_back(CreateMatrix4f(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
+			channels[c].mat.push_back(CreateTransformation(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
 		}
 
-		std::vector<std::vector<Matrix4f>> matrices(boneCount);
+		std::vector<std::vector<Transformation>> matrices(boneCount);
 		CalcMatricesWithNodes(matrices, channels, numChannels, globalInverseTransformation);
 
-		return Animation(animation->mName.data, matrices, times, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
+		std::vector<std::vector<Transformation>> matrices2(matrices);
+		auto a = Animation(animation->mName.data, matrices, times, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
+		return a;
 	}
 	
 	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
@@ -352,8 +361,8 @@ namespace FM3D {
 			}
 		}
 
-		Matrix4f* meshMatrices = new Matrix4f[scene->mNumMeshes];
-		FindMeshTransformations(meshMatrices, Matrix4f::Identity(), scene->mRootNode);
+		std::vector<Matrix4f> meshMatrices(scene->mNumMeshes, Matrix4f::Identity());
+		FindMeshTransformations(&meshMatrices[0], Matrix4f::Identity(), scene->mRootNode);
 
 		Matrix4f globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
 
@@ -361,7 +370,7 @@ namespace FM3D {
 
 		//MESH SECTION
 		map<string, unsigned int> boneIndex;
-		std::vector<Matrix4f> boneOffsetMatrices(0);
+		std::vector<Matrix4f> boneOffsetMatrices;
 		std::vector<MeshPart> parts;
 		parts.reserve(meshIds.size());
 		uint c = 0;
