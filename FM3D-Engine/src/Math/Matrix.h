@@ -55,7 +55,7 @@ namespace FM3D {
 			}
 			Matrix& Multiply(Scalar scalar) {
 				for (uint i = 0; i < R * C; i++) {
-					elements[i] += scalar;
+					elements[i] *= scalar;
 				}
 				return *this;
 			}
@@ -133,7 +133,7 @@ namespace FM3D {
 			//Output
 			static inline constexpr std::string Name() { return "Matrix " + std::to_string(R) + "x" + std::to_string(C); }
 			friend std::ostream& operator<<(std::ostream& stream, const Matrix& matrix) {
-#define width 8
+#define width 12
 				stream << "/";
 				for (int c = 0; c < C; c++) {
 					if (c != 0) stream << ", ";

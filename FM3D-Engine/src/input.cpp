@@ -41,8 +41,8 @@ namespace FM3D
 
 	void Inputsystem::MMove(LPARAM lParam)
 	{
-			lastposinst.x = GET_X_LPARAM(lParam);
-			lastposinst.y = GET_Y_LPARAM(lParam);
+			lastposinst.x = static_cast<float>(GET_X_LPARAM(lParam));
+			lastposinst.y = static_cast<float>(GET_Y_LPARAM(lParam));
 	}
 
 	void Inputsystem::setMKey(int ID, KEYCLICK tof)

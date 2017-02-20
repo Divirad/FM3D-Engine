@@ -61,25 +61,43 @@ namespace FM3D {
 			Scalar Dot(const Quaternion& other) const {
 				return (w * other.w) + (x * other.x) + (y * other.y) + (z * other.z);
 			}
+			Vector3f ToAngles() {
+				double ysqr = y * y;
+
+				double t0 = +2.0 * (w * x + y * z);
+				double t1 = +1.0 - 2.0 * (x * x + ysqr);
+
+				double t2 = +2.0 * (w * y - z * x);
+				t2 = t2 > 1.0 ? 1.0 : t2;
+				t2 = t2 < -1.0 ? -1.0 : t2;
+
+				double t3 = +2.0 * (w * z + x *y);
+				double t4 = +1.0 - 2.0 * (ysqr + z * z);
+
+				return Vector3f(toDegrees(std::atan2(t0, t1)), toDegrees(std::asin(t2)), toDegrees(std::atan2(t3, t4)));
+			}
 
 			//Convert Methods
 			Matrix44<Scalar> ToMatrix44() const {
 				Scalar elements[16];
 				elements[0 + 0 * 4] = 1 - (2 * y * y) - (2 * z * z);
-				elements[1 + 0 * 4] = (2 * x * y) - (2 * w * z);
-				elements[2 + 0 * 4] = (2 * x + z) + (2 * w * y);
-				elements[3 + 0 * 4] = 0.0f;
-				elements[0 + 1 * 4] = (2 * x * y) + (2 * w * z);
-				elements[1 + 1 * 4] = 1 - (2 * x * x) - (2 * z * z);
-				elements[2 + 1 * 4] = (2 * y * z) + (2 * w * x);
-				elements[3 + 1 * 4] = 0.0f;
-				elements[0 + 2 * 4] = (2 * x * z) - (2 * w * y);
-				elements[1 + 2 * 4] = (2 * y + z) - (2 * w * x);
-				elements[2 + 2 * 4] = 1 - (2 * x * x) - (2 * y * y);
-				elements[3 + 2 * 4] = 0.0f;
+				elements[0 + 1 * 4] = (2 * x * y) - (2 * w * z);
+				elements[0 + 2 * 4] = (2 * x * z) + (2 * w * y);
 				elements[0 + 3 * 4] = 0.0f;
+
+				elements[1 + 0 * 4] = (2 * x * y) + (2 * w * z);
+				elements[1 + 1 * 4] = 1 - (2 * x * x) - (2 * z * z);
+				elements[1 + 2 * 4] = (2 * y * z) - (2 * w * x);
 				elements[1 + 3 * 4] = 0.0f;
+
+				elements[2 + 0 * 4] = (2 * x * z) - (2 * w * y);
+				elements[2 + 1 * 4] = (2 * y * z) + (2 * w * x);
+				elements[2 + 2 * 4] = 1 - (2 * x * x) - (2 * y * y);
 				elements[2 + 3 * 4] = 0.0f;
+
+				elements[3 + 0 * 4] = 0.0f;
+				elements[3 + 1 * 4] = 0.0f;
+				elements[3 + 2 * 4] = 0.0f;
 				elements[3 + 3 * 4] = 1.0f;
 
 				Matrix44<Scalar> result = Matrix44<Scalar>(elements);
@@ -88,32 +106,70 @@ namespace FM3D {
 			}
 			Matrix34<Scalar> ToMatrix34() const {
 				Scalar elements[12];
-				elements[0 + 0 * 4] = (w * w) + (x * x) - (y * y) - (z * z);
-				elements[1 + 0 * 4] = (2 * x * y) - (2 * w * z);
-				elements[2 + 0 * 4] = (2 * x * z) + (2 * w * y);
-				elements[3 + 0 * 4] = 0.0f;
-				elements[0 + 1 * 4] = (2 * x * y) + (2 * w + z);
-				elements[1 + 1 * 4] = (w * w) - (x * x) + (y * y) - (z * z);
-				elements[2 + 1 * 4] = (2 * y * z) + (2 * w * x);
-				elements[3 + 1 * 4] = 0.0f;
-				elements[0 + 2 * 4] = (2 * x * z) - (2 * w * y);
+				elements[0 + 0 * 4] = 1 - (2 * y * y) - (2 * z * z);
+				elements[0 + 1 * 4] = (2 * x * y) - (2 * w * z);
+				elements[0 + 2 * 4] = (2 * x * z) + (2 * w * y);
+				elements[0 + 3 * 4] = 0.0f;
+
+				elements[1 + 0 * 4] = (2 * x * y) + (2 * w * z);
+				elements[1 + 1 * 4] = 1 - (2 * x * x) - (2 * z * z);
 				elements[1 + 2 * 4] = (2 * y * z) - (2 * w * x);
-				elements[2 + 2 * 4] = (w * w) - (x * x) - (y * y) + (z * z);
-				elements[3 + 2 * 4] = 0.0f;
+				elements[1 + 3 * 4] = 0.0f;
+
+				elements[2 + 0 * 4] = (2 * x * z) - (2 * w * y);
+				elements[2 + 1 * 4] = (2 * y * z) + (2 * w * x);
+				elements[2 + 2 * 4] = 1 - (2 * x * x) - (2 * y * y);
+				elements[2 + 3 * 4] = 0.0f;
 				return Matrix34<Scalar>(elements);
+			}
+			Matrix33<Scalar> ToMatrix33() const {
+				Scalar elements[9];
+				elements[0 + 0 * 3] = 1 - (2 * y * y) - (2 * z * z);
+				elements[0 + 1 * 3] = (2 * x * y) - (2 * w * z);
+				elements[0 + 2 * 3] = (2 * x * z) + (2 * w * y);
+
+				elements[1 + 0 * 3] = (2 * x * y) + (2 * w * z);
+				elements[1 + 1 * 3] = 1 - (2 * x * x) - (2 * z * z);
+				elements[1 + 2 * 3] = (2 * y * z) - (2 * w * x);
+
+				elements[2 + 0 * 3] = (2 * x * z) - (2 * w * y);
+				elements[2 + 1 * 3] = (2 * y * z) + (2 * w * x);
+				elements[2 + 2 * 3] = 1 - (2 * x * x) - (2 * y * y);
+				return Matrix33<Scalar>(elements);
 			}
 
 			//Static Methods
-			static Quaternion FromAngle(Scalar angle, Vector3<Scalar> axis) {
-				angle = Math::toRadians(angle);
-				angle /= 2;
-				axis *= sinf(angle);
-				return Quaternion(cosf(angle), axis);
+			static inline Quaternion RotationX(Scalar angle) { return RotationXR(toRadians(angle)); }
+			static inline Quaternion RotationY(Scalar angle) { return RotationYR(toRadians(angle)); }
+			static inline Quaternion RotationZ(Scalar angle) { return RotationZR(toRadians(angle)); }
+			static inline Quaternion RotationXR(Scalar angle) { return Quaternion(cos(angle * 0.5f), sin(angle * 0.5f), 0.0f, 0.0f); }
+			static inline Quaternion RotationYR(Scalar angle) { return Quaternion(cos(angle * 0.5f), 0.0f, sin(angle * 0.5f), 0.0f); }
+			static inline Quaternion RotationZR(Scalar angle) { return Quaternion(cos(angle * 0.5f), 0.0f, 0.0f, sin(angle * 0.5f)); }
+
+			static inline Quaternion Rotation(Scalar angleX, Scalar angleY, Scalar angleZ) { 
+				return RotationR(toRadians(angleX), toRadians(angleY), toRadians(angleZ));
 			}
-			static Quaternion FromAngles(Vector3f rotation) {
-				return FromAngle(rotation.x, Vector3f::XAxis()) * FromAngle(rotation.y, Vector3f::YAxis()) * FromAngle(rotation.z, Vector3f::ZAxis());
+			static inline Quaternion RotationR(Scalar angleX, Scalar angleY, Scalar angleZ) {
+				angleX *= 0.5f;
+				angleY *= 0.5f;
+				angleZ *= 0.5f;
+
+				float xc = std::cos(angleX);
+				float xs = std::sin(angleX);
+				float yc = std::cos(angleY);
+				float ys = std::sin(angleY);
+				float zc = std::cos(angleZ);
+				float zs = std::sin(angleZ);
+
+				return Quaternion(
+					zc * xc * yc + zs * xs * ys,
+				    zc * xs * yc - zs * xc * ys,
+				    zc * xc * ys + zs * xs * yc,
+				    zs * xc * yc - zc * xs * ys
+				);
 			}
-			static Quaternion<Scalar> Slerp(Quaternion v0, Quaternion v1, float t) {
+
+			static Quaternion Slerp(Quaternion v0, Quaternion v1, float t) {
 				//spherical linear interpolation
 				v0.Normalize();
 				v1.Normalize();
@@ -141,6 +197,48 @@ namespace FM3D {
 				v2.Normalize();
 
 				return v0*cosf(theta) + v2*sinf(theta);
+			}
+			static Quaternion FromMatrix(Matrix4<Scalar> m) {
+				m.Transpose();
+				float trace = m.elements[0 + 0 * 4] + m.elements[1 + 1 * 4] + m.elements[2 + 2 * 4];
+				if (trace > 0) {
+					float s = 0.5f / sqrtf(trace + 1.0f);
+					return Quaternion(
+						0.25f / s,
+						(m.elements[2 + 1 * 4] - m.elements[1 + 2 * 4]) * s,
+						(m.elements[0 + 2 * 4] - m.elements[2 + 0 * 4]) * s,
+						(m.elements[1 + 0 * 4] - m.elements[0 + 1 * 4]) * s
+					);
+				}
+				else {
+					if (m.elements[0 + 0 * 4] > m.elements[1 + 1 * 4] && m.elements[0 + 0 * 4] > m.elements[2 + 2 * 4]) {
+						float s = 2.0f * sqrtf(1.0f + m.elements[0 + 0 * 4] - m.elements[1 + 1 * 4] - m.elements[2 + 2 * 4]);
+						return Quaternion(
+							(m.elements[2 + 1 * 4] - m.elements[1 + 2 * 4]) / s,
+							0.25f * s,
+							(m.elements[0 + 1 * 4] + m.elements[1 + 0 * 4]) / s,
+							(m.elements[0 + 2 * 4] + m.elements[2 + 0 * 4]) / s
+						);
+					}
+					else if (m.elements[1 + 1 * 4] > m.elements[2 + 2 * 4]) {
+						float s = 2.0f * sqrtf(1.0f + m.elements[1 + 1 * 4] - m.elements[0 + 0 * 4] - m.elements[2 + 2 * 4]);
+						return Quaternionf(
+							(m.elements[0 + 2 * 4] - m.elements[2 + 0 * 4]) / s,
+							(m.elements[0 + 1 * 4] + m.elements[1 + 0 * 4]) / s,
+							0.25f * s,
+							(m.elements[1 + 2 * 4] + m.elements[2 + 1 * 4]) / s
+						);
+					}
+					else {
+						float s = 2.0f * sqrtf(1.0f + m.elements[2 + 2 * 4] - m.elements[0 + 0 * 4] - m.elements[1 + 1 * 4]);
+						return Quaternionf(
+							(m.elements[1 + 0 * 4] - m.elements[0 + 1 * 4]) / s,
+							(m.elements[0 + 2 * 4] + m.elements[2 + 0 * 4]) / s,
+							(m.elements[1 + 2 * 4] + m.elements[2 + 1 * 4]) / s,
+							0.25f * s
+						);
+					}
+				}
 			}
 
 			//Member operators

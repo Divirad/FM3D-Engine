@@ -27,7 +27,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             get
             {
-                return this.logic;
+                return this.Resources["logic"] as Logic;
             }
         }
 

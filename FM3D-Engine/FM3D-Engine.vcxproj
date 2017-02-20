@@ -431,13 +431,14 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\Skeleton.h" />
     <ClInclude Include="src\Graphics\Terrain.h" />
     <ClInclude Include="src\Graphics\Texture.h" />
+    <ClInclude Include="src\Graphics\TimeList.h" />
     <ClInclude Include="src\Graphics\Vertices.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Math\Matrix4.h" />
     <ClInclude Include="src\Math\Quaternion.h" />
-    <ClInclude Include="src\Math\Transfornation.h" />
+    <ClInclude Include="src\Math\Transformation.h" />
     <ClInclude Include="src\Math\Vector.h" />
     <ClInclude Include="src\Math\Vector2.h" />
     <ClInclude Include="src\Math\Vector3.h" />
@@ -536,6 +537,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\Vertices.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
+    <ClCompile Include="src\Math\Transformation.cpp" />
     <ClCompile Include="src\Output.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Utilities\CompCoords.cpp" />

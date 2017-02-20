@@ -56,7 +56,7 @@ namespace FM3D {
 			inline const Vector4<Scalar>& operator[](uint row) const {
 				return rows[row];
 			}
-			inline Vector4<Scalar> GetColumn(int index) {
+			inline Vector4<Scalar> GetColumn(int index) const {
 				return Vector4<Scalar>(elements[index + 0 * 4], elements[index + 1 * 4], elements[index + 2 * 4], elements[index + 3 * 4]);
 			}
 
@@ -70,7 +70,7 @@ namespace FM3D {
 			}
 			Matrix& Multiply(Scalar scalar) {
 				for (uint i = 0; i < 16; i++) {
-					elements[i] += scalar;
+					elements[i] *= scalar;
 				}
 				return *this;
 			}
@@ -360,12 +360,70 @@ namespace FM3D {
 
 				return result;
 			}
-			static Matrix Rotate(float angle, const Vector3<Scalar>& axis) {
+			static Matrix Scale(const Vector3<Scalar>& scale) {
 				Matrix4f result = Identity();
 
-				float r = Math::toRadians(angle);
-				float c = cos(r);
-				float s = sin(r);
+				result.elements[0 + 0 * 4] = scale.x;
+				result.elements[1 + 1 * 4] = scale.y;
+				result.elements[2 + 2 * 4] = scale.z;
+
+				return result;
+			}
+			static inline Matrix Rotation(Vector3<Scalar> angle) {
+				return RotationZ(angle.z) * (RotationY(angle.y) * RotationX(angle.x));
+			}
+			static inline Matrix Transformation(const Vector3<Scalar>& translation, const Vector3<Scalar>& scale, const Vector3<Scalar>& angle) {
+				return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
+			}
+			
+			static inline Matrix RotationX(float angle) {
+				return RotationXR(toRadians(angle));
+			}
+			static inline Matrix RotationY(float angle) {
+				return RotationYR(toRadians(angle));
+			}
+			static inline Matrix RotationZ(float angle) {
+				return RotationZR(toRadians(angle));
+			}
+			
+			static Matrix RotationXR(float angle) {
+				Matrix result = Matrix4f::Identity();
+				float c = cos(angle);
+				float s = sin(angle);
+				result.elements[1 + 1 * 4] = c;
+				result.elements[2 + 1 * 4] = -s;
+				result.elements[1 + 2 * 4] = s;
+				result.elements[2 + 2 * 4] = c;
+				return result;
+			}
+			static Matrix RotationYR(float angle) {
+				Matrix result = Matrix4f::Identity();
+				float c = cos(angle);
+				float s = sin(angle);
+				result.elements[0 + 0 * 4] = c;
+				result.elements[2 + 0 * 4] = s;
+				result.elements[0 + 2 * 4] = -s;
+				result.elements[2 + 2 * 4] = c;
+				return result;
+			}
+			static Matrix RotationZR(float angle) {
+				Matrix result = Matrix4f::Identity();
+				float c = cos(angle);
+				float s = sin(angle);
+				result.elements[0 + 0 * 4] = c;
+				result.elements[1 + 0 * 4] = -s;
+				result.elements[0 + 1 * 4] = s;
+				result.elements[1 + 1 * 4] = c;
+				return result;
+			}
+
+			static inline Matrix Rotation(float angle, const Vector3<Scalar>& axis) {
+				return RotationR(toRadians(angle), axis);
+			}
+			static Matrix RotationR(float angle, const Vector3<Scalar>& axis) {
+				Matrix4f result = Identity();
+				float c = cos(angle);
+				float s = sin(angle);
 				float omc = 1.0f - c;
 
 				float x = axis.x;
@@ -386,21 +444,7 @@ namespace FM3D {
 
 				return result;
 			}
-			static Matrix Scale(const Vector3<Scalar>& scale) {
-				Matrix4f result = Identity();
 
-				result.elements[0 + 0 * 4] = scale.x;
-				result.elements[1 + 1 * 4] = scale.y;
-				result.elements[2 + 2 * 4] = scale.z;
-
-				return result;
-			}
-			static inline Matrix Rotation(Vector3<Scalar> angle) {
-				return Matrix::Rotate(angle.z, Vector3<Scalar>(0.0f, 0.0f, 1.0f)) *  Matrix4f::Rotate(angle.y, Vector3<Scalar>(0.0f, 1.0f, 0.0f)) * Matrix4f::Rotate(angle.x, Vector3<Scalar>(1.0f, 0.0f, 0.0f));
-			}
-			static inline Matrix Transformation(const Vector3<Scalar>& translation, const Vector3<Scalar>& scale, const Vector3<Scalar>& angle) {
-				return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
-			}
 
 			//Output
 			static inline constexpr std::string Name() { return "Matrix 4x4"; }

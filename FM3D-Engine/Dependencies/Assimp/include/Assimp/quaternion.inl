@@ -136,9 +136,11 @@ inline aiMatrix3x3t<TReal> aiQuaterniont<TReal>::GetMatrix() const
 	resMatrix.a1 = static_cast<TReal>(1.0) - static_cast<TReal>(2.0) * (y * y + z * z);
 	resMatrix.a2 = static_cast<TReal>(2.0) * (x * y - z * w);
 	resMatrix.a3 = static_cast<TReal>(2.0) * (x * z + y * w);
+
 	resMatrix.b1 = static_cast<TReal>(2.0) * (x * y + z * w);
 	resMatrix.b2 = static_cast<TReal>(1.0) - static_cast<TReal>(2.0) * (x * x + z * z);
 	resMatrix.b3 = static_cast<TReal>(2.0) * (y * z - x * w);
+
 	resMatrix.c1 = static_cast<TReal>(2.0) * (x * z - y * w);
 	resMatrix.c2 = static_cast<TReal>(2.0) * (y * z + x * w);
 	resMatrix.c3 = static_cast<TReal>(1.0) - static_cast<TReal>(2.0) * (x * x + y * y);

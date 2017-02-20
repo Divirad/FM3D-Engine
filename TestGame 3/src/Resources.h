@@ -171,7 +171,7 @@ struct Resources {
 	Texture* texAllo;
 	Material matAllo;
 	void InitAllo(RenderSystem* renderSystem) {
-		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, true);
+		ExternFileManager::ReadModelFile("allo.fbx", renderSystem, &alloModel, false, true);
 		AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
 		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 		bobaAnimModel->SetAnimationTime(1.5);

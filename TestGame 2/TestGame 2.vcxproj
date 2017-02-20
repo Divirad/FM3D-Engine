@@ -166,6 +166,9 @@
   <ItemGroup>
     <None Include="res\bobaFett.dae" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\OldMatrix.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

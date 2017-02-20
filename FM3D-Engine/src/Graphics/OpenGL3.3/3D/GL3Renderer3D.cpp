@@ -79,7 +79,7 @@ namespace FM3D {
 							if (it2->first->IsAnimated()) {
 								AnimatedModel* a = (AnimatedModel*)it2->first;
 								if (a->GetAnimation() != nullptr) {
-									std::vector<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
+									std::vector<Matrix4f> bones(a->GetAnimation()->GetBoneTransformations(a->GetAnimationTime()));
 									m_shader3D.SetBones(bones);
 								} else {
 									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());

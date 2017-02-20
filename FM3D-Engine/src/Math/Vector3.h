@@ -49,7 +49,7 @@ namespace FM3D {
 			inline float Length() const { return std::sqrtf((float)LengthSquared()); }
 			inline double LengthD() const { return std::sqrt((double)LengthSquared()); }
 			inline Vector& Normalize() { return Divide((Scalar)Length()); }
-			inline Vector& Cross(const Vector& other) { x = y * other.z - z * other.y; y = z * other.x - x * other.z; z = x * other.y - y * other.x; return *this; }
+			inline Vector& Cross(const Vector& other) { float _x = y * other.z - z * other.y; float _y = z * other.x - x * other.z; z = x * other.y - y * other.x; x = _x; y = _y; return *this; }
 
 			//Member operators
 			inline Vector& operator+=(const Vector& other) { return Add(other); }
@@ -81,7 +81,7 @@ namespace FM3D {
 			inline static float  Length(const Vector& vec) { return std::sqrtf((float)vec.LengthSquared()); }
 			inline static double LengthD(const Vector& vec) { return std::sqrt((double)vec.LengthSquared()); }
 			inline static Vector Normalize(Vector vec) { return vec.Divide((Scalar)Length()); }
-			inline static Vector Cross(Vector left, const Vector& right) { return left.Cross(); }
+			inline static Vector Cross(Vector left, const Vector& right) { return Vector(left.y * right.z - left.z * right.y, left.z * right.x - left.x * right.z, left.x * right.y - left.y * right.x); }
 
 			//Static operators
 			inline friend Vector operator+(Vector left, const Vector& right) { return left.Add(right); }

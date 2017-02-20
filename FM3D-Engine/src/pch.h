@@ -3,6 +3,9 @@
 #include <Windows.h>
 #include <windowsx.h>
 
+#undef max
+#undef min
+
 #include <stdio.h>
 #include <time.h>
 #include <iostream>
@@ -25,6 +28,7 @@
 #include <utility>
 #include <unordered_map>
 #include <algorithm>
+#include <utility>
 
 #include <smmintrin.h>
 

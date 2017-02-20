@@ -15,45 +15,6 @@ const AnimatedModel* GetModel(EntityPtr& e);
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
-	float data0[2 * 3] = { 0.3f, 2.0f, 1.0f, 2.0f, 0.2f, 3.0f };
-	float data1[3 * 4] = { 2.7f, 5.0f, 2.0f, 7.0f, 5.0f, 6.0f, 0.3f, 2.2f, 1.6f, 2.2f, 0.2f, 3.7f };
-	Matrix<2, 3, float> m0(data0);
-	Matrix<3, 4, float> m1(data1);
-	Vector3f v(3.0f, 2.0f, 1.0f);
-	auto m2 = MultiplyMatrices(m0, m1);
-	auto m3 = MultiplyMatrices(m0, v);
-	auto m4 = AddMatrices(m0, m0);
-	//std::cout << m0 << std::endl << m1 << std::endl << v << std::endl << m2 << std::endl << m3 << std::endl << m4;
-
-	Quaternionf q0(4.0f, 1.0f, 5.0f, 7.0f);
-	Quaternionf q1(1.0f, 2.0f, 7.0f, 3.0f);
-	q0.Normalize();
-	q1.Normalize();
-	std::cout << q0 << std::endl;
-	std::cout << q1 << std::endl;
-	std::cout << Quaternionf::Slerp(q0, q1, 0.0f) << std::endl;
-	std::cout << Quaternionf::Slerp(q0, q1, 1.0f) << std::endl;
-	std::cout << Quaternionf::Slerp(q0, q1, 0.5f) << std::endl;
-
-	Quaternionf rot0 = Quaternionf::FromAngles(Vector3f(30.0f, 10.0f, 90.0f));
-	Quaternionf rot1 = Quaternionf::FromAngles(Vector3f(90.0f, 17.0f, 20.0f));
-	rot0.Normalize();
-	rot1.Normalize();
-
-	Matrix4f rmat0 =Matrix4f::Rotation(Vector3f(30.0f, 10.0f, 90.0f));
-	Matrix4f rmat1 =Matrix4f::Rotation(Vector3f(90.0f, 17.0f, 20.0f));
-	Vector3f rvec(0.0f, 1.0f, 0.0f);
-	std::cout << rot0.ToMatrix44().Transpose() << std::endl;
-	std::cout << rmat0 << std::endl;
-	std::cout << rot0 << std::endl;
-	//std::cout << rot1 << std::endl;
-	//Transformation trans0{ Vector3f(2.0f, 3.0f, 0.0f), rot0, Vector3f(2.0f, 2.0f, 1.0f) };
-	//Transformation trans1{ Vector3f(5.0f, 30.0f, 7.0f), rot1, Vector3f(1.0f, 3.0f, 1.0f) };
-	//Transformation trans2 = trans0 * trans1;
-	//Transformation trans3 = trans1 * trans0;
-	//std::cout << trans2.rotation << std::endl;
-	//std::cout << trans3.rotation << std::endl;
-
 	Output::Initialize();
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
 	Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
@@ -71,7 +32,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
-	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 1000.0f);
+	Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)win->GetWidth() / (float)win->GetHeight(), 0.1f, 10000.0f);
 
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
@@ -96,10 +57,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	//Entities
 	EntityPtr entityLeaves = CreateEntity(scene, Vector3f(20.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.treeLeavesModel);
-	EntityPtr boba = CreateEntity(scene, Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
+	EntityPtr boba = CreateEntity(scene, Vector3f(5.0f, 3.0f, -5.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
-	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
-	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.alloModel);
+	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
+	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -141,7 +102,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { indices.size(), (void*)&(indices[0]), std::move(vertices), sizeof(uint), false } })), materials);
 
-	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 
 	OUTPUT_INFO(3, "Hallo", "Infooo");
 	OUTPUT_ERROR(4, "Hallu", "Yeeeaah");
@@ -186,11 +147,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			if (static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.bobaMesh)->SetAnimationTime(0.0);
 
-			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 600.0f);
+			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 60.0f);
 			if (static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.shuttleModel)->SetAnimationTime(0.0);
 
-			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 600.0f);
+			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 30.0f);
 			if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
@@ -229,7 +190,8 @@ void Move(Camera& camera) {
 
 
 	Vector3f look = Math::GetLookingDirection2D(camera.GetRotation());
-	Vector3f orthLook = Matrix4f::Rotate(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
+	//std::cout << look << std::endl;
+	Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
 
 	bool forward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_W);
 	bool backward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_S);
@@ -284,7 +246,7 @@ Vector3f SetHillNormal(Vector3f& vec) {
 		if (n0.y < 0) n0 *= -1.0f;
 		if (n1.y < 0) n1 *= -1.0f;
 
-		Vector3f result = (n0 + n1) / 2.0f;;
+		Vector3f result = (n0 + n1) / 2.0f;
 
 		return result;
 	}

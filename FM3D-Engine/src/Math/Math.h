@@ -139,7 +139,7 @@ namespace FM3D {
 		}
 
 		ENGINE_DLL inline Vector3f GetLookingDirection2D(Vector3f& rotation, const Vector3f& standardDirection = Vector3f(0.0f, 0.0f, -1.0f)) {
-			return (Matrix4f::Rotate(rotation.y, Vector3f(0.0f, 1.0f, 0.0f)) * standardDirection).Normalize();
+			return (Matrix4f::Rotation(rotation.y, Vector3f(0.0f, 1.0f, 0.0f)) * standardDirection).Normalize();
 		}
 	}
 
@@ -153,4 +153,4 @@ namespace FM3D {
 	using Quaterniond = Math::Quaternion<double>;
 }
 
-#include "Transfornation.h"
+#include "Transformation.h"
