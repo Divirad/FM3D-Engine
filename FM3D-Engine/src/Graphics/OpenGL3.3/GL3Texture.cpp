@@ -6,10 +6,6 @@ namespace FM3D {
 
 	}
 
-	GL3Texture::GL3Texture() {
-
-	}
-
 	GLint GL3Texture::GetGLFilterMode(FilterMode& filter, MipMapMode mipMapMode) {
 		switch (filter) {
 		case LINEAR:
@@ -62,17 +58,13 @@ namespace FM3D {
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGLWrapMode(wrap)));
 	}
 
-	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) {
-		m_bits = bits;
-		m_width = width;
-		m_height = height;
-		GLenum err = GL_NO_ERROR;
-		if ((err = glGetError()) != GL_NO_ERROR) std::cout << "GLerror: " << err << " " << gluErrorString(err) << std::endl;
+	GL3Texture::GL3Texture(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits):
+	Texture(width, height, bits), m_tID(0) {
 		GLCall(glGenTextures(1, &m_tID));
 		Bind();
 
 		if (m_bits != 24 && m_bits != 32 && m_bits != 8)
-			std::cout << "[Texture] Unsupported image bit-depth! (" << m_bits << ")" << std::endl;
+			OUTPUT_ERROR(1, "GL3 Texture failed to create", "Unsupported image bit-depth: " + std::to_string(m_bits));
 
 		GLint internalFormat = m_bits == 32 ? GL_RGBA : m_bits == 24 ? GL_RGB : GL_RED;
 		GLenum format = m_bits == 32 ? GL_BGRA : m_bits == 24 ? GL_BGR : GL_RED;
@@ -83,17 +75,13 @@ namespace FM3D {
 		Unbind();
 	}
 
-	void GL3Texture::Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) {
-		m_bits = bits;
-		m_width = width;
-		m_height = height;
-		GLenum err = GL_NO_ERROR;
-		if ((err = glGetError()) != GL_NO_ERROR) std::cout << "GLerror: " << err << " " << gluErrorString(err) << std::endl;
+	GL3Texture::GL3Texture(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits):
+		Texture(width, height, bits), m_tID(0) {
 		GLCall(glGenTextures(1, &m_tID));
 		Bind();
 
 		if (m_bits != 24 && m_bits != 32 && m_bits != 8)
-			std::cout << "[Texture] Unsupported image bit-depth! (" << m_bits << ")" << std::endl;
+			OUTPUT_ERROR(1, "GL3 Texture failed to create", "Unsupported image bit-depth: " + std::to_string(m_bits));
 
 		GLint internalFormat = m_bits == 32 ? GL_RGBA : m_bits == 24 ? GL_RGB : GL_RED;
 		GLenum format = m_bits == 32 ? GL_BGRA : m_bits == 24 ? GL_BGR : GL_RED;
@@ -112,7 +100,20 @@ namespace FM3D {
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
 	}
 
-	void GL3Texture::Unbind() {
+	void GL3Texture::Unbind() const {
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+	}
+
+	void GL3Texture::UnbindAll() {
+		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+	}
+
+	void GL3Texture::SetPixels(int level, int x, int y, int width, int height, unsigned char* pixels) {
+		GLCall(glTexSubImage2D(GL_TEXTURE_2D, level, x, y, width, height, GL_RED, GL_UNSIGNED_BYTE, pixels));
+	}
+
+	void GL3Texture::BindForEditing() {
+		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
+		GLCall(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 	}
 }

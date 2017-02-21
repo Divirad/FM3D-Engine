@@ -6,7 +6,7 @@ namespace FM3D {
 	class GL3RenderTarget2D : public RenderTarget2D {
 	private:
 		GLuint m_frameBuffer;
-		GLuint m_texture;
+		GL3Texture* m_texture;
 		GLuint m_depthBuffer;
 	public:
 		GL3RenderTarget2D(const Vector2i& size, bool useDepth);
@@ -16,7 +16,7 @@ namespace FM3D {
 		void PresentOnScreen(const Vector2i& screenSize) override;
 		void BindAsTarget() const override;
 		void BindAsSource() const override;
-		std::shared_ptr<const Texture> GetTexture() override;
+		const Texture* GetTexture() override;
 
 		std::vector<byte> GetPixelData() override;
 

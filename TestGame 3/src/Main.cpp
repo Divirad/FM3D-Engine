@@ -6,11 +6,12 @@
 using ALL_FM3D_NAMESPACES;
 using namespace FM3D::Math;
 
-void Move(Camera& camera);
+void Move(Camera& camera, Camera& laptop);
 Vector3f& SetHill(Vector3f& vec);
 Vector3f SetHillNormal(Vector3f& vec);
 EntityPtr CreateEntity(EntityCollection&, const Vector3f&, const Vector3f&, const Vector3f&, Model*);
 const AnimatedModel* GetModel(EntityPtr& e);
+void RenderLaptop(Camera& camera, Resources& res, const EntityPtr& e0, const EntityPtr& e1, const EntityPtr& e2, const EntityPtr& e3);
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
@@ -46,12 +47,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	LARGE_INTEGER frequency;
 	QueryPerformanceFrequency(&frequency);
 
-	Camera camera;
+	Camera camera(Vector3f(0.0f, 5.0f, 0.0f));
+	Camera laptopCam(Vector3f(0.0f, 2.0f, 0.0f));
 
 	Color4f clearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	FM3D::Font* font;
-	ExternFileManager::ReadFontFile("font.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem->CreateTexture(), &font);
+	ExternFileManager::ReadFontFile("font.ttf", 50, Vector2f(0.001f, 0.001f), renderSystem, &font);
 
 	Resources res(renderSystem);
 
@@ -61,6 +63,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
 	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
 	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+	EntityPtr laptop = CreateEntity(scene, Vector3f(10.0f, 2.0f, 5.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.laptopModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -94,8 +97,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		}
 	}
 
-	Texture* terrainTexture = renderSystem->CreateTexture();
-	ExternFileManager::ReadTextureFile("grass.jpg", terrainTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+	Texture* terrainTexture = ExternFileManager::ReadTextureFile("grass.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 	Material terrainMaterial = { 0xffffffff, terrainTexture };
 	std::vector<const Material*> materials(1);
 	materials[0] = &terrainMaterial;
@@ -118,19 +120,21 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			QueryPerformanceCounter(&time1);
 
 			renderSystem->BeginRendering(clearColor);
+			RenderLaptop(laptopCam, res, terrain, allosaurus, island, boba);
+
 			//renderer3D->Submit(entityLeaves.get());
 			renderer3D->Submit(boba.get());
 			renderer3D->Submit(terrain.get());
 			renderer3D->Submit(island.get());
 			renderer3D->Submit(shuttle.get());
 			renderer3D->Submit(allosaurus.get());
+			renderer3D->Submit(laptop.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
-			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
+			//target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderer2D->Begin();
 
-			auto sceneTex = target3D->GetTexture();
-			Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, sceneTex.get());
+			Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, target3D->GetTexture());
 			renderer2D->Submit(&renderedScene);
 
 			renderer2D->Submit(&textBack);
@@ -151,12 +155,12 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			if (static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.shuttleModel)->SetAnimationTime(0.0);
 
-			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 30.0f);
+			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 15.0f);
 			if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
 
-			Move(camera);
+			Move(camera, laptopCam);
 			
 			camera.Preset(camera.FIRSTPERSON, false);
 			
@@ -172,55 +176,91 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	renderSystem->Shutdown();
 }
 
-void Move(Camera& camera) {
+void Move(Camera& camera, Camera& laptop) {
 	
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_LEFT)) {
-		camera.GetRotation().y += 1.0f;
-	}
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_RIGHT)) {
-		camera.GetRotation().y -= 1.0f;
-	}
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_UP)) {
-		camera.GetRotation().x += 1.0f;
-	}
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_DOWN)) {
-		camera.GetRotation().x -= 1.0f;
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_LEFT)) {
+			laptop.GetRotation().y += 3.0f;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_RIGHT)) {
+			laptop.GetRotation().y -= 3.0f;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_UP)) {
+			laptop.GetRotation().x += 3.0f;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_DOWN)) {
+			laptop.GetRotation().x -= 3.0f;
+		}
+	{
+		Vector3f look = Math::GetLookingDirection2D(laptop.GetRotation());
+		//std::cout << look << std::endl;
+		Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
+
+		bool forward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_T);
+		bool backward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_G);
+		bool left = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_F);
+		bool right = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_H);
+
+		float speedFW = 0.1f;
+		float speedSW = 0.1f;
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_STRG)) {
+			speedFW = speedSW = 0.01f;
+		}
+
+		if (forward && !backward) {
+			laptop.GetPosition() += look * speedFW;
+		}
+		else if (!forward && backward) {
+			laptop.GetPosition() += look * -speedFW;
+		}
+		if (left && !right) {
+			laptop.GetPosition() += orthLook * speedSW;
+		}
+		else if (!left && right) {
+			laptop.GetPosition() += orthLook * -speedSW;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_X)) {
+			laptop.GetPosition().y += 0.1f;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_Y)) {
+			laptop.GetPosition().y -= 0.1f;
+		}
 	}
 
+	{
+		Vector3f look = Math::GetLookingDirection2D(camera.GetRotation());
+		//std::cout << look << std::endl;
+		Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
 
+		bool forward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_W);
+		bool backward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_S);
+		bool left = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_A);
+		bool right = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_D);
 
-	Vector3f look = Math::GetLookingDirection2D(camera.GetRotation());
-	//std::cout << look << std::endl;
-	Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
+		float speedFW = 0.1f;
+		float speedSW = 0.1f;
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_STRG)) {
+			speedFW = speedSW = 0.01f;
+		}
 
-	bool forward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_W);
-	bool backward = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_S);
-	bool left = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_A);
-	bool right = Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_D);
-
-	float speedFW = 0.1f;
-	float speedSW = 0.1f;
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_STRG)) {
-		speedFW = speedSW = 0.01f;
+		if (forward && !backward) {
+			camera.GetPosition() += look * speedFW;
+		}
+		else if (!forward && backward) {
+			camera.GetPosition() += look * -speedFW;
+		}
+		if (left && !right) {
+			camera.GetPosition() += orthLook * speedSW;
+		}
+		else if (!left && right) {
+			camera.GetPosition() += orthLook * -speedSW;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_SPACE)) {
+			camera.GetPosition().y += 0.1f;
+		}
+		if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(0x10)) {
+			camera.GetPosition().y -= 0.1f;
+		}
 	}
-
-	if (forward && !backward) {
-		camera.GetPosition() += look * speedFW;
-	} else if (!forward && backward) {
-		camera.GetPosition() += look * -speedFW;
-	}
-	if (left && !right) {
-		camera.GetPosition() += orthLook * speedSW;
-	} else if (!left && right) {
-		camera.GetPosition() += orthLook * -speedSW;
-	}
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_SPACE)) {
-		camera.GetPosition().y += 0.1f;
-	}
-	if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(0x10)) {
-		camera.GetPosition().y -= 0.1f;
-	}
-
 }
 
 Vector3f& SetHill(Vector3f& vec) {
@@ -265,4 +305,18 @@ EntityPtr CreateEntity(EntityCollection& col, const Vector3f& pos, const Vector3
 const AnimatedModel* GetModel(EntityPtr& e) {
 	RenderableComponent* r = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId));
 	return static_cast<const AnimatedModel*>(r->GetModel());
+}
+
+void RenderLaptop(Camera& camera, Resources& res, const EntityPtr& e0, const EntityPtr& e1, const EntityPtr& e2, const EntityPtr& e3) {
+	res.desktopRen3D->Submit(e0.get());
+	res.desktopRen3D->Submit(e1.get());
+	res.desktopRen3D->Submit(e2.get());
+	res.desktopRen3D->Submit(e3.get());
+	res.desktopRen3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
+
+	res.desktopRen->Begin();
+	Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, res.desktop3D->GetTexture());
+	res.desktopRen->Submit(&renderedScene);
+	res.desktopRen->End();
+	res.desktopRen->Flush();
 }

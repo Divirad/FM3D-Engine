@@ -13,7 +13,7 @@ namespace FM3D {
 		virtual void PresentOnScreen(const Vector2i& screenSize) = 0;
 		virtual void BindAsTarget() const = 0;
 		virtual void BindAsSource() const = 0;
-		virtual std::shared_ptr<const Texture> GetTexture() = 0;
+		virtual const Texture* GetTexture() = 0;
 
 		int GetWidth() const;
 		int GetHeight() const;

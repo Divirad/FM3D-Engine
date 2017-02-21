@@ -10,41 +10,74 @@ struct Resources {
 	Material emptyMat;
 	Texture* redTex;
 	Material redMat;
+	Texture* greenTex;
+	Material greenMat;
+	Texture* blueTex;
+	Material blueMat;
+	Texture* greyTex;
+	Material greyMat;
 	Texture* disabledTex;
 	Material disabledMat;
 	void Init(RenderSystem* renderSystem) {
 		{
-			emptyTex = renderSystem->CreateTexture();
 			float pixels[] = {
 				1.0f, 1.0f, 1.0f, 1.0f,
 				1.0f, 1.0f, 1.0f, 1.0f,
 				1.0f, 1.0f, 1.0f, 1.0f,
 				1.0f, 1.0f, 1.0f, 1.0f
 			};
-			emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			emptyTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
 			emptyMat = { 0xffffffff, emptyTex };
 		}
 		{
-			redTex = renderSystem->CreateTexture();
 			float pixels[] = {
 				0.0f, 0.0f, 1.0f, 1.0f,
 				0.0f, 0.0f, 1.0f, 1.0f,
 				0.0f, 0.0f, 1.0f, 1.0f,
 				0.0f, 0.0f, 1.0f, 1.0f
 			};
-			redTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			redTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
 			redMat = { 0xffffffff, redTex };
 		}
 		{
-			disabledTex = renderSystem->CreateTexture();
 			float pixels[] = {
 				0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f
 			};
-			disabledTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+			disabledTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
 			disabledMat = { 0x0, disabledTex };
+		}
+		{
+			float pixels[] = {
+				0.0f, 1.0f, 0.0f, 1.0f,
+				0.0f, 1.0f, 0.0f, 1.0f,
+				0.0f, 1.0f, 0.0f, 1.0f,
+				0.0f, 1.0f, 0.0f, 1.0f
+			};
+			greenTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
+			greenMat = { 0xffffffff, greenTex };
+		}
+		{
+			float pixels[] = {
+				1.0f, 0.0f, 0.0f, 1.0f,
+				1.0f, 0.0f, 0.0f, 1.0f,
+				1.0f, 0.0f, 0.0f, 1.0f,
+				1.0f, 0.0f, 0.0f, 1.0f
+			};
+			blueTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
+			blueMat = { 0xffffffff, blueTex };
+		}
+		{
+			float pixels[] = {
+				0.35f, 0.35f, 0.35f, 1.0f,
+				0.35f, 0.35f, 0.35f, 1.0f,
+				0.35f, 0.35f, 0.35f, 1.0f,
+				0.35f, 0.35f, 0.35f, 1.0f
+			};
+			greyTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
+			greyMat = { 0xffffffff, greyTex };
 		}
 	}
 #pragma endregion
@@ -67,23 +100,12 @@ struct Resources {
 	void InitIsland(RenderSystem* renderSystem) {
 		ExternFileManager::ReadModelFile("island/island.dae", renderSystem, &islandModel, false, true);
 
-		islandTexture0 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/arl1b.jpg", islandTexture0, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-
-		islandTexture1 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/grs1.jpg", islandTexture1, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-
-		islandTexture2 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/lv1.jpg", islandTexture2, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-
-		islandTexture3 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/plvs1c.jpg", islandTexture3, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-
-		islandTexture4 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/rc1.jpg", islandTexture4, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		
-		islandTexture5 = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("island/snd1.jpg", islandTexture5, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		islandTexture0 = ExternFileManager::ReadTextureFile("island/arl1b.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		islandTexture1 = ExternFileManager::ReadTextureFile("island/grs1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		islandTexture2 = ExternFileManager::ReadTextureFile("island/lv1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		islandTexture3 = ExternFileManager::ReadTextureFile("island/plvs1c.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		islandTexture4 = ExternFileManager::ReadTextureFile("island/rc1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);		
+		islandTexture5 = ExternFileManager::ReadTextureFile("island/snd1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 
 
 		islandMaterial0 = { 0xffffffff, islandTexture0 };
@@ -120,14 +142,10 @@ struct Resources {
 		bobaAnimModel->SetAnimation(&bobaMesh->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 		bobaAnimModel->SetAnimationTime(1.5);
 
-		bobaTexBody = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Fett_body_D.tga", bobaTexBody, Texture::NEAREST);
-		bobaTexJet = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Fett_jetpak_D.tga", bobaTexJet, Texture::NEAREST);
-		bobaTexHelmet = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Fett_helmet_D.tga", bobaTexHelmet, Texture::NEAREST);
-		bobaTexDisplay = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Fett_display_D.tga", bobaTexDisplay, Texture::NEAREST);
+		bobaTexBody = ExternFileManager::ReadTextureFile("Fett_body_D.tga", renderSystem, Texture::NEAREST);
+		bobaTexJet = ExternFileManager::ReadTextureFile("Fett_jetpak_D.tga", renderSystem, Texture::NEAREST);
+		bobaTexHelmet = ExternFileManager::ReadTextureFile("Fett_helmet_D.tga", renderSystem, Texture::NEAREST);
+		bobaTexDisplay = ExternFileManager::ReadTextureFile("Fett_display_D.tga", renderSystem, Texture::NEAREST);
 
 		mat1Boba = { 0xffffffff, bobaTexJet };
 		mat2Boba = { 0xffffffff, bobaTexDisplay };
@@ -153,10 +171,8 @@ struct Resources {
 	void InitTree(RenderSystem* renderSystem) {
 		ExternFileManager::ReadModelFile("Tree.dae", renderSystem, &treeLeavesModel, false, true, Matrix4f::Translate(Vector3f(850.0f, 0.0f, 0.0f)));
 		
-		leavesTexture = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("leaves.png", leavesTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		barkTexture = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("bark.jpg", barkTexture, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		leavesTexture = ExternFileManager::ReadTextureFile("leaves.png", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		barkTexture = ExternFileManager::ReadTextureFile("bark.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 
 		barkMaterial = { 0xffffffff, barkTexture };
 		leavesMaterial = { 0xffffffff, leavesTexture };
@@ -175,8 +191,7 @@ struct Resources {
 		AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
 		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 		bobaAnimModel->SetAnimationTime(1.5);
-		texAllo = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR, Texture::REPEAT);
+		texAllo = ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", renderSystem, Texture::LINEAR, Texture::REPEAT);
 		matAllo = { 0xffffffff, texAllo };
 		alloModel->GetMaterials()[0] = &matAllo;
 	}
@@ -208,24 +223,15 @@ struct Resources {
 		shuttleAnimModel->SetAnimation(&shuttleModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 		shuttleAnimModel->SetAnimationTime(0.0);
 
-		shuttleBody = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.jpg", shuttleBody, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleHover = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Hover_Col.jpg", shuttleHover, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleInside = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Inside_Col.jpg", shuttleInside, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleLegs = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Legs_Col.jpg", shuttleLegs, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleRest = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Rest_Col.jpg", shuttleRest, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleSite = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Site_Col.jpg", shuttleSite, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleWire = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Wire_Col.jpg", shuttleWire, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleOutside = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.png.001.jpg", shuttleOutside, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-		shuttleBuster = renderSystem->CreateTexture();
-		ExternFileManager::ReadTextureFile("Buster_Col_1.jpg", shuttleBuster, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleBody = ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleHover = ExternFileManager::ReadTextureFile("Shuttle_Hover_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleInside = ExternFileManager::ReadTextureFile("Shuttle_Inside_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleLegs = ExternFileManager::ReadTextureFile("Shuttle_Legs_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleRest = ExternFileManager::ReadTextureFile("Shuttle_Rest_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleSite = ExternFileManager::ReadTextureFile("Shuttle_Site_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleWire = ExternFileManager::ReadTextureFile("Shuttle_Wire_Col.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleOutside = ExternFileManager::ReadTextureFile("Shuttle_Body_Outside_Col Kopie.png.001.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		shuttleBuster = ExternFileManager::ReadTextureFile("Buster_Col_1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 
 
 		matShuttleBody =    { 0xffffffff, shuttleBody };
@@ -253,6 +259,33 @@ struct Resources {
 		materials[11] = &matShuttleHover;
 	}
 #pragma endregion
+
+#pragma region Laptop
+	Model* laptopModel;
+	Material desktopMat;
+	const Texture* desktopTex;
+	RenderTarget2D* desktop;
+	RenderTarget2D* desktop3D;
+	Renderer2D* desktopRen;
+	Renderer3D* desktopRen3D;
+
+	void InitLaptop(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("tv.dae", renderSystem, &laptopModel, false, false);
+
+		desktop = renderSystem->CreateRenderTarget2D(Vector2i(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight()), true);
+		desktopRen = renderSystem->CreateRenderer2D(desktop);
+		desktop3D = renderSystem->CreateRenderTarget2D(Vector2i(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight()), true);
+		desktopRen3D = renderSystem->CreateRenderer3D(Matrix4f::Perspective(70.0f, (float)Window::GetInstance()->GetWidth() / (float)Window::GetInstance()->GetHeight(), 0.1f, 10000.0f), Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight(), desktop3D);
+		desktopTex = desktop->GetTexture();
+
+		desktopMat = { 0xffffffff, desktopTex };
+
+		auto& materials = laptopModel->GetMaterials();
+		materials[0] = &greyMat;	
+		materials[1] = &desktopMat;
+	}
+#pragma endregion
+
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
@@ -261,5 +294,6 @@ public:
 		InitBoba(r);
 		InitTree(r);
 		InitShuttle(r);
+		InitLaptop(r);
 	}
 };

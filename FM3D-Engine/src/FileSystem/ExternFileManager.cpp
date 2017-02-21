@@ -8,7 +8,7 @@ namespace FM3D {
 
 	int nodee = 0;
 
-	bool ExternFileManager::ReadTextureFile(const char* filename, Texture* texture, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode) {
+	Texture* ExternFileManager::ReadTextureFile(const char* filename, RenderSystem* renderSystem, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode) {
 		string path = FileManager::resourcePath + string(filename);
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -36,11 +36,10 @@ namespace FM3D {
 
 		if (result == NULL) {
 			MessageBox(0, L"Error on loading Texture", L"Error", MB_OK | MB_ICONERROR);
-			return false;
+			return nullptr;
 		}
 		
-		texture->Initialize(width, height, filterMode, wrapMode, mipMapMode, (char*)result, bits);
-		return true;
+		return renderSystem->CreateTexture(width, height, filterMode, wrapMode, mipMapMode, (char*)result, bits);
 	}
 
 	static void DrawNodeTree(const aiNode* node, int level = 0) {
@@ -556,7 +555,7 @@ namespace FM3D {
 		delete[] indices;
 	}*/
 
-	bool ExternFileManager::ReadFontFile(const char* filename, uint size, Vector2f scale, Texture* inTexture, Font** result) {
+	bool ExternFileManager::ReadFontFile(const char* filename, uint size, Vector2f scale, RenderSystem* renderSystem, Font** result) {
 		FT_Face face;
 		if (FT_New_Face(s_ft, (FileManager::resourcePath + string(filename)).c_str(), 0, &face)) {
 			std::cout << "Could not open font: " << FileManager::resourcePath + string(filename) << std::endl;
@@ -579,19 +578,8 @@ namespace FM3D {
 
 		}
 
-		GLuint tex;
-		GLCall(glActiveTexture(GL_TEXTURE0));
-		GLCall(glGenTextures(1, &tex));
-		GLCall(glBindTexture(GL_TEXTURE_2D, tex));
-		GLCall(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-
-		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_RED, GL_UNSIGNED_BYTE, 0));
+		Texture* tex = renderSystem->CreateTexture(w, h, Texture::NEAREST, Texture::CLAMP_TO_EDGE, Texture::NONE, (char*)nullptr, 8);
+		tex->BindForEditing();
 
 		int x = 0;
 
@@ -615,20 +603,16 @@ namespace FM3D {
 			c[i].left = (float) g->bitmap_left;
 			c[i].top = (float) g->bitmap_top;
 
-			GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer));
-
+			tex->SetPixels(0, x, 0, g->bitmap.width, g->bitmap.rows, g->bitmap.buffer);
 
 			c[i].offsetX = (float)x / w;
 
 
 			x += g->bitmap.width;
 		}
-		((GL3Texture*)inTexture)->m_width = w;
-		((GL3Texture*)inTexture)->m_height = h;
-		((GL3Texture*)inTexture)->m_bits = 8u;
-		((GL3Texture*)inTexture)->m_tID = tex;
+		tex->Unbind();
 
-		*result = new Font(c, scale, inTexture);
+		*result = new Font(c, scale, tex);
 		return true;
 	}
 
