@@ -123,7 +123,7 @@ namespace FM3D {
 
 		bool isAnimated = (mesh->mNumBones != 0) && useAnimation;
 
-		uint vertexData = Vertices::POSITION | Vertices::TEXCOORD | Vertices::NORMAL;
+		uint vertexData = Vertices::POSITION | Vertices::TEXCOORD | Vertices::NORMAL | Vertices::TANGENT;
 		if (isAnimated) vertexData = vertexData | Vertices::BONE_DATA;
 		Vertices vertices(mesh->mNumVertices, vertexData);
 		uint* indices = new uint[mesh->mNumFaces * 3];
@@ -142,6 +142,8 @@ namespace FM3D {
 			vertices.SetTexCoord(Vector2f(uv.x, 1.0f - uv.y), i);
 			aiVector3D norm = mesh->mNormals[i];
 			vertices.SetNormal(Vector3f(norm.x, norm.y, norm.z), i);
+			aiVector3D tangent = mesh->mTangents[i];
+			vertices.SetTangent(Vector3f(tangent.x, tangent.y, tangent.z), i);
 
 			if (isAnimated) {
 				vertices.SetBoneIndex(Vector4i(0, 0, 0, 0), i);
@@ -423,7 +425,7 @@ namespace FM3D {
 		const aiScene* scene;
 
 		importer.SetPropertyInteger(AI_CONFIG_PP_LBW_MAX_WEIGHTS, 4);
-		scene = importer.ReadFile(path.c_str(), aiProcess_LimitBoneWeights | aiProcess_GenUVCoords | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+		scene = importer.ReadFile(path.c_str(), aiProcess_LimitBoneWeights | aiProcess_GenUVCoords | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 		if (!scene) cout << "Assimp loading " << filename << ": " << importer.GetErrorString() << endl;
 
 		vector<uint> meshIds;

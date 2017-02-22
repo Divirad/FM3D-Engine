@@ -16,6 +16,7 @@ namespace FM3D {
 		m_WVPLocation = GetUniformLocation("gWVP");
 		m_WorldMatrixLocation = GetUniformLocation("gWorld");
 		m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+		m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
 		m_bonesLocation = GetUniformLocation("gBones");
 
 
@@ -41,6 +42,11 @@ namespace FM3D {
 	void GL3Shader3D::SetColorTextureUnit(unsigned int TextureUnit) {
 		SetUniform1i(m_colorTextureUnitLocation, TextureUnit);
 	}
+
+	void GL3Shader3D::SetNormalTextureUnit(unsigned int TextureUnit) {
+		SetUniform1i(m_normalTextureUnitLocation, TextureUnit);
+	}
+
 	void GL3Shader3D::SetBones(const std::vector<Matrix4f>& bones) {
 		for (uint i = 0; i < bones.size(); i ++) {
 			SetUniformMat4(m_bonesLocation + i, Matrix4f::Transpose(bones[i]));

@@ -8,6 +8,7 @@ namespace FM3D {
 		GLuint m_WVPLocation;
 		GLuint m_WorldMatrixLocation;
 		GLuint m_colorTextureUnitLocation;
+		GLuint m_normalTextureUnitLocation;
 		GLuint m_bonesLocation;
 		uint m_boneBegin;
 		uint m_boneEnd;
@@ -17,6 +18,7 @@ namespace FM3D {
 		void SetWVP(const Matrix4f& WVP);
 		void SetWorldMatrix(const Matrix4f& WVP);
 		void SetColorTextureUnit(unsigned int TextureUnit);
+		void SetNormalTextureUnit(unsigned int TextureUnit);
 		void SetBones(const std::vector<Matrix4f>& bones);
 		void ReSetBones(uint i);
 	};

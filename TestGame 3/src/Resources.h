@@ -185,6 +185,7 @@ struct Resources {
 #pragma region Allosaurus
 	Model* alloModel;
 	Texture* texAllo;
+	Texture* normalAllo;
 	Material matAllo;
 	void InitAllo(RenderSystem* renderSystem) {
 		ExternFileManager::ReadModelFile("allo.fbx", renderSystem, &alloModel, false, true);
@@ -192,7 +193,8 @@ struct Resources {
 		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
 		bobaAnimModel->SetAnimationTime(1.5);
 		texAllo = ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", renderSystem, Texture::LINEAR, Texture::REPEAT);
-		matAllo = { 0xffffffff, texAllo };
+		normalAllo = ExternFileManager::ReadTextureFile("Allosaurus_normals.TGA", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		matAllo = { 0xffffffff, texAllo, normalAllo };
 		alloModel->GetMaterials()[0] = &matAllo;
 	}
 #pragma endregion 
