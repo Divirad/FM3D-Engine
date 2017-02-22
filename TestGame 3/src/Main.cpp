@@ -70,7 +70,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	EntityPtr boba = CreateEntity(scene, Vector3f(0.0f, 0.0f, -5.0f), Vector3f(180.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
 	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
-	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.alloModel);
+	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.020f, .020f, .020f), res.alloModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -153,17 +153,17 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->EndRendering();
 
-			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 600.0f);
+			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 30.0f);
 			if (static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.bobaMesh)->SetAnimationTime(0.0);
 
-			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 600.0f);
+			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 30.0f);
 			if (static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.shuttleModel)->SetAnimationTime(0.0);
 
-			static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 600.0f);
-			if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
-				static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
+			//static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 600.0f);
+			//if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
+			//	static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
 
 			Move(camera);

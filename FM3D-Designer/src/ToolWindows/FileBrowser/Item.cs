@@ -32,6 +32,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
 
+        public static ItemType EntityFile { get; } = new ItemType("Entity File", ".ent",
+           new Uri("/FM3D-Designer;component/resources/images/file browser/file_icon.ico", UriKind.Relative),
+           new Uri("/FM3D-Designer;component/resources/images/file browser/file_bigIcon.png", UriKind.Relative));
+
         public static ItemType MaterialFile { get; } = new ItemType("Material File", ".mat",
             //http://www.flaticon.com/free-icon/rgb_266259#term=color%20file&page=1&position=22 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/material_icon.png", UriKind.Relative),
@@ -294,7 +298,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             string x = await window.ShowInputAsync("New Entity!", "Give your Entity a fancy name!\nLike Pumuckel, Mister Eder... Or Something like that...\n");
             if (!x.Contains(".ent")) { x += ".ent"; }
             Item i;
-            CreateFile(x, ItemTypes.UnknownFile, out i);
+            CreateFile(x, ItemTypes.EntityFile, out i);
             string filepath = this.Path + "\\" +x;
             System.IO.File.WriteAllText(filepath, @"<EntityPreset preset=" + '\u0022' + x + '\u0022' +" ></EntityPreset>");
         }
@@ -428,7 +432,6 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 i.CollapseAll();
             }
         }
-
         public bool CreateFile(string name, ItemType type, out Item item, bool addToProject = true)
         {
             if (this.type != ItemTypes.Directory) throw new InvalidOperationException("Item is not a directory");
@@ -444,7 +447,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
             try
             {
-                File.Create(path);
+                var stream = File.Create(path);
+                stream.Close();
             } catch(Exception e)
             {
                 MessageBox.Show(e.Message);
@@ -462,7 +466,32 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this.AllChildren.Add(item);
             return true;
         }
-        
+        public string ToStringName() {
+            return Name;
+        }
+        public string ToStringPath() {
+            return Path;
+        }
+        public string ToStringParent() {
+            return Parent.Name;
+        }
+        public string ToStringType() {
+            return this.type.ToString();
+        }
+        public string ToStringChilds() {
+            string str="";
+            foreach(Item i in this.Children) {
+                str += i.Name+",";
+            }
+            return Parent.Name;
+        }
+        public override string ToString() {
+            string thisitem = "";
+            thisitem +=
+            ToStringName() + "\n" + ToStringType();
+            
+            return thisitem;
+        }
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -16,7 +16,7 @@ namespace FM3D {
 		m_dirLightShader.Bind();
 		m_dirLightShader.Initialize(m_width, m_height);
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
-		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.16f, 0.8f, Vector3f(1.0f, -1.0f, -1.0f) });
+		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.32f, 0.16f, Vector3f(1.0f, -1.0f, -1.0f) });
 	}
 
 	void GL3Renderer3D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {

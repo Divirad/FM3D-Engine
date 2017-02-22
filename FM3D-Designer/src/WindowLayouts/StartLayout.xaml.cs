@@ -89,7 +89,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
 
 
-            if (!xmlfile.Contains("<Folder"))
+            if (!xmlfile.Contains("<Directory"))
             {
                 ShowMessage("Warning!", "This project does not contain any directory!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
             }

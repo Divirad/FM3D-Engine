@@ -78,6 +78,4 @@ namespace DesignerLib {
 		return gcnew Skeleton(bcount, sres->Name, skel);
 	}
 
-
-
 }

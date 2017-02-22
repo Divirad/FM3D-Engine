@@ -171,10 +171,10 @@ struct Resources {
 	Texture* texAllo;
 	Material matAllo;
 	void InitAllo(RenderSystem* renderSystem) {
-		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, true);
-		AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
-		bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
-		bobaAnimModel->SetAnimationTime(1.5);
+		ExternFileManager::ReadModelFile("allosaurus.dae", renderSystem, &alloModel, false, false);
+		//AnimatedModel* bobaAnimModel = (AnimatedModel*)alloModel;
+		//bobaAnimModel->SetAnimation(&alloModel->GetMesh()->GetSkeleton()->GetAnimations()[0]);
+		//bobaAnimModel->SetAnimationTime(1.5);
 		texAllo = renderSystem->CreateTexture();
 		ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", texAllo, Texture::LINEAR, Texture::REPEAT);
 		matAllo = { 0xffffffff, texAllo };
