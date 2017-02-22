@@ -97,7 +97,7 @@ namespace FM3D {
 			break;
 		case WM_MOUSEMOVE:
 			InputWP->MMove(lParam);
-			std::cout << "Move " << GET_X_LPARAM(lParam) << "  " << GET_Y_LPARAM(lParam) << std::endl;
+			//std::cout << "Move " << GET_X_LPARAM(lParam) << "  " << GET_Y_LPARAM(lParam) << std::endl;
 			break;
 		case WM_SIZE:
 			Window::SizeChangeEvent scevent = { Vector2i(LOWORD(lParam), HIWORD(lParam)), Vector2i(win->GetWidth(), win->GetHeight()) };

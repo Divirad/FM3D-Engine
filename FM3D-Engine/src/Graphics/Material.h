@@ -5,6 +5,6 @@ namespace FM3D {
 
 	struct Material {
 		uint color;
-		Texture* texture;
+		const Texture* texture;
 	};
 }

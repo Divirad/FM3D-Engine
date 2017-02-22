@@ -12,5 +12,8 @@ namespace FM3D {
 
 		const std::vector<Matrix4f>& GetOffsetMatrices() const;
 		const std::vector<Animation>& GetAnimations() const;
+
+		void AddAnimation(const Animation& anim) { m_animations.push_back(anim); }
+		void AddAnimation(Animation&& anim) { m_animations.push_back(anim); }
 	};
 }

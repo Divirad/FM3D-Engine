@@ -67,6 +67,7 @@ namespace FM3D {
 
 #include <src/BasicComponents.h>
 
+#include <src/Graphics/TimeList.h>
 #include <src/Graphics/Texture.h>
 #include <src/Graphics/RenderTarget2D.h>
 #include <src/Graphics/Quad.h>

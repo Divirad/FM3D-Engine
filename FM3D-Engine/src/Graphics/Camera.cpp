@@ -14,7 +14,7 @@ namespace FM3D {
 	void Camera::Preset(PRESET pre, bool showcursor) {
 		Window *win = Window::GetInstance();
 		Vector2i CenterCursor(win->GetWinPos() + (win->GetWinSize() / 2));
-		std::cout << "Diplaycount" << ShowCursor(false);
+		//std::cout << "Diplaycount" << ShowCursor(false);
 		if (showcursor) {
 			ShowCursor(true);
 		}else{ ShowCursor(false); }
@@ -45,7 +45,7 @@ namespace FM3D {
 		Vector2f center = Vector2f(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
 		center *= 0.5f;
 		Vector2f dif = Vector2f::Subtract(mousePos, center);
-		std::cout << "Mouse: " << dif << std::endl;
+		//std::cout << "Mouse: " << dif << std::endl;
 		dif *= -0.3f;
 		m_rotation.y += dif.x;
 		m_rotation.x += dif.y;

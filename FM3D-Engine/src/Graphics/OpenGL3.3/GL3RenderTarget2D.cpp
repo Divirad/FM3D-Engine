@@ -36,8 +36,8 @@ namespace FM3D {
 		GLCall(glViewport(0, 0, m_size.x, m_size.y));
 	}
 
-	std::shared_ptr<const Texture> GL3RenderTarget2D::GetTexture() {
-		return std::shared_ptr<const Texture>(new GL3Texture(m_texture, m_size.x, m_size.y, 24));
+	const Texture* GL3RenderTarget2D::GetTexture() {
+		return m_texture;
 	}
 
 	std::vector<byte> GL3RenderTarget2D::GetPixelData() {
@@ -50,11 +50,7 @@ namespace FM3D {
 		GLCall(glGenFramebuffers(1, &m_frameBuffer));
 		GLCall(glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer));
 
-		GLCall(glGenTextures(1, &m_texture));
-		GLCall(glBindTexture(GL_TEXTURE_2D, m_texture));
-		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_size.x, m_size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, 0));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+		m_texture = new GL3Texture(m_size.x, m_size.y, Texture::NEAREST, Texture::REPEAT, Texture::NONE, (char*)nullptr, 24);
 
 		if (useDepth) {
 			GLCall(glGenRenderbuffers(1, &m_depthBuffer));
@@ -63,7 +59,7 @@ namespace FM3D {
 			GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthBuffer));
 		}
 
-		GLCall(glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_texture, 0));
+		GLCall(glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_texture->GetID(), 0));
 
 		GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
 		GLCall(glDrawBuffers(1, DrawBuffers));
@@ -76,7 +72,6 @@ namespace FM3D {
 	}
 
 	void GL3RenderTarget2D::Delete() {
-		GLCall(glDeleteTextures(1, &m_texture));
 		GLCall(glDeleteTextures(1, &m_depthBuffer)); //silently ignores 0's
 		GLCall(glDeleteFramebuffers(1, &m_frameBuffer));
 

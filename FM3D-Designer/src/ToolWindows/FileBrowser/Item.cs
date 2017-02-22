@@ -41,22 +41,22 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             new Uri("/FM3D-Designer;component/resources/images/file browser/material_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/material_bigIcon.png", UriKind.Relative));
 
-        public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", ".skel",
+        public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", ".fm_skel",
             //http://www.flaticon.com/free-icon/standing-up-man_10522 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_bigIcon.png", UriKind.Relative));
 
-        public static ItemType MeshFile { get; } = new ItemType("Mesh File", ".mesh",
+        public static ItemType MeshFile { get; } = new ItemType("Mesh File", ".fm_mesh",
             //http://www.flaticon.com/free-icon/cubes_106841#term=cubes&page=1&position=69 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_bigIcon.png", UriKind.Relative));
 
-        public static ItemType TextureFile { get; } = new ItemType("Texture File", ".tex",
+        public static ItemType TextureFile { get; } = new ItemType("Texture File", ".fm_tex",
             //http://de.seaicons.com/microsoft-paint-net-symbol/ 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/texture_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/texture_bigIcon.png", UriKind.Relative));
 
-        public static ItemType ModelFile { get; } = new ItemType("Texture File", ".mod",
+        public static ItemType ModelFile { get; } = new ItemType("Texture File", ".fm_mod",
             //https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/filesystems/blockdevice.png 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/model_icon.png", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/model_bigIcon.png", UriKind.Relative));

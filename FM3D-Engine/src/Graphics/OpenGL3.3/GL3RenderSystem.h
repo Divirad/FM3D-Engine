@@ -40,7 +40,12 @@ namespace FM3D {
 		void Shutdown() override;
 
 		Mesh* CreateMesh(const Skeleton* skeleton, bool supportsInstancing, const std::vector<MeshPart>& parts) const override { return new GL3Mesh(skeleton, supportsInstancing, parts); }
-		Texture* CreateTexture() override { return new GL3Texture(); }
+		Texture* CreateTexture(uint width, uint height, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode, char* pixels, uint bits) override {
+			return new GL3Texture(width, height, filterMode, wrapMode, mipMapMode, pixels, bits);
+		}
+		Texture* CreateTexture(uint width, uint height, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode, float* pixels, uint bits) override {
+			return new GL3Texture(width, height, filterMode, wrapMode, mipMapMode, pixels, bits);
+		}
 		Renderer2D* CreateRenderer2D(const RenderTarget2D* renderTarget) override { return new GL3Renderer2D(renderTarget); }
 		Renderer3D* CreateRenderer3D(Matrix4f& projectionMatrix, uint width, uint height, RenderTarget2D* target) override { return new GL3Renderer3D(projectionMatrix, width, height, this, target); }
 		RenderTarget2D* CreateRenderTarget2D(const Vector2i& size, bool useDepth) override { return new GL3RenderTarget2D(size, useDepth); }

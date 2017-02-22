@@ -107,6 +107,7 @@
       <DependentUpon>ChangeMeshDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\InvBooleanToVisibilityConverter.cs" />
+    <Compile Include="src\ResourceFile.cs" />
     <Compile Include="src\ToolWindows\Mesh\PartsPropWindow.xaml.cs">
       <DependentUpon>PartsPropWindow.xaml</DependentUpon>
     </Compile>

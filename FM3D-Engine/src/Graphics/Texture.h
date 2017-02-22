@@ -29,13 +29,14 @@ namespace FM3D {
 		Texture() {};
 		Texture(uint width, uint height, uint bits);
 	public:
-
-		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits) = 0;
-		virtual void Initialize(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits) = 0;
 		virtual void Shutdown() = 0;
 
 		uint GetBits() const { return m_bits; };
 		uint GetWidth() const { return m_width; };
 		uint GetHeight() const { return m_height; };
+
+		virtual void BindForEditing() = 0;
+		virtual void Unbind() const = 0;
+		virtual void SetPixels(int level, int x, int y, int width, int height, unsigned char* pixels) = 0;
 	};
 }

@@ -73,13 +73,13 @@ namespace FM3D {
 			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
 				((const GL3Mesh*)it->first)->Bind(i);
 				for (std::map<const Model*, std::vector<const EntitySystem::Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
-					((GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
+					((const GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
 					for (const EntitySystem::Entity*& e : it2->second) {
 						if (it->first->IsAnimated()) {
 							if (it2->first->IsAnimated()) {
 								AnimatedModel* a = (AnimatedModel*)it2->first;
 								if (a->GetAnimation() != nullptr) {
-									std::vector<Matrix4f> bones(a->GetAnimation()->GetBonePositions(a->GetAnimationTime(), it->first->GetSkeleton()->GetOffsetMatrices()));
+									std::vector<Matrix4f> bones(a->GetAnimation()->GetBoneTransformations(a->GetAnimationTime()));
 									m_shader3D.SetBones(bones);
 								} else {
 									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());

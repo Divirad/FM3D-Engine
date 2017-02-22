@@ -8,7 +8,7 @@ namespace FM3D {
 
 	int nodee = 0;
 
-	bool ExternFileManager::ReadTextureFile(const char* filename, Texture* texture, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode) {
+	Texture* ExternFileManager::ReadTextureFile(const char* filename, RenderSystem* renderSystem, Texture::FilterMode filterMode, Texture::WrapMode wrapMode, Texture::MipMapMode mipMapMode) {
 		string path = FileManager::resourcePath + string(filename);
 
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -36,11 +36,10 @@ namespace FM3D {
 
 		if (result == NULL) {
 			MessageBox(0, L"Error on loading Texture", L"Error", MB_OK | MB_ICONERROR);
-			return false;
+			return nullptr;
 		}
-
-		texture->Initialize(width, height, filterMode, wrapMode, mipMapMode, (char*)result, bits);
-		return true;
+		
+		return renderSystem->CreateTexture(width, height, filterMode, wrapMode, mipMapMode, (char*)result, bits);
 	}
 
 	static void DrawNodeTree(const aiNode* node, int level = 0) {
@@ -52,7 +51,7 @@ namespace FM3D {
 	}
 
 	static Matrix4f CreateMatrix4f(const aiMatrix4x4 mat) {
-		Matrix4f result;
+		Matrix4f result = Matrix4f::Null();
 		result.elements[0] = mat.a1;
 		result.elements[1] = mat.b1;
 		result.elements[2] = mat.c1;
@@ -78,6 +77,15 @@ namespace FM3D {
 		return Matrix4f::Translate(Vector3f(position.x, position.y, position.z)) * CreateMatrix4f(aiMatrix4x4(rotation.GetMatrix())) * Matrix4f::Scale(Vector3f(scaling.x, scaling.y, scaling.z));
 	}
 
+	static Transformation CreateTransformation(const aiVector3D& position, const aiQuaternion& rotation, const aiVector3D& scaling) {
+		//return{ Vector3f(position.x, position.y, position.z),
+		//	Quaternionf(rotation.w, rotation.x, rotation.y, rotation.z).ToAngles(),
+		//	Vector3f(scaling.x, scaling.y, scaling.z) };
+		if(Vector3f(scaling.x, scaling.y, scaling.z).ToString() != "(1, 1, 1)")
+			std::cout << Vector3f(scaling.x, scaling.y, scaling.z) << std::endl;
+		return Transformation(Vector3f(position.x, position.y, position.z), Quaternionf(rotation.w, rotation.x, rotation.y, rotation.z), Vector3f(scaling.x, scaling.y, scaling.z));
+	}
+
 	static void FindMeshTransformations(Matrix4f* meshmatrix, const Matrix4f& base, const aiNode* node) {
 		Matrix4f delta = CreateMatrix4f(node->mTransformation);
 		Matrix4f result = base * delta;
@@ -96,7 +104,7 @@ namespace FM3D {
 	static MeshPart InitializePart(const aiScene* scene, uint meshIndex, const Matrix4f& meshMatrix, map<string, unsigned int>& boneIndex, std::vector<Matrix4f>& boneOffsetMatrices, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
 		uint uvidnex = 0;
-		if (mesh->GetNumUVChannels() != 1) uvidnex = 1;
+		//if (mesh->GetNumUVChannels() != 1) uvidnex = 1;
 
 		for (unsigned int j = 0; j < mesh->mNumBones; j++) {
 			aiBone *bone = mesh->mBones[j];
@@ -189,21 +197,21 @@ namespace FM3D {
 	}
 
 	struct Channel {
-		vector<Matrix4f> mat;
+		vector<Transformation> mat;
 		Channel *parent;
 		aiNodeAnim *node;
 		uint bone;
 #define UNUSEDCHANNEL 0xffffffff
 	};
 
-	static void CalcMatricesWithNodes(std::vector<std::vector<Matrix4f>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
+	static void CalcMatricesWithNodes(std::vector<std::vector<Transformation>>& matrices, Channel* channels, uint numChannels, Matrix4f& globalInverseTransformation) {
 		for (uint c = 0; c < numChannels; c++) {
 			uint bone = channels[c].bone;
 			if (bone == UNUSEDCHANNEL) continue;
 			uint numKeys = channels[c].mat.size();
-			new (&matrices[bone]) std::vector<Matrix4f>(numKeys);
+			matrices[bone] = std::vector<Transformation>(numKeys, Transformation());
 			for (uint key = 0; key < numKeys; key++) {
-				Matrix4f mat = Matrix4f::Identity();
+				Transformation mat;
 				for (Channel* node = &channels[c]; node; node = node->parent) {
 					mat = node->mat[key] * mat;
 				}
@@ -213,8 +221,75 @@ namespace FM3D {
 		}
 	}
 
-	static Animation InitializeAnimation(const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation) {
-		aiAnimation *animation = scene->mAnimations[animationIndex];
+	static const aiNodeAnim* FindNodeAnim(const aiAnimation* pAnimation, const aiNode* node) {
+		for (uint i = 0; i < pAnimation->mNumChannels; i++) {
+			const aiNodeAnim* pNodeAnim = pAnimation->mChannels[i];
+
+			if (pNodeAnim->mNodeName == node->mName) {
+				return pNodeAnim;
+			}
+		}
+
+		return nullptr;
+	}
+
+	static int CreateBoneStructure(const aiAnimation* pAnimation, vector<Animation::Bone>& bones, vector<Animation::AnimatedBone>& abones, aiNode* node, map<string, unsigned int>& boneIndex) {
+		std::vector<uint> children;
+		for (uint i = 0; i < node->mNumChildren; i++) {
+			aiNode* n = node->mChildren[i];
+			int indx = CreateBoneStructure(pAnimation, bones, abones, n, boneIndex);
+			if (indx > 0) {
+				children.push_back(indx);
+			}
+		}
+
+		const aiNodeAnim* animNode = FindNodeAnim(pAnimation, node);
+		map<string, unsigned int>::iterator it = boneIndex.find(node->mName.data);
+
+		int index = -1, aindex = -1;
+
+		if (it != boneIndex.end()) {
+			index = it->second;
+			if (animNode) {
+				vector<pair<double, Vector3f>> positions;
+				vector<pair<double, Quaternionf>> rotations;
+				vector<pair<double, Vector3f>> scalings;
+				for (uint i = 0; i < animNode->mNumPositionKeys; i++) {
+					const aiVector3D& vec = animNode->mPositionKeys[i].mValue;
+					positions.push_back(make_pair(animNode->mPositionKeys[i].mTime, Vector3f(vec.x, vec.y, vec.z)));
+				}
+				for (uint i = 0; i < animNode->mNumRotationKeys; i++) {
+					const aiQuaternion& quat = animNode->mRotationKeys[i].mValue;
+					rotations.push_back(make_pair(animNode->mRotationKeys[i].mTime, Quaternionf(quat.w, quat.x, quat.y, quat.z)));
+				}
+				for (uint i = 0; i < animNode->mNumScalingKeys; i++) {
+					const aiVector3D& vec = animNode->mScalingKeys[i].mValue;
+					scalings.push_back(make_pair(animNode->mScalingKeys[i].mTime, Vector3f(vec.x, vec.y, vec.z)));
+				}
+
+				aindex = abones.size();
+				abones.push_back({ TimeList<Vector3f>(move(positions), REPEAT), TimeList<Quaternionf>(move(rotations), REPEAT),TimeList<Vector3f>(move(scalings), REPEAT) });
+			}
+			else {
+				cout << "Necessary node is not animated!" << endl;
+			}
+		}
+		
+		bones.push_back({ index, aindex, move(children) });
+		return bones.size() - 1;
+		//}
+		//else {
+		//	map<string, unsigned int>::iterator it = boneIndex.find(node->mName.data);
+		//	if (it != boneIndex.end()) {
+		//		cout << "Needed node is not animated!" << endl;
+		//	}
+		//	return -1;
+		//}
+
+	}
+
+	static void InitializeAnimation(const aiScene* scene, uint animationIndex, const char* filename, uint boneCount, map<string, unsigned int>& boneIndex, Matrix4f& globalInverseTransformation, Skeleton* skeleton) {
+		aiAnimation* animation = scene->mAnimations[animationIndex];
 		uint numChannels = animation->mNumChannels;
 		if (numChannels == 0)
 			cout << "Loading AnimatedModel: no animation channels for " << animation->mName.data << " " << filename << endl;
@@ -230,107 +305,116 @@ namespace FM3D {
 				}
 			}
 		}*/
-		Channel* channels = new Channel[numChannels];
-		uint unusedBones = 0u;
-		bool foundOneBone = false;
-		for (unsigned int j = 0; j < numChannels; j++) {
-			aiNodeAnim *ain = animation->mChannels[j];
-			if (ain->mNumPositionKeys != ain->mNumRotationKeys || ain->mNumScalingKeys != ain->mNumRotationKeys)
-				cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Pos keys " << ain->mNumPositionKeys << ", rot keys " << ain->mNumRotationKeys << ", scaling keys " << ain->mNumScalingKeys << endl;
-			channels[j].node = ain;
-			channels[j].parent = 0;
-			map<string, unsigned int>::iterator it = boneIndex.find(ain->mNodeName.data);
-			if (it == boneIndex.end()) {
-				channels[j].bone = UNUSEDCHANNEL;
-				unusedBones++;
-				continue;
-			}
-			foundOneBone = true;
-			unsigned int bone = it->second;
-			channels[j].bone = bone;
-		}
-		if (!foundOneBone)
-			cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " no bones used" << endl;
+		/*
+		//Channel* channels = new Channel[numChannels];
+		//uint unusedBones = 0u;
+		//bool foundOneBone = false;
+		//for (unsigned int j = 0; j < numChannels; j++) {
+		//	aiNodeAnim *ain = animation->mChannels[j];
+		//	if (ain->mNumPositionKeys != ain->mNumRotationKeys || ain->mNumScalingKeys != ain->mNumRotationKeys)
+		//		cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Pos keys " << ain->mNumPositionKeys << ", rot keys " << ain->mNumRotationKeys << ", scaling keys " << ain->mNumScalingKeys << endl;
+		//	channels[j].node = ain;
+		//	channels[j].parent = 0;
+		//	map<string, unsigned int>::iterator it = boneIndex.find(ain->mNodeName.data);
+		//	if (it == boneIndex.end()) {
+		//		channels[j].bone = UNUSEDCHANNEL;
+		//		unusedBones++;
+		//		continue;
+		//	}
+		//	foundOneBone = true;
+		//	unsigned int bone = it->second;
+		//	channels[j].bone = bone;
+		//}
+		//if (!foundOneBone)
+		//	cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " no bones used" << endl;
 
-		for (unsigned j = 0; j < numChannels; j++) {
-			aiNode *n = FindNode(scene->mRootNode, channels[j].node->mNodeName.data);
-			if (n == 0 || n->mParent == 0)
-				continue;
-			n = n->mParent;
-			for (unsigned p = 0; p < numChannels; p++) {
-				if (p == j || strcmp(n->mName.data, channels[p].node->mNodeName.data) != 0)
-					continue;
-				channels[j].parent = &channels[p];
-				break;
-			}
-		}
+		//for (unsigned j = 0; j < numChannels; j++) {
+		//	aiNode *n = FindNode(scene->mRootNode, channels[j].node->mNodeName.data);
+		//	if (n == 0 || n->mParent == 0)
+		//		continue;
+		//	n = n->mParent;
+		//	for (unsigned p = 0; p < numChannels; p++) {
+		//		if (p == j || strcmp(n->mName.data, channels[p].node->mNodeName.data) != 0)
+		//			continue;
+		//		channels[j].parent = &channels[p];
+		//		break;
+		//	}
+		//}
 
-		vector<uint> keyIndices(numChannels);
-		for (uint i = 0; i < numChannels; i++) keyIndices[i] = 0u;
-		vector<uint> channelIndices;
-		std::vector<double> times(0);
-		double time = -1.0;
-		double startTime = channels[0].node->mPositionKeys[0].mTime;
-		double endTime = channels[0].node->mPositionKeys[channels[0].node->mNumPositionKeys - 1].mTime;
+		//vector<uint> keyIndices(numChannels);
+		//for (uint i = 0; i < numChannels; i++) keyIndices[i] = 0u;
+		//vector<uint> channelIndices;
+		//std::vector<double> times(0);
+		//double time = -1.0;
+		//double startTime = channels[0].node->mPositionKeys[0].mTime;
+		//double endTime = channels[0].node->mPositionKeys[channels[0].node->mNumPositionKeys - 1].mTime;
 
-		for (uint c = 0u; c < numChannels; c++) {
-			if (endTime != channels[c].node->mPositionKeys[channels[c].node->mNumPositionKeys - 1].mTime)
-				cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " Bad animation setup: All channels don't end at the same time" << endl;
-			
-			if (startTime != channels[c].node->mPositionKeys[0].mTime)
-				cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " Bad animation setup: All channels don't start at the same time" << endl;
-		}
+		//for (uint c = 0u; c < numChannels; c++) {
+		//	if (endTime != channels[c].node->mPositionKeys[channels[c].node->mNumPositionKeys - 1].mTime)
+		//		cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " Bad animation setup: All channels don't end at the same time" << endl;
+		//	
+		//	if (startTime != channels[c].node->mPositionKeys[0].mTime)
+		//		cout << "Loading AnimatedModel: " << filename << " animation " << animationIndex << " Bad animation setup: All channels don't start at the same time" << endl;
+		//}
 
-		//Creating Matrices for all keys
-		for (int keys = 0; true; keys++) {
-			time = -1.0;
-			//Find smallest time with channel indices
-			for (uint c = 0u; c < numChannels; c++) {
-				double pt = channels[c].node->mPositionKeys[keyIndices[c]].mTime;
-				double rt = channels[c].node->mRotationKeys[keyIndices[c]].mTime;
-				double st = channels[c].node->mScalingKeys[keyIndices[c]].mTime;
-				if (pt == rt && pt == st) {
-					if (pt < time || time < 0.0) {
-						time = pt;
-						channelIndices.clear();
-						channelIndices.push_back(c);
-					} else if (pt == time) {
-						channelIndices.push_back(c);
-					}
-				} else {
-					cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Channel " << c << " Keys " << keyIndices[c] << " have different times" << endl;
-				}
-			}
-			times.push_back(time - startTime);
-			if (time == endTime) break;
-			for (uint i : channelIndices) keyIndices[i]++;
+		////Creating Matrices for all keys
+		//for (int keys = 0; true; keys++) {
+		//	time = -1.0;
+		//	//Find smallest time with channel indices
+		//	for (uint c = 0u; c < numChannels; c++) {
+		//		double pt = channels[c].node->mPositionKeys[keyIndices[c]].mTime;
+		//		double rt = channels[c].node->mRotationKeys[keyIndices[c]].mTime;
+		//		double st = channels[c].node->mScalingKeys[keyIndices[c]].mTime;
+		//		if (pt == rt && pt == st) {
+		//			if (pt < time || time < 0.0) {
+		//				time = pt;
+		//				channelIndices.clear();
+		//				channelIndices.push_back(c);
+		//			} else if (pt == time) {
+		//				channelIndices.push_back(c);
+		//			}
+		//		} else {
+		//			cout << "Loading AnimatedModel: " << filename << " Bad animation setup: Channel " << c << " Keys " << keyIndices[c] << " have different times" << endl;
+		//		}
+		//	}
+		//	times.push_back(time - startTime);
+		//	if (time == endTime) break;
+		//	for (uint i : channelIndices) keyIndices[i]++;
 
-			//Interpolate between the two Matrices near the time
-			for (uint c = 0u; c < numChannels; c++) {
-				aiNodeAnim* node = channels[c].node;
-				uint index0 = keyIndices[c] - 1;
-				uint index1 = keyIndices[c];
-				Matrix4f left = CreateMatrix4f(node->mPositionKeys[index0].mValue, node->mRotationKeys[index0].mValue, node->mScalingKeys[index0].mValue);
-				Matrix4f right = CreateMatrix4f(node->mPositionKeys[index1].mValue, node->mRotationKeys[index1].mValue, node->mScalingKeys[index1].mValue);
-				double timeLeft = node->mPositionKeys[index0].mTime;
-				double timeRight = node->mPositionKeys[index1].mTime;
+		//	//Interpolate between the two Matrices near the time
+		//	for (uint c = 0u; c < numChannels; c++) {
+		//		aiNodeAnim* node = channels[c].node;
+		//		uint index0 = keyIndices[c] - 1;
+		//		uint index1 = keyIndices[c];
+		//		Transformation left = CreateTransformation(node->mPositionKeys[index0].mValue, node->mRotationKeys[index0].mValue, node->mScalingKeys[index0].mValue);
+		//		Transformation right = CreateTransformation(node->mPositionKeys[index1].mValue, node->mRotationKeys[index1].mValue, node->mScalingKeys[index1].mValue);
+		//		double timeLeft = node->mPositionKeys[index0].mTime;
+		//		double timeRight = node->mPositionKeys[index1].mTime;
 
-				Matrix4f m = Matrix4f::Interpolate(left, right, timeLeft, time, timeRight);
-				channels[c].mat.push_back(m);
-			}
-		}
+		//		//Matrix4f m = Matrix4f::Interpolate(left, right, timeLeft, time, timeRight);
+		//		auto trans = left.Interpolate(right, static_cast<float>((time - timeLeft) / (timeRight - timeLeft)));
+		//		channels[c].mat.push_back(trans);
+		//	}
+		//}
 
-		//Matrices for last Key
-		for (uint c = 0u; c < numChannels; c++) {
-			aiNodeAnim* node = channels[c].node;
-			uint key = node->mNumPositionKeys - 1;
-			channels[c].mat.push_back(CreateMatrix4f(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
-		}
+		////Matrices for last Key
+		//for (uint c = 0u; c < numChannels; c++) {
+		//	aiNodeAnim* node = channels[c].node;
+		//	uint key = node->mNumPositionKeys - 1;
+		//	channels[c].mat.push_back(CreateTransformation(node->mPositionKeys[key].mValue, node->mRotationKeys[key].mValue, node->mScalingKeys[key].mValue));
+		//}
 
-		std::vector<std::vector<Matrix4f>> matrices(boneCount);
-		CalcMatricesWithNodes(matrices, channels, numChannels, globalInverseTransformation);
+		//std::vector<std::vector<Transformation>> matrices(boneCount);
+		//CalcMatricesWithNodes(matrices, channels, numChannels, globalInverseTransformation);
 
-		return Animation(animation->mName.data, matrices, times, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, animation->mDuration);
+		//std::vector<std::vector<Transformation>> matrices2(matrices);
+		*/
+
+		vector<Animation::Bone> bones;
+		vector<Animation::AnimatedBone> abones;
+		int rootIndex = CreateBoneStructure(animation, bones, abones, scene->mRootNode, boneIndex);
+
+		skeleton->AddAnimation(Animation(animation->mName.data, move(bones), move(abones), rootIndex, animation->mTicksPerSecond != 0.0 ? animation->mTicksPerSecond : 25.0, boneCount, skeleton));
 	}
 	
 	void ExternFileManager::ReadModelFile(const char* filename, RenderSystem* renderSystem, Model** result, bool supportsInstancing, bool useAnimation, const Matrix4f& modelMatrix) {
@@ -352,8 +436,8 @@ namespace FM3D {
 			}
 		}
 
-		Matrix4f* meshMatrices = new Matrix4f[scene->mNumMeshes];
-		FindMeshTransformations(meshMatrices, Matrix4f::Identity(), scene->mRootNode);
+		std::vector<Matrix4f> meshMatrices(scene->mNumMeshes, Matrix4f::Identity());
+		FindMeshTransformations(&meshMatrices[0], Matrix4f::Identity(), scene->mRootNode);
 
 		Matrix4f globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
 
@@ -361,7 +445,7 @@ namespace FM3D {
 
 		//MESH SECTION
 		map<string, unsigned int> boneIndex;
-		std::vector<Matrix4f> boneOffsetMatrices(0);
+		std::vector<Matrix4f> boneOffsetMatrices;
 		std::vector<MeshPart> parts;
 		parts.reserve(meshIds.size());
 		uint c = 0;
@@ -370,16 +454,18 @@ namespace FM3D {
 			c++;
 		}
 
-		//ANIMATION SECTION
-		std::vector<Animation> animations;
-		for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
-			animations.push_back(InitializeAnimation(scene, i, filename, boneOffsetMatrices.size(), boneIndex, globalInverseTransformation));
-		}
-
+		//Skeleton
 		for (Matrix4f& offset : boneOffsetMatrices) {
 			offset *= Matrix4f::Invert(meshMatrices[0]);
 		}
-		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? new Skeleton(std::vector<Matrix4f>(boneOffsetMatrices), std::vector<Animation>(animations)) : nullptr, supportsInstancing, parts);
+		Skeleton* skeleton = new Skeleton(std::vector<Matrix4f>(boneOffsetMatrices), std::vector<Animation>());
+
+		//ANIMATION SECTION
+		for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
+			InitializeAnimation(scene, i, filename, boneOffsetMatrices.size(), boneIndex, globalInverseTransformation, skeleton);
+		}
+
+		Mesh* mesh = renderSystem->CreateMesh(isAnimated ? skeleton : nullptr, supportsInstancing, parts);
 		for (MeshPart& p : parts) {
 			delete[] (uint*) p.indices;
 		}
@@ -469,7 +555,7 @@ namespace FM3D {
 		delete[] indices;
 	}*/
 
-	bool ExternFileManager::ReadFontFile(const char* filename, uint size, Vector2f scale, Texture* inTexture, Font** result) {
+	bool ExternFileManager::ReadFontFile(const char* filename, uint size, Vector2f scale, RenderSystem* renderSystem, Font** result) {
 		FT_Face face;
 		if (FT_New_Face(s_ft, (FileManager::resourcePath + string(filename)).c_str(), 0, &face)) {
 			std::cout << "Could not open font: " << FileManager::resourcePath + string(filename) << std::endl;
@@ -492,19 +578,8 @@ namespace FM3D {
 
 		}
 
-		GLuint tex;
-		GLCall(glActiveTexture(GL_TEXTURE0));
-		GLCall(glGenTextures(1, &tex));
-		GLCall(glBindTexture(GL_TEXTURE_2D, tex));
-		GLCall(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-
-		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_RED, GL_UNSIGNED_BYTE, 0));
+		Texture* tex = renderSystem->CreateTexture(w, h, Texture::NEAREST, Texture::CLAMP_TO_EDGE, Texture::NONE, (char*)nullptr, 8);
+		tex->BindForEditing();
 
 		int x = 0;
 
@@ -528,20 +603,16 @@ namespace FM3D {
 			c[i].left = (float) g->bitmap_left;
 			c[i].top = (float) g->bitmap_top;
 
-			GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer));
-
+			tex->SetPixels(0, x, 0, g->bitmap.width, g->bitmap.rows, g->bitmap.buffer);
 
 			c[i].offsetX = (float)x / w;
 
 
 			x += g->bitmap.width;
 		}
-		((GL3Texture*)inTexture)->m_width = w;
-		((GL3Texture*)inTexture)->m_height = h;
-		((GL3Texture*)inTexture)->m_bits = 8u;
-		((GL3Texture*)inTexture)->m_tID = tex;
+		tex->Unbind();
 
-		*result = new Font(c, scale, inTexture);
+		*result = new Font(c, scale, tex);
 		return true;
 	}
 

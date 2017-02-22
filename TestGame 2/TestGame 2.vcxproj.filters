@@ -28,4 +28,9 @@
   <ItemGroup>
     <None Include="res\bobaFett.dae" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\OldMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

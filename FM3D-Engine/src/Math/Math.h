@@ -74,12 +74,83 @@ namespace FM3D {
 namespace FM3D {
 	namespace Math {
 
+		template<typename Scalar>
+		using Matrix2 = Math::Matrix<2, 2, Scalar>;
+		template<typename Scalar>
+		using Matrix3 = Math::Matrix<3, 3, Scalar>;
+		template<typename Scalar>
+		using Matrix4 = Math::Matrix<4, 4, Scalar>;
+
+		template<typename Scalar>
+		using Matrix22 = Math::Matrix<2, 2, Scalar>;
+		template<typename Scalar>
+		using Matrix33 = Math::Matrix<3, 3, Scalar>;
+		template<typename Scalar>
+		using Matrix44 = Math::Matrix<4, 4, Scalar>;
+
+		template<typename Scalar>
+		using Matrix23 = Math::Matrix<2, 3, Scalar>;
+		template<typename Scalar>
+		using Matrix24 = Math::Matrix<2, 4, Scalar>;
+		template<typename Scalar>
+		using Matrix32 = Math::Matrix<3, 2, Scalar>;
+		template<typename Scalar>
+		using Matrix34 = Math::Matrix<3, 4, Scalar>;
+		template<typename Scalar>
+		using Matrix42 = Math::Matrix<4, 2, Scalar>;
+		template<typename Scalar>
+		using Matrix43 = Math::Matrix<4, 3, Scalar>;
+	}
+
+	using Matrix2f  = Math::Matrix<2, 2, float>;
+	using Matrix3f  = Math::Matrix<3, 3, float>;
+	using Matrix4f  = Math::Matrix<4, 4, float>;
+
+	using Matrix22f = Math::Matrix<2, 2, float>;
+	using Matrix33f = Math::Matrix<3, 3, float>;
+	using Matrix44f = Math::Matrix<4, 4, float>;
+
+	using Matrix23f = Math::Matrix<2, 3, float>;
+	using Matrix24f = Math::Matrix<2, 4, float>;
+	using Matrix32f = Math::Matrix<3, 2, float>;
+	using Matrix34f = Math::Matrix<3, 4, float>;
+	using Matrix42f = Math::Matrix<4, 2, float>;
+	using Matrix43f = Math::Matrix<4, 3, float>;
+
+	using Matrix2d = Math::Matrix<2, 2, double>;
+	using Matrix3d = Math::Matrix<3, 3, double>;
+	using Matrix4d = Math::Matrix<4, 4, double>;
+
+	using Matrix22d = Math::Matrix<2, 2, double>;
+	using Matrix33d = Math::Matrix<3, 3, double>;
+	using Matrix44d = Math::Matrix<4, 4, double>;
+
+	using Matrix23d = Math::Matrix<2, 3, double>;
+	using Matrix24d = Math::Matrix<2, 4, double>;
+	using Matrix32d = Math::Matrix<3, 2, double>;
+	using Matrix34d = Math::Matrix<3, 4, double>;
+	using Matrix42d = Math::Matrix<4, 2, double>;
+	using Matrix43d = Math::Matrix<4, 3, double>;
+
+	namespace Math {
+
 		ENGINE_DLL inline Vector3f GetLookingDirection(Vector3f& rotation, const Vector3f& standardDirection = Vector3f(0.0f, 0.0f, -1.0f)) {
 			return (Matrix4f::Rotation(rotation) * standardDirection).Normalize();
 		}
 
 		ENGINE_DLL inline Vector3f GetLookingDirection2D(Vector3f& rotation, const Vector3f& standardDirection = Vector3f(0.0f, 0.0f, -1.0f)) {
-			return (Matrix4f::Rotate(rotation.y, Vector3f(0.0f, 1.0f, 0.0f)) * standardDirection).Normalize();
+			return (Matrix4f::Rotation(rotation.y, Vector3f(0.0f, 1.0f, 0.0f)) * standardDirection).Normalize();
 		}
 	}
+
+
 }
+
+#include "Quaternion.h"
+
+namespace FM3D {
+	using Quaternionf = Math::Quaternion<float>;
+	using Quaterniond = Math::Quaternion<double>;
+}
+
+#include "Transformation.h"

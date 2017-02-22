@@ -46,10 +46,16 @@ namespace FM3D {
 				return rows[row];
 			}
 
-			//Member function
+			//Member functions
 			Matrix& Add(const Matrix& other) {
 				for (uint i = 0; i < R * C; i++) {
 					elements[i] += other.elements[i];
+				}
+				return *this;
+			}
+			Matrix& Multiply(Scalar scalar) {
+				for (uint i = 0; i < R * C; i++) {
+					elements[i] *= scalar;
 				}
 				return *this;
 			}
@@ -66,6 +72,18 @@ namespace FM3D {
 				}
 				memcpy(elements, data, R * C * sizeof(Scalar));
 				return *this;
+			}
+			bool IsEqualTo(const Matrix& other) const {
+				for (uint i = 0; i < R*T; i++) {
+					if (elements[i] != other.elements[i]) return false;
+				}
+				return true;
+			}
+			bool IsUnequalTo(const Matrix& other) const {
+				for (uint i = 0; i < R*T; i++) {
+					if (elements[i] == other.elements[i]) return false;
+				}
+				return true;
 			}
 
 			//Static functions
@@ -95,6 +113,9 @@ namespace FM3D {
 				}
 				return Vector<R, Scalar>(data);
 			}
+			inline static Matrix Multiply(Matrix<R, C, Scalar> matrix, Scalar scalar) {
+				return matrix.Multiply(scalar);
+			}
 
 			//Friend functions
 			template<uint T>
@@ -105,10 +126,14 @@ namespace FM3D {
 				return Matrix<R, C, Scalar>::Multiply(left, right);
 			}
 			inline friend Matrix AddMatrices(Matrix left, const Matrix& right) { return left.Add(right); }
+			inline friend Matrix Multiply(Matrix<R, C, Scalar> matrix, Scalar scalar) {
+				return matrix.Multiply(scalar);
+			}
 
 			//Output
+			static inline constexpr std::string Name() { return "Matrix " + std::to_string(R) + "x" + std::to_string(C); }
 			friend std::ostream& operator<<(std::ostream& stream, const Matrix& matrix) {
-#define width 8
+#define width 12
 				stream << "/";
 				for (int c = 0; c < C; c++) {
 					if (c != 0) stream << ", ";
