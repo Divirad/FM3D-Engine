@@ -3,7 +3,7 @@
 
 namespace FM3D {
 
-	struct Transformation {
+	struct ENGINE_DLL Transformation {
 		Vector3f position;
 		Quaternionf rotation;
 		Vector3f scale;

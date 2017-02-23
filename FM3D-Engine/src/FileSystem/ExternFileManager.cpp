@@ -217,7 +217,7 @@ namespace FM3D {
 				for (Channel* node = &channels[c]; node; node = node->parent) {
 					mat = node->mat[key] * mat;
 				}
-				mat = globalInverseTransformation * mat;
+				//mat = globalInverseTransformation * mat;
 				matrices[bone][key] = mat;
 			}
 		}

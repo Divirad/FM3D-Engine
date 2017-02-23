@@ -44,15 +44,13 @@ namespace DesignerLib {
 		for (size_t i = 0U; i < parts.size(); i++) {
 			aParts.push_back(*parts[i]);
 		}
-
-		m_emptyTex = m_renderSystem->CreateTexture();
 		float pixels[] = {
 			1.0f, 1.0f, 1.0f, 1.0f,
 			1.0f, 1.0f, 1.0f, 1.0f,
 			1.0f, 1.0f, 1.0f, 1.0f,
 			1.0f, 1.0f, 1.0f, 1.0f
 		};
-		m_emptyTex->Initialize(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+		m_emptyTex = m_renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
 		m_emptyMat = new Material({ 0xffffffff, m_emptyTex });
 
 		m_mesh = m_renderSystem->CreateMesh(skeleton, false, aParts);

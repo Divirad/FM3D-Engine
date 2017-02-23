@@ -25,7 +25,7 @@ namespace DesignerLib {
 		Assimp::Importer* importer;
 		const aiScene* scene;
 		std::vector<unsigned int> meshIds;
-		FM3D::Matrix4f* meshMatrices;
+		std::vector<FM3D::Matrix4f>* meshMatrices;
 		FM3D::Matrix4f* globalInverseTransformation;
 		std::map<std::string, unsigned int> boneIndex;
 		std::vector<FM3D::Matrix4f>* boneOffsetMatrices;
