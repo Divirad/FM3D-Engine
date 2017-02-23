@@ -23,6 +23,7 @@ namespace FM3D {
 		GLCall(glVertexAttrib4f(GL3MESH_ATTRIBUTE_COLOR, 1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glVertexAttribI4i(GL3MESH_ATTRIBUTE_BONE_INDICES, 0, 0, 0, 0));
 		GLCall(glVertexAttrib4f(GL3MESH_ATTRIBUTE_BONE_WEIGHTS, 0.0f, 0.0f, 0.0f, 0.0f));
+		GLCall(glVertexAttrib3f(GL3MESH_ATTRIBUTE_TANGENT, 0.0f, 0.0f, 0.0f));
 
 		Bind();
 		for (uint i = 0; i < MAX_BONES; i++) {

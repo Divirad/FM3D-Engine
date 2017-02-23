@@ -2,7 +2,8 @@
                                                                         
 in vec2 TexCoord0;                                                                   
 in vec3 WorldPos0;
-in mat3 NormalMatrix;                                                                  
+in mat3 NormalMatrix;        
+in float UseMatrix;                                                       
 
 layout (location = 0) out vec3 WorldPosOut;   
 layout (location = 1) out vec3 DiffuseOut;     
@@ -18,6 +19,10 @@ void main()
 	if(color[3] < 0.6) discard;
 	DiffuseOut      = color.xyz;
 	WorldPosOut     = WorldPos0;
-	NormalOut		= normalize((2.0 * texture(gNormalMap, TexCoord0) - 1.0).rgb * NormalMatrix);
-	TexCoordOut     = vec3(TexCoord0, 0.0);				
+	if(bool(UseMatrix)) {
+		NormalOut		= normalize((2.0 * texture(gNormalMap, TexCoord0) - 1.0).rgb * NormalMatrix);
+	} else {
+		NormalOut = normalize(NormalMatrix[0]);
+	}
+	TexCoordOut     = vec3(TexCoord0, 0.0);			
 }

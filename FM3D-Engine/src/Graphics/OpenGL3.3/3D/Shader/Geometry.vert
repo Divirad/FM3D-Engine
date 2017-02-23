@@ -14,10 +14,13 @@ uniform mat4 gBones[DEFINE_MAX_BONES];
                                         
 out vec2 TexCoord0;                                                                   
 out vec3 WorldPos0;   
-out mat3 NormalMatrix;                                                              
+out float UseMatrix;
+out mat3 NormalMatrix;                                               
 
 void main()
-{       
+{    
+	UseMatrix = Tangent[0] * Tangent[0] + Tangent[1] * Tangent[1] + Tangent[2] * Tangent[2];
+	bool bUseMatrix = bool(UseMatrix);   
 	vec3 Normal0;
 	vec3 Tangent0;
 	if(BoneWeights[0] + BoneWeights[1] + BoneWeights[2] + BoneWeights[3] != 0) {
@@ -28,21 +31,25 @@ void main()
 
 		gl_Position = gWVP * boneTransform * vec4(Position, 1.0);
 		Normal0 = normalize((gWorld * boneTransform * vec4(Normal, 0.0)).xyz);   
-		Tangent0 = normalize((gWorld * boneTransform * vec4(Tangent, 0.0)).xyz);
+		if(bUseMatrix) Tangent0 = normalize((gWorld * boneTransform * vec4(Tangent, 0.0)).xyz);
 		WorldPos0 = (gWorld * boneTransform * vec4(Position, 1.0)).xyz;
 	} else {
 		gl_Position = gWVP * vec4(Position, 1.0);
 		Normal0 = normalize((gWorld * vec4(Normal, 0.0)).xyz);   
-		Tangent0 = normalize((gWorld * vec4(Tangent, 0.0)).xyz);
+		if(bUseMatrix) Tangent0 = normalize((gWorld * vec4(Tangent, 0.0)).xyz);
 		WorldPos0 = (gWorld * vec4(Position, 1.0)).xyz;
 	}
 
     TexCoord0 = TexCoord;                  
 
-	vec3 bitang = normalize(cross(Normal0, Tangent0));
-	NormalMatrix = mat3(
-		Tangent0.x, bitang.x, Normal0.x,
-		Tangent0.y, bitang.y, Normal0.y,
-		Tangent0.z, bitang.z, Normal0.z
-	);
+	if(bUseMatrix) {
+		vec3 bitang = normalize(cross(Normal0, Tangent0));
+		NormalMatrix = mat3(
+			Tangent0.x, bitang.x, Normal0.x,
+			Tangent0.y, bitang.y, Normal0.y,
+			Tangent0.z, bitang.z, Normal0.z
+		);
+	} else {
+		NormalMatrix = mat3(Normal0, vec3(0.0), vec3(0.0));
+	}
 }
