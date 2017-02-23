@@ -12,6 +12,29 @@ using Microsoft.VisualStudio.VCCodeModel;
 
 namespace VS_Extension
 {
+    class Props {
+        public string name { get; set; }
+        public string type { get; set; }
+        public bool m_get { get; set; }
+        public bool m_set { get; set; }
+        public bool m_selected { get; set; }
+    }
+
+    class Component {
+        public string name { get; set; }
+        public bool m_custom { get; set; }
+        public bool m_const { get; set; }
+        public bool m_standard { get; set; }
+        public bool m_selected { get; set; }
+    }
+
+    class Entity {
+        public string name { get; set; }
+        public List<Component> components = new List<Component>();
+        public List<Props> _propauto = new List<Props>();
+        public List<Props> _propcustom = new List<Props>();
+    }
+
     public static class PipeSystem
     {
 
@@ -25,7 +48,7 @@ namespace VS_Extension
         {
             var current = Process.GetCurrentProcess();
             string id = current.Id.ToString();
-
+            
             pipe = new NamedPipeClientStream(".", pipename, PipeDirection.InOut);
             try
             {
@@ -45,6 +68,7 @@ namespace VS_Extension
         private static void Communicate()
         {
             writer = new StreamWriter(pipe);
+            writer.AutoFlush = true;
             reader = new StreamReader(pipe);
 
             string type = reader.ReadLine();
@@ -55,6 +79,16 @@ namespace VS_Extension
                     break;
                 case "AddClass":
                     AddClassPipe();
+                    break;
+                case "AddProperties":
+                    break;
+                case "AddMethod":
+                    break;
+                
+                case "Build":
+                    break;
+                default:
+                    MessageBox.Show(type);
                     break;
             }
         }
@@ -70,7 +104,7 @@ namespace VS_Extension
             {
                 writer.WriteLine(s);
             }
-            writer.Flush();
+            //writer.Flush();
         }
 
         private static void AddClassPipe()
@@ -88,12 +122,12 @@ namespace VS_Extension
                 if (e.ParamName == "filename")
                 {
                     writer.WriteLine("InvalidFile");
-                    writer.Flush();
+                    //writer.Flush();
                     return;
                 }
             }
             writer.WriteLine("ValidFile");
-            writer.Flush();
+            //writer.Flush();
             int baseCount = Convert.ToInt32(reader.ReadLine());
 
             var bases = new string[baseCount];
@@ -101,8 +135,8 @@ namespace VS_Extension
             {
                 bases[i] = reader.ReadLine();
             }
-
-            manipulator.AddClass(name, bases);
+            EnvDTE.CodeClass class_ = manipulator.AddClass(name, bases);
+            MessageBox.Show(class_.ToString());
         }
     }
 }

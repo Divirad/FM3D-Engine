@@ -308,51 +308,39 @@ namespace FM3D_Designer.src
                 System.IO.File.Delete(path);
             }
 
-            using (XmlWriter writer = XmlWriter.Create(path)) {
-                writer.WriteStartDocument();
-                    writer.WriteStartElement("Project");
-                    writer.WriteAttributeString("name", Project.CurrentProject._Name);
+                using (XmlWriter writer = XmlWriter.Create(path)) {
+                    writer.WriteStartDocument();
+                        writer.WriteStartElement("Project");
+                        writer.WriteAttributeString("name", Project.CurrentProject._Name);
                         
-                                foreach(ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
-                                    writer.WriteStartElement("ProjectFiles");
-                                    writer.WriteAttributeString("name", i.Name);
-                                    Project.CurrentProject.AnalyseChildren(writer, i);
-                                    writer.WriteEndElement();
-                                    }
+                                    foreach(ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
+                                        writer.WriteStartElement("ProjectFiles");
+                                        writer.WriteAttributeString("name", i.Name);
+                                        Project.CurrentProject.AnalyseChildren(writer, i);
+                                        writer.WriteEndElement();
+                                        }
 
-                                    writer.WriteStartElement("CPlusPlus");
-                                        writer.WriteStartElement("FM3D_File");
-                                        writer.WriteAttributeString("name", "fm3d.xml");
+                                        writer.WriteStartElement("CPlusPlus");
+                                            writer.WriteStartElement("FM3D_File");
+                                            writer.WriteAttributeString("name", "fm3d.xml");
+                                            writer.WriteEndElement();
+                                            writer.WriteStartElement("Solution");
+                                            writer.WriteAttributeString("name", "GameProject.sln");
+                                            writer.WriteEndElement();
                                         writer.WriteEndElement();
-                                        writer.WriteStartElement("Solution");
-                                        writer.WriteAttributeString("name", "GameProject.sln");
-                                        writer.WriteEndElement();
-                                    writer.WriteEndElement();
                         
-                    writer.WriteEndElement();
-                writer.WriteEndDocument();
+                        writer.WriteEndElement();
+                    writer.WriteEndDocument();
 
+                }
+                
             }
+        public static void AddClass() {
+            MainWindow.Instance.visualStudio.AddClass("Blah", "Quelle.cpp");
 
-                //MainWindow.Instance.visualStudio.AddClass("");
-                //foreach (ToolWindows.FileBrowser.Item it in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
-                //    //DO SOME FANCY STUFF
-                //    MessageBox.Show(it.ToString());
-
-                //    foreach (ToolWindows.FileBrowser.Item it1 in it.Children) {
-                //        MessageBox.Show(it1.ToString());
-                //        //DO SOME FANCY STUFF
-                //        foreach (ToolWindows.FileBrowser.Item it2 in it1.Children) {
-                //            MessageBox.Show(it2.ToString());
-                //            //DO SOME FANCY STUFF
-                //            foreach (ToolWindows.FileBrowser.Item it3 in it2.Children) {
-                //                MessageBox.Show(it3.ToString());
-                //            }
-                //        }
-                //    }
-                //}
-                //CLOSE LE XML PROJECT
-            }
+            MainWindow.Instance.visualStudio.AddClass("Blah2", "Quelle.cpp");
+            MainWindow.Instance.visualStudio.AddClass("Fischilein","Quelle.cpp",new string[] {"Blah"});
+        }
 
     }
 }

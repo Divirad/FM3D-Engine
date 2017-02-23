@@ -101,13 +101,13 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Project.SaveProject();
+            Project.AddClass();
             //   MainWindow.Instance.visualStudio.AddClass("EpicFishClasselein", "Main.cpp");
         }
 
         private void ExportProj(object sender, RoutedEventArgs e)
         {
-            Project.SaveProject();
+            //Project.SaveProject();
         }
     }
 }

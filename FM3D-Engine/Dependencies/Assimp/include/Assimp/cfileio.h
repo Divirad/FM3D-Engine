@@ -122,7 +122,8 @@ struct aiFile
 
 	/** Callback to flush the file contents
 	 */
-	aiFileFlushProc FlushProc;
+	aiFileFlushProc 
+		Proc;
 
 	/** User-defined, opaque data
 	 */

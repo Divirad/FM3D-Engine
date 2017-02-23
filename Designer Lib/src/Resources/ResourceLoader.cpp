@@ -7,7 +7,7 @@ namespace DesignerLib {
 
 	//Help functions
 	static Matrix4f CreateMatrix4f(const aiMatrix4x4 mat) {
-		Matrix4f result;
+		Matrix4f result = Matrix4f::Identity();
 		result.elements[0] = mat.a1;
 		result.elements[1] = mat.b1;
 		result.elements[2] = mat.c1;
@@ -33,7 +33,7 @@ namespace DesignerLib {
 		return Matrix4f::Translate(Vector3f(position.x, position.y, position.z)) * CreateMatrix4f(aiMatrix4x4(rotation.GetMatrix())) * Matrix4f::Scale(Vector3f(scaling.x, scaling.y, scaling.z));
 	}
 
-	static void FindMeshTransformations(Matrix4f* meshmatrix, const Matrix4f& base, const aiNode* node) {
+	static void FindMeshTransformations(std::vector<Matrix4f>& meshmatrix, const Matrix4f& base, const aiNode* node) {
 		Matrix4f delta = CreateMatrix4f(node->mTransformation);
 		Matrix4f result = base * delta;
 
@@ -75,10 +75,10 @@ namespace DesignerLib {
 			}
 		}
 
-		meshMatrices = new Matrix4f[scene->mNumMeshes];
-		FindMeshTransformations(meshMatrices, Matrix4f::Identity(), scene->mRootNode);
+		meshMatrices = new std::vector<Matrix4f>(scene->mNumMeshes, Matrix4f::Identity());
+		FindMeshTransformations(*meshMatrices, Matrix4f::Identity(), scene->mRootNode);
 
-		globalInverseTransformation = new Matrix4f();
+		globalInverseTransformation = new Matrix4f(Matrix4f::Identity());
 		*globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
 		return true;
 	}
@@ -118,7 +118,7 @@ namespace DesignerLib {
 
 		for (uint i = 0; i < vertices.GetVertexCount(); i++) {
 			aiVector3D pos = mesh->mVertices[i];
-			/*if(isAnimated)*/ vertices.SetPosition(meshMatrices[id] * Vector3f(pos.x, pos.y, pos.z), i);
+			/*if(isAnimated)*/ vertices.SetPosition((*meshMatrices)[id] * Vector3f(pos.x, pos.y, pos.z), i);
 			//else vertices.SetPosition(Vector3f(pos.x, pos.y, pos.z), i);
 			aiVector3D uv = mesh->mTextureCoords[0][i];
 			vertices.SetTexCoord(Vector2f(uv.x, 1.0f - uv.y), i);
