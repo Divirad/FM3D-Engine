@@ -93,7 +93,7 @@ namespace FM3D {
 			inline static constexpr std::string Name() { return "Vector 2"; }
 			inline std::string ToString() const {
 				std::stringstream ss;
-				ss << "(" << x << ", " << y ")";
+				ss << "(" << x << ", " << y << ")";
 				return ss.str();
 			}
 			inline friend std::ostream& operator<<(std::ostream& stream, const Vector& vector) {

@@ -1,28 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<Project>
-  <ProjectFiles>
-    <Folder name="SATAAN">
-      <File name="6.x"/>
-      <File name="6.y"/>
-      <Folder name="resources test">
-        <File name="Modeltest.mod"/>
-        <File name="SkelettTest.skel"/>
-        <File name="MaterialTest.mat"/>
-        <File name="meshTest.mesh"/>
-        <File name="TextureTest.tex"/>
-      </Folder>
-      <Folder name="Foolder">
-        <File name="Wer das liest ist dumm"/>
-      </Folder>
-    </Folder>
-	  <Folder name="SATAAN 3">
-      <File name="6.x"/>
-      <File name="Bruh.y"/>
-    </Folder>
-  </ProjectFiles>
-  <CPlusPlus>
-	<FM3D_File name="fm3d.xml"/> 
-	<Solution name="GameProject.sln"/>
-  </CPlusPlus>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project name="project 0">
+<ProjectFiles name="ProjectFiles">
+<Directory name="SATAAN" type="Directory" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN">
+<Directory name="resources test" type="Directory" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test">
+<MaterialFile name="MaterialTest.mat" type="MaterialFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.mat" />
+<MeshFile name="meshTest.mesh" type="MeshFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.mesh" />
+<TextureFile name="Modeltest.mod" type="TextureFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.mod" />
+<SkeletonFile name="SkelettTest.skel" type="SkeletonFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\SkelettTest.skel" />
+<TextureFile name="TextureTest.tex" type="TextureFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\TextureTest.tex" />
+</Directory>
+</Directory>
+<EntityFile name="PUSSYPUSS.ent" type="EntityFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles/PUSSYPUSS.ent" />
+<EntityFile name="gibeinfickdrauf.ent" type="EntityFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles/gibeinfickdrauf.ent" />
+<EntityFile name="huaaanshoohn.ent" type="EntityFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles/huaaanshoohn.ent" />
+</ProjectFiles>
+<CPlusPlus>
+<FM3D_File name="fm3d.xml" />
+<Solution name="GameProject.sln" />
+</CPlusPlus>
 </Project>

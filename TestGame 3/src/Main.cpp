@@ -147,7 +147,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->EndRendering();
 
-			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 600.0f);
+			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 30.0f);
 			if (static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimation()->GetDuration())
 				static_cast<AnimatedModel*>(res.bobaMesh)->SetAnimationTime(0.0);
 

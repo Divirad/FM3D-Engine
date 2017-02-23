@@ -73,8 +73,13 @@ namespace FM3D_Designer.src
         public Project(string path)
         {
             this._Directory = new FileInfo(path).Directory.FullName;
+            this._Name = "UnknownName";
             this.ProjectFiles = new RootDirectory("ProjectFiles", this._Directory + ProjectFilesDirectory);
 
+        }
+
+        public void SetProjName(string name) {
+            this._Name = name;
         }
 
         public static Project Load(string path)
@@ -86,7 +91,7 @@ namespace FM3D_Designer.src
             else
             {
                 Project result = new Project(path);
-
+               
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.IgnoreWhitespace = true;
                 XmlReader xml = XmlReader.Create(path, settings);
@@ -95,10 +100,20 @@ namespace FM3D_Designer.src
 
                 xml.Close();
 
+                XmlReader xm = XmlReader.Create(path, settings);
+                xm.ReadToDescendant("Project");
+                xm.MoveToAttribute("name");
+                string name = "";
+                name = xm.Value;
+                xm.Close();
+
+                result._Name = name;
                 _CurrentProject = result;
                 return result;
             }
         }
+
+
 
         private static void LoadXmlFile(string path, Project proj, XmlReader xml)
         {
@@ -119,14 +134,15 @@ namespace FM3D_Designer.src
             {
                 if(xml.NodeType == XmlNodeType.Element)
                 {
-                    if(xml.Name == "File")
+                    //if(xml.Name == "File" || xml.Name == "MaterialFile" || xml.Name == "TextureFile" || xml.Name == "SkeletonFile" || xml.Name == "MeshFile" || xml.Name == "File")
+                    if (xml.Name.Contains("File"))
                     {
                         xml.MoveToAttribute("name");
                         var xf = new File(xml.Value);
                         folder.Content.Add(xf);
                         folder.Files.Add(xf);
                     }
-                    else if(xml.Name == "Folder")
+                    else if(xml.Name == "Directory")
                     {
                         xml.MoveToAttribute("name");
                         Directory f = new Directory(xml.Value);
@@ -180,17 +196,17 @@ namespace FM3D_Designer.src
 
                             writer.WriteStartElement("ProjectFiles");
                             
-                                writer.WriteStartElement("Folder");
+                                writer.WriteStartElement("Directory");
                                 writer.WriteAttributeString("name", "Entities");
                                 writer.WriteString(" ");
                                 writer.WriteEndElement();
 
-                                writer.WriteStartElement("Folder");
+                                writer.WriteStartElement("Directory");
                                 writer.WriteAttributeString("name", "Textures");
                                 writer.WriteString(" ");
                                 writer.WriteEndElement();
 
-                                writer.WriteStartElement("Folder");
+                                writer.WriteStartElement("Directory");
                                 writer.WriteAttributeString("name", "Models");
                                 writer.WriteString(" ");
                                 writer.WriteEndElement();
@@ -257,12 +273,86 @@ namespace FM3D_Designer.src
                 return true;
             }
         }
+        
+        public string GetProjectPath() {
+            return _Directory; ;
+        }
+
+        private bool AnalyseChildren(XmlWriter writer, ToolWindows.FileBrowser.Item i) {
+
+            foreach (ToolWindows.FileBrowser.Item child in i.Children) {
+                MessageBox.Show(child.Name);
+                if (child.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
+                    writer.WriteStartElement(child.type.ToString().Replace(" ", ""));
+                    MessageBox.Show(child.Name+"\n"+"Gehört dazu!!!!");
+                    writer.WriteAttributeString("name", child.Name);
+                    writer.WriteAttributeString("type", child.type.ToString().Replace(" ", ""));
+                    writer.WriteAttributeString("path", child.Path);
+                    
+                    if (child.Children.Count >= 1) {
+                        AnalyseChildren(writer, child);
+                    }
+                    writer.WriteEndElement();
+                }
+            }
+            
+            return true;
+        }
 
         public static void SaveProject()
         {
-            //MainWindow.Instance.visualStudio.AddClass("");
-            throw new NotImplementedException();
-        }
+            string path = Project.CurrentProject._Directory + "\\" + Project.CurrentProject._Name + ".fmproj";
+            MessageBox.Show(Project.CurrentProject._Directory+"\n"+Project.CurrentProject._Name);
+
+            if (System.IO.File.Exists(path) == true) {
+                System.IO.File.Delete(path);
+            }
+
+            using (XmlWriter writer = XmlWriter.Create(path)) {
+                writer.WriteStartDocument();
+                    writer.WriteStartElement("Project");
+                    writer.WriteAttributeString("name", Project.CurrentProject._Name);
+                        
+                                foreach(ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
+                                    writer.WriteStartElement("ProjectFiles");
+                                    writer.WriteAttributeString("name", i.Name);
+                                    Project.CurrentProject.AnalyseChildren(writer, i);
+                                    writer.WriteEndElement();
+                                    }
+
+                                    writer.WriteStartElement("CPlusPlus");
+                                        writer.WriteStartElement("FM3D_File");
+                                        writer.WriteAttributeString("name", "fm3d.xml");
+                                        writer.WriteEndElement();
+                                        writer.WriteStartElement("Solution");
+                                        writer.WriteAttributeString("name", "GameProject.sln");
+                                        writer.WriteEndElement();
+                                    writer.WriteEndElement();
+                        
+                    writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+            }
+
+                //MainWindow.Instance.visualStudio.AddClass("");
+                //foreach (ToolWindows.FileBrowser.Item it in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
+                //    //DO SOME FANCY STUFF
+                //    MessageBox.Show(it.ToString());
+
+                //    foreach (ToolWindows.FileBrowser.Item it1 in it.Children) {
+                //        MessageBox.Show(it1.ToString());
+                //        //DO SOME FANCY STUFF
+                //        foreach (ToolWindows.FileBrowser.Item it2 in it1.Children) {
+                //            MessageBox.Show(it2.ToString());
+                //            //DO SOME FANCY STUFF
+                //            foreach (ToolWindows.FileBrowser.Item it3 in it2.Children) {
+                //                MessageBox.Show(it3.ToString());
+                //            }
+                //        }
+                //    }
+                //}
+                //CLOSE LE XML PROJECT
+            }
 
     }
 }
