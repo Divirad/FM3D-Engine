@@ -14,6 +14,8 @@ namespace VS_Extension
 {
     public static class PipeSystem
     {
+        #region Pipe stuff
+        private const string COMMAND = "Command: ";
 
         private static NamedPipeClientStream pipe;
         private static byte[] readBuffer = new byte[4096];
@@ -21,6 +23,30 @@ namespace VS_Extension
 
         private static StreamWriter writer;
         private static StreamReader reader;
+
+        private static Mutex actionMutex = new Mutex();
+        private static Mutex readMutex = new Mutex();
+        private static string readString;
+        private static string ReadString
+        {
+            get
+            {
+                while (true)
+                {
+                    lock (actionMutex)
+                    {
+                        if (readString.Length > 0)
+                        {
+                            string local = readString;
+                            readString = "";
+                            return local;
+                        }
+                    }
+                    Thread.Sleep(2);
+                }
+            }
+        }
+
         public static bool Start(string pipename)
         {
             var current = Process.GetCurrentProcess();
@@ -30,7 +56,8 @@ namespace VS_Extension
             try
             {
                 pipe.Connect(1000);
-            } catch(TimeoutException e)
+            }
+            catch (TimeoutException e)
             {
                 MessageBox.Show("Connection to FM3D-Designer timed out\n" + e.Message + "\n\nTry to restart Visual Studio. Changes you make to the solution while not connected to the Designer can break your project!", "FM3D-Extension-Error");
                 return false;
@@ -45,35 +72,61 @@ namespace VS_Extension
         private static void Communicate()
         {
             writer = new StreamWriter(pipe);
+            writer.AutoFlush = true;
             reader = new StreamReader(pipe);
 
-            string type = reader.ReadLine();
-            switch(type)
+            while (pipe?.IsConnected == true)
             {
-                case "GetComponents":
-                    SendComponents();
-                    break;
-                case "AddClass":
-                    AddClassPipe();
-                    break;
-                case "Build":
-                    Build();
-                    break;
-                case "Start":
-                    Start();
-                    break;
+                string s = reader.ReadLine();
+                if (s.StartsWith(COMMAND))
+                {
+                    lock (actionMutex)
+                    {
+                        switch (s.Substring(COMMAND.Length))
+                        {
+                            case "GetComponents":
+                                SendComponents();
+                                break;
+                            case "AddClass":
+                                AddClassPipe();
+                                break;
+                            case "Build":
+                                Build();
+                                break;
+                            case "Start":
+                                Start();
+                                break;
+                            default:
+                                MessageBox.Show("Received unreadable message from FM3D-Designer", "Connection failure");
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    lock (readMutex)
+                    {
+                        readString = s;
+                    }
+                }
+
             }
         }
+        #endregion
 
+        #region Reactions
         private static void Start()
         {
             bool debugging = Convert.ToBoolean(reader.ReadLine());
-            MainPackage.Instance.SendStartCommand(debugging);
+            if (debugging)
+                MainPackage.Instance.dte.ExecuteCommand("Debug.Start");
+            else
+                MainPackage.Instance.dte.ExecuteCommand("Debug.StartWithoutDebugging");
         }
 
         private static void Build()
         {
-            MainPackage.Instance.dte.ExecuteCommand("Debug.Start");
+            MainPackage.Instance.dte.ExecuteCommand("Build.BuildSolution");
         }
 
         private static void SendComponents()
@@ -83,11 +136,10 @@ namespace VS_Extension
 
             writer.WriteLine(strings.Count.ToString());
 
-            foreach(string s in strings)
+            foreach (string s in strings)
             {
                 writer.WriteLine(s);
             }
-            writer.Flush();
         }
 
         private static void AddClassPipe()
@@ -105,12 +157,10 @@ namespace VS_Extension
                 if (e.ParamName == "filename")
                 {
                     writer.WriteLine("InvalidFile");
-                    writer.Flush();
                     return;
                 }
             }
             writer.WriteLine("ValidFile");
-            writer.Flush();
             int baseCount = Convert.ToInt32(reader.ReadLine());
 
             var bases = new string[baseCount];
@@ -121,5 +171,6 @@ namespace VS_Extension
 
             manipulator.AddClass(name, bases);
         }
+        #endregion
     }
 }
