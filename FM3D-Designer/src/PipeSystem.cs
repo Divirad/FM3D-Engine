@@ -108,5 +108,17 @@ namespace FM3D_Designer.src
             writer.Flush();
         }
 
+        internal void SendStart(bool debugging)
+        {
+            writer.WriteLine("Start");
+            writer.WriteLine(debugging.ToString());
+            writer.Flush();
+        }
+
+        internal void SendBuild()
+        {
+            writer.WriteLine("Build");
+            writer.Flush();
+        }
     }
 }

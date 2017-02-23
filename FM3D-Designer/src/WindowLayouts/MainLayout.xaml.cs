@@ -99,9 +99,14 @@ namespace FM3D_Designer.src.WindowLayouts
             MainWindow.Instance.visualStudio.Start("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Start_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.visualStudio.AddClass("EpicFishClasselein", "Main.cpp");
+            MainWindow.Instance.visualStudio.Start(false);
+        }
+
+        private void Build_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.visualStudio.Build();
         }
 
         private void ExportProj(object sender, RoutedEventArgs e)

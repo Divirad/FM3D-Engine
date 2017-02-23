@@ -56,7 +56,24 @@ namespace VS_Extension
                 case "AddClass":
                     AddClassPipe();
                     break;
+                case "Build":
+                    Build();
+                    break;
+                case "Start":
+                    Start();
+                    break;
             }
+        }
+
+        private static void Start()
+        {
+            bool debugging = Convert.ToBoolean(reader.ReadLine());
+            MainPackage.Instance.SendStartCommand(debugging);
+        }
+
+        private static void Build()
+        {
+            MainPackage.Instance.dte.ExecuteCommand("Debug.Start");
         }
 
         private static void SendComponents()
