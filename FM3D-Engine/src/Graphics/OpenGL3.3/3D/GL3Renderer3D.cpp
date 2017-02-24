@@ -9,6 +9,7 @@ namespace FM3D {
 
 		m_shader3D.Bind();
 		m_shader3D.SetColorTextureUnit(0);
+		m_shader3D.SetNormalTextureUnit(1);
 
 		m_pointLightShader.Bind();
 		m_pointLightShader.Initialize(m_width, m_height);
@@ -16,7 +17,9 @@ namespace FM3D {
 		m_dirLightShader.Bind();
 		m_dirLightShader.Initialize(m_width, m_height);
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
-		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.32f, 0.16f, Vector3f(1.0f, -1.0f, -1.0f) });
+		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.16f, 0.8f, Vector3f(1.0f, -1.0f, -1.0f) });
+
+		m_defaultNormalMap = dynamic_cast<GL3Texture*>(renderSystem->CreateTexture(1, 1, Texture::NEAREST, Texture::REPEAT, Texture::NONE, new float[3] { 1.0f, 0.0f, 0.0f }, 24));
 	}
 
 	void GL3Renderer3D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
@@ -65,7 +68,7 @@ namespace FM3D {
 		//GLCall(glEnable(GL_CULL_FACE));
 		GLCall(glCullFace(GL_BACK));
 
-		GLCall(glActiveTexture(GL_TEXTURE0));
+
 
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
@@ -73,7 +76,13 @@ namespace FM3D {
 			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
 				((const GL3Mesh*)it->first)->Bind(i);
 				for (std::map<const Model*, std::vector<const EntitySystem::Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+					GLCall(glActiveTexture(GL_TEXTURE0));
 					((const GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
+					GLCall(glActiveTexture(GL_TEXTURE1));
+					if (it2->first->GetMaterials()[i]->normalMap)
+						((const GL3Texture*)it2->first->GetMaterials()[i]->normalMap)->Bind();
+					else
+						m_defaultNormalMap->Bind();
 					for (const EntitySystem::Entity*& e : it2->second) {
 						if (it->first->IsAnimated()) {
 							if (it2->first->IsAnimated()) {

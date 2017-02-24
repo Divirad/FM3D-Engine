@@ -2,5 +2,8 @@
 
 class EpicFishClasselein {
 };
-class EpicFishClasselein {
-};
+//class EpicFishClasselein {
+//};
+
+int main() {
+}

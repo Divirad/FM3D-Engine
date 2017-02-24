@@ -142,5 +142,25 @@ namespace FM3D_Designer.src
             }
 
         }
+
+        public void Start(bool debugging)
+        {
+            lock (mutex)
+            {
+                if (!_IsStarted)
+                    throw new InvalidOperationException("Visual Studio is not started!");
+                pipeSystem.SendStart(debugging);
+            }
+        }
+
+        public void Build()
+        {
+            lock (mutex)
+            {
+                if (!_IsStarted)
+                    throw new InvalidOperationException("Visual Studio is not started!");
+                pipeSystem.SendBuild();
+            }
+        }
     }
 }

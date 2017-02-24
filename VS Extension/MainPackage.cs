@@ -37,6 +37,10 @@ namespace VS_Extension
         public const string PackageGuidString = "19abd3e3-d7cd-4675-8a73-f6c90ce7aa4f";
 
         public DTE2 dte { get; private set; }
+        private Events dteEvents;
+        private BuildEvents buildEvents;
+        private CommandEvents commandEvents;
+        private Commands2 commands;
         public IVsSolution Solution { get; private set; } = null;
         public List<Project> Projects { get; private set; }
         public Project MainProject
@@ -72,6 +76,15 @@ namespace VS_Extension
             MessageBox.Show("Package Loaded!", "FM3D-Extension-Info");
 
             this.dte = (DTE2)this.GetService(typeof(DTE));
+
+            this.dteEvents = this.dte.Events;
+            this.buildEvents = this.dteEvents.BuildEvents;
+            this.buildEvents.OnBuildBegin += this.OnBuildBegin;
+            this.buildEvents.OnBuildDone += this.OnBuildDone;
+            this.commands = this.dte.Commands as Commands2;
+            this.commandEvents = this.dteEvents.CommandEvents;
+            this.commandEvents.AfterExecute += this.AfterExecute;
+            this.commandEvents.BeforeExecute += this.BeforeExecute;
             this.Solution = this.GetService(typeof(SVsSolution)) as IVsSolution;
             if (this.Solution != null)
             {
@@ -106,6 +119,8 @@ namespace VS_Extension
                 .Select(x => ((VSProject)x.Object).Project)
                 .ToArray();
         }
+
+        #region Solution Events
 
         public int OnAfterLoadProject(IVsHierarchy pStubHierarchy, IVsHierarchy pRealHierarchy)
         {
@@ -251,5 +266,63 @@ namespace VS_Extension
             }
             return list;
         }
+        #endregion
+
+        #region Build Events
+        void OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
+        {
+            MessageBox.Show("Build started!\n" + Scope.ToString() + "\n" + Action.ToString());
+        }
+
+        void OnBuildDone(vsBuildScope Scope, vsBuildAction Action)
+        {
+            MessageBox.Show("Build done!\n" + Scope.ToString() + "\n" + Action.ToString());
+        }
+        #endregion
+        #region Command Events
+
+        void BeforeExecute(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)
+        {
+            string name = GetCommandName(Guid, ID);
+            
+            if(name == "Debug.StartWithoutDebugging" || name == "Debug.Start")
+            {
+
+            }
+       }
+
+        void AfterExecute(string Guid, int ID, object CustomIn, object CustomOut)
+        {
+            //MessageBox.Show("After Execution!\n" + Guid + "\n" + ID + "\n" + CustomIn?.ToString() + "\n" + CustomOut?.ToString());
+        }
+
+        private string GetCommandName(string Guid, int ID)
+        {
+            if (Guid == null)
+                return "null";
+
+            string result = "";
+            if (commands != null)
+            {
+                try
+                {
+                    return commands.Item(Guid, ID).Name;
+                }
+                catch (System.Exception)
+                {
+                }
+            }
+            return result;
+        }
+
+        public void SendBuildCommand()
+        {
+        }
+
+        public void SendStartCommand(bool debugging)
+        {
+            //this.commands.
+        }
+        #endregion
     }
 }

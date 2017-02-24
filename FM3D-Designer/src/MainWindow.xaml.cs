@@ -35,6 +35,7 @@ namespace FM3D_Designer.src
         public static MainWindow Instance { get; private set; } = null;
 
         public VisualStudio visualStudio { get; private set; } = new VisualStudio();
+        public Compiler compiler { get; private set; } = new Compiler();
 
         public MainWindow()
         {

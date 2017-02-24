@@ -24,6 +24,7 @@ namespace FM3D {
 
 		GL3Mesh* m_bsphere;
 		GL3Mesh* m_quad;
+		GL3Texture* m_defaultNormalMap;
 
 		friend class GL3RenderSystem;
 		friend class GL4RenderSystem;

@@ -16,12 +16,14 @@ namespace FM3D {
 		m_WVPLocation = GetUniformLocation("gWVP");
 		m_WorldMatrixLocation = GetUniformLocation("gWorld");
 		m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+		m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
 		m_bonesLocation = GetUniformLocation("gBones");
 
 
 		GLCall(glVertexAttrib4f(GL3MESH_ATTRIBUTE_COLOR, 1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glVertexAttribI4i(GL3MESH_ATTRIBUTE_BONE_INDICES, 0, 0, 0, 0));
 		GLCall(glVertexAttrib4f(GL3MESH_ATTRIBUTE_BONE_WEIGHTS, 0.0f, 0.0f, 0.0f, 0.0f));
+		GLCall(glVertexAttrib3f(GL3MESH_ATTRIBUTE_TANGENT, 0.0f, 0.0f, 0.0f));
 
 		Bind();
 		for (uint i = 0; i < MAX_BONES; i++) {
@@ -41,6 +43,11 @@ namespace FM3D {
 	void GL3Shader3D::SetColorTextureUnit(unsigned int TextureUnit) {
 		SetUniform1i(m_colorTextureUnitLocation, TextureUnit);
 	}
+
+	void GL3Shader3D::SetNormalTextureUnit(unsigned int TextureUnit) {
+		SetUniform1i(m_normalTextureUnitLocation, TextureUnit);
+	}
+
 	void GL3Shader3D::SetBones(const std::vector<Matrix4f>& bones) {
 		for (uint i = 0; i < bones.size(); i ++) {
 			SetUniformMat4(m_bonesLocation + i, Matrix4f::Transpose(bones[i]));

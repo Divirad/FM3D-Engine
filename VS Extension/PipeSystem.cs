@@ -80,17 +80,24 @@ namespace VS_Extension
                 case "AddClass":
                     AddClassPipe();
                     break;
-                case "AddProperties":
-                    break;
-                case "AddMethod":
-                    break;
-                
                 case "Build":
+                    Build();
                     break;
-                default:
-                    MessageBox.Show(type);
+                case "Start":
+                    Start();
                     break;
             }
+        }
+
+        private static void Start()
+        {
+            bool debugging = Convert.ToBoolean(reader.ReadLine());
+            MainPackage.Instance.SendStartCommand(debugging);
+        }
+
+        private static void Build()
+        {
+            MainPackage.Instance.dte.ExecuteCommand("Debug.Start");
         }
 
         private static void SendComponents()

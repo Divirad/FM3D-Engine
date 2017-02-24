@@ -31,6 +31,7 @@ namespace FM3D {
 				GLCall(glEnableVertexAttribArray(GL3MESH_ATTRIBUTE_BONE_INDICES));
 				GLCall(glEnableVertexAttribArray(GL3MESH_ATTRIBUTE_BONE_WEIGHTS));
 			}
+			if (part.vertices.HasTangentData()) GLCall(glEnableVertexAttribArray(GL3MESH_ATTRIBUTE_TANGENT));
 			
 			//Set Attribute pointers
 			GLCall(glVertexAttribPointer(GL3MESH_ATTRIBUTE_POSITION, 3, GL_FLOAT, GL_FALSE, part.vertices.GetVertexSize(), (const GLvoid*)part.vertices.OffsetOfPosition()));
@@ -41,6 +42,7 @@ namespace FM3D {
 				GLCall(glVertexAttribIPointer(GL3MESH_ATTRIBUTE_BONE_INDICES, 4, GL_INT, part.vertices.GetVertexSize(), (const GLvoid*)part.vertices.OffsetOfBoneIndex()));
 				GLCall(glVertexAttribPointer(GL3MESH_ATTRIBUTE_BONE_WEIGHTS, 4, GL_FLOAT, GL_FALSE, part.vertices.GetVertexSize(), (const GLvoid*)part.vertices.OffsetOfBoneWeight()));
 			}
+			if (part.vertices.HasTangentData()) GLCall(glVertexAttribPointer(GL3MESH_ATTRIBUTE_TANGENT, 3, GL_FLOAT, GL_FALSE, part.vertices.GetVertexSize(), (const GLvoid*)part.vertices.OffsetOfTangent()));
 
 			//Instance Buffer
 			if (part.supportsInstancing) {
@@ -50,6 +52,7 @@ namespace FM3D {
 				uint index = 3;
 				if (part.vertices.HasColorData()) index += 1;
 				if (part.vertices.HasBoneData()) index += 2;
+				if (part.vertices.HasTangentData()) index += 1;
 
 				GLCall(glEnableVertexAttribArray(index));
 				GLCall(glEnableVertexAttribArray(index + 1));
