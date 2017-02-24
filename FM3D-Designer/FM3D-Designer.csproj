@@ -373,6 +373,11 @@
     <Content Include="bin\Debug\Assimp32.dll" />
     <Content Include="bin\Debug\FreeImage.dll" />
     <Content Include="DotNetBar\DevComponents.WpfDock.dll" />
+    <Resource Include="resources\images\build_icon.png" />
+    <Resource Include="resources\images\ModelDialog\Material_icon.png" />
+    <Resource Include="resources\images\ModelDialog\MeshPart_icon.png" />
+    <Resource Include="resources\images\ModelDialog\Mesh_icon.png" />
+    <Resource Include="resources\images\ModelDialog\Model_icon.png" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.sln" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />

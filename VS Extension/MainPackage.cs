@@ -73,7 +73,7 @@ namespace VS_Extension
         protected override void Initialize()
         {
             base.Initialize();
-            MessageBox.Show("Package Loaded!", "FM3D-Extension-Info");
+            //MessageBox.Show("Package Loaded!", "FM3D-Extension-Info");
 
             this.dte = (DTE2)this.GetService(typeof(DTE));
 
@@ -138,7 +138,7 @@ namespace VS_Extension
             fm3d_file = new FM3DPropertyFile();
             if (fm3d_file.Load(this.Solution))
             {
-                MessageBox.Show(fm3d_file.FM3DName + "  " + fm3d_file.MainProjectName + "  " + fm3d_file.PipeName, "FM3D-Extension-Info");
+                //MessageBox.Show(fm3d_file.FM3DName + "  " + fm3d_file.MainProjectName + "  " + fm3d_file.PipeName, "FM3D-Extension-Info");
 
                 if(MainProject == null)
                 {
@@ -271,12 +271,12 @@ namespace VS_Extension
         #region Build Events
         void OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
         {
-            MessageBox.Show("Build started!\n" + Scope.ToString() + "\n" + Action.ToString());
+            //MessageBox.Show("Build started!\n" + Scope.ToString() + "\n" + Action.ToString());
         }
 
         void OnBuildDone(vsBuildScope Scope, vsBuildAction Action)
         {
-            MessageBox.Show("Build done!\n" + Scope.ToString() + "\n" + Action.ToString());
+            //MessageBox.Show("Build done!\n" + Scope.ToString() + "\n" + Action.ToString());
         }
         #endregion
         #region Command Events
@@ -313,15 +313,6 @@ namespace VS_Extension
                 }
             }
             return result;
-        }
-
-        public void SendBuildCommand()
-        {
-        }
-
-        public void SendStartCommand(bool debugging)
-        {
-            //this.commands.
         }
         #endregion
     }
