@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FM3D_Designer.src
 {
@@ -281,10 +282,10 @@ namespace FM3D_Designer.src
         private bool AnalyseChildren(XmlWriter writer, ToolWindows.FileBrowser.Item i) {
 
             foreach (ToolWindows.FileBrowser.Item child in i.Children) {
-                MessageBox.Show(child.Name);
+                
                 if (child.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
                     writer.WriteStartElement(child.type.ToString().Replace(" ", ""));
-                    MessageBox.Show(child.Name+"\n"+"Gehört dazu!!!!");
+                    
                     writer.WriteAttributeString("name", child.Name);
                     writer.WriteAttributeString("type", child.type.ToString().Replace(" ", ""));
                     writer.WriteAttributeString("path", child.Path);
@@ -299,42 +300,59 @@ namespace FM3D_Designer.src
             return true;
         }
 
-        public static void SaveProject()
-        {
-            string path = Project.CurrentProject._Directory + "\\" + Project.CurrentProject._Name + ".fmproj";
-            MessageBox.Show(Project.CurrentProject._Directory+"\n"+Project.CurrentProject._Name);
+        public static async void SaveProject(MainWindow w) {
+            double progress = 0.0;
+            var controller = await w.ShowProgressAsync("Please wait... DON'T CLOSE THE PROGRAMM", "Saving Process Started...");
 
+            controller.SetProgress(progress);
+            string path = Project.CurrentProject._Directory + "\\" + Project.CurrentProject._Name + ".fmproj";
+            
             if (System.IO.File.Exists(path) == true) {
                 System.IO.File.Delete(path);
+                controller.SetMessage("Overwriting Old File...");
             }
+            progress = 0.3;
+            controller.SetProgress(progress);
+            controller.SetMessage("Saving Files Into The FM3D-Project-File...");
 
-                using (XmlWriter writer = XmlWriter.Create(path)) {
-                    writer.WriteStartDocument();
-                        writer.WriteStartElement("Project");
-                        writer.WriteAttributeString("name", Project.CurrentProject._Name);
-                        
-                                    foreach(ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
-                                        writer.WriteStartElement("ProjectFiles");
-                                        writer.WriteAttributeString("name", i.Name);
-                                        Project.CurrentProject.AnalyseChildren(writer, i);
-                                        writer.WriteEndElement();
-                                        }
+            using (XmlWriter writer = XmlWriter.Create(path)) {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Project");
+                writer.WriteAttributeString("name", Project.CurrentProject._Name);
 
-                                        writer.WriteStartElement("CPlusPlus");
-                                            writer.WriteStartElement("FM3D_File");
-                                            writer.WriteAttributeString("name", "fm3d.xml");
-                                            writer.WriteEndElement();
-                                            writer.WriteStartElement("Solution");
-                                            writer.WriteAttributeString("name", "GameProject.sln");
-                                            writer.WriteEndElement();
-                                        writer.WriteEndElement();
-                        
-                        writer.WriteEndElement();
-                    writer.WriteEndDocument();
-
+                foreach (ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
+                    writer.WriteStartElement("ProjectFiles");
+                    writer.WriteAttributeString("name", i.Name);
+                    Project.CurrentProject.AnalyseChildren(writer, i);
+                    writer.WriteEndElement();
                 }
-                
+                progress = 0.8;
+                controller.SetProgress(progress);
+                controller.SetMessage("Writging Pipe Information...");
+
+                writer.WriteStartElement("CPlusPlus");
+                writer.WriteStartElement("FM3D_File");
+                writer.WriteAttributeString("name", "fm3d.xml");
+                writer.WriteEndElement();
+                progress = 0.9;
+                controller.SetProgress(progress);
+
+                controller.SetMessage("Writging Solution Information...");
+                writer.WriteStartElement("Solution");
+                writer.WriteAttributeString("name", "GameProject.sln");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                progress = 1.0;
+                controller.SetProgress(progress);
+                await controller.CloseAsync();
+
+
             }
+
+        }
         public static void AddClass() {
             MainWindow.Instance.visualStudio.AddClass("Blah", "Quelle.cpp");
 

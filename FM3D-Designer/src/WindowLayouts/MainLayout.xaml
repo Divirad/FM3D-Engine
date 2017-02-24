@@ -8,6 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              IsMainLayout="True">
+    <local:WindowLayout.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveProjectCMD" />
+    </local:WindowLayout.CommandBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,11 +19,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        <Menu x:Name="menu" Grid.Row="0">
-            <MenuItem Header="_Edit">
+
+            <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="New" />
-                <MenuItem Header="Export" Click="ExportProj"></MenuItem>
+                <MenuItem Header="_Save" Command="ApplicationCommands.Save" />
+                <MenuItem Header="Export" Click="ExportProj"/>
             </MenuItem>
-            <MenuItem Header="_File" />
             <MenuItem Header="_Edit" />
             <MenuItem Header="_View" >
                 <MenuItem Header="Add Window">

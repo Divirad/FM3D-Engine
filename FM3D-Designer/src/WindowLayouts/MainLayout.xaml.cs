@@ -109,6 +109,10 @@ namespace FM3D_Designer.src.WindowLayouts
             MainWindow.Instance.visualStudio.Build();
         }
 
+        private void SaveProjectCMD(object sender, ExecutedRoutedEventArgs e) {
+            Project.SaveProject(this.mainWindow);
+        }
+
         private void ExportProj(object sender, RoutedEventArgs e)
         {
             //Project.SaveProject();

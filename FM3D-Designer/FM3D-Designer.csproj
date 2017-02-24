@@ -361,10 +361,11 @@
     <None Include="TestProjects\Project 0\project 0.fmproj" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.mat" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.mesh" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\SkelettTest.skel" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\TextureTest.tex" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.fm_mat" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.fm_mesh" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.fm_mod" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\SkelettTest.fm_skel" />
+    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\TextureTest.fm_tex" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\App.config" />
@@ -392,9 +393,6 @@
     <Content Include="TestProjects\Project 0\C++\GameProject.sln" />
     <Content Include="TestProjects\Project 0\C++\Main.cpp" />
     <Content Include="TestProjects\Project 0\C++\Quelle.cpp" />
-    <Content Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.mod">
-      <Generator>MSBuild:Compile</Generator>
-    </Content>
     <Resource Include="resources\images\file browser\bigicons_icon.png" />
     <Resource Include="resources\images\file browser\collapseAll_icon.png" />
     <Resource Include="resources\images\file browser\file_bigIcon.png" />
