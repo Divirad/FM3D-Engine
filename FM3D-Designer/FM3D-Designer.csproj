@@ -359,8 +359,6 @@
     <None Include="TestProjects\Project 0\C++\GameProject.vcxproj" />
     <None Include="TestProjects\Project 0\C++\GameProject.vcxproj.filters" />
     <None Include="TestProjects\Project 0\project 0.fmproj" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.x" />
-    <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\6.z" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.fm_mat" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.fm_mesh" />
     <None Include="TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.fm_mod" />
@@ -379,6 +377,7 @@
     <Resource Include="resources\images\ModelDialog\MeshPart_icon.png" />
     <Resource Include="resources\images\ModelDialog\Mesh_icon.png" />
     <Resource Include="resources\images\ModelDialog\Model_icon.png" />
+    <Resource Include="resources\images\export_icon.png" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\ConsoleApplication1.sln" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
     <Content Include="TestProjects\Project 0\C++\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />

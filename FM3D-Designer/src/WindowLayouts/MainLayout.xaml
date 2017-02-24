@@ -38,16 +38,23 @@
         </Menu>
         <ToolBarTray IsLocked="True" Grid.Row="1">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
-                <Separator />
                 <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
                 </Button>
+                <Separator />
+
+                <Button Height="30" ToolTip="Export FM3D-Project" Click="Button_Click_1">
+                    <Image Source="/FM3D-Designer;component/resources/images/export_icon.png" />
+                </Button>
+                <Separator />
+                
                 <Button Height="30" ToolTip="Build Game" Click="Build_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/build_icon.png" />
                 </Button>
                 <Button Height="30" ToolTip="Run Game" Click="Start_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/start_icon.png" />
                 </Button>
+                <Separator />
             </ToolBar>
         </ToolBarTray>
         <dd:DockSite  Grid.Row="2"  Name="dockSite" VisualStyle="Office2016">

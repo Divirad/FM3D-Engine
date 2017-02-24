@@ -106,7 +106,8 @@ namespace FM3D_Designer.src.WindowLayouts
 
         private void Build_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.visualStudio.Build();
+            //MainWindow.Instance.visualStudio.Build();
+            Project.AddClass();
         }
 
         private void SaveProjectCMD(object sender, ExecutedRoutedEventArgs e) {
@@ -116,6 +117,10 @@ namespace FM3D_Designer.src.WindowLayouts
         private void ExportProj(object sender, RoutedEventArgs e)
         {
             //Project.SaveProject();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) {
+
         }
     }
 }

@@ -148,7 +148,8 @@ namespace FM3D_Designer.src
                         xml.MoveToAttribute("name");
                         Directory f = new Directory(xml.Value);
                         xml.MoveToElement();
-                        if (xml.IsStartElement())
+                        //if (xml.IsStartElement())
+                        if (!xml.IsEmptyElement)
                         {
                             xml.MoveToContent();
                             LoadProjectFiles(f, xml);
