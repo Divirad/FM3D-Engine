@@ -26,28 +26,33 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_New"     Command="ApplicationCommands.New" />
                 <MenuItem Header="_Save"    Command="ApplicationCommands.Save" />
+            </MenuItem>
+            <MenuItem Header="_Extension">
                 <MenuItem Header="_Export"  Command="local:CustomCommands.Export"/>
                 <MenuItem Header="_Compile" Command="local:CustomCommands.Compile"/>
+                <MenuItem Header="_Start" Command="local:CustomCommands.Start"/>
             </MenuItem>
-            <MenuItem Header="_Edit" />
             <MenuItem Header="_View" >
                 <MenuItem Header="Add Window">
                     <MenuItem Header="File Browser" Click="OpenFileBrowser"/>
                     <MenuItem Header="Text Editor" Click="OpenTextEditor"/>
-                    <MenuItem Header="Entity Editor" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Window" />
-            <MenuItem Header="_Help" />
+            <MenuItem Header="_Extras" >
+                <MenuItem Header="_Contact"/>
+                <MenuItem Header="_Help"/>
+                <MenuItem Header="_Fork Us On Github.com"/>
+            </MenuItem>
         </Menu>
         <ToolBarTray IsLocked="True" Grid.Row="1">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
+                
                 <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
                 </Button>
                 <Separator />
 
-                <Button Height="30" ToolTip="Export FM3D-Project" Command="local:CustomCommands.Compile">
+                <Button Height="30" ToolTip="Export FM3D-Project" Command="local:CustomCommands.Export">
                     <Image Source="/FM3D-Designer;component/resources/images/export_icon.png" />
                 </Button>
                 <Separator />

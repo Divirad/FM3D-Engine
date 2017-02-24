@@ -1,9 +1,7 @@
 
 
-	
-class Blah
-{
-};
+
+
 namespace x {
 	namespace y {
 

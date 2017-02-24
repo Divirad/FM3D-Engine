@@ -104,9 +104,11 @@ namespace FM3D_Designer.src.WindowLayouts {
         private void OpenNewProject(object sender, RoutedEventArgs e) {
             MessageBox.Show("OPEN NEW PROJECT");
         }
-        private void Export(object sender, RoutedEventArgs e) {
+
+        private void Export(object sender, ExecutedRoutedEventArgs e) {
             Project.AddClass();
         }
+
         private void Compile(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Build();
          
