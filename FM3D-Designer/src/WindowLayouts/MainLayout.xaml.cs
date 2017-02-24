@@ -17,33 +17,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
 using System.Collections.ObjectModel;
 
-namespace FM3D_Designer.src.WindowLayouts
-{
+namespace FM3D_Designer.src.WindowLayouts {
     /// <summary>
     /// Interaction logic for MainLayout.xaml
     /// </summary>
-    public partial class MainLayout : WindowLayout
-    {
+    public partial class MainLayout : WindowLayout {
         public static MainLayout Instance { get; set; }
         public ToolWindows.FileBrowser.View fileBrowser { get; private set; }
-        public MainLayout(MainWindow mainWindow)
-        {
+        public MainLayout(MainWindow mainWindow) {
             if (Instance != null)
                 throw new InvalidOperationException("You cant create multiple objects of MainLayout!");
             Instance = this;
 
             InitializeComponent();
-            
+
             this.Header = "Main Page";
             this.Initialize(mainWindow, this.dockSite);
-            { 
+            {
                 startFileBrowser();
                 startTextEditor();
             }
         }
 
-        private void startFileBrowser()
-        {
+        private void startFileBrowser() {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
             dg.Items.Add(this.fileBrowser = new ToolWindows.FileBrowser.View(this));
@@ -54,23 +50,19 @@ namespace FM3D_Designer.src.WindowLayouts
             dg.UpdateVisibility();
         }
 
-        ~MainLayout()
-        {
+        ~MainLayout() {
             Instance = null;
         }
 
-        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e) {
             ToolBar toolBar = sender as ToolBar;
             var overflowGrid = toolBar.Template.FindName("OverflowButton", toolBar) as ButtonBase;
-            if (overflowGrid != null)
-            {
+            if (overflowGrid != null) {
                 overflowGrid.Background = toolBar.Background;
             }
         }
 
-        public void OpenFileBrowser(object sender, RoutedEventArgs e)
-        {
+        public void OpenFileBrowser(object sender, RoutedEventArgs e) {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
             dg.Items.Add(this.fileBrowser = new ToolWindows.FileBrowser.View(this));
@@ -82,45 +74,46 @@ namespace FM3D_Designer.src.WindowLayouts
             dg.UpdateVisibility();
         }
 
-        public void OpenTextEditor(object sender, RoutedEventArgs e)
-        {
+        public void OpenTextEditor(object sender, RoutedEventArgs e) {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
             dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, Dock.Right);
-            DockSite.SetDockSize(splitPanel,600);
+            DockSite.SetDockSize(splitPanel, 600);
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Start("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
         }
 
-        private void Start_Click(object sender, RoutedEventArgs e)
-        {
+        private void Start_Click(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Start(false);
         }
 
-        private void Build_Click(object sender, RoutedEventArgs e)
-        {
-            //MainWindow.Instance.visualStudio.Build();
-            Project.AddClass();
+        private void Build_Click(object sender, RoutedEventArgs e) {
+            MainWindow.Instance.visualStudio.Build();
         }
 
         private void SaveProjectCMD(object sender, ExecutedRoutedEventArgs e) {
             Project.SaveProject(this.mainWindow);
         }
-
-        private void ExportProj(object sender, RoutedEventArgs e)
-        {
-            //Project.SaveProject();
+        
+        private void OpenNewProject(object sender, RoutedEventArgs e) {
+            MessageBox.Show("OPEN NEW PROJECT");
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e) {
-
+        private void Export(object sender, RoutedEventArgs e) {
+            Project.AddClass();
+        }
+        private void Compile(object sender, RoutedEventArgs e) {
+            MainWindow.Instance.visualStudio.Build();
+         
+        }
+        private void Start(object sender, RoutedEventArgs e) {
+         
+            MainWindow.Instance.visualStudio.Start(true);
         }
     }
 }

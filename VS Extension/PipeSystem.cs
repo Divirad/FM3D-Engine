@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.VCCodeModel;
 
 namespace VS_Extension
 {
+        # region EntityClasses
     class Props {
         public string name { get; set; }
         public string type { get; set; }
@@ -34,6 +35,8 @@ namespace VS_Extension
         public List<Props> _propauto = new List<Props>();
         public List<Props> _propcustom = new List<Props>();
     }
+
+#endregion EntityClasses
 
     public static class PipeSystem
     {

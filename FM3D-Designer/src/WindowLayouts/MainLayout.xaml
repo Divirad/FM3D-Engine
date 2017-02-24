@@ -9,9 +9,13 @@
              d:DesignHeight="300" d:DesignWidth="300"
              IsMainLayout="True">
     <local:WindowLayout.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveProjectCMD" />
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="SaveProjectCMD" />
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="OpenNewProject" />
+        <CommandBinding Command="local:CustomCommands.Export"       Executed="Export" />
+        <CommandBinding Command="local:CustomCommands.Compile"      Executed="Compile" />
+        <CommandBinding Command="local:CustomCommands.Start"        Executed="Start" />
     </local:WindowLayout.CommandBindings>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -19,11 +23,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        <Menu x:Name="menu" Grid.Row="0">
-
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="New" />
-                <MenuItem Header="_Save" Command="ApplicationCommands.Save" />
-                <MenuItem Header="Export" Click="ExportProj"/>
+                <MenuItem Header="_New"     Command="ApplicationCommands.New" />
+                <MenuItem Header="_Save"    Command="ApplicationCommands.Save" />
+                <MenuItem Header="_Export"  Command="local:CustomCommands.Export"/>
+                <MenuItem Header="_Compile" Command="local:CustomCommands.Compile"/>
             </MenuItem>
             <MenuItem Header="_Edit" />
             <MenuItem Header="_View" >
@@ -43,12 +47,12 @@
                 </Button>
                 <Separator />
 
-                <Button Height="30" ToolTip="Export FM3D-Project" Click="Button_Click_1">
+                <Button Height="30" ToolTip="Export FM3D-Project" Command="local:CustomCommands.Compile">
                     <Image Source="/FM3D-Designer;component/resources/images/export_icon.png" />
                 </Button>
                 <Separator />
-                
-                <Button Height="30" ToolTip="Build Game" Click="Build_Click">
+
+                <Button Height="30" ToolTip="Build Game" Command="local:CustomCommands.Compile">
                     <Image Source="/FM3D-Designer;component/resources/images/build_icon.png" />
                 </Button>
                 <Button Height="30" ToolTip="Run Game" Click="Start_Click">

@@ -69,4 +69,41 @@ namespace FM3D_Designer.src
         }
     }
 
+
+    public static class CustomCommands {
+
+        public static readonly RoutedUICommand Export = new RoutedUICommand
+            (
+                        "Export",
+                        "Export",
+                        typeof(MainWindow),
+                        new InputGestureCollection()
+                        {
+                            new KeyGesture(Key.E, ModifierKeys.Control,"Strg+E")
+                        }
+                );
+
+        public static readonly RoutedUICommand Compile = new RoutedUICommand
+            (
+                        "Compile",
+                        "Compile",
+                        typeof(MainWindow),
+                        new InputGestureCollection()
+                        {
+                            new KeyGesture(Key.F5)
+                        }
+                );
+        public static readonly RoutedUICommand Start = new RoutedUICommand
+           (
+                       "Start",
+                       "Start",
+                       typeof(MainWindow),
+                       new InputGestureCollection()
+                       {
+                            new KeyGesture(Key.F6)
+                       }
+               );
+        //Define more commands here, just like the commands above
+    }
+
 }
