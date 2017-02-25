@@ -52,6 +52,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
         public void btn_start_Click(object sender, RoutedEventArgs e)
         {
+            //Project.TestFunctions();
             this.LoadProj(sender,  e);
         }
 
@@ -166,10 +167,7 @@ namespace FM3D_Designer.src.WindowLayouts
             Project.Load(file);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
-            //path + "\\" + varmsg_name + ".fmproj"
-
-
-
+            
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

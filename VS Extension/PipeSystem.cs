@@ -122,6 +122,8 @@ namespace VS_Extension
                             case "Start":
                                 Start();
                                 break;
+                            case "ExportEntity":
+                                break;
                             default:
                                 MessageBox.Show("Received unreadable message from FM3D-Designer", "Connection failure");
                                 break;
@@ -141,6 +143,7 @@ namespace VS_Extension
         #endregion
 
         #region Reactions
+
         private static void Start()
         {
             bool debugging = Convert.ToBoolean(reader.ReadLine());
@@ -149,7 +152,7 @@ namespace VS_Extension
             else
                 MainPackage.Instance.dte.ExecuteCommand("Debug.StartWithoutDebugging");
         }
-
+        
         private static void Build()
         {
             MainPackage.Instance.dte.ExecuteCommand("Build.BuildSolution");
@@ -195,8 +198,32 @@ namespace VS_Extension
                 bases[i] = reader.ReadLine();
             }
             EnvDTE.CodeClass class_ = manipulator.AddClass(name, bases);
-            MessageBox.Show(class_.ToString());
         }
+
+        #region Send Entities
+        private static void EntityExport() {
+
+            List<string> EntityStrings = new List<string>();
+            List<Entity> Entities = new List<Entity>();
+            //
+            // Gets EntitieNumber
+            int howmany = 0;
+            string howmanystr = "";
+            howmanystr = reader.ReadLine();
+            howmany = Convert.ToInt32(howmanystr);
+            //
+            // Gets EntitieStrings
+            for (int i=0; i<=howmany;i++) {
+                EntityStrings.Add(reader.ReadLine());
+            }
+        }
+
+        private static Entity ConvertEntityToString(string entstring) {
+            Entity result = new Entity();
+            return result;
+        }
+        #endregion
+
         #endregion
     }
 }

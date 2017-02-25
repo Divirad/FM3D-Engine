@@ -22,36 +22,6 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
 
-namespace FM3D_Designer.src
-{
-    class Props
-    {
-        public string name { get; set; }
-        public string type { get; set; }
-        public bool m_get { get; set; }
-        public bool m_set { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Component
-    {
-        public string name { get; set; }
-        public bool m_custom { get; set; }
-        public bool m_const { get; set; }
-        public bool m_standard { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Entity
-    {
-        public string name { get; set;  }
-        public List<Component> components = new List<Component>();
-        public List<Props> _propauto = new List<Props>();
-        public List<Props> _propcustom = new List<Props>();
-    }
-    
-}
-
 namespace FM3D_Designer.src.Dialogs
 {
     /// <summary>
@@ -65,7 +35,7 @@ public partial class EntityEditor : DialogBase
         private List<Component> _avaiabel = new List<Component>();
 
         private Component _selectedc = new Component();
-        private Props _selectedp = new Props();
+        private Property _selectedp = new Property();
 
         private string _path { get; set; }
 
@@ -238,16 +208,16 @@ public partial class EntityEditor : DialogBase
                     switch (check.name)
                     {
                         case "3DRender":
-                            _entity._propauto.Add(new Props() { name = "m_model", m_get = true, m_set = true, type = "Model" });
+                            _entity._propauto.Add(new Property() { name = "m_model", m_get = true, m_set = true, type = "Model" });
                             break;
                         case "Position":
-                            _entity._propauto.Add(new Props() { name = "m_position", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_position", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         case "Rotation":
-                            _entity._propauto.Add(new Props() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         case "Size":
-                            _entity._propauto.Add(new Props() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         default:
                             break;
@@ -259,7 +229,7 @@ public partial class EntityEditor : DialogBase
 
         private void DeletePropauto(string prop)
         {
-            foreach(Props prop_ in _entity._propauto)
+            foreach(Property prop_ in _entity._propauto)
             {
                 if (prop_.name == prop) { _entity._propauto.Remove(prop_); }
             }
@@ -322,7 +292,7 @@ public partial class EntityEditor : DialogBase
                     }
                     if (xml.Name == "Property")
                     {
-                        Props temp = new Props();
+                        Property temp = new Property();
                         xml.MoveToAttribute("name");
                         temp.name = xml.Value;
 
@@ -375,7 +345,7 @@ public partial class EntityEditor : DialogBase
                     writer.WriteEndElement();
                 }
 
-                foreach (Props prop in _entity._propauto)
+                foreach (Property prop in _entity._propauto)
                 {
                     writer.WriteStartElement("Property");
                     writer.WriteAttributeString("name", prop.name);
@@ -386,7 +356,7 @@ public partial class EntityEditor : DialogBase
                     writer.WriteEndElement();
                 }
 
-                foreach (Props prop in _entity._propcustom)
+                foreach (Property prop in _entity._propcustom)
                 {
                     writer.WriteStartElement("Property");
                     writer.WriteAttributeString("name", prop.name);
@@ -410,14 +380,14 @@ public partial class EntityEditor : DialogBase
 
         private void tb_propcustom_Click(object sender, RoutedEventArgs e)
         {
-            _entity._propcustom.Add(new Props() { name = (string)tb_propnam.Text, type=(string)tb_proptype.Text });
+            _entity._propcustom.Add(new Property() { name = (string)tb_propnam.Text, type=(string)tb_proptype.Text });
             this.Refresh();
             //.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
 
         private void bt_deletecustomprop(object sender, RoutedEventArgs e)
         {
-            foreach (Props temp in _entity._propcustom)
+            foreach (Property temp in _entity._propcustom)
             {
                 if (temp.m_selected == true)
                 {

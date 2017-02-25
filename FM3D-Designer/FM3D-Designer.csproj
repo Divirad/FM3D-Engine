@@ -102,6 +102,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Compiler.cs" />
+    <Compile Include="src\EntityClasses\Component.cs" />
+    <Compile Include="src\EntityClasses\Entity.cs" />
+    <Compile Include="src\EntityClasses\Properties.cs" />
     <Compile Include="src\NullToVisibilityConverter.cs" />
     <Compile Include="src\PipeSystem.cs" />
     <Compile Include="src\Dialogs\ChangeMeshDialog.xaml.cs">
