@@ -191,6 +191,19 @@ namespace FM3D_Designer.src
             }
         }
 
+        internal void SendAllEntities(List<string> entities) {
+                foreach (string entity in entities) {
+                    SendEntity(entity);
+                }
+        }
+
+        internal void SendEntity(string entity) {
+            lock (actionMutex) {
+                    writer.WriteLine(COMMAND + "CreateEntity");
+                    writer.WriteLine(entity);
+            }
+        }
+
         public void SendStart(bool debugging)
         {
             lock (actionMutex)

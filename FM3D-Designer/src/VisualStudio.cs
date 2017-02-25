@@ -162,5 +162,14 @@ namespace FM3D_Designer.src
                 pipeSystem.SendBuild();
             }
         }
+
+        public void SendEntities(List<string> entities) {
+            lock (mutex) {
+                    if (!_IsStarted)
+                        throw new InvalidOperationException("Visual Studio is not started!");
+                    pipeSystem.SendEntity(entities);
+            }
+        }
     }
 }
+

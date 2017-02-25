@@ -12,32 +12,6 @@ using Microsoft.VisualStudio.VCCodeModel;
 
 namespace VS_Extension
 {
-        # region EntityClasses
-    class Props {
-        public string name { get; set; }
-        public string type { get; set; }
-        public bool m_get { get; set; }
-        public bool m_set { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Component {
-        public string name { get; set; }
-        public bool m_custom { get; set; }
-        public bool m_const { get; set; }
-        public bool m_standard { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Entity {
-        public string name { get; set; }
-        public List<Component> components = new List<Component>();
-        public List<Props> _propauto = new List<Props>();
-        public List<Props> _propcustom = new List<Props>();
-    }
-
-#endregion EntityClasses
-
     public static class PipeSystem
     {
         #region Pipe stuff

@@ -361,7 +361,7 @@ namespace FM3D_Designer.src
             MainWindow.Instance.visualStudio.AddClass("Fischilein", "Quelle.cpp", new string[] { "Blah" });
         }
 
-        public static void TestFunctions() {
+        public static void TestEntityConvertTostr() {
             Entity blah = new Entity();
             blah.name = "ENTITYYY";
             blah._propauto.Add(new Property { name = "Prop1", type = "Type1", m_get = true, m_selected = true, m_set = true });
