@@ -52,7 +52,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
         public void btn_start_Click(object sender, RoutedEventArgs e)
         {
-            //Project.TestFunctions();
+            //Project.TestEntityConvertTostr();
             this.LoadProj(sender,  e);
         }
 

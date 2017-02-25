@@ -379,7 +379,15 @@ namespace FM3D_Designer.src
             
             MessageBox.Show(blah.ToString(true));
             MessageBox.Show(blah.ToString(false));
-            Entity a = new Entity(blah.ToString());
+            MessageBox.Show("Converting to StringList");
+
+            List<string> entities = new List<string>();
+            entities.Add(blah.ToString());
+            MessageBox.Show("Sending it via. PIPE");
+            MainWindow.Instance.visualStudio.SendEntities(entities);
+
+
+
         }
     }
 }

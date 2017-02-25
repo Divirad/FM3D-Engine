@@ -106,7 +106,7 @@ namespace FM3D_Designer.src.WindowLayouts {
         }
 
         private void Export(object sender, ExecutedRoutedEventArgs e) {
-            Project.AddClass();
+            Project.TestEntityConvertTostr();
         }
 
         private void Compile(object sender, RoutedEventArgs e) {

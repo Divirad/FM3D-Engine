@@ -167,7 +167,7 @@ namespace FM3D_Designer.src
             lock (mutex) {
                     if (!_IsStarted)
                         throw new InvalidOperationException("Visual Studio is not started!");
-                    pipeSystem.SendEntity(entities);
+                    pipeSystem.SendAllEntities(entities);
             }
         }
     }
