@@ -9,6 +9,10 @@
              x:Class="FM3D_Designer.src.ToolWindows.TextEditor.TextEditor"
              mc:Ignorable="d"
              Width="600" Height="600">
+    <fm:ToolWindow.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="CommandBinding_Executed" />
+    </fm:ToolWindow.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -17,22 +21,8 @@
         
         <Menu x:Name="men_texteditor" Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="New" Command="New">
-                </MenuItem>
-                <MenuItem Header="Open" Command="Open"/>
-                <Separator />
-                <MenuItem Header="Add Item" />
-                <Separator />
-                <MenuItem Header="Close" />
-                <MenuItem Header="Close Project" />
-                <Separator />
-                <MenuItem Header="Save" Command="Save" />
-                <MenuItem Header="Save All" />
-                <MenuItem Header="Save As..." Command="SaveAs" />
-                <Separator />
-                <MenuItem Header="Last File" />
-                <MenuItem Header="Last Project" />
-                <Separator />
+
+                <MenuItem Header="Save" Command="ApplicationCommands.Save" />
                 <MenuItem Header="Exit" />
             </MenuItem>
             <MenuItem Header="_Edit">

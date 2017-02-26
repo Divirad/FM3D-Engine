@@ -177,9 +177,12 @@ namespace VS_Extension
 
         #region Export Entities
         private static void CreateEntity() {
+            CodeManipulator manipulator = new CodeManipulator("Quelle.cpp");
             Entity temp = new Entity(reader.ReadLine());
             MessageBox.Show(temp.ToString(true));
             MessageBox.Show(temp.ToString(false));
+
+            manipulator.AddAttribute("", "", "");
         }
         #endregion
 

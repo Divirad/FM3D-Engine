@@ -269,12 +269,22 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     menu.Items.Add(menu_res);
                     menu.Items.Add(menu_adde);
                 }
-                else
+                else if (this.type == ItemTypes.Directory)
                 {
                     var menu_ee = new MenuItem();
                     menu_ee.Header = "Edit Entity";
                     menu_ee.Click += OnEntityEditor;
                     menu.Items.Add(menu_ee);
+
+                    var menu_ot = new MenuItem();
+                    menu_ot.Header = "Open in TextEditor";
+                    menu_ot.Click += OnTextEditor;
+                    menu.Items.Add(menu_ot);
+                } else {
+                    var menu_ot = new MenuItem();
+                    menu_ot.Header = "Open in TextEditor";
+                    menu_ot.Click += OnTextEditor;
+                    menu.Items.Add(menu_ot);
                 }
 
                 return menu;
@@ -290,6 +300,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         {
             var window = Application.Current.MainWindow as MetroWindow;
             window.ShowEntityEditor(false, this.Path);
+        }
+
+        private void OnTextEditor(object sender, EventArgs args) {
+            FM3D_Designer.src.WindowLayouts.MainLayout.Instance.startTextEditor(this.Path);
         }
 
         private async void OnEntityEditorNew(object sender, EventArgs args)

@@ -10,7 +10,7 @@
              IsMainLayout="True">
     <local:WindowLayout.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Save"          Executed="SaveProjectCMD" />
-        <CommandBinding Command="ApplicationCommands.Save"          Executed="OpenNewProject" />
+        <CommandBinding Command="ApplicationCommands.New"          Executed="OpenNewProject" />
         <CommandBinding Command="local:CustomCommands.Export"       Executed="Export" />
         <CommandBinding Command="local:CustomCommands.Compile"      Executed="Compile" />
         <CommandBinding Command="local:CustomCommands.Start"        Executed="Start" />

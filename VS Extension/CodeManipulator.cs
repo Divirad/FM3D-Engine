@@ -40,5 +40,19 @@ namespace VS_Extension
         {
             return model.AddClass(name, 0, bases);
         }
+
+        public bool AddAttribute(string method, string atname, string atvalue) {
+
+            MessageBox.Show(model.Namespaces.ToString());
+           
+            if (!model.Namespaces.ToString().Contains("EntitySpace")) {
+                model.AddNamespace("EntitySpace");
+            } else { MessageBox.Show("NUUUUUU"); }
+
+            //if (model.ValidateMember("Method1", vsCMElement.vsCMElementFunction, type)) {
+            //    classElement.AddFunction("Method1", vsCMFunction.vsCMFunctionFunction, type);
+            //}
+            return true;
+        }
     }
 }

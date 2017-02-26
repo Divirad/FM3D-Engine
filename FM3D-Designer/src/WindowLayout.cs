@@ -45,5 +45,9 @@ namespace FM3D_Designer.src
 
             this.docksite = docksite;
         }
+
+        internal Task ShowMessageAsync(string v1, string v2) {
+            throw new NotImplementedException();
+        }
     }
 }

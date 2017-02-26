@@ -96,7 +96,7 @@ namespace VS_Extension
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            TestAddClass();
         }
 
         private void OutputCode(ref string output, CodeElements elements, string space)
@@ -109,6 +109,10 @@ namespace VS_Extension
 
                 OutputCode(ref output, e.Children as VCCodeElements, space + "  ");
             }
+        }
+
+        private void TestAddClass() {
+            MessageBox.Show("BLAHHH");
         }
     }
 }
