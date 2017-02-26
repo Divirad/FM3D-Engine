@@ -55,7 +55,7 @@ namespace FM3D_Designer.src.ToolWindows.TextEditor
             if (System.IO.File.Exists(_path)) {
                 System.IO.File.WriteAllText(_path, richText);
             } else {
-                MainWindow.Instance.ShowMessageAsync("Error", "File does not Exist....");
+                await MainWindow.Instance.ShowMessageAsync("Error", "File does not Exist....");
             }
         }
     }
