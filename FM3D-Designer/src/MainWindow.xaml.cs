@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using DevComponents.WpfDock;
 using MahApps.Metro.Controls;
+using System.ComponentModel;
 
 ///Hauptnamespace
 /**
@@ -30,12 +31,29 @@ namespace FM3D_Designer.src
      * aussehende style wird durch die Basisklasse MetroAppWindow
      * hervorgerufen.
      */
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
         public static MainWindow Instance { get; private set; } = null;
 
         public VisualStudio visualStudio { get; private set; } = new VisualStudio();
         public Compiler compiler { get; private set; } = new Compiler();
+
+        private Brush statusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));    //Standard blue
+        public Brush StatusColor
+        {
+            get
+            {
+                return statusColor;
+            }
+            set
+            {
+                if (value != statusColor)
+                {
+                    statusColor = value;
+                    OnPropertyChanged("StatusColor");
+                }
+            }
+        }
 
         public MainWindow()
         {
@@ -67,6 +85,15 @@ namespace FM3D_Designer.src
         {
             visualStudio.Close();
         }
+
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string name)
+        {
+            if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+        #endregion
     }
 
 

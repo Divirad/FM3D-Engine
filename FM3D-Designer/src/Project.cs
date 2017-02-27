@@ -65,9 +65,9 @@ namespace FM3D_Designer.src
 
         private const string ProjectFilesDirectory = "/ProjectFiles";
 
-        public string _Name { get; set; }
-        public string _Directory { get; set; }
-        public RootDirectory ProjectFiles { get; set; }
+        public string _Name { get; private set; }
+        public string _Directory { get; private set; }
+        public RootDirectory ProjectFiles { get; private set; }
         private static Project _CurrentProject = null;
         public static Project CurrentProject { get { return _CurrentProject; } }
 
@@ -231,7 +231,7 @@ namespace FM3D_Designer.src
     /// 
     /// #################################FM3D XML ####################################################
     /// 
-                System.Random t = new Random(23);
+                System.Random t = new Random();
                 int rb = t.Next(100000, 1000000);
 
                 System.Random a = new Random(rb);

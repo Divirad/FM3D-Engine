@@ -9,15 +9,24 @@
         x:Class="FM3D_Designer.src.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
+        x:Name="root"
         Height="720" Width="1280" Closing="MetroWindow_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" LastChildFill="True">
+            <dd:DockSite x:Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">
+                <dd:SplitPanel>
+                    <dd:DockWindowGroup Name="dockingGroup" >
 
-    <DockPanel LastChildFill="True">
-        <dd:DockSite x:Name="dockSite" Margin="4,0,4,0" VisualStyle="Office2016">
-            <dd:SplitPanel>
-                <dd:DockWindowGroup Name="dockingGroup" >
-
-                </dd:DockWindowGroup>
-            </dd:SplitPanel>
-        </dd:DockSite>
-    </DockPanel>
+                    </dd:DockWindowGroup>
+                </dd:SplitPanel>
+            </dd:DockSite>
+        </DockPanel>
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" Background="{Binding StatusColor, ElementName=root}">
+            <TextBlock Margin="10, 0" VerticalAlignment="Center" Text="Halluuu"/>
+        </StackPanel>
+    </Grid>
 </Controls:MetroWindow>

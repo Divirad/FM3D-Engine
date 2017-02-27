@@ -57,8 +57,8 @@ namespace FM3D {
 #include <src/Utilities/StringUtilities.h>
 #include <src/EventSystem.h>
 
-#include <src/Window.h>
-#include <src/Win32Window.h>
+#include <src/WindowSystem/Window.h>
+#include <src/WindowSystem/Win32Window.h>
 #include <src/input.h>
 #include <src/Utilities/CompCoords.h>	///
 
@@ -68,7 +68,7 @@ namespace FM3D {
 #include <src/EntitySystem/EntityCollection.h>
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
-#include <src/EntitySystem/Manager.h>
+#include <src/EntitySystem/EntityLogic.h>
 #include <src/EntitySystem/ComponentArgs.h>
 
 #include <src/BasicComponents.h>

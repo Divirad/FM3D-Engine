@@ -176,7 +176,7 @@ namespace FM3D {
 			* Der Konstruktor ist privat, da FM3D::Entity-Objekt nur in einer
 			* FM3D::EntityCollection erstellt werden sollen.
 			*
-			* @param collecttion	Pointer auf die FM3D::EntityCollection, die das
+			* @param collection	Pointer auf die FM3D::EntityCollection, die das
 									FM3D::Entity erstellt hat. Wird #m_collection zugewiesen.
 			* @param id				Id des FM3D::Entity-Objekts. Wird #m_id zugewiesen.
 			*/

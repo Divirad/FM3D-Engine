@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace FM3D_Designer.src {
-    class SC {
+    static class SC {
         public static char SEPVAL = ';';  // Char for seperating Values
         public static char SEP_PC = '!';   // Seperates The Properties and Components in Lists
         public static char SEPENT = '|';  // Seperate: Name|List1|List2|List3

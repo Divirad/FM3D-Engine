@@ -154,7 +154,6 @@
     <Compile Include="src\GLControl.xaml.cs">
       <DependentUpon>GLControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ProjectXML.cs" />
     <Compile Include="src\Theme.cs" />
     <Compile Include="src\DocumentWindows\TextureViewPort.xaml.cs">
       <DependentUpon>TextureViewPort.xaml</DependentUpon>

@@ -86,7 +86,9 @@ namespace FM3D_Designer.src.WindowLayouts {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            MainWindow.Instance.visualStudio.Start("FM3D_PIPE_EPIC_GAME_5754656", Project.CurrentProject._Directory + "/C++/GameProject.sln");
+            FM3DPropertyFile fmFile = new FM3DPropertyFile();
+            fmFile.Load(Project.CurrentProject.GetProjectPath() + "/Cpp/fm3d.xml");
+            MainWindow.Instance.visualStudio.Start(fmFile.PipeName, Project.CurrentProject._Directory + "/Cpp/GameProject.sln");
         }
 
         private void Start_Click(object sender, RoutedEventArgs e) {
