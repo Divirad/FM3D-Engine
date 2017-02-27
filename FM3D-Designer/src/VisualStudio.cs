@@ -127,7 +127,7 @@ namespace FM3D_Designer.src
             lock (mutex)
             {
                 if (!_IsStarted)
-                    throw new InvalidOperationException("Visual Studio is not started!");
+                    throw new InvalidOperationException("Visual Studio is not started!"); 
                 pipeSystem.SendAddClass(name, file, bases);
             }
         }
@@ -162,5 +162,14 @@ namespace FM3D_Designer.src
                 pipeSystem.SendBuild();
             }
         }
+
+        public void SendEntities(List<string> entities) {
+            lock (mutex) {
+                    if (!_IsStarted)
+                        throw new InvalidOperationException("Visual Studio is not started!");
+                    pipeSystem.SendAllEntities(entities);
+            }
+        }
     }
 }
+

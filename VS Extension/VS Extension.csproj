@@ -54,6 +54,9 @@
     <Compile Include="CodeAnalyzer.cs" />
     <Compile Include="CodeManipulator.cs" />
     <Compile Include="Command1.cs" />
+    <Compile Include="EntityClasses\Component.cs" />
+    <Compile Include="EntityClasses\Entity.cs" />
+    <Compile Include="EntityClasses\Properties.cs" />
     <Compile Include="FM3DPropertyFile.cs" />
     <Compile Include="MainPackage.cs" />
     <Compile Include="PipeSystem.cs" />

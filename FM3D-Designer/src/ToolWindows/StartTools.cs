@@ -47,21 +47,31 @@ namespace FM3D_Designer.src.WindowLayouts
         //    startFileBrowser();
         //}
 
-        public void startTextEditor(Dock dock, int docksize)
+        public void startTextEditor(Dock dock, int docksize, string path="")
         {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
-            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this));
+            dg.Items.Add(new ToolWindows.TextEditor.TextEditor(this, path));
             splitPanel.Children.Add(dg);
             DockSite.SetDock(splitPanel, dock);
             DockSite.SetDockSize(splitPanel, docksize);
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
+
+        public void startTextEditor(Dock dock, string path) {
+            startTextEditor(dock, 600, path);
+        }
+
         public void startTextEditor(Dock dock)
         {
             startTextEditor(dock, 600);
         }
+
+        public void startTextEditor(string path) {
+            startTextEditor(Dock.Top, 600, path);
+        }
+
         public void startTextEditor()
         {
             startTextEditor(Dock.Top, 600);

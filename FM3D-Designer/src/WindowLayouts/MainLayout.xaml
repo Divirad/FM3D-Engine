@@ -8,6 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              IsMainLayout="True">
+    <local:WindowLayout.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="SaveProjectCMD" />
+        <CommandBinding Command="ApplicationCommands.New"          Executed="OpenNewProject" />
+        <CommandBinding Command="local:CustomCommands.Export"       Executed="Export" />
+        <CommandBinding Command="local:CustomCommands.Compile"      Executed="Compile" />
+        <CommandBinding Command="local:CustomCommands.Start"        Executed="Start" />
+    </local:WindowLayout.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,34 +23,47 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        <Menu x:Name="menu" Grid.Row="0">
-            <MenuItem Header="_Edit">
-                <MenuItem Header="_New" Command="New" />
-                <MenuItem Header="Export" Click="ExportProj"></MenuItem>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New"     Command="ApplicationCommands.New" />
+                <MenuItem Header="_Save"    Command="ApplicationCommands.Save" />
             </MenuItem>
-            <MenuItem Header="_File" />
-            <MenuItem Header="_Edit" />
+            <MenuItem Header="_Extension">
+                <MenuItem Header="_Export"  Command="local:CustomCommands.Export"/>
+                <MenuItem Header="_Compile" Command="local:CustomCommands.Compile"/>
+                <MenuItem Header="_Start" Command="local:CustomCommands.Start"/>
+            </MenuItem>
             <MenuItem Header="_View" >
                 <MenuItem Header="Add Window">
                     <MenuItem Header="File Browser" Click="OpenFileBrowser"/>
                     <MenuItem Header="Text Editor" Click="OpenTextEditor"/>
-                    <MenuItem Header="Entity Editor" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Window" />
-            <MenuItem Header="_Help" />
+            <MenuItem Header="_Extras" >
+                <MenuItem Header="_Contact"/>
+                <MenuItem Header="_Help"/>
+                <MenuItem Header="_Fork Us On Github.com"/>
+            </MenuItem>
         </Menu>
         <ToolBarTray IsLocked="True" Grid.Row="1">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
-                <Separator />
+                
                 <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
                 </Button>
-                <Button Height="30" ToolTip="Build Game" Click="Build_Click">
+                <Separator />
+
+                <Button Height="30" ToolTip="Export FM3D-Project" Command="local:CustomCommands.Export">
+                    <Image Source="/FM3D-Designer;component/resources/images/export_icon.png" />
+                </Button>
+                <Separator />
+
+                <Button Height="30" ToolTip="Build Game" Command="local:CustomCommands.Compile">
                     <Image Source="/FM3D-Designer;component/resources/images/build_icon.png" />
                 </Button>
                 <Button Height="30" ToolTip="Run Game" Click="Start_Click">
                     <Image Source="/FM3D-Designer;component/resources/images/start_icon.png" />
                 </Button>
+                <Separator />
             </ToolBar>
         </ToolBarTray>
         <dd:DockSite  Grid.Row="2"  Name="dockSite" VisualStyle="Office2016">

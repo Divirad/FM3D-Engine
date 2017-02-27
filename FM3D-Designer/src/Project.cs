@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FM3D_Designer.src
 {
@@ -147,7 +148,8 @@ namespace FM3D_Designer.src
                         xml.MoveToAttribute("name");
                         Directory f = new Directory(xml.Value);
                         xml.MoveToElement();
-                        if (xml.IsStartElement())
+                        //if (xml.IsStartElement())
+                        if (!xml.IsEmptyElement)
                         {
                             xml.MoveToContent();
                             LoadProjectFiles(f, xml);
@@ -281,10 +283,10 @@ namespace FM3D_Designer.src
         private bool AnalyseChildren(XmlWriter writer, ToolWindows.FileBrowser.Item i) {
 
             foreach (ToolWindows.FileBrowser.Item child in i.Children) {
-                MessageBox.Show(child.Name);
+                
                 if (child.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
                     writer.WriteStartElement(child.type.ToString().Replace(" ", ""));
-                    MessageBox.Show(child.Name+"\n"+"Gehört dazu!!!!");
+                    
                     writer.WriteAttributeString("name", child.Name);
                     writer.WriteAttributeString("type", child.type.ToString().Replace(" ", ""));
                     writer.WriteAttributeString("path", child.Path);
@@ -299,60 +301,93 @@ namespace FM3D_Designer.src
             return true;
         }
 
-        public static void SaveProject()
-        {
-            string path = Project.CurrentProject._Directory + "\\" + Project.CurrentProject._Name + ".fmproj";
-            MessageBox.Show(Project.CurrentProject._Directory+"\n"+Project.CurrentProject._Name);
+        public static async void SaveProject(MainWindow w) {
+            double progress = 0.0;
+            var controller = await w.ShowProgressAsync("Please wait... DON'T CLOSE THE PROGRAMM", "Saving Process Started...");
 
+            controller.SetProgress(progress);
+            string path = Project.CurrentProject._Directory + "\\" + Project.CurrentProject._Name + ".fmproj";
+            
             if (System.IO.File.Exists(path) == true) {
                 System.IO.File.Delete(path);
+                controller.SetMessage("Overwriting Old File...");
             }
+            progress = 0.3;
+            controller.SetProgress(progress);
+            controller.SetMessage("Saving Files Into The FM3D-Project-File...");
 
             using (XmlWriter writer = XmlWriter.Create(path)) {
                 writer.WriteStartDocument();
-                    writer.WriteStartElement("Project");
-                    writer.WriteAttributeString("name", Project.CurrentProject._Name);
-                        
-                                foreach(ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
-                                    writer.WriteStartElement("ProjectFiles");
-                                    writer.WriteAttributeString("name", i.Name);
-                                    Project.CurrentProject.AnalyseChildren(writer, i);
-                                    writer.WriteEndElement();
-                                    }
+                writer.WriteStartElement("Project");
+                writer.WriteAttributeString("name", Project.CurrentProject._Name);
 
-                                    writer.WriteStartElement("CPlusPlus");
-                                        writer.WriteStartElement("FM3D_File");
-                                        writer.WriteAttributeString("name", "fm3d.xml");
-                                        writer.WriteEndElement();
-                                        writer.WriteStartElement("Solution");
-                                        writer.WriteAttributeString("name", "GameProject.sln");
-                                        writer.WriteEndElement();
-                                    writer.WriteEndElement();
-                        
+                foreach (ToolWindows.FileBrowser.Item i in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
+                    writer.WriteStartElement("ProjectFiles");
+                    writer.WriteAttributeString("name", i.Name);
+                    Project.CurrentProject.AnalyseChildren(writer, i);
                     writer.WriteEndElement();
+                }
+                progress = 0.8;
+                controller.SetProgress(progress);
+                controller.SetMessage("Writging Pipe Information...");
+
+                writer.WriteStartElement("CPlusPlus");
+                writer.WriteStartElement("FM3D_File");
+                writer.WriteAttributeString("name", "fm3d.xml");
+                writer.WriteEndElement();
+                progress = 0.9;
+                controller.SetProgress(progress);
+
+                controller.SetMessage("Writging Solution Information...");
+                writer.WriteStartElement("Solution");
+                writer.WriteAttributeString("name", "GameProject.sln");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
                 writer.WriteEndDocument();
+                progress = 1.0;
+                controller.SetProgress(progress);
+                await controller.CloseAsync();
+
 
             }
 
-                //MainWindow.Instance.visualStudio.AddClass("");
-                //foreach (ToolWindows.FileBrowser.Item it in ToolWindows.FileBrowser.View.Instance.logic.RootDirectories) {
-                //    //DO SOME FANCY STUFF
-                //    MessageBox.Show(it.ToString());
+        }
+        public static void AddClass() {
+            MainWindow.Instance.visualStudio.AddClass("Blah", "Quelle.cpp");
 
-                //    foreach (ToolWindows.FileBrowser.Item it1 in it.Children) {
-                //        MessageBox.Show(it1.ToString());
-                //        //DO SOME FANCY STUFF
-                //        foreach (ToolWindows.FileBrowser.Item it2 in it1.Children) {
-                //            MessageBox.Show(it2.ToString());
-                //            //DO SOME FANCY STUFF
-                //            foreach (ToolWindows.FileBrowser.Item it3 in it2.Children) {
-                //                MessageBox.Show(it3.ToString());
-                //            }
-                //        }
-                //    }
-                //}
-                //CLOSE LE XML PROJECT
-            }
+            MainWindow.Instance.visualStudio.AddClass("Blah2", "Quelle.cpp");
+            MainWindow.Instance.visualStudio.AddClass("Fischilein", "Quelle.cpp", new string[] { "Blah" });
+        }
 
+        public static void TestEntityConvertTostr() {
+            Entity blah = new Entity();
+            blah.name = "ENTITYYY";
+            blah._propauto.Add(new Property { name = "Prop1", type = "Type1", m_get = true, m_selected = true, m_set = true });
+            blah._propauto.Add(new Property { name = "Prop2", type = "Type2", m_get = true, m_selected = true, m_set = true });
+            blah._propauto.Add(new Property { name = "Prop3", type = "Type3", m_get = true, m_selected = true, m_set = true });
+
+            blah._propcustom.Add(new Property { name = "PropCustom1", type = "TypeCustom1", m_get = false, m_selected = false, m_set = false });
+            blah._propcustom.Add(new Property { name = "PropCustom2", type = "TypeCustom2", m_get = false, m_selected = false, m_set = false });
+            blah._propcustom.Add(new Property { name = "PropCustom3", type = "TypeCustom3", m_get = false, m_selected = false, m_set = false });
+
+            blah.components.Add(new Component { name = "Comp1", m_const = true, m_custom = true, m_selected = true, m_standard = true });
+            blah.components.Add(new Component { name = "Comp2", m_const = false, m_custom = false, m_selected = false, m_standard = false });
+            blah.components.Add(new Component { name = "Comp3", m_const = true, m_custom = true, m_selected = true, m_standard = true });
+            blah.components.Add(new Component { name = "Comp4", m_const = false, m_custom = false, m_selected = false, m_standard = false });
+            
+            MessageBox.Show(blah.ToString(true));
+            MessageBox.Show(blah.ToString(false));
+            MessageBox.Show("Converting to StringList");
+
+            List<string> entities = new List<string>();
+            entities.Add(blah.ToString());
+            MessageBox.Show("Sending it via. PIPE");
+            MainWindow.Instance.visualStudio.SendEntities(entities);
+
+
+
+        }
     }
 }

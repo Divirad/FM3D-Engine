@@ -51,7 +51,7 @@ namespace VS_Extension
         {
             var current = Process.GetCurrentProcess();
             string id = current.Id.ToString();
-
+            
             pipe = new NamedPipeClientStream(".", pipename, PipeDirection.InOut);
             try
             {
@@ -96,6 +96,9 @@ namespace VS_Extension
                             case "Start":
                                 Start();
                                 break;
+                            case "CreateEntity":
+                                CreateEntity();
+                                break;
                             default:
                                 MessageBox.Show("Received unreadable message from FM3D-Designer", "Connection failure");
                                 break;
@@ -115,6 +118,7 @@ namespace VS_Extension
         #endregion
 
         #region Reactions
+
         private static void Start()
         {
             bool debugging = Convert.ToBoolean(reader.ReadLine());
@@ -123,7 +127,7 @@ namespace VS_Extension
             else
                 MainPackage.Instance.dte.ExecuteCommand("Debug.StartWithoutDebugging");
         }
-
+        
         private static void Build()
         {
             MainPackage.Instance.dte.ExecuteCommand("Build.BuildSolution");
@@ -168,9 +172,20 @@ namespace VS_Extension
             {
                 bases[i] = reader.ReadLine();
             }
-
-            manipulator.AddClass(name, bases);
+            EnvDTE.CodeClass class_ = manipulator.AddClass(name, bases);
         }
+
+        #region Export Entities
+        private static void CreateEntity() {
+            CodeManipulator manipulator = new CodeManipulator("Quelle.cpp");
+            Entity temp = new Entity(reader.ReadLine());
+            MessageBox.Show(temp.ToString(true));
+            MessageBox.Show(temp.ToString(false));
+
+            manipulator.AddAttribute("", "", "");
+        }
+        #endregion
+
         #endregion
     }
 }

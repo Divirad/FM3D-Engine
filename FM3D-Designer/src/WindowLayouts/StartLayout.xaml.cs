@@ -52,6 +52,7 @@ namespace FM3D_Designer.src.WindowLayouts
 
         public void btn_start_Click(object sender, RoutedEventArgs e)
         {
+            //Project.TestEntityConvertTostr();
             this.LoadProj(sender,  e);
         }
 
@@ -64,7 +65,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 return false;
             }
 
-            if (!xmlfile.Contains("ProjectFiles") || !xmlfile.Contains("/ProjectFiles"))
+            if (!xmlfile.Contains("ProjectFiles"))
             {
                 ShowMessage("Error", "This project is damaged!\nNo ProjectFiles found!");
                 return false;
@@ -89,12 +90,12 @@ namespace FM3D_Designer.src.WindowLayouts
             }
 
 
-            if (!xmlfile.Contains("<Directory"))
+            if (!xmlfile.Contains("Directory"))
             {
                 ShowMessage("Warning!", "This project does not contain any directory!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
             }
 
-            if (!xmlfile.Contains("<File"))
+            if (!xmlfile.Contains("File"))
             {
                 ShowMessage("Warning!", "This project does not contain any file!\n It will become confusing for you!\nCREATE SOME WITH THIS FANCY ENGINE!");
             }
@@ -166,10 +167,7 @@ namespace FM3D_Designer.src.WindowLayouts
             Project.Load(file);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
-            //path + "\\" + varmsg_name + ".fmproj"
-
-
-
+            
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

@@ -22,34 +22,6 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
 
-namespace FM3D_Designer.src
-{
-    class Props
-    {
-        public string name { get; set; }
-        public string type { get; set; }
-        public bool m_get { get; set; }
-        public bool m_set { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Component
-    {
-        public string name { get; set; }
-        public bool m_custom { get; set; }
-        public bool m_const { get; set; }
-        public bool m_standard { get; set; }
-        public bool m_selected { get; set; }
-    }
-
-    class Entity
-    {
-        public string name { get; set;  }
-        public List<Component> components = new List<Component>();
-    }
-    
-}
-
 namespace FM3D_Designer.src.Dialogs
 {
     /// <summary>
@@ -61,11 +33,9 @@ public partial class EntityEditor : DialogBase
     {
         private Entity _entity = new Entity();
         private List<Component> _avaiabel = new List<Component>();
-        private List<Props> _propauto = new List<Props>();
-        private List<Props> _propcustom = new List<Props>();
 
         private Component _selectedc = new Component();
-        private Props _selectedp = new Props();
+        private Property _selectedp = new Property();
 
         private string _path { get; set; }
 
@@ -104,8 +74,8 @@ public partial class EntityEditor : DialogBase
         private void LoadListBox()
         {
             lb_comp.ItemsSource = _entity.components;
-            lb_auto.ItemsSource = _propauto;
-            lb_custom.ItemsSource = _propcustom;
+            lb_auto.ItemsSource = _entity._propauto;
+            lb_custom.ItemsSource = _entity._propcustom;
             
         }
 
@@ -217,14 +187,14 @@ public partial class EntityEditor : DialogBase
 
         private void cb_standard_Checked(object sender, RoutedEventArgs e)
         {
-            _propauto.Clear();
+            _entity._propauto.Clear();
             AutoProps();
             this.Refresh();
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            _propauto.Clear();
+            _entity._propauto.Clear();
             AutoProps();
             this.Refresh();
 
@@ -238,16 +208,16 @@ public partial class EntityEditor : DialogBase
                     switch (check.name)
                     {
                         case "3DRender":
-                            _propauto.Add(new Props() { name = "m_model", m_get = true, m_set = true, type = "Model" });
+                            _entity._propauto.Add(new Property() { name = "m_model", m_get = true, m_set = true, type = "Model" });
                             break;
                         case "Position":
-                            _propauto.Add(new Props() { name = "m_position", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_position", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         case "Rotation":
-                            _propauto.Add(new Props() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         case "Size":
-                            _propauto.Add(new Props() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
+                            _entity._propauto.Add(new Property() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
                             break;
                         default:
                             break;
@@ -259,9 +229,9 @@ public partial class EntityEditor : DialogBase
 
         private void DeletePropauto(string prop)
         {
-            foreach(Props prop_ in _propauto)
+            foreach(Property prop_ in _entity._propauto)
             {
-                if (prop_.name == prop) { _propauto.Remove(prop_); }
+                if (prop_.name == prop) { _entity._propauto.Remove(prop_); }
             }
         }
 
@@ -322,7 +292,7 @@ public partial class EntityEditor : DialogBase
                     }
                     if (xml.Name == "Property")
                     {
-                        Props temp = new Props();
+                        Property temp = new Property();
                         xml.MoveToAttribute("name");
                         temp.name = xml.Value;
 
@@ -340,11 +310,11 @@ public partial class EntityEditor : DialogBase
                         if (Convert.ToBoolean(xml.Value) == true)
                         {
                             //Abfragen
-                            _propauto.Add(temp);
+                            _entity._propauto.Add(temp);
                         }
                         else
                         {
-                            _propcustom.Add(temp);
+                            _entity._propcustom.Add(temp);
                         }
                     }
                 }
@@ -375,7 +345,7 @@ public partial class EntityEditor : DialogBase
                     writer.WriteEndElement();
                 }
 
-                foreach (Props prop in _propauto)
+                foreach (Property prop in _entity._propauto)
                 {
                     writer.WriteStartElement("Property");
                     writer.WriteAttributeString("name", prop.name);
@@ -386,7 +356,7 @@ public partial class EntityEditor : DialogBase
                     writer.WriteEndElement();
                 }
 
-                foreach (Props prop in _propcustom)
+                foreach (Property prop in _entity._propcustom)
                 {
                     writer.WriteStartElement("Property");
                     writer.WriteAttributeString("name", prop.name);
@@ -410,14 +380,14 @@ public partial class EntityEditor : DialogBase
 
         private void tb_propcustom_Click(object sender, RoutedEventArgs e)
         {
-            _propcustom.Add(new Props() { name = (string)tb_propnam.Text, type=(string)tb_proptype.Text });
+            _entity._propcustom.Add(new Property() { name = (string)tb_propnam.Text, type=(string)tb_proptype.Text });
             this.Refresh();
             //.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
 
         private void bt_deletecustomprop(object sender, RoutedEventArgs e)
         {
-            foreach (Props temp in _propcustom)
+            foreach (Property temp in _entity._propcustom)
             {
                 if (temp.m_selected == true)
                 {
@@ -425,7 +395,7 @@ public partial class EntityEditor : DialogBase
                     break;
                 }
             }
-            _propcustom.Remove(_selectedp);
+            _entity._propcustom.Remove(_selectedp);
             this.Refresh();
         }
     }
