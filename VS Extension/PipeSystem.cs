@@ -172,20 +172,35 @@ namespace VS_Extension
             {
                 bases[i] = reader.ReadLine();
             }
-            EnvDTE.CodeClass class_ = manipulator.AddClass(name, bases);
+            //EnvDTE.CodeClass class_ = 
+            manipulator.AddClass(name, bases);
         }
 
         #region Export Entities
         private static void CreateEntity() {
-            CodeManipulator manipulator = new CodeManipulator("Quelle.cpp");
+            CodeManipulator manipulator = new CodeManipulator("Base.h");
             Entity temp = new Entity(reader.ReadLine());
-            MessageBox.Show(temp.ToString(true));
-            MessageBox.Show(temp.ToString(false));
-
-            manipulator.AddAttribute("", "", "");
+            manipulator.AddNamespace("FM3D");
+            manipulator.AddClass("Preset", "FM3D", null);
+            CreateEntityHeader(temp, manipulator);
+            //manipulator.AddAttribute("Wuschel", "Blah3");
         }
-        #endregion
 
-        #endregion
-    }
+        private static void CreateEntityHeader(Entity ent, CodeManipulator mani) {
+
+            mani.AddNamespace("Entities");
+            mani.AddClass("Preset" + ent.name + "Base", "Entities", "FM3D::Preset");
+            foreach (Property prop in ent._propauto) {
+                mani.AddVariable("Preset" + ent.name + "Base", "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessProtected, null);
+            }
+            foreach (Property prop in ent._propcustom) {
+                mani.AddVariable("Preset" + ent.name + "Base", "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessProtected, null);
+            }
+
+            //Methoden
+        }
+            #endregion
+
+            #endregion
+        }
 }

@@ -1,21 +1,6 @@
 
 
 
-
-
-class Fischilein :
-	public Blah
-{
-};
-class Blah2
-{
-};
-class Blah
-{
-};
-class Blah
-{
-};
 class Blah
 {
 };
