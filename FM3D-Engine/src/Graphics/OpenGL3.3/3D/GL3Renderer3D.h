@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine.h>
 
-#define GL3RENDERER3D_MAXTEXTURES 32
+#define GL3RENDERER3D_MAX_TEXTURES 32
 #define GL3RENDERER3D_MAX_BONES 120
 
 namespace FM3D {
@@ -26,6 +26,8 @@ namespace FM3D {
 		GL3Mesh* m_quad;
 		GL3Texture* m_defaultNormalMap;
 
+		bool m_isWireFrameEnabled;
+
 		friend class GL3RenderSystem;
 		friend class GL4RenderSystem;
 		GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target);
@@ -39,5 +41,6 @@ namespace FM3D {
 		void PointLightPass(PointLight& light, const Matrix4f& viewProjMatrix, const Vector3f& cameraPos);
 		void DirectionalLightPass(const Vector3f cameraPos);
 		void FinalPass();
+		void SetWireframe(bool enable);
 	};
 }

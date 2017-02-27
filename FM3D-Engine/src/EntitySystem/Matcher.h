@@ -11,7 +11,7 @@ namespace FM3D {
 		/**
 		* Es wird ein std::shared_ptr verwendet statt einem
 		* normalen Pointer um zu verhindern, dass das Entity
-		* von einem anderen Thread gelöscht wird, während es
+		* von einem anderen Thread gelÃ¶scht wird, wÃ¤hrend es
 		* noch verwendet wird.
 		*/
 		using EntityPtr = std::shared_ptr<Entity>;
@@ -19,7 +19,7 @@ namespace FM3D {
 		///Sucht passende Entities
 		/**
 		* Vergleicht die Komponenten eines Entities mit
-		* den gespeicherten. Hierbei kann ausgewählt welche
+		* den gespeicherten. Hierbei kann ausgewÃ¤hlt welche
 		* Komponenten das Entity beinhalten muss, wleche es
 		* nicht beinhalten darf und von wlechen es mindestens
 		* eins haben muss.
@@ -30,7 +30,7 @@ namespace FM3D {
 
 			MatcherChangedEvent OnMatcherChangedEvent;
 		private:
-			///Alle benötigten Ids
+			///Alle benÃ¶tigten Ids
 			/**
 			* Speichert alle Ids, welche das zu vergleichende
 			* FM3D::Entity besitzen muss.

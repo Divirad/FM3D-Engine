@@ -13,7 +13,7 @@ namespace FM3D {
 
 		static void SortIds(ComponentIdList& list) {
 			std::sort(list.begin(), list.end());
-			list.erase(std::unique(list.begin(), list.end()), list.end());	//Löscht alle mehrfach vorkommenden Elemente
+			list.erase(std::unique(list.begin(), list.end()), list.end());	//LÃ¶scht alle mehrfach vorkommenden Elemente
 		}
 
 		Matcher& Matcher::AllOf(ComponentIdList ids) {

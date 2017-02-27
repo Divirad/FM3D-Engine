@@ -510,6 +510,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\GUI2D\MessageWindow.cpp" />
     <ClCompile Include="src\Graphics\GUI2D\PictureQuad.cpp" />
     <ClCompile Include="src\Graphics\GUI2D\TextQuad.cpp" />
+    <ClCompile Include="src\Graphics\Material.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Model.cpp" />
     <ClCompile Include="src\Graphics\MeshCreator.cpp" />

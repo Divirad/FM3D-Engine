@@ -29,7 +29,7 @@ namespace FM3D_Designer.src
 
         private Mutex actionMutex = new Mutex();
         private Mutex readMutex = new Mutex();
-        private string readString;
+        private string readString = "";
         private Thread readThread;
         private string ReadString
         {

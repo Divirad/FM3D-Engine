@@ -25,6 +25,12 @@ namespace FM3D {
 
 	using byte = unsigned char;
 	using uint = unsigned int;
+	using uint8 = unsigned char;
+	using uint16 = unsigned short;
+	using uint32 = unsigned int;
+	using int8 = char;
+	using int16 = short;
+	using int32 = int;
 
 	enum Platform {
 		WINDOWS
