@@ -6,29 +6,29 @@ namespace FM3D {
 
 		///Eventquelle
 		/**
-		* Event-Klasse mit nur einem Parameter in dem Rückgabewert und Parameter des Events Kombiniert sind
-		* @tparam Funktion Template für Funktionspointer
+		* Event-Klasse mit nur einem Parameter in dem RÃ¼ckgabewert und Parameter des Events Kombiniert sind
+		* @tparam Funktion Template fÃ¼r Funktionspointer
 		*/
 		template<class Function>
 		class Event;
 
-		///Hilfsklassen für #Event
+		///Hilfsklassen fÃ¼r #Event
 		/**
-		* Beinhaltet alle Hilfsklassen für die Klasse #Event,
-		* um zu verhindern, dass sie versehentlich außerhalb
+		* Beinhaltet alle Hilfsklassen fÃ¼r die Klasse #Event,
+		* um zu verhindern, dass sie versehentlich auÃŸerhalb
 		* von #Event verwendet werden.
 		*/
 		namespace EventInternal {
-			///Hilfsklasse für #Event
+			///Hilfsklasse fÃ¼r #Event
 			/**
 			* Ruft die in #Event gespeicherten Funktionen auf
-			* @tparam ReturnType	Rückgabewert des Events
+			* @tparam ReturnType	RÃ¼ckgabewert des Events
 			* @tparam Args			Parameter des Events
 			*/
 			template <typename ReturnType, typename... Args>
 			class Invoker {
 			public:
-				///Invoke Methode für allgemeinen Rückgabewert
+				///Invoke Methode fÃ¼r allgemeinen RÃ¼ckgabewert
 				/**
 				* Ruft die in #Event gespeicherten Funktionen auf
 				*
@@ -38,17 +38,17 @@ namespace FM3D {
 				static std::vector<ReturnType> Invoke(Event<ReturnType(Args...)> &event, Args... params);
 			};
 
-			///Hilfsklasse für #Event
+			///Hilfsklasse fÃ¼r #Event
 			/**
 			* Ruft die in #Event gespeicherten Funktionen auf,
-			* falls sie den Rückgabewert #void haben.
-			* @tparam ReturnType	Rückgabewert des Events
+			* falls sie den RÃ¼ckgabewert #void haben.
+			* @tparam ReturnType	RÃ¼ckgabewert des Events
 			* @tparam Args			Parameter des Events
 			*/
 			template <typename... Args>
 			class Invoker<void, Args...> {
 			public:
-				///Invoke Methode für Rückgabewert #void
+				///Invoke Methode fÃ¼r RÃ¼ckgabewert #void
 				/**
 				* Ruft die in #Event gespeicherten Funktionen auf
 				*
@@ -62,10 +62,10 @@ namespace FM3D {
 		///Eventquelle
 		/**
 		* Speichert Funktionen, die bei einem bestimmten Ereignis im
-		* Programm aufgerufen werden. Rückgabewert und Paramterer dieser
-		* Funktionen sind frei wählbar. Unterstützt auch Multithreading.
+		* Programm aufgerufen werden. RÃ¼ckgabewert und Paramterer dieser
+		* Funktionen sind frei wÃ¤hlbar. UnterstÃ¼tzt auch Multithreading.
 		*
-		* @tparam ReturnType	Rückgabewert des Events
+		* @tparam ReturnType	RÃ¼ckgabewert des Events
 		* @tparam Args			Parameter des Events
 		*/
 		template<class ReturnType, class... Args>
@@ -84,18 +84,18 @@ namespace FM3D {
 			*/
 			using function = std::function<ReturnType(Args...)>;
 		private:
-			///Mutex für Multithreading
+			///Mutex fÃ¼r Multithreading
 			/**
 			* Die Event-Klasse besitzt ein std::mutex um Multithreading zu
-			* unterstützen. Jedesmal bevor eine Funktion hinzugefügt
-			* oder gespeichert wird, wird die Methode std::mutex::lock ausgeführt.
+			* unterstÃ¼tzen. Jedesmal bevor eine Funktion hinzugefÃ¼gt
+			* oder gespeichert wird, wird die Methode std::mutex::lock ausgefÃ¼hrt.
 			*/
 			std::mutex m_mutex;
 			///Alle gespeicherten Funktionen
 			/**
 			* Eine Liste von Funktionspointern, welche aufgerufen werden kann.
-			* Es wird std::list und nicht std::vector verwendet um schnelles Hinzufügen
-			* und Entfernen zu ermöglichen.
+			* Es wird std::list und nicht std::vector verwendet um schnelles HinzufÃ¼gen
+			* und Entfernen zu ermÃ¶glichen.
 			*/
 			std::list<std::shared_ptr<function>> m_functions;
 		public:
@@ -111,13 +111,13 @@ namespace FM3D {
 			Event(const Event&) = delete;
 			const Event& operator=(const Event&) = delete;
 
-			///Fügt eine neue Funktion hinzu
+			///FÃ¼gt eine neue Funktion hinzu
 			/**
-			* Dem Container #m_functions wird der neue Funktionspointer hinzugefügt.
+			* Dem Container #m_functions wird der neue Funktionspointer hinzugefÃ¼gt.
 			* Hierbei wartet die Methode solange bis der aktuelle Thread dieses
-			* Objekt vewenden kann und sperrt es dann für die Dauer der Methode.
+			* Objekt vewenden kann und sperrt es dann fÃ¼r die Dauer der Methode.
 			*
-			* @param func	Funktion, welche hinzugefügt werden soll
+			* @param func	Funktion, welche hinzugefÃ¼gt werden soll
 			*/
 			Event& Add(const function &func) {
 				std::lock_guard<std::mutex> lock(m_mutex);
@@ -129,9 +129,9 @@ namespace FM3D {
 
 			///Entfernt eine neue Funktion
 			/**
-			* Aus dem Container #m_functions wird der übergebene Funktionspointer entfernt.
+			* Aus dem Container #m_functions wird der Ã¼bergebene Funktionspointer entfernt.
 			* Hierbei wartet die Methode solange bis der aktuelle Thread dieses
-			* Objekt vewenden kann und sperrt es dann für die Dauer der Methode.
+			* Objekt vewenden kann und sperrt es dann fÃ¼r die Dauer der Methode.
 			*
 			* @param func	Funktion, welche erntfernt werden soll
 			*/
@@ -148,9 +148,9 @@ namespace FM3D {
 
 			///Entfernt alle Funktionen
 			/**
-			* Aus dem Container #m_functions werden alle Funktionen gelöscht.
+			* Aus dem Container #m_functions werden alle Funktionen gelÃ¶scht.
 			* Hierbei wartet die Methode solange bis der aktuelle Thread dieses
-			* Objekt vewenden kann und sperrt es dann für die Dauer der Methode.
+			* Objekt vewenden kann und sperrt es dann fÃ¼r die Dauer der Methode.
 			*/
 			Event& Clear() {
 				std::lock_guard<std::mutex> lock(this->m_mutex);
@@ -161,12 +161,12 @@ namespace FM3D {
 			}
 
 			//Short operators
-			///Fügt eine neue Funktion hinzu
+			///FÃ¼gt eine neue Funktion hinzu
 			/**
-			* Operator um einfaches Verwenden der Event-Klasse zu ermöglichen.
+			* Operator um einfaches Verwenden der Event-Klasse zu ermÃ¶glichen.
 			* Ruft nur die Methode Add() auf.
 			*
-			* @param func	Funktion, welche hinzugefügt werden soll und daher an Add() übergeben wird
+			* @param func	Funktion, welche hinzugefÃ¼gt werden soll und daher an Add() Ã¼bergeben wird
 			*/
 			inline Event& operator+=(const function &func) {
 				return Add(func);
@@ -174,10 +174,10 @@ namespace FM3D {
 
 			///Entfernt eine Funktion
 			/**
-			* Operator um einfaches Verwenden der Event-Klasse zu ermöglichen.
+			* Operator um einfaches Verwenden der Event-Klasse zu ermÃ¶glichen.
 			* Ruft nur die Methode Remove() auf.
 			*
-			* @param func	Funktion, welche erntfernt werden soll und daher an Remove() übergeben wird
+			* @param func	Funktion, welche erntfernt werden soll und daher an Remove() Ã¼bergeben wird
 			*/
 			inline Event& operator-=(const function &func) {
 				return Remove(func);
@@ -185,7 +185,7 @@ namespace FM3D {
 
 			///Aktiviert das Event
 			/**
-			* Operator um einfaches Verwenden der Event-Klasse zu ermöglichen.
+			* Operator um einfaches Verwenden der Event-Klasse zu ermÃ¶glichen.
 			* Er aktiviert das Event, was bedeutet, dass jede gespeicherte
 			* Funktion aufgerufen wird. Verwendet wird hierzu die Hilfsklasse Invoker
 			*

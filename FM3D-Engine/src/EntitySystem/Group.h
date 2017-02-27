@@ -21,12 +21,12 @@ namespace FM3D {
 			GroupChangedEvent OnGroupDestroyed;
 		private:
 			Matcher m_matcher;
-			///Container für alle FM3D::Entity
+			///Container fÃ¼r alle FM3D::Entity
 			/**
 			* Speichert alle FM3D::Entity, die in der FM3D::Group
 			* enthalten sind. Es wird ein std::unordered_set verwendet,
-			* damit schnell Entities hinzugefügt und entfernt werden
-			* können.
+			* damit schnell Entities hinzugefÃ¼gt und entfernt werden
+			* kÃ¶nnen.
 			*/
 			std::unordered_set<EntityPtr> m_entities;
 
@@ -34,31 +34,31 @@ namespace FM3D {
 			/**
 			* Alle Entities werden auch als std::vector gespeichert, damit nicht
 			* bei jedem Aufruf von GetEntities() der Vektor neu erstellt werden muss.
-			* Wird gelöscht, wenn neue FM3D::Entity der FM3D::Group hinzugefügt werden
+			* Wird gelÃ¶scht, wenn neue FM3D::Entity der FM3D::Group hinzugefÃ¼gt werden
 			* oder alte FM3D::Entity entfernt werden.
 			*/
 			std::vector<EntityPtr> m_entityVector;
 			std::weak_ptr<Group> m_this;
 		public:
-			///Testet ob Group Entity enthält
+			///Testet ob Group Entity enthÃ¤lt
 			/**
-			* Durchsucht die FM3D::Group nach dem Übergebenen Entity
+			* Durchsucht die FM3D::Group nach dem Ãœbergebenen Entity
 			*
 			* @param entity	Referenz auch einen Pointer, der auf das zu suchende
 			*				FM3D::Entity zeigt. Es wird eine Referenz aus
-			*				Performance-Gründen verwendet.
+			*				Performance-GrÃ¼nden verwendet.
 			* @returns		true wenn das FM3D::Entity gefunden wurde, andernfalls false
 			*/
 			bool HasEntity(const EntityPtr& entity) const;
 
 			///Gibt alle Entities
 			/**
-			* Kopiert alle Entities in einen std::vector und gibt diesen dann zurück. Zur
-			* Performanceerhöhung wird der std::vector gespeichert, solange bis ein FM3D::Entity
-			* hinzugefgügt oder entfernt wurde. Dieser std::vector kann dann zurück gegeben werden
+			* Kopiert alle Entities in einen std::vector und gibt diesen dann zurÃ¼ck. Zur
+			* PerformanceerhÃ¶hung wird der std::vector gespeichert, solange bis ein FM3D::Entity
+			* hinzugefgÃ¼gt oder entfernt wurde. Dieser std::vector kann dann zurÃ¼ck gegeben werden
 			* falls die Methode erneut aufgerufen wird.
 			*
-			* @returns std::vector, welcher alle Entities enthält
+			* @returns std::vector, welcher alle Entities enthÃ¤lt
 			*/
 			std::vector<EntityPtr> GetEntities();
 

@@ -11,6 +11,7 @@
 using namespace System::ComponentModel;
 using namespace System::Collections::ObjectModel;
 using namespace System::Collections::Generic;
+using namespace System::Runtime::InteropServices;
 
 namespace DesignerLib {
 
@@ -32,6 +33,8 @@ namespace DesignerLib {
 
 		ObservableCollection<Mesh^>^ GetMeshes(Skeleton^ skeleton);
 		Skeleton^ GetSkeleton();
+
+		ObservableCollection<Mesh^>^ CreateAll([Out] Skeleton^% skeleton);
 
 	private:
 		void OnPropertyChanged(System::String^ name) {

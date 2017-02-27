@@ -78,4 +78,9 @@ namespace DesignerLib {
 		return gcnew Skeleton(bcount, sres->Name, skel);
 	}
 
+	ObservableCollection<Mesh^>^ ExternResource::CreateAll(Skeleton ^% skeleton) {
+		throw gcnew System::NotImplementedException();
+		// TODO: insert return statement here
+	}
+
 }

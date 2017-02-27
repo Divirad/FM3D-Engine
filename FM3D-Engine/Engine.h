@@ -25,6 +25,12 @@ namespace FM3D {
 
 	using byte = unsigned char;
 	using uint = unsigned int;
+	using uint8 = unsigned char;
+	using uint16 = unsigned short;
+	using uint32 = unsigned int;
+	using int8 = char;
+	using int16 = short;
+	using int32 = int;
 
 	enum Platform {
 		WINDOWS
@@ -51,8 +57,8 @@ namespace FM3D {
 #include <src/Utilities/StringUtilities.h>
 #include <src/EventSystem.h>
 
-#include <src/Window.h>
-#include <src/Win32Window.h>
+#include <src/WindowSystem/Window.h>
+#include <src/WindowSystem/Win32Window.h>
 #include <src/input.h>
 #include <src/Utilities/CompCoords.h>	///
 
@@ -62,7 +68,7 @@ namespace FM3D {
 #include <src/EntitySystem/EntityCollection.h>
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
-#include <src/EntitySystem/Manager.h>
+#include <src/EntitySystem/EntityLogic.h>
 #include <src/EntitySystem/ComponentArgs.h>
 
 #include <src/BasicComponents.h>

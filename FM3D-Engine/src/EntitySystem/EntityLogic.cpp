@@ -3,40 +3,40 @@
 namespace FM3D {
 	namespace EntitySystem {
 
-		Manager::Manager(GroupPtr group) : m_group(group) {
+		EntityLogic::EntityLogic(GroupPtr group) : m_group(group) {
 
 		}
 
-		void Manager::ExecuteForAll() {
+		void EntityLogic::ExecuteForAll() {
 			auto entities = m_group->GetEntities();
 			for (const EntityPtr e : entities) {
 				Execute(e);
 			}
 		}
 
-		void ManagerCollection::Initialize() {
+		void EntityLogicCollection::Initialize() {
 			for (const auto& m : m_manager) {
 				m->Initialize();
 			}
 		}
 
-		void ManagerCollection::Terminate() {
+		void EntityLogicCollection::Terminate() {
 			for (const auto& m : m_manager) {
 				m->Terminate();
 			}
 		}
 
-		void ManagerCollection::Execute() {
+		void EntityLogicCollection::Execute() {
 			for (const auto& m : m_manager) {
 				m->ExecuteForAll();
 			}
 		}
 
-		void ManagerCollection::Add(const ManagerPtr& manager) {
+		void EntityLogicCollection::Add(const EntityLogicPtr& manager) {
 			m_manager.insert(manager);
 		}
 
-		void ManagerCollection::Remove(const ManagerPtr& manager) {
+		void EntityLogicCollection::Remove(const EntityLogicPtr& manager) {
 			m_manager.erase(manager);
 		}
 	}

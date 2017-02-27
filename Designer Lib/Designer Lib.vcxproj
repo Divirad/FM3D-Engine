@@ -82,6 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)FM3D-Designer\bin\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -121,11 +122,11 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>EXPORT_DESIGNER_DLL;WIN32;NDEBUG;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)FM3D-Engine;$(SolutionDir)FM3D-Engine/Dependencies/Assimp/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeType/include;$(SolutionDir)FM3D-Engine/Dependencies/GLEW/include;$(SolutionDir)FM3D-Engine/Dependencies/FreeImage</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>assimp.lib;FreeImage.lib;opengl32.lib;glu32.lib;glew32s.lib;user32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;$(SolutionDir)FM3D-Engine\Dependencies\GLEW\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -212,16 +213,25 @@
     <ClCompile Include="src\Global.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\OpenGL\InternCamera.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\OpenGL\InternOpenGL.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="src\ExternFileLoader.cpp" />
+    <ClCompile Include="src\ExternFileLoader.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="src\OpenGL\Wrapper\Renderable.cpp" />
     <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
     <ClCompile Include="src\Resources\ExternResource.cpp" />

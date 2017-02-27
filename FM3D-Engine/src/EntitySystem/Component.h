@@ -15,7 +15,7 @@ namespace FM3D {
 
 	namespace EntitySystem {
 
-		///Basisklasse für alle Komponenten
+		///Basisklasse fÃ¼r alle Komponenten
 		/**
 		* Leere Struktur von der alle Komponenten
 		* des Entitysystems erben.
@@ -42,7 +42,7 @@ namespace FM3D {
 
 		///Container von #ComponentId
 		/**
-		* Kurzschreibweise für ein std::vector mit
+		* Kurzschreibweise fÃ¼r ein std::vector mit
 		* dem Templateparameter FM3D::ComponentId
 		*/
 		using ComponentIdList = std::vector<ComponentId>;
@@ -58,8 +58,8 @@ namespace FM3D {
 			///Alle Methoden eines FM3D::Component
 			/**
 			* Ein FM3D::Component besitzt keine virtuellen Methoden, die
-			* vererbt und überschrieben werden können. Um trotzdem auf
-			* Methoden zuzugreifen werden für jede Klasse, die von FM3D::Component
+			* vererbt und Ã¼berschrieben werden kÃ¶nnen. Um trotzdem auf
+			* Methoden zuzugreifen werden fÃ¼r jede Klasse, die von FM3D::Component
 			* erbt, alle Adressen dieser Methoden gespeichert.
 			*/
 			struct ComponentMethods {
@@ -69,10 +69,10 @@ namespace FM3D {
 		public:
 			///Erstellt Id eines #Component
 			/**
-			* Falls nicht vorhanden wird eine Id für den
-			* FM3D::Component erstellt und dann zurück gegeben
+			* Falls nicht vorhanden wird eine Id fÃ¼r den
+			* FM3D::Component erstellt und dann zurÃ¼ck gegeben
 			*
-			* @tparam T	FM3D::Component, dessen Id zurück gegeben werden soll;
+			* @tparam T	FM3D::Component, dessen Id zurÃ¼ck gegeben werden soll;
 						wenn die Klasse nicht von FM3D::Component erbt, wird ein
 						Compiletime-Error ausgegeben
 			* @returns	Id des FM3D::Component
@@ -105,7 +105,7 @@ namespace FM3D {
 
 			///Anzahl aller Komponenten
 			/**
-			* Get-Methode für #m_counter
+			* Get-Methode fÃ¼r #m_counter
 			*
 			* @returns Anzahl aller Komponenten
 			*/
@@ -123,7 +123,7 @@ namespace FM3D {
 			/**
 			* Beschreibt die Anzahl aller Komponenten.
 			* Wird bei der erstmaligen Erstellung einer
-			* Id um eins erhöht.
+			* Id um eins erhÃ¶ht.
 			*/
 			static unsigned int s_counter;
 			static std::vector<ComponentMethods> s_methods;

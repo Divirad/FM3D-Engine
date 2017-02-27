@@ -38,7 +38,11 @@ namespace VS_Extension
             while (enumerator.MoveNext())
             {
                 var c = enumerator.Current as VCCodeClass;
-                if(c != null) result.Add(c.FullName);
+                if (c != null)
+                {
+                    c.Bases.Cast<CodeElement>().Any(b => (b as VCCodeClass)?.FullName == "FM3D::Component");
+                    result.Add(c.FullName);
+                }
             }
             return result;
         }

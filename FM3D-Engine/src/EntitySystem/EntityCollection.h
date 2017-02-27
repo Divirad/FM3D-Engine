@@ -11,7 +11,7 @@ namespace FM3D {
 
 		///Id eines FM3D::Entity
 		/**
-		* 64-Bit große Id.
+		* 64-Bit groÃŸe Id.
 		* Jedes Objekt der FM3D::Entity-Klasse hat eine eigene Id.
 		* Diese kann verwendet werden um verschiedene Entities zu
 		* vergleichen oder zu indentifizieren.
@@ -22,53 +22,53 @@ namespace FM3D {
 			friend class Entity;
 		public:
 #pragma region Events
-			///Event für eine Entity-Veränderung
+			///Event fÃ¼r eine Entity-VerÃ¤nderung
 			/**
-			* Wird ausgelöst wenn sich ein FM3D::Entity in der FM3D::EntityCollection verändert.
-			* Das Event besitzt keinen Rückgabewert (void) und als Parameter
+			* Wird ausgelÃ¶st wenn sich ein FM3D::Entity in der FM3D::EntityCollection verÃ¤ndert.
+			* Das Event besitzt keinen RÃ¼ckgabewert (void) und als Parameter
 			* einen Pointer auf die FM3D::EntityCollection, welche das Event
-			* ausgelöst hat und einen Pointer auf das FM3D::Entity, welches sich
-			* verändert hat.
+			* ausgelÃ¶st hat und einen Pointer auf das FM3D::Entity, welches sich
+			* verÃ¤ndert hat.
 			*/
 			using EntityCollectionChangedEvent = Event<void(EntityCollection* collection, EntityPtr entity)>;
 
-			///Event für eine Group-Veränderung
+			///Event fÃ¼r eine Group-VerÃ¤nderung
 			/**
-			* Wird ausgelöst wenn sich eine FM3D::Group in der FM3D::EntityCollection
-			* verändert. Das Event besitzt keinen Rückgabewert (void) und als Parameter
+			* Wird ausgelÃ¶st wenn sich eine FM3D::Group in der FM3D::EntityCollection
+			* verÃ¤ndert. Das Event besitzt keinen RÃ¼ckgabewert (void) und als Parameter
 			* einen Pointer auf die FM3D::EntityCollection, welche das Event
-			* ausgelöst hat und einen Pointer auf die FM3D::Group, welche sich
-			* verändert hat.
+			* ausgelÃ¶st hat und einen Pointer auf die FM3D::Group, welche sich
+			* verÃ¤ndert hat.
 			*/
 			using GroupChangedEvent = Event<void(EntityCollection* collection, std::shared_ptr<Group> group)>;
 
-			///Event für die Erstellung eines FM3d::Entity
+			///Event fÃ¼r die Erstellung eines FM3d::Entity
 			/**
-			* Wird ausgelöst, wenn der FM3D::EntityCollection ein neues
-			* FM3D::Entity hinzugefügt wird.
+			* Wird ausgelÃ¶st, wenn der FM3D::EntityCollection ein neues
+			* FM3D::Entity hinzugefÃ¼gt wird.
 			*/
 			EntityCollectionChangedEvent OnEntityCreated;
-			///Event bevor ein FM3d::Entity gelöscht wird.
+			///Event bevor ein FM3d::Entity gelÃ¶scht wird.
 			/**
-			* Wird ausgelöst, bevor ein FM3D::Entity aus der
-			* FM3D::EntityCollection gelöscht wird.
+			* Wird ausgelÃ¶st, bevor ein FM3D::Entity aus der
+			* FM3D::EntityCollection gelÃ¶scht wird.
 			*/
 			EntityCollectionChangedEvent OnEntityWillBeDestroyed;
-			///Event für die Löschung eines FM3d::Entity.
+			///Event fÃ¼r die LÃ¶schung eines FM3d::Entity.
 			/**
-			* Wird ausgelöst, wenn ein FM3D::Entity aus der
-			* FM3D::EntityCollection gelöscht wird.
+			* Wird ausgelÃ¶st, wenn ein FM3D::Entity aus der
+			* FM3D::EntityCollection gelÃ¶scht wird.
 			*/
 			EntityCollectionChangedEvent OnEntityDestroyed;
-			///Event für die Erstellung einer FM3d::Group
+			///Event fÃ¼r die Erstellung einer FM3d::Group
 			/**
-			* Wird ausgelöst, wenn in der FM3D::EntityCollection eine neue
+			* Wird ausgelÃ¶st, wenn in der FM3D::EntityCollection eine neue
 			* FM3D::Group erstellt wird.
 			*/
 			GroupChangedEvent OnGroupCreated;
-			///Event für die Entfernung einer FM3d::Group
+			///Event fÃ¼r die Entfernung einer FM3d::Group
 			/**
-			* Wird ausgelöst, wenn eine FM3D::Group gelöscht
+			* Wird ausgelÃ¶st, wenn eine FM3D::Group gelÃ¶scht
 			* und aus der FM3D::EntityCollection entfernt wird.
 			*/
 			GroupChangedEvent OnGroupDestroyed;
@@ -76,45 +76,45 @@ namespace FM3D {
 			static EntityId s_entityID;
 #pragma endregion
 		private:
-			///Container für alle FM3D::Entity
+			///Container fÃ¼r alle FM3D::Entity
 			/**
 			* Speichert alle FM3D::Entity, die in der FM3D::Collection
 			* enthalten sind. Es wird ein std::unordered_set verwendet,
-			* damit schnell Entities hinzugefügt und entfernt werden
-			* können.
+			* damit schnell Entities hinzugefÃ¼gt und entfernt werden
+			* kÃ¶nnen.
 			*/
 			std::unordered_set<EntityPtr> m_entities;
 
 			///Alle ungenutzten FM3D::Entity
 			/**
-			* Speichert alle FM3D::Entity, die zerstört wurden,
+			* Speichert alle FM3D::Entity, die zerstÃ¶rt wurden,
 			* sich aber immernoch im Speicher befinden und daher
-			* erneut genutzt werden können um die Performance zu
-			* erhöhen. Verwendet wird hierzu ein std::stack, da
-			* nur schnell hinzugefügt und entfernt werden muss,
+			* erneut genutzt werden kÃ¶nnen um die Performance zu
+			* erhÃ¶hen. Verwendet wird hierzu ein std::stack, da
+			* nur schnell hinzugefÃ¼gt und entfernt werden muss,
 			* aber nicht auf bestimmte Elemente zugegriffen werden
 			* muss.
 			*/
 			std::stack<Entity*> m_reuseableEntities;
 
-			///Alle gelöschten aber noch aktiven Entities
+			///Alle gelÃ¶schten aber noch aktiven Entities
 			/**
-			* Speichert alle FM3D::Entity, die zerstört wurden,
+			* Speichert alle FM3D::Entity, die zerstÃ¶rt wurden,
 			* aber noch immer von einem smart pointer verwendet
 			* werden. Hierzu wird ein std::unordered_set verwendet
-			* um schnelles Hinzufügen und Entfernen zu ermöglichen.
+			* um schnelles HinzufÃ¼gen und Entfernen zu ermÃ¶glichen.
 			*/
 			std::unordered_set<Entity*> m_retainedEntities;
 
 			///Alle ungenutzen FM3D::Component
 			/**
-			* Speichert alle FM3D::Component, die zerstört wurden,
+			* Speichert alle FM3D::Component, die zerstÃ¶rt wurden,
 			* sich aber immernoch im Speicher befindet und daher
-			* erneut genutzt werden können um die Performance zu
-			* erhöhen. Verwendet wird hierzu eine std::map, da
-			* die Komponenten nach Id sortiert sein müssen und
+			* erneut genutzt werden kÃ¶nnen um die Performance zu
+			* erhÃ¶hen. Verwendet wird hierzu eine std::map, da
+			* die Komponenten nach Id sortiert sein mÃ¼ssen und
 			* als Templateparameter wird std::stack verwendet, da
-			* man Komponenten nur schnell Hinzufügen und Entfernen
+			* man Komponenten nur schnell HinzufÃ¼gen und Entfernen
 			* muss und nicht darauf zugreifen muss.
 			*/
 			std::map<ComponentId, std::stack<Component*>> m_reusableComponents;
@@ -123,7 +123,7 @@ namespace FM3D {
 			/**
 			* Alle Entities werden auch als std::vector gespeichert, damit nicht
 			* bei jedem Aufruf von GetEntities() der Vektor neu erstellt werden muss.
-			* Wird gelöscht, wenn die Methode CreateEntity() oder DestroyEntity()
+			* Wird gelÃ¶scht, wenn die Methode CreateEntity() oder DestroyEntity()
 			* aufgerufen wird.
 			*/
 			std::vector<EntityPtr> m_entityVector;
@@ -135,52 +135,52 @@ namespace FM3D {
 
 			///Erstellt ein neues FM3D::Entity
 			/**
-			* #m_entities wird ein neues FM3D::Entity hinzugefügt.
+			* #m_entities wird ein neues FM3D::Entity hinzugefÃ¼gt.
 			* Dieses wird entweder neu im Heap erstellt oder ein
-			* bereits gelöschtes FM3D::Entity wird erneut genutzt.
+			* bereits gelÃ¶schtes FM3D::Entity wird erneut genutzt.
 			*
 			* @returns Pointer auf das erstellte FM3D::Entity
 			*/
 			EntityPtr CreateEntity();
 
-			///Testet ob Collection Entity enthält
+			///Testet ob Collection Entity enthÃ¤lt
 			/**
-			* Durchsucht die Collection nach dem Übergebenen Entity
+			* Durchsucht die Collection nach dem Ãœbergebenen Entity
 			*
 			* @param entity	Referenz auch einen Pointer, der auf das zu suchende
 			*				FM3D::Entity zeigt. Es wird eine Referenz aus
-			*				Performance-Gründen verwendet.
+			*				Performance-GrÃ¼nden verwendet.
 			* @returns		true wenn das FM3D::Entity gefunden wurde, andernfalls false
 			*/
 			bool HasEntity(const EntityPtr& entity) const;
 
-			///Löscht alle Entities
+			///LÃ¶scht alle Entities
 			/**
-			* Löscht alle aktiven FM3D::Entity. Falls gelöschte Entities noch von einem
-			* smart Pointer irgendwo im Programm verwendet werden, können sie nocht gelöscht
-			* werden und es könnten Memory Leaks entstehen.
+			* LÃ¶scht alle aktiven FM3D::Entity. Falls gelÃ¶schte Entities noch von einem
+			* smart Pointer irgendwo im Programm verwendet werden, kÃ¶nnen sie nocht gelÃ¶scht
+			* werden und es kÃ¶nnten Memory Leaks entstehen.
 			*/
 			void DestroyAllEntities();
 
 			///Gibt alle Entities
 			/**
-			* Kopiert alle Entities in einen std::vector und gibt diesen dann zurück. Zur
-			* Performanceerhöhung wird der std::vector gespeichert, solange bis ein FM3D::Entity
-			* hinzugefgügt oder entfernt wurde. Dieser std::vector kann dann zurück gegeben werden
+			* Kopiert alle Entities in einen std::vector und gibt diesen dann zurÃ¼ck. Zur
+			* PerformanceerhÃ¶hung wird der std::vector gespeichert, solange bis ein FM3D::Entity
+			* hinzugefgÃ¼gt oder entfernt wurde. Dieser std::vector kann dann zurÃ¼ck gegeben werden
 			* falls die Methode erneut aufgerufen wird.
 			*
-			* @returns std::vector, welcher alle Entities enthält
+			* @returns std::vector, welcher alle Entities enthÃ¤lt
 			*/
 			std::vector<EntityPtr> GetEntities();
 
 			///Gibt erneut nutzbare Komponenten
 			/**
-			* Verwendet id als key für die std::map #m_reusableComponents,
-			* sodass alle ungenutzten FM3D::Component, die mit der Id übereinstimmen,
-			* zurückgegeben werden.
+			* Verwendet id als key fÃ¼r die std::map #m_reusableComponents,
+			* sodass alle ungenutzten FM3D::Component, die mit der Id Ã¼bereinstimmen,
+			* zurÃ¼ckgegeben werden.
 			*
 			* @param id	Die id der FM3D::Component
-			* @returns Den std::stack, welcher alle ungenutzten FM3D::Component enthält
+			* @returns Den std::stack, welcher alle ungenutzten FM3D::Component enthÃ¤lt
 			*/
 			std::stack<Component*>& GetReuseableComponents(ComponentId id);
 
@@ -194,12 +194,12 @@ namespace FM3D {
 
 			GroupPtr GetGroup(const Matcher& matcher);
 
-			///Löscht Entity
+			///LÃ¶scht Entity
 			/**
-			* Löscht übergebenes FM3D::Entity aus der FM3D::Collection. Das Entity wird
-			* gegebenenfalls im Speicher behalten um es später erneut zu verwenden.
+			* LÃ¶scht Ã¼bergebenes FM3D::Entity aus der FM3D::Collection. Das Entity wird
+			* gegebenenfalls im Speicher behalten um es spÃ¤ter erneut zu verwenden.
 			*
-			* @param entity	Pointer auf das zu löschende Entity
+			* @param entity	Pointer auf das zu lÃ¶schende Entity
 			*/
 			void DestroyEntity(const EntityPtr& entity);
 

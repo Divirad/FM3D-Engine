@@ -5,7 +5,10 @@ namespace FM3D {
 	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target) :
 		Renderer3D(target), m_projectionMatrix(projectionMatrix), m_gbuffer(width, height), m_width(width), m_height(height),
 		m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)),
-		m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))) {
+		m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))),
+		m_isWireFrameEnabled(true) {
+
+		SetWireframe(false);
 
 		m_shader3D.Bind();
 		m_shader3D.SetColorTextureUnit(0);
@@ -68,7 +71,7 @@ namespace FM3D {
 		//GLCall(glEnable(GL_CULL_FACE));
 		GLCall(glCullFace(GL_BACK));
 
-
+		SetWireframe(m_forceWireFrame);
 
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
@@ -76,13 +79,18 @@ namespace FM3D {
 			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
 				((const GL3Mesh*)it->first)->Bind(i);
 				for (std::map<const Model*, std::vector<const EntitySystem::Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+					
+					const Material* material = it2->first->GetMaterials()[i];
 					GLCall(glActiveTexture(GL_TEXTURE0));
-					((const GL3Texture*)it2->first->GetMaterials()[i]->texture)->Bind();
+					dynamic_cast<const GL3Texture*>(material->texture)->Bind();
 					GLCall(glActiveTexture(GL_TEXTURE1));
 					if (it2->first->GetMaterials()[i]->normalMap)
-						((const GL3Texture*)it2->first->GetMaterials()[i]->normalMap)->Bind();
+						dynamic_cast<const GL3Texture*>(material->normalMap)->Bind();
 					else
 						m_defaultNormalMap->Bind();
+					if (!m_forceWireFrame)
+						SetWireframe(material->useWireframe);
+
 					for (const EntitySystem::Entity*& e : it2->second) {
 						if (it->first->IsAnimated()) {
 							if (it2->first->IsAnimated()) {
@@ -116,6 +124,7 @@ namespace FM3D {
 		// depends on it, but it does not write to it.
 		GLCall(glDepthMask(GL_FALSE));
 		GLCall(glDisable(GL_CULL_FACE));
+		SetWireframe(false);
 	}
 
 	void GL3Renderer3D::StencilPass(PointLight& light, Matrix4f& wvp) {
@@ -195,6 +204,12 @@ namespace FM3D {
 		GLCall(glBlitFramebuffer(0, 0, m_width, m_height, 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
 		//m_gbuffer.DebugRendering(m_width, m_height);
 
+	}
+
+	void GL3Renderer3D::SetWireframe(bool enable) {
+		if (m_isWireFrameEnabled == enable) return;
+		GLCall(glPolygonMode(GL_FRONT_AND_BACK, enable ? GL_LINE : GL_FILL));
+		m_isWireFrameEnabled = enable;
 	}
 
 }

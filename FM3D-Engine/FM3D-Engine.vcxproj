@@ -183,6 +183,9 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
       <AdditionalLibraryDirectories>$(SolutionDir)FM3D-Engine\Dependencies\Assimp\lib;$(SolutionDir)FM3D-Engine\Dependencies\GLEW\lib;$(SolutionDir)FM3D-Engine\Dependencies\FreeImage;$(SolutionDir)FM3D-Engine\Dependencies\FreeType;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp.lib;FreeImage.lib;freetype262.lib;opengl32.lib;glu32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)$(ConfigurationName)\FM3D-Engine.dll" "$(SolutionDir)FM3D-Designer\bin\$(ConfigurationName)\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NoExternalIncludes|Win32'">
     <ClCompile>
@@ -385,7 +388,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\EntitySystem\EntityCollection.h" />
     <ClInclude Include="src\EntitySystem\Event.h" />
     <ClInclude Include="src\EntitySystem\Group.h" />
-    <ClInclude Include="src\EntitySystem\Manager.h" />
+    <ClInclude Include="src\EntitySystem\EntityLogic.h" />
     <ClInclude Include="src\EntitySystem\Matcher.h" />
     <ClInclude Include="src\EventSystem.h" />
     <ClInclude Include="src\FileSystem\ExternFileManager.h" />
@@ -397,6 +400,8 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\GUI2D\MessageWindow.h" />
     <ClInclude Include="src\Graphics\GUI2D\PictureQuad.h" />
     <ClInclude Include="src\Graphics\GUI2D\TextQuad.h" />
+    <ClInclude Include="src\Graphics\GUI\Components.h" />
+    <ClInclude Include="src\Graphics\GUI\Polygon.h" />
     <ClInclude Include="src\Graphics\Lights.h" />
     <ClInclude Include="src\Graphics\Menu\BasicItem2D.h" />
     <ClInclude Include="src\Graphics\Menu\Button.h" />
@@ -455,8 +460,8 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\Utilities\CompCoords.h" />
     <ClInclude Include="src\Utilities\StringUtilities.h" />
-    <ClInclude Include="src\Win32Window.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\WindowSystem\Win32Window.h" />
+    <ClInclude Include="src\WindowSystem\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -498,7 +503,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\EntitySystem\Entity.cpp" />
     <ClCompile Include="src\EntitySystem\EntityCollection.cpp" />
     <ClCompile Include="src\EntitySystem\Group.cpp" />
-    <ClCompile Include="src\EntitySystem\Manager.cpp" />
+    <ClCompile Include="src\EntitySystem\EntityLogic.cpp" />
     <ClCompile Include="src\EntitySystem\Matcher.cpp" />
     <ClCompile Include="src\FileSystem\ExternFileManager.cpp" />
     <ClCompile Include="src\FileSystem\FileManager.cpp" />
@@ -510,6 +515,8 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\GUI2D\MessageWindow.cpp" />
     <ClCompile Include="src\Graphics\GUI2D\PictureQuad.cpp" />
     <ClCompile Include="src\Graphics\GUI2D\TextQuad.cpp" />
+    <ClCompile Include="src\Graphics\GUI\Polygon.cpp" />
+    <ClCompile Include="src\Graphics\Material.cpp" />
     <ClCompile Include="src\Graphics\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Model.cpp" />
     <ClCompile Include="src\Graphics\MeshCreator.cpp" />
@@ -542,8 +549,8 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Utilities\CompCoords.cpp" />
     <ClCompile Include="src\Utilities\StringUtilities.cpp" />
-    <ClCompile Include="src\Win32Window.cpp" />
-    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\WindowSystem\Win32Window.cpp" />
+    <ClCompile Include="src\WindowSystem\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
