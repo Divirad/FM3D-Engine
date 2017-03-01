@@ -58,7 +58,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
-        private void TreeViewItem_MouseRightButtonDown(object sender, MouseEventArgs e)
+        private void TreeViewItemRClick(object sender, MouseEventArgs e)
         {
             TreeViewItem item = (TreeViewItem)sender;
             item.IsSelected = true;

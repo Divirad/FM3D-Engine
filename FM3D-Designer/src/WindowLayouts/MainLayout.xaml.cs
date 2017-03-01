@@ -85,21 +85,21 @@ namespace FM3D_Designer.src.WindowLayouts {
             dg.UpdateVisibility();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void StartVSProject(object sender, RoutedEventArgs e) {
             FM3DPropertyFile fmFile = new FM3DPropertyFile();
             fmFile.Load(Project.CurrentProject.GetProjectPath() + "/Cpp/fm3d.xml");
             MainWindow.Instance.visualStudio.Start(fmFile.PipeName, Project.CurrentProject._Directory + "/Cpp/GameProject.sln");
         }
 
-        private void Start_Click(object sender, RoutedEventArgs e) {
+        private void StartVSNoDebug(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Start(false);
         }
 
-        private void Build_Click(object sender, RoutedEventArgs e) {
+        private void Build(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Build();
         }
 
-        private void SaveProjectCMD(object sender, ExecutedRoutedEventArgs e) {
+        private void SaveProjectCommand(object sender, ExecutedRoutedEventArgs e) {
             Project.SaveProject(this.mainWindow);
         }
         
@@ -115,7 +115,7 @@ namespace FM3D_Designer.src.WindowLayouts {
             MainWindow.Instance.visualStudio.Build();
          
         }
-        private void Start(object sender, RoutedEventArgs e) {
+        private void StartVSDebug(object sender, RoutedEventArgs e) {
          
             MainWindow.Instance.visualStudio.Start(true);
         }

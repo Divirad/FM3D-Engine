@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              Width="600" Height="600">
     <fm:ToolWindow.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Save"          Executed="CommandBinding_Executed" />
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="Save" />
     </fm:ToolWindow.CommandBindings>
     
     <Grid>
@@ -36,7 +36,7 @@
                 <MenuItem Header="Select All" Command="SelectAll"/>
             </MenuItem>
         </Menu>
-        <RichTextBox x:Name="rtb_text"  AcceptsReturn="True" Grid.Row="1"  SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" KeyDown="KeyComplete" FontFamily="Consolas" FontSize="13" UseLayoutRounding="False" Grid.IsSharedSizeScope="True" MinWidth="1000" IsDocumentEnabled="True"/>
+        <RichTextBox x:Name="rtb_text"  AcceptsReturn="True" Grid.Row="1"  SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="13" UseLayoutRounding="False" Grid.IsSharedSizeScope="True" MinWidth="1000" IsDocumentEnabled="True"/>
     </Grid>
 
 </fm:ToolWindow>
