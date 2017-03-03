@@ -117,16 +117,23 @@ namespace FM3D {
 				return matrix.Multiply(scalar);
 			}
 
-			//Friend functions
+			//Member operators
+			inline Matrix& operator+=(const Matrix& other) { return Add(other); }
+			inline Matrix& operator*(Scalar scalar) { return Multiply(scalar); }
+			inline Matrix& operator*(const Matrix& other) { return Multiply(other); }
+			inline bool operator==(const Matrix& other) const { return IsEqualTo(other); }
+			inline bool operator!=(const Matrix& other) const { return other.IsUnequalTo(other); }
+
+			//Static operators
 			template<uint T>
-			inline friend Matrix<R, T, Scalar> MultiplyMatrices(const Matrix<R, C, Scalar>& left, const Matrix<C, T, Scalar>& right) {
+			inline friend Matrix<R, T, Scalar> operator*(const Matrix<R, C, Scalar>& left, const Matrix<C, T, Scalar>& right) {
 				return Matrix<R, C, Scalar>::Multiply(left, right);
 			}
-			inline friend Vector<R, Scalar> MultiplyMatrices(const Matrix<R, C, Scalar>& left, const Vector<C, Scalar>& right) {
+			inline friend Vector<R, Scalar> operator*(const Matrix<R, C, Scalar>& left, const Vector<C, Scalar>& right) {
 				return Matrix<R, C, Scalar>::Multiply(left, right);
 			}
-			inline friend Matrix AddMatrices(Matrix left, const Matrix& right) { return left.Add(right); }
-			inline friend Matrix Multiply(Matrix<R, C, Scalar> matrix, Scalar scalar) {
+			inline friend Matrix operator+(Matrix left, const Matrix& right) { return left.Add(right); }
+			inline friend Matrix operator*(Matrix<R, C, Scalar> matrix, Scalar scalar) {
 				return matrix.Multiply(scalar);
 			}
 

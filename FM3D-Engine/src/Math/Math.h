@@ -69,6 +69,7 @@ namespace FM3D {
 	}
 }
 #include "Matrix.h"
+#include "Matrix2.h"
 #include "Matrix4.h"
 
 namespace FM3D {

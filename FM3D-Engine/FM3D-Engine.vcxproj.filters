@@ -639,6 +639,9 @@
     <ClInclude Include="src\Graphics\GUI\Polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Math\Matrix2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl">

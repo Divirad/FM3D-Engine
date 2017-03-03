@@ -28,23 +28,32 @@ namespace FM3D {
 		typedef BOOL(APIENTRY *PFNWGLSWAPINTERVALPROC)(int);
 		PFNWGLSWAPINTERVALPROC wglSwapIntervalEXT = 0;
 
+		GLCall(glEnable(GL_DEPTH_CLAMP));
+
 		const char *extensions = (char*)glGetString(GL_EXTENSIONS);
+		bool extensionError = false;
 
 		if (strstr(extensions, "WGL_EXT_swap_control") == 0) {
-			return !vsync;
+			extensionError = extensionError || vsync;
 		} else {
 			wglSwapIntervalEXT = (PFNWGLSWAPINTERVALPROC)wglGetProcAddress("wglSwapIntervalEXT");
 
 			if (wglSwapIntervalEXT)
 				wglSwapIntervalEXT(vsync);
 		}
+		if (strstr(extensions, "GL_ARB_clip_control") == 0) {
+			extensionError = true;
+		}
+		else {
+			//GLCall(glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE));
+		}
 
-		return true;
+		return !extensionError;
 	}
 
 	void GL3RenderSystem::BeginRendering(const Color4f& color) {
 		GLCall(glClearColor(color[0], color[1], color[2], color[3]));
-		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 	}
 
 	void GL3RenderSystem::EndRendering() {

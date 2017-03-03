@@ -135,14 +135,9 @@ namespace DesignerLib {
 	};
 
 	public ref class Mesh : System::ComponentModel::INotifyPropertyChanged {
-		Skeleton^ skeleton;
 	public:
 		property ObservableCollection<MeshPart^>^ Parts;
-		property Skeleton^ Skelet {
-			Skeleton^ get() {
-				return skeleton;
-			}
-		}
+		property Skeleton^ Skelet;
 
 		Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton);
 

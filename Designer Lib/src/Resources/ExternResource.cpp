@@ -39,31 +39,32 @@ namespace DesignerLib {
 		OnPropertyChanged("Resources");
 	}
 
-	ObservableCollection<Mesh^>^ DesignerLib::ExternResource::GetMeshes(Skeleton^ skeleton) {
+	ObservableCollection<Mesh^>^ DesignerLib::ExternResource::GetMeshes(Skeleton^% skel) {
 		auto result = gcnew ObservableCollection<Mesh^>();
+		auto animatedMeshes = gcnew ObservableCollection<Mesh^>();
 		auto parts = gcnew ObservableCollection<MeshPart^>();
-		Skeleton^ skel;
+		
+		bool useSkel = false;
 		for each(auto res in this->Resources) {
 			if (res->ResType == ResourceType::Mesh) {
 				parts->Clear();
-				skel = nullptr;
+				useSkel = false;
 				for each(auto part in res->Content) {
 					if (part->ResType == ResourceType::MeshPart) {
 						parts->Add(gcnew MeshPart(part->Name, true, m_loader->GetMeshPart(m_meshPartMap[part])));
 					}
 					else if (part->IsReference) {
 						if (part->Reference->ResType == ResourceType::Skeleton) {
-							skel = skeleton;
+							useSkel = true;
 						}
 					}
 				}
-				result->Add(gcnew Mesh(parts, skel));
+				auto m = gcnew Mesh(parts, nullptr);
+				result->Add(m);
+				if (useSkel) animatedMeshes->Add(m);
 			}
 		}
-		return result;
-	}
 
-	Skeleton^ ExternResource::GetSkeleton() {
 		FoundResource^ sres;
 		for each(auto res in this->Resources) {
 			if (res->ResType == ResourceType::Skeleton) {
@@ -74,13 +75,14 @@ namespace DesignerLib {
 		if (sres == nullptr) return nullptr;
 
 		int bcount;
-		auto skel = m_loader->GetSkeleton(bcount);
-		return gcnew Skeleton(bcount, sres->Name, skel);
-	}
+		auto skeleton = m_loader->GetSkeleton(bcount);
+		skel = gcnew Skeleton(bcount, sres->Name, skeleton);
 
-	ObservableCollection<Mesh^>^ ExternResource::CreateAll(Skeleton ^% skeleton) {
-		throw gcnew System::NotImplementedException();
-		// TODO: insert return statement here
+		for each (auto am in animatedMeshes) {
+			am->Skelet = skel;
+		}
+
+		return result;
 	}
 
 }

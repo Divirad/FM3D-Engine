@@ -53,10 +53,7 @@ static Matrix4f& CreateRealZero(Matrix4f& mat) {
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
-	Matrix4f mat0 = Matrix4f::Transformation(Vector3f(2.0f, 1.0f, 3.0f), Vector3f(1.0f, 2.0f, 1.0f), Vector3f(30.0f, 10.0f, 5.0f));
-	Quaternionf quat = Quaternionf::Rotation(30.0f, 10.0f, 5.0f);
-	Transformation trans = Transformation::FromMatrix(mat0);
-
-	cout << trans << endl << trans.rotation.Length() << endl << quat << endl;
+	cout << Matrix4f::ProjectionSymm(1.0f, .5f / 3.0f, .1f, 1000.0f) << endl;
+	cout << Matrix4f::ProjectionFOV(70.0f, 1920.0f / 1080.0f, .1f, 1000.0f) << endl;
 	while (true);
 }

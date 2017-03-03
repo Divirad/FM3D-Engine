@@ -109,7 +109,7 @@ namespace FM3D {
 						const Vector3f& rotation = static_cast<RotationComponent*>(e->GetComponent(RotationComponentId))->GetRotation();
 						const Vector3f& scale = static_cast<ScaleComponent*>(e->GetComponent(ScaleComponentId))->GetScale();
 						Matrix4f modelMatrix = Matrix4f::Transformation(position, scale, rotation);
-						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * (Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) * modelMatrix)));
+						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * /*(Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) **/ modelMatrix));
 						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
 						((const GL3Mesh*)it->first)->Render(i);
 					}
@@ -167,15 +167,15 @@ namespace FM3D {
 		GLCall(glBlendEquation(GL_FUNC_ADD));
 		GLCall(glBlendFunc(GL_ONE, GL_ONE));
 
-		GLCall(glEnable(GL_CULL_FACE));
-		GLCall(glCullFace(GL_FRONT));
+		//GLCall(glEnable(GL_CULL_FACE));
+		//GLCall(glCullFace(GL_FRONT));
 
 		m_pointLightShader.SetWVP(wvp);
 		m_pointLightShader.SetPointLight(light);
 		m_bsphere->Bind(0);
 		m_bsphere->Render(0);
 		m_bsphere->Unbind();
-		GLCall(glCullFace(GL_BACK));
+		//GLCall(glCullFace(GL_BACK));
 
 		GLCall(glDisable(GL_BLEND));
 	}

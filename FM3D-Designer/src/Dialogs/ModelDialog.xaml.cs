@@ -66,16 +66,16 @@ namespace FM3D_Designer.src.Dialogs
             this.Close();
 
             bool first = true;
-            var skel = (this.Resources["res"] as ExternResource).GetSkeleton();
-            if (skel != null)
-            {
-                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
-                first = false;
-            }
-            var meshes = (this.Resources["res"] as ExternResource).GetMeshes(skel);
+            Skeleton skel;
+            var meshes = (this.Resources["res"] as ExternResource).GetMeshes(out skel);
             foreach (var mesh in meshes)
             {
                 MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
+                first = false;
+            }
+            if (skel != null)
+            {
+                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
                 first = false;
             }
 

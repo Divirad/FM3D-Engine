@@ -31,10 +31,7 @@ namespace DesignerLib {
 
 		virtual event PropertyChangedEventHandler^ PropertyChanged;
 
-		ObservableCollection<Mesh^>^ GetMeshes(Skeleton^ skeleton);
-		Skeleton^ GetSkeleton();
-
-		ObservableCollection<Mesh^>^ CreateAll([Out] Skeleton^% skeleton);
+		ObservableCollection<Mesh^>^ GetMeshes([Out] Skeleton^% skeleton);
 
 	private:
 		void OnPropertyChanged(System::String^ name) {

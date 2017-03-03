@@ -38,7 +38,7 @@ namespace DesignerLib {
 		for each(auto p in parts) {
 			this->Parts->Add(p);
 		}
-		this->skeleton = skeleton;
+		this->Skelet = skeleton;
 	}
 
 }

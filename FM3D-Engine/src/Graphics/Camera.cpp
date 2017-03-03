@@ -8,7 +8,7 @@ namespace FM3D {
 	}
 
 	Matrix4f Camera::GetViewMatrix() const {
-		return Matrix4f::Invert(Matrix4f::Transformation(m_position * 100.0f, Vector3f(m_zoom, m_zoom, m_zoom), m_rotation));
+		return Matrix4f::Invert(Matrix4f::Transformation(m_position, Vector3f(m_zoom, m_zoom, m_zoom), m_rotation));
 	}
 
 	void Camera::Preset(PRESET pre, bool showcursor) {

@@ -8,7 +8,6 @@ in float UseMatrix;
 layout (location = 0) out vec3 WorldPosOut;   
 layout (location = 1) out vec3 DiffuseOut;     
 layout (location = 2) out vec3 NormalOut;     
-layout (location = 3) out vec3 TexCoordOut;    
 										
 uniform sampler2D gColorMap;                
 uniform sampler2D gNormalMap;
@@ -23,6 +22,5 @@ void main()
 		NormalOut		= normalize((2.0 * texture(gNormalMap, TexCoord0) - 1.0).rgb * NormalMatrix);
 	} else {
 		NormalOut = normalize(NormalMatrix[0]);
-	}
-	TexCoordOut     = vec3(TexCoord0, 0.0);			
+	}		
 }

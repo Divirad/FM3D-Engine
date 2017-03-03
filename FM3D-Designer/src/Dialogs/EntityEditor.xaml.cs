@@ -64,11 +64,21 @@ public partial class EntityEditor : DialogBase
 
         public void InitializeItems()
         {
-            _avaiabel.Add(new Component() { name = "Rotation" });
-            _avaiabel.Add(new Component() { name = "Position" });
-            _avaiabel.Add(new Component() { name = "Size"});
-            _avaiabel.Add(new Component() { name = "2DRender"});
-            _avaiabel.Add(new Component() { name = "3DRender"});
+            _avaiabel.Add(new Component() { name = "FM3D::PositionComponent" });
+            _avaiabel.Add(new Component() { name = "FM3D::RotationComponent" });
+            _avaiabel.Add(new Component() { name = "FM3D::ScaleComponent" });
+            _avaiabel.Add(new Component() { name = "FM3D::RenderableComponent" });
+
+            ObservableCollection<string> components;
+            if(!MainWindow.Instance.visualStudio.GetComponents(out components))
+            {
+                MainWindow.Instance.ShowMessageAsync("VisualStudio Error", "Could not get components");
+                return;
+            }
+            foreach(var c in components)
+            {
+                _avaiabel.Add(new Component() { name = c });
+            }
         }
 
         private void LoadListBox()
@@ -207,17 +217,17 @@ public partial class EntityEditor : DialogBase
                 {
                     switch (check.name)
                     {
-                        case "3DRender":
-                            _entity._propauto.Add(new Property() { name = "m_model", m_get = true, m_set = true, type = "Model" });
+                        case "FM3D::PositionComponent":
+                            _entity._propauto.Add(new Property() { name = "Position", m_get = true, m_set = true, type = "FM3D::Vector3f" });
                             break;
-                        case "Position":
-                            _entity._propauto.Add(new Property() { name = "m_position", m_get = true, m_set = true, type = "Vector3f" });
+                        case "FM3D::RotationComponent":
+                            _entity._propauto.Add(new Property() { name = "Rotation", m_get = true, m_set = true, type = "FM3D::Vector3f" });
                             break;
-                        case "Rotation":
-                            _entity._propauto.Add(new Property() { name = "m_rotation", m_get = true, m_set = true, type = "Vector3f" });
+                        case "FM3D::ScaleComponent":
+                            _entity._propauto.Add(new Property() { name = "Scale", m_get = true, m_set = true, type = "FM3D::Vector3f" });
                             break;
-                        case "Size":
-                            _entity._propauto.Add(new Property() { name = "m_size", m_get = true, m_set = true, type = "Vector3f" });
+                        case "FM3D::RenderableComponent":
+                            _entity._propauto.Add(new Property() { name = "Model", m_get = true, m_set = true, type = "const FM3D::Model*" });
                             break;
                         default:
                             break;

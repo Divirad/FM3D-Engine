@@ -7,12 +7,6 @@ struct BaseLight
     float DiffuseIntensity;
 };
 
-struct DirectionalLight
-{
-    BaseLight Base;
-    vec3 Direction;
-};
-
 struct Attenuation
 {
     float Constant;
@@ -27,23 +21,13 @@ struct PointLight
     Attenuation Atten;
 };
 
-struct SpotLight
-{
-    PointLight Base;
-    vec3 Direction;
-    float Cutoff;
-};
-
 uniform sampler2D gPositionMap;
 uniform sampler2D gColorMap;
 uniform sampler2D gNormalMap;
-uniform DirectionalLight gDirectionalLight;
 uniform PointLight gPointLight;
-uniform SpotLight gSpotLight;
 uniform vec3 gEyeWorldPos;
 uniform float gMatSpecularIntensity;
 uniform float gSpecularPower;
-uniform int gLightType;
 uniform vec2 gScreenSize;
 
 vec4 CalcLightInternal(BaseLight Light,
@@ -70,14 +54,6 @@ vec4 CalcLightInternal(BaseLight Light,
     }
 
     return (AmbientColor + DiffuseColor + SpecularColor);
-}
-
-vec4 CalcDirectionalLight(vec3 WorldPos, vec3 Normal)
-{
-    return CalcLightInternal(gDirectionalLight.Base,
-                             gDirectionalLight.Direction,
-                             WorldPos,
-                             Normal);
 }
 
 vec4 CalcPointLight(vec3 WorldPos, vec3 Normal)

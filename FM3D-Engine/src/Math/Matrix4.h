@@ -334,20 +334,45 @@ namespace FM3D {
 
 				return result;
 			}
-			static Matrix Perspective(float fov, float aspectRatio, float near, float far) {
+			static Matrix ProjectionFOV(float fov, float aspectRatio, float near, float far) {
 				Matrix4f result = Identity();
 
-				float q = 1.0f / tan(Math::toRadians(0.5f * fov));
-				float a = q / aspectRatio;
+				float x  = 1.0f / tan(Math::toRadians(0.5f * fov));
 
-				float b = (near + far) / (near - far);
-				float c = (2.0f * near * far) / (near - far);
+				result.elements[0 + 0 * 4] = x / aspectRatio;
+				result.elements[1 + 1 * 4] = x;
+				result.elements[2 + 2 * 4] = (near) / (near - far);
+				result.elements[3 + 2 * 4] = (near * far) / (near - far);
 
-				result.elements[0 + 0 * 4] = a;
-				result.elements[1 + 1 * 4] = q;
-				result.elements[2 + 2 * 4] = b;
 				result.elements[2 + 3 * 4] = -1.0f;
-				result.elements[3 + 2 * 4] = c;
+
+				return result;
+			}
+			static Matrix Projection(Scalar l, Scalar r, Scalar t, Scalar b, Scalar n, Scalar f) {
+					Matrix4f result = Identity();
+
+					result.elements[0 + 0 * 4] = (2.0f * n) / (r - l);
+					result.elements[2 + 0 * 4] = (r + l) / (r - l);
+
+					result.elements[1 + 1 * 4] = (2.0f * n) / (t - b);
+					result.elements[2 + 1 * 4] = (t + b) / (t - b);
+
+					result.elements[2 + 2 * 4] = -(f + n) / (f - n);
+					result.elements[3 + 2 * 4] = (-2.0f * f * n) / (f - n);
+
+					result.elements[2 + 3 * 4] = -1.0f;
+
+					return result;
+			}
+			static Matrix ProjectionSymm(Scalar w, Scalar h, Scalar n, Scalar f) {
+				Matrix4f result = Identity();
+
+				result.elements[0 + 0 * 4] = n / (0.5f * w);
+				result.elements[1 + 1 * 4] = n / (0.5f * h);
+				result.elements[2 + 2 * 4] = -(f + n) / (f - n);
+				result.elements[3 + 2 * 4] = (-2.0f * f * n) / (f - n);
+
+				result.elements[2 + 3 * 4] = -1.0f;
 
 				return result;
 			}

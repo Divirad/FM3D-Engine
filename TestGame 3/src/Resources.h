@@ -277,7 +277,7 @@ struct Resources {
 		desktop = renderSystem->CreateRenderTarget2D(Vector2i(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight()), true);
 		desktopRen = renderSystem->CreateRenderer2D(desktop);
 		desktop3D = renderSystem->CreateRenderTarget2D(Vector2i(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight()), true);
-		desktopRen3D = renderSystem->CreateRenderer3D(Matrix4f::Perspective(70.0f, (float)Window::GetInstance()->GetWidth() / (float)Window::GetInstance()->GetHeight(), 0.1f, 10000.0f), Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight(), desktop3D);
+		desktopRen3D = renderSystem->CreateRenderer3D(Matrix4f::ProjectionFOV(70.0f, (float)Window::GetInstance()->GetWidth() / (float)Window::GetInstance()->GetHeight(), 0.1f, 10000.0f), Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight(), desktop3D);
 		desktopTex = desktop->GetTexture();
 
 		desktopMat = { 0xffffffff, desktopTex };
