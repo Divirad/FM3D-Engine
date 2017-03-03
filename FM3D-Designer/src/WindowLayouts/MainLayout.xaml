@@ -9,11 +9,11 @@
              d:DesignHeight="300" d:DesignWidth="300"
              IsMainLayout="True">
     <local:WindowLayout.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Save"          Executed="SaveProjectCMD" />
+        <CommandBinding Command="ApplicationCommands.Save"          Executed="SaveProjectCommand" />
         <CommandBinding Command="ApplicationCommands.New"          Executed="OpenNewProject" />
         <CommandBinding Command="local:CustomCommands.Export"       Executed="Export" />
         <CommandBinding Command="local:CustomCommands.Compile"      Executed="Compile" />
-        <CommandBinding Command="local:CustomCommands.Start"        Executed="Start" />
+        <CommandBinding Command="local:CustomCommands.Start"        Executed="StartVSDebug" />
     </local:WindowLayout.CommandBindings>
     
     <Grid>
@@ -47,7 +47,7 @@
         <ToolBarTray IsLocked="True" Grid.Row="1">
             <ToolBar Height="35" Loaded="ToolBar_Loaded">
                 
-                <Button Height="30" ToolTip="Start Visual Studio" Click="Button_Click">
+                <Button Height="30" ToolTip="Start Visual Studio" Click="StartVSProject">
                     <Image Source="/FM3D-Designer;component/resources/images/vs_icon.png" />
                 </Button>
                 <Separator />
@@ -60,7 +60,7 @@
                 <Button Height="30" ToolTip="Build Game" Command="local:CustomCommands.Compile">
                     <Image Source="/FM3D-Designer;component/resources/images/build_icon.png" />
                 </Button>
-                <Button Height="30" ToolTip="Run Game" Click="Start_Click">
+                <Button Height="30" ToolTip="Run Game" Click="StartVSNoDebug">
                     <Image Source="/FM3D-Designer;component/resources/images/start_icon.png" />
                 </Button>
                 <Separator />

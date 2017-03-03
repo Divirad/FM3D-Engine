@@ -38,18 +38,8 @@ namespace FM3D_Designer.src.ToolWindows.TextEditor
             }
         }
 
-        public void KeyComplete(object sender, RoutedEventArgs e)
-        {
-           // Point point = new Point();
-           // this.GetCaretPos(out point);
-        }
 
-        public void Open_Click()
-        {
-        }
-
-
-        private async void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e) {
+        private async void Save(object sender, ExecutedRoutedEventArgs e) {
             string richText = new TextRange(rtb_text.Document.ContentStart, rtb_text.Document.ContentEnd).Text;
 
             if (System.IO.File.Exists(_path)) {

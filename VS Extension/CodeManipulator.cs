@@ -7,52 +7,105 @@ using Microsoft.VisualStudio.VCCodeModel;
 using EnvDTE;
 using System.Windows.Forms;
 
-namespace VS_Extension
-{
-    public class CodeManipulator
-    {
+namespace VS_Extension {
+
+    public class CodeManipulator {
         VCFileCodeModel model;
-        public CodeManipulator(string filename)
-        {
+        public CodeManipulator(string filename) {
             if (!FindModel(MainPackage.Instance.MainProject.ProjectItems, filename))
                 throw new ArgumentException("Not a valid filename for a code file", "filename");
         }
 
-        private bool FindModel(ProjectItems p, string filename)
-        {
+        private bool FindModel(ProjectItems p, string filename) {
 
-            foreach (ProjectItem pi in p)
-            {
-                if (pi.Name == filename)
-                {
+            foreach (ProjectItem pi in p) {
+                if (pi.Name == filename) {
                     model = pi.FileCodeModel as VCFileCodeModel;
                     return true;
-                }
-                else
-                {
+                } else {
                     if (FindModel(pi.ProjectItems, filename)) return true;
                 }
             }
             return false;
         }
 
-        public CodeClass AddClass(string name, object bases = null)
-        {
-            return model.AddClass(name, 0, bases);
+        //DIS DUS ALSO WURK
+        public void AddNamespace(string namespacename) {
+            bool isthere = false;
+            foreach (CodeElement namespace_ in model.Namespaces) {
+
+                if (namespacename == namespace_.FullName) {
+                    isthere = true;
+                }
+            }
+            if (isthere) {
+            } else {
+                model.AddNamespace(namespacename);
+            }
         }
 
-        public bool AddAttribute(string method, string atname, string atvalue) {
+        //DIS DUS WURK
+        public void AddClass(string name, string namespacename, object bases = null) {
+            bool isthere = false;
 
-            MessageBox.Show(model.Namespaces.ToString());
-           
-            if (!model.Namespaces.ToString().Contains("EntitySpace")) {
-                model.AddNamespace("EntitySpace");
-            } else { MessageBox.Show("NUUUUUU"); }
+            foreach(VCCodeNamespace space in model.Namespaces) {
+                if (space.Name==namespacename) {
 
-            //if (model.ValidateMember("Method1", vsCMElement.vsCMElementFunction, type)) {
-            //    classElement.AddFunction("Method1", vsCMFunction.vsCMFunctionFunction, type);
-            //}
-            return true;
+                    foreach (VCCodeClass class_ in space.Classes) {
+                        if (name == class_.Name) {
+                            isthere = true;
+                        }
+                    }
+                    if (isthere) {
+                    } else {
+                        space.AddClass(name);
+                    }
+                    break;
+                }
+            }
+
         }
+
+
+        public void AddVariable(string classname, string namespacename, string name, object type, object position, vsCMAccess access, object location) {
+            bool isthere = false;
+            
+            foreach(VCCodeNamespace space in model.Namespaces) {
+                if (space.Name==namespacename) {
+                    foreach(VCCodeClass class_ in space.Classes) {
+                        if (class_.Name==classname) {
+                            foreach (VCCodeVariable variable in class_.Variables) {
+                                if (variable.Name==classname) {
+                                    isthere = true;
+                                }
+                            }
+                            if (isthere) {
+                            } else {
+                                class_.AddVariable(classname, type, position, access, location);
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+
+        public void AddClass(string name, object bases = null) {
+            bool isthere = false;
+            foreach (CodeElement class_ in model.Classes) {
+                if (name == class_.FullName) {
+                    isthere = true;
+                }
+            }
+            if (isthere) {
+            } else {
+                model.AddClass(name);
+            }
+        }
+
+
     }
 }

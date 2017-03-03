@@ -38,7 +38,7 @@ namespace FM3D_Designer.src.WindowLayouts
             this.Initialize(mainWindow, null);
         }
 
-        public void bt_Click(object sender, RoutedEventArgs e)
+        public void OpenFileExplorer(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog openbrowserdialog = new FolderBrowserDialog();
 

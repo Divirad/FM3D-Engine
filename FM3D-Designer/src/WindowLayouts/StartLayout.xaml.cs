@@ -50,7 +50,7 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.AttachNewWindowLayout(new CreateProject(this.mainWindow), true);
         }
 
-        public void btn_start_Click(object sender, RoutedEventArgs e)
+        public void ClickLoadProject(object sender, RoutedEventArgs e)
         {
             //Project.TestEntityConvertTostr();
             this.LoadProj(sender,  e);
@@ -134,7 +134,7 @@ namespace FM3D_Designer.src.WindowLayouts
         {
             Application.Current.Shutdown();
         }
-        private void testButton_Click(object sender, RoutedEventArgs e)
+        private void TestProjectPath(object sender, RoutedEventArgs e)
         {
             this.tb_path.Text = "../../TestProjects/Project 0/project 0.fmproj";
         }

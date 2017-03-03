@@ -132,7 +132,7 @@
 	                    VerticalAlignment="Top"
 	                    Padding="5"
 	                    FontSize="30"
-                        Click="bt_Click" FontWeight="Normal"
+                        Click="OpenFileExplorer" FontWeight="Normal"
                 />
 
             </Grid>
