@@ -16,7 +16,7 @@ namespace FM3D_Designer.src.Dialogs
         {
             Window = win;
         }
-
+    
         public DialogBase()
         {
             Window = MainWindow.Instance;
