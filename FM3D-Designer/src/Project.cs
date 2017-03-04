@@ -369,7 +369,7 @@ namespace FM3D_Designer.src
 
 			foreach (var i in Item.AllItems[ItemTypes.EntityFile]) {
 				if (i.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
-					all.Add(new Entity(i.Path, true));
+					// XML
 				}
 			}
 			return all;
@@ -383,7 +383,28 @@ namespace FM3D_Designer.src
 			return list;
 		}
 		public static void TestEntityConvertTostr() {
-			MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
-        }
-    }
+
+			Entity blah = new Entity();
+			blah.name = "EntityPresetTeeest";
+
+			blah._propcustom.Add(new Property { name = "Custom1", type = "float", m_get = false, m_selected = false, m_set = true });
+			blah._propcustom.Add(new Property { name = "Custom2", type = "bool", m_get = true, m_selected = false, m_set = false });
+			List<Property> a = new List<Property>();
+			a.Add(new Property { name = "Auto1", type = "int", m_get = true, m_selected = false, m_set = false });
+			a.Add(new Property { name = "Auto2", type = "float", m_get = false, m_selected = false, m_set = true });
+
+			blah.components.Add(new Component { name = "Comp1", m_const = true,  m_selected = true, m_standard = true, _propauto=a });
+			blah.components.Add(new Component { name = "Comp2", m_const = false, m_selected = false, m_standard = false, _propauto = a });
+			blah.components.Add(new Component { name = "Comp3", m_const = true, m_selected = true, m_standard = true , _propauto = a });
+
+			MessageBox.Show(blah.ToString());
+			MessageBox.Show(blah.ToString(true));
+			MessageBox.Show(blah.ToString(false));
+
+			Entity aa = new Entity(blah.ToString());
+			MessageBox.Show(aa.ToString(true));
+			MessageBox.Show(aa.ToString(false));
+			//MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
+		}
+	}
 }

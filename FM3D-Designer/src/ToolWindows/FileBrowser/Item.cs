@@ -255,13 +255,13 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     var menu_res = new MenuItem();
                     var menu_adde = new MenuItem();
 
-                    menu_add.Header = "Add File";
+                    menu_add.Header = "New File";
                     menu_add.Click += OnAddNewFile;
 
-                    menu_adde.Header = "Add Entity";
+                    menu_adde.Header = "New Entity";
                     menu_adde.Click += OnEntityEditorNew;
 
-                    menu_res.Header = "New Resource";
+                    menu_res.Header = "Add Resource";
                     menu_res.Click += OnNewResource;
 
 

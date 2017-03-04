@@ -12,11 +12,15 @@ namespace FM3D_Designer.src {
 
         }
         public Property(string props_str) {
-            string[] propdata = props_str.Split(SC.SEPVAL);
-            name = propdata[0];
-            type = propdata[1];
-            m_get = Convert.ToBoolean(propdata[2]);
-            m_set = Convert.ToBoolean(propdata[3]);
+			MessageBox.Show(props_str);
+			if (props_str != "" && props_str != "\n" && props_str!=" ") {
+				MessageBox.Show(props_str);
+				string[] propdata = props_str.Split(SC.VAL);
+				name = propdata[0];
+				type = propdata[1];
+				m_get = Convert.ToBoolean(propdata[2]);
+				m_set = Convert.ToBoolean(propdata[3]);
+			}
             
         }
         public string name { get; set; }
@@ -28,9 +32,9 @@ namespace FM3D_Designer.src {
         public override string ToString() {
             string result = "";
             result +=
-                name + SC.SEPVAL +
-                type + SC.SEPVAL +
-                m_get + SC.SEPVAL +
+                name + SC.VAL +
+                type + SC.VAL +
+                m_get + SC.VAL +
                 m_set;
             return result;
         }
@@ -40,7 +44,7 @@ namespace FM3D_Designer.src {
                 "Name: "+name +"\n"+
                 "Type: " + type + "\n" +
                 "Get: " + m_get + "\n" +
-                "Set: "+m_set;
+                "Set: "+m_set+ "\n";
             return result;
         }
     }

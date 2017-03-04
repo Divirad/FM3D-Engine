@@ -206,7 +206,7 @@ namespace VS_Extension
 						"Get" + prop.name, 
 						EnvDTE.vsCMFunction.vsCMFunctionFunction, 
 						prop.type, 
-						EnvDTE.vsCMAccess.vsCMAccessPublic);
+						EnvDTE.vsCMAccess.vsCMAccessProtected);
 
 					mani.AddTextBodyOfMethod(cf, "return m_" + prop.name + ";");
 				}
@@ -217,9 +217,10 @@ namespace VS_Extension
 						"Set" + prop.name, 
 						EnvDTE.vsCMFunction.vsCMFunctionFunction, 
 						"void" , 
-						EnvDTE.vsCMAccess.vsCMAccessPublic);
+						EnvDTE.vsCMAccess.vsCMAccessProtected);
 
 					mani.AddAttribute(cf_, "m_" + prop.name + "_",prop.type);
+					mani.AddTextBodyOfMethod(cf_, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
 				}
 			}
 
@@ -229,28 +230,46 @@ namespace VS_Extension
 				// erstellt Get Set Methoden
 				if (prop.m_get) {
 
-					VCCodeFunction cf = mani.AddMethod(
+					VCCodeFunction qq = mani.AddMethod(
 						"Entities",
 						"preset_" + ent.name,
 						"Get" + prop.name,
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						prop.type,
-						EnvDTE.vsCMAccess.vsCMAccessPublic);
+						EnvDTE.vsCMAccess.vsCMAccessProtected);
 
-					mani.AddTextBodyOfMethod(cf, "return m_" + prop.name + ";");
+					mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
 				}
 				if (prop.m_set) {
-					VCCodeFunction cf_ = mani.AddMethod(
+					VCCodeFunction pp = mani.AddMethod(
 						"Entities",
 						"preset_" + ent.name,
 						"Set" + prop.name,
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
-						EnvDTE.vsCMAccess.vsCMAccessPublic);
+						EnvDTE.vsCMAccess.vsCMAccessProtected);
 
-					mani.AddAttribute(cf_, "m_" + prop.name + "_", prop.type);
+					mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+					mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
 				}
 			}
+
+			VCCodeFunction setcomp = mani.AddMethod(
+						"Entities",
+						"preset_" + ent.name,
+						"SetComponents",
+						EnvDTE.vsCMFunction.vsCMFunctionFunction,
+						"void",
+						EnvDTE.vsCMAccess.vsCMAccessPublic);
+			mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
+			string components="";
+			foreach (Component comp in ent.components) {
+				if (comp.m_standard) {
+					components += "e->Add<" + comp.name + ">(" + "" + ");";
+				}
+			}
+
+			mani.AddTextBodyOfMethod(setcomp, "return");
 		}
 		#endregion
 

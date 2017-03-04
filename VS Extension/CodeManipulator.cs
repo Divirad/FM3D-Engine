@@ -80,7 +80,7 @@ namespace VS_Extension {
                             if (isthere) {
                                 return null;
                             } else {
-                                VCCodeFunction cf = clazz.AddFunction(name, kind, type, null, access) as VCCodeFunction;
+                                VCCodeFunction cf = clazz.AddFunction(name, kind, type, -1, access) as VCCodeFunction;
                                 cf.TypeString = type.ToString();
                                 return cf;
                             }
