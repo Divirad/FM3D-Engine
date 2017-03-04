@@ -10,8 +10,6 @@ namespace FM3D {
 		GLint m_normalTextureUnitLocation;
 		GLint m_colorTextureUnitLocation;
 		GLint m_eyeWorldPosLocation;
-		GLint m_matSpecularIntensityLocation;
-		GLint m_matSpecularPowerLocation;
 		GLint m_screenSizeLocation;
 	protected:
 		GL3LightShader(const char* vertSrc, const char* fragSrc);

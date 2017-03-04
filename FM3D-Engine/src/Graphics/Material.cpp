@@ -6,7 +6,7 @@ namespace FM3D {
 	}
 
 	Material::Material(uint color, const Texture* texture, const Texture* normalMap, bool useWireframe):
-	Material(color, texture, 1.0f, nullptr, normalMap, useWireframe) {
+	Material(color, texture, 0.04f, nullptr, normalMap, useWireframe) {
 	}
 
 	Material::Material(uint color, const Texture * texture, bool useWireframe):

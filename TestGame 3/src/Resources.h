@@ -194,7 +194,7 @@ struct Resources {
 		bobaAnimModel->SetAnimationTime(1.5);
 		texAllo = ExternFileManager::ReadTextureFile("Allosaurus_diffuse.TGA", renderSystem, Texture::LINEAR, Texture::REPEAT);
 		normalAllo = ExternFileManager::ReadTextureFile("Allosaurus_normals.TGA", renderSystem, Texture::LINEAR, Texture::REPEAT);
-		matAllo = { 0xffffffff, texAllo, normalAllo };
+		matAllo = Material(0xffffffff, texAllo, 0.7f, nullptr, normalAllo);
 		alloModel->GetMaterials()[0] = &matAllo;
 	}
 #pragma endregion 

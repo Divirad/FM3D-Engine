@@ -18,11 +18,9 @@ uniform sampler2D gColorMap;
 uniform sampler2D gNormalMap;
 uniform DirectionalLight gDirectionalLight;
 uniform vec3 gEyeWorldPos;
-uniform float gMatSpecularIntensity;
-uniform float gSpecularPower;
 uniform vec2 gScreenSize;
 
-vec4 CalcLightInternal(BaseLight Light, vec3 LightDirection, vec3 WorldPos, vec3 Normal) {
+vec4 CalcLightInternal(BaseLight Light, vec3 LightDirection, vec3 WorldPos, vec3 Normal, vec2 TexCoord) {
     vec4 AmbientColor = vec4(Light.Color * Light.AmbientIntensity, 1.0);
     float DiffuseFactor = dot(Normal, -LightDirection);
 
@@ -36,16 +34,16 @@ vec4 CalcLightInternal(BaseLight Light, vec3 LightDirection, vec3 WorldPos, vec3
         vec3 LightReflect = normalize(reflect(LightDirection, Normal));
         float SpecularFactor = dot(VertexToEye, LightReflect);        
         if (SpecularFactor > 0.0) {
-            SpecularFactor = pow(SpecularFactor, gSpecularPower);
-            SpecularColor = vec4(Light.Color * gMatSpecularIntensity * SpecularFactor, 1.0);
+            SpecularFactor = pow(SpecularFactor, 16);
+            SpecularColor = vec4(Light.Color * SpecularFactor * texture(gColorMap, TexCoord).a, 1.0);
         }
     }
 
     return (AmbientColor + DiffuseColor + SpecularColor);
 }
 
-vec4 CalcDirectionalLight(vec3 WorldPos, vec3 Normal) {
-    return CalcLightInternal(gDirectionalLight.Base, gDirectionalLight.Direction, WorldPos, Normal);
+vec4 CalcDirectionalLight(vec3 WorldPos, vec3 Normal, vec2 TexCoord) {
+    return CalcLightInternal(gDirectionalLight.Base, gDirectionalLight.Direction, WorldPos, Normal, TexCoord);
 }
 
 vec2 CalcTexCoord() {
@@ -61,5 +59,5 @@ void main() {
 	vec3 Normal = texture(gNormalMap, TexCoord).xyz;
 	Normal = normalize(Normal);
 
-	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal);
+	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal, TexCoord);
 }

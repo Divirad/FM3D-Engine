@@ -103,7 +103,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	}
 
 	Texture* terrainTexture = ExternFileManager::ReadTextureFile("grass.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-	Material terrainMaterial(0xffffffff, terrainTexture);
+	Material terrainMaterial(0xffffffff, terrainTexture, 0.5f, nullptr);
 	std::vector<const Material*> materials(1);
 	materials[0] = &terrainMaterial;
 

@@ -10,8 +10,6 @@ namespace FM3D {
 		m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 		m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
 		m_eyeWorldPosLocation = GetUniformLocation("gEyeWorldPos");
-		m_matSpecularIntensityLocation = GetUniformLocation("gMatSpecularIntensity");
-		m_matSpecularPowerLocation = GetUniformLocation("gSpecularPower");
 		m_screenSizeLocation = GetUniformLocation("gScreenSize");
 	}
 
@@ -28,9 +26,6 @@ namespace FM3D {
 		SetUniform1i(m_posTextureUnitLocation, 0);
 		SetUniform1i(m_colorTextureUnitLocation, 1);
 		SetUniform1i(m_normalTextureUnitLocation, 2);
-
-		SetUniform1f(m_matSpecularIntensityLocation, 1.0f);
-		SetUniform1f(m_matSpecularPowerLocation, 16.0f);
 	}
 
 	GL3PointLightShader::GL3PointLightShader() : GL3LightShader(FileManager::ReadShaderFile(PATH + string("Light.vert"), {}).c_str(), FileManager::ReadShaderFile(PATH + string("PointLight.frag"), {}).c_str()) {
