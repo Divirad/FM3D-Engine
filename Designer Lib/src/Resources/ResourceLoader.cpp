@@ -81,6 +81,7 @@ namespace DesignerLib {
 		globalInverseTransformation = new Matrix4f(Matrix4f::Identity());
 		*globalInverseTransformation = Matrix4f::Invert(CreateMatrix4f(scene->mRootNode->mTransformation));
 		boneOffsetMatrices = new std::vector<Matrix4f>();
+		animations = new std::vector<Animation>();
 		return true;
 	}
 

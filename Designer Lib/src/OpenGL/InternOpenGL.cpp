@@ -68,6 +68,10 @@ namespace DesignerLib {
 	}
 
 	void InternOpenGL::ChangeSize(double width, double height) {
+
+		std::cout << std::endl << m_width << " -> " << width << std::endl;
+		std::cout << m_height << " -> " << height << std::endl;
+
 		m_width = static_cast<uint>(width);
 		m_height = static_cast<uint>(height);
 
@@ -75,10 +79,15 @@ namespace DesignerLib {
 	}
 
 	std::vector<unsigned char> InternOpenGL::Render() {
+		std::cout << "Render!" << std::endl;
+
+		m_renderTarget->BindAsSource();
 		return m_renderTarget->GetPixelData();
 	}
 
 	void InternOpenGL::Update(float x, float y, float z, float rx, float ry, float rz, float sx, float sy, float sz) {
+		std::cout << "Update" << std::endl;
+
 		m_entity->Get<PositionComponent>()->SetPosition(Vector3f(x, y, z));
 		m_entity->Get<RotationComponent>()->SetRotation(Vector3f(rx, ry, rz));
 		m_entity->Get<ScaleComponent>()->SetScale(Vector3f(sx, sy, sz));

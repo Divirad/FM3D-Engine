@@ -67,19 +67,17 @@ namespace FM3D_Designer.src.Dialogs
 
             bool first = true;
             Skeleton skel;
-            // Removed by Max
-            // Hat aaaalles kaputt gemacht
-            //var meshes = (this.Resources["res"] as ExternResource).GetMeshes(skel);
-            //foreach (var mesh in meshes)
-            //{
-            //    MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
-            //    first = false;
-            //}
-            //if (skel != null)
-            //{
-            //    MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
-            //    first = false;
-            //}
+            var meshes = (this.Resources["res"] as ExternResource).GetMeshes(out skel);
+            foreach (var mesh in meshes)
+            {
+                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
+                first = false;
+            }
+            if (skel != null)
+            {
+                MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
+                first = false;
+            }
 
         }
 

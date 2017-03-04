@@ -202,7 +202,6 @@
     <ClInclude Include="src\Resources\ExternResource.h" />
     <ClInclude Include="src\Resources\FoundResource.h" />
     <ClInclude Include="src\Resources\InternMesh.h" />
-    <ClInclude Include="src\Resources\InternMeshW.h" />
     <ClInclude Include="src\Resources\Mesh.h" />
     <ClInclude Include="src\Resources\ResourceLoader.h" />
     <ClInclude Include="src\Resources\Skeleton.h" />
@@ -246,7 +245,6 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="src\Resources\InternMeshW.cpp" />
     <ClCompile Include="src\Resources\Mesh.cpp" />
     <ClCompile Include="src\Resources\ResourceLoader.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

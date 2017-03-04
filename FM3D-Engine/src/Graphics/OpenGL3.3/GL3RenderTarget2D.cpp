@@ -72,10 +72,11 @@ namespace FM3D {
 	}
 
 	void GL3RenderTarget2D::Delete() {
+		delete m_texture;
 		GLCall(glDeleteTextures(1, &m_depthBuffer)); //silently ignores 0's
 		GLCall(glDeleteFramebuffers(1, &m_frameBuffer));
 
-		m_texture = 0;
+		m_texture = nullptr;
 		m_depthBuffer = 0;
 		m_frameBuffer = 0;
 	}

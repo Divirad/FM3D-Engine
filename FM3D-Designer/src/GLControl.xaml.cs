@@ -38,7 +38,7 @@ namespace FM3D_Designer.src
             lock(gl)
             {
                 gl.ChangeSize(e.NewSize);
-                this.UpdateLayout();
+                this.InvalidateVisual();
             }
         }
 

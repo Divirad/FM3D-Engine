@@ -77,6 +77,7 @@ namespace FM3D {
 		GLCall(glCullFace(GL_BACK));
 
 		SetWireframe(m_forceWireFrame);
+		m_shader3D->Bind();
 
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
 
