@@ -14,24 +14,67 @@ namespace FM3D {
 		FileManager::fileEnding = fileEnding;
 	}
 
-	std::string FileManager::ReadShaderFile(std::string filepath) {
-		filepath = enginePath + filepath;
-		FILE* file;
-		fopen_s(&file, filepath.c_str(), "rt");
-		if (file == nullptr) {
-			OUTPUT_ERROR(1, "Filemanager Error", filepath);
-		}
-		fseek(file, 0, SEEK_END);
-		unsigned long length = ftell(file);
-		char* data = new char[length + 1];
-		memset(data, 0, length + 1);
-		fseek(file, 0, SEEK_SET);
-		fread(data, 1, length, file);
-		fclose(file);
+	static string ReadShader(ifstream& f, const vector<string>& defines) {
+		static const string d_if = "#if ";
+		static const string d_else = "#else";
+		static const string d_end = "#end";
 
-		string result(data);
-		delete[] data;
-		return result;
+		string str = "";
+		string line;
+		while (f && getline(f, line)) {
+			if (line.substr(0, d_if.length()) == d_if) {	//If occured
+				string def = line.substr(d_if.length());
+				if (find(defines.begin(), defines.end(), def) != defines.end()) {
+					str += ReadShader(f, defines);	//Read if
+				}
+				else {
+					uint ifBlocks = 0;
+					while (f && getline(f, line)) {
+						if (line.substr(0, d_else.length()) == d_else) {
+							if (ifBlocks == 0) {
+								str += ReadShader(f, defines);	//Read else
+								break;
+							}
+						}
+						else if (line.substr(0, d_end.length()) == d_end) {
+							if(ifBlocks == 0) break; //Jumped to end
+							else ifBlocks--;
+						}
+						else if (line.substr(0, d_if.length()) == d_if) { //If occured
+							ifBlocks++;
+						}
+					}
+				}
+			} 
+			else if (line.substr(0, d_else.length()) == d_else) { //Else occured
+				while (f && getline(f, line)) {
+					if (line.substr(0, d_end.length()) == d_end) {
+						break; //Jumped to end
+					}
+				}
+			}
+			else if (line.substr(0, d_end.length()) == d_end) { //End occured
+				break; //Block ended
+			}
+			else { //Nomal line
+				str += line + '\n';
+			}
+		}
+		return str;
+	}
+
+	std::string FileManager::ReadShaderFile(std::string filepath, const vector<string>& defines) {
+		filepath = enginePath + filepath;
+		string result;
+		ifstream file(filepath);
+		if (file.is_open()) {
+			string result = ReadShader(file, defines);
+			file.close();
+			return result;
+		}
+		else {
+			throw std::runtime_error("Can not open shader file " + filepath);
+		}
 	}
 
 	std::vector<std::vector<float>> FileManager::ReadTerrainFile(std::string filepath) {

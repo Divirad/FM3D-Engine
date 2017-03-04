@@ -9,7 +9,6 @@ namespace FM3D {
 
 	//Components for 2D-Rendering
 	class ImageComponent;
-#define PictureComponent ImageComponent		//Frag einfach nicht! einfach das define Akzeptieren!
 	class UVComponent;
 	class TextComponent;
 

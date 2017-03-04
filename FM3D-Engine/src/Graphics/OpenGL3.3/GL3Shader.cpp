@@ -19,6 +19,7 @@ namespace FM3D {
 			GLCall(glGetShaderInfoLog(vertex, length, &length, &error[0]));
 			std::cout << "Failed to compile vertex shader!" << std::endl;
 			std::cout << &error[0] << std::endl;
+
 			GLCall(glDeleteShader(vertex));
 			return 0;
 		}

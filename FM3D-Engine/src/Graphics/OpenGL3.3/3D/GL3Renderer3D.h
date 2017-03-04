@@ -8,6 +8,7 @@ namespace FM3D {
 
 	class ENGINE_DLL GL3Renderer3D : Renderer3D {
 	private:
+
 		Matrix4f m_projectionMatrix;
 
 		GL3GBuffer m_gbuffer;
@@ -17,14 +18,16 @@ namespace FM3D {
 		GL3DirectionalLightShader m_dirLightShader;
 		GL3PointLightShader m_pointLightShader;
 		GL3NullShader m_nullShader;
-		GL3Shader3D m_shader3D;
+
+		byte m_shader3DConfig;
+		GL3Shader3D* m_shader3D;
+		std::vector<GL3Shader3D> m_shaders3D;
 
 		std::map<const Mesh*, std::map<const Model*, std::vector<const EntitySystem::Entity*>>> m_meshModelEntityMap;
 		std::vector<PointLight*> m_pointLights;
 
 		GL3Mesh* m_bsphere;
 		GL3Mesh* m_quad;
-		GL3Texture* m_defaultNormalMap;
 
 		bool m_isWireFrameEnabled;
 
@@ -42,5 +45,7 @@ namespace FM3D {
 		void DirectionalLightPass(const Vector3f cameraPos);
 		void FinalPass();
 		void SetWireframe(bool enable);
+		bool SetShader(int config);
+		void SetMaterial(const Material* material);
 	};
 }
