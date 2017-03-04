@@ -364,19 +364,16 @@ namespace FM3D_Designer.src
         public static void TestEntityConvertTostr() {
             Entity blah = new Entity();
             blah.name = "ENTITYYY";
-            blah._propauto.Add(new Property { name = "Prop1", type = "Type1", m_get = true, m_selected = true, m_set = true });
-            blah._propauto.Add(new Property { name = "Prop2", type = "Type2", m_get = true, m_selected = true, m_set = true });
-            blah._propauto.Add(new Property { name = "Prop3", type = "Type3", m_get = true, m_selected = true, m_set = true });
+            blah._propauto.Add(new Property { name = "Auto1", type = "int", m_get = true, m_selected = false, m_set = false });
+            blah._propauto.Add(new Property { name = "Auto2", type = "float", m_get = false, m_selected = false, m_set = true });
 
-            blah._propcustom.Add(new Property { name = "PropCustom1", type = "TypeCustom1", m_get = false, m_selected = false, m_set = false });
-            blah._propcustom.Add(new Property { name = "PropCustom2", type = "TypeCustom2", m_get = false, m_selected = false, m_set = false });
-            blah._propcustom.Add(new Property { name = "PropCustom3", type = "TypeCustom3", m_get = false, m_selected = false, m_set = false });
+            blah._propcustom.Add(new Property { name = "Custom1", type = "float", m_get = false, m_selected = false, m_set = true });
+            blah._propcustom.Add(new Property { name = "Custom2", type = "bool", m_get = true, m_selected = false, m_set = false });
 
             blah.components.Add(new Component { name = "Comp1", m_const = true, m_custom = true, m_selected = true, m_standard = true });
             blah.components.Add(new Component { name = "Comp2", m_const = false, m_custom = false, m_selected = false, m_standard = false });
             blah.components.Add(new Component { name = "Comp3", m_const = true, m_custom = true, m_selected = true, m_standard = true });
-            blah.components.Add(new Component { name = "Comp4", m_const = false, m_custom = false, m_selected = false, m_standard = false });
-            
+
             MessageBox.Show(blah.ToString(true));
             MessageBox.Show(blah.ToString(false));
             MessageBox.Show("Converting to StringList");
