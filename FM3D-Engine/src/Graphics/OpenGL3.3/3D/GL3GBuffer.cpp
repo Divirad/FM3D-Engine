@@ -14,7 +14,8 @@ namespace FM3D {
 
 		for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 			GLCall(glBindTexture(GL_TEXTURE_2D, m_textures[i]));
-			GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, NULL));
+			GLCall(glTexImage2D(GL_TEXTURE_2D, 0, i == GBUFFER_TEXTURE_TYPE_COLOR ? GL_RGBA32F : GL_RGB32F,
+				width, height, 0, i == GBUFFER_TEXTURE_TYPE_COLOR ? GL_RGBA : GL_RGB, GL_FLOAT, NULL));
 			GLCall(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
 			GLCall(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
 			GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_textures[i], 0));

@@ -53,7 +53,8 @@ static Matrix4f& CreateRealZero(Matrix4f& mat) {
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
-	cout << Matrix4f::ProjectionSymm(1.0f, .5f / 3.0f, .1f, 1000.0f) << endl;
-	cout << Matrix4f::ProjectionFOV(70.0f, 1920.0f / 1080.0f, .1f, 1000.0f) << endl;
+	FileManager::Initialize("", "", "");
+	std::cout << FileManager::ReadShaderFile("../TestGame 2/Test.txt", { "HUHU" });
+
 	while (true);
 }

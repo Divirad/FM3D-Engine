@@ -28,7 +28,7 @@ namespace FM3D {
 
 		static Font* readFontFile(std::string path, const Renderer* renderer);
 		*/
-		static std::string ReadShaderFile(std::string filepath);
+		static std::string ReadShaderFile(std::string filepath, const std::vector<std::string>& defines);
 
 		static std::vector<std::vector<float>> ReadTerrainFile(std::string filepath);
 

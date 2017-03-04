@@ -4,15 +4,23 @@ namespace FM3D {
 
 	GL3Renderer3D::GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target) :
 		Renderer3D(target), m_projectionMatrix(projectionMatrix), m_gbuffer(width, height), m_width(width), m_height(height),
-		m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_pointLights(), m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)),
+		m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_shader3DConfig(0), m_shader3D(nullptr), m_shaders3D(), m_pointLights(),
+		m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)),
 		m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))),
 		m_isWireFrameEnabled(true) {
 
 		SetWireframe(false);
 
-		m_shader3D.Bind();
-		m_shader3D.SetColorTextureUnit(0);
-		m_shader3D.SetNormalTextureUnit(1);
+		m_shaders3D.reserve(GL3Shader3D::ANIMATED | GL3Shader3D::NORMALMAP | GL3Shader3D::SPECULARMAP);
+		for (int i = 0; i < (GL3Shader3D::ANIMATED | GL3Shader3D::NORMALMAP | GL3Shader3D::SPECULARMAP); i++) {
+			m_shaders3D.emplace_back(i);
+			m_shader3D = &m_shaders3D.back();
+			m_shader3D->Bind();
+			m_shader3D->SetColorTextureUnit(0);
+			m_shader3D->SetNormalTextureUnit(1);
+			m_shader3D->SetSpecularTextureUnit(2);
+		}
+		m_shader3D = &m_shaders3D[m_shader3DConfig];
 
 		m_pointLightShader.Bind();
 		m_pointLightShader.Initialize(m_width, m_height);
@@ -22,7 +30,6 @@ namespace FM3D {
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
 		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.16f, 0.8f, Vector3f(1.0f, -1.0f, -1.0f) });
 
-		m_defaultNormalMap = dynamic_cast<GL3Texture*>(renderSystem->CreateTexture(1, 1, Texture::NEAREST, Texture::REPEAT, Texture::NONE, new float[3] { 1.0f, 0.0f, 0.0f }, 24));
 	}
 
 	void GL3Renderer3D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
@@ -61,8 +68,6 @@ namespace FM3D {
 	}
 
 	void GL3Renderer3D::GeometryPass(const Matrix4f& viewMatrix) {
-		m_shader3D.Bind();
-
 		m_gbuffer.BindForGeomPass();
 
 		GLCall(glDepthMask(GL_TRUE));
@@ -81,36 +86,31 @@ namespace FM3D {
 				for (std::map<const Model*, std::vector<const EntitySystem::Entity*>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
 					
 					const Material* material = it2->first->GetMaterials()[i];
-					GLCall(glActiveTexture(GL_TEXTURE0));
-					dynamic_cast<const GL3Texture*>(material->texture)->Bind();
-					GLCall(glActiveTexture(GL_TEXTURE1));
-					if (it2->first->GetMaterials()[i]->normalMap)
-						dynamic_cast<const GL3Texture*>(material->normalMap)->Bind();
-					else
-						m_defaultNormalMap->Bind();
-					if (!m_forceWireFrame)
-						SetWireframe(material->useWireframe);
+					SetMaterial(material);
 
 					for (const EntitySystem::Entity*& e : it2->second) {
+						if (SetShader((it->first->IsAnimated() ? GL3Shader3D::ANIMATED : 0) |
+							(material->normalMap ? GL3Shader3D::NORMALMAP : 0) | (material->specularMap ? GL3Shader3D::SPECULARMAP : 0)))
+							m_shader3D->SetSpecular(material->specularFactor);
 						if (it->first->IsAnimated()) {
 							if (it2->first->IsAnimated()) {
 								AnimatedModel* a = (AnimatedModel*)it2->first;
 								if (a->GetAnimation() != nullptr) {
 									std::vector<Matrix4f> bones(a->GetAnimation()->GetBoneTransformations(a->GetAnimationTime()));
-									m_shader3D.SetBones(bones);
+									m_shader3D->SetBones(bones);
 								} else {
-									m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
+									m_shader3D->ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
 								}
 							} else {
-								m_shader3D.ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
+								m_shader3D->ReSetBones(it->first->GetSkeleton()->GetOffsetMatrices().size());
 							}
 						}
 						const Vector3f& position = static_cast<PositionComponent*>(e->GetComponent(PositionComponentId))->GetPosition();
 						const Vector3f& rotation = static_cast<RotationComponent*>(e->GetComponent(RotationComponentId))->GetRotation();
 						const Vector3f& scale = static_cast<ScaleComponent*>(e->GetComponent(ScaleComponentId))->GetScale();
 						Matrix4f modelMatrix = Matrix4f::Transformation(position, scale, rotation);
-						m_shader3D.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * /*(Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) **/ modelMatrix));
-						m_shader3D.SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
+						m_shader3D->SetWVP(Matrix4f::Transpose(viewProjectionMatrix * /*(Matrix4f::Scale(Vector3f(100.0f, 100.0f, 100.0f)) **/ modelMatrix));
+						m_shader3D->SetWorldMatrix(Matrix4f::Transpose(modelMatrix));
 						((const GL3Mesh*)it->first)->Render(i);
 					}
 				}
@@ -210,6 +210,28 @@ namespace FM3D {
 		if (m_isWireFrameEnabled == enable) return;
 		GLCall(glPolygonMode(GL_FRONT_AND_BACK, enable ? GL_LINE : GL_FILL));
 		m_isWireFrameEnabled = enable;
+	}
+
+	bool GL3Renderer3D::SetShader(int config) {
+		if (m_shader3DConfig != config) {
+			m_shader3D = &m_shaders3D[m_shader3DConfig = config];
+ 			m_shader3D->Bind();
+			return true;
+		}
+		return false;
+	}
+
+	void GL3Renderer3D::SetMaterial(const Material * material) {
+		GLCall(glActiveTexture(GL_TEXTURE0));
+		dynamic_cast<const GL3Texture*>(material->texture)->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE1));
+		if (material->normalMap)
+			dynamic_cast<const GL3Texture*>(material->normalMap)->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE2));
+		if (material->specularMap)
+			dynamic_cast<const GL3Texture*>(material->specularMap)->Bind();
+		if (!m_forceWireFrame)
+			SetWireframe(material->useWireframe);
 	}
 
 }

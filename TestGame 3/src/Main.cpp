@@ -24,6 +24,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
 	ExternFileManager::Initialize();
 
+	std::string vert = FileManager::ReadShaderFile("src/Graphics/OpenGL3.3/3D/Shader/Light.vert", {});
+	std::string vert2 = FileManager::ReadShaderFile("src/Graphics/OpenGL3.3/3D/Shader/Geometry.vert", {});
+	auto char0 = vert.back();
+	auto char1 = vert2.back();
+
 	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
 
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
@@ -98,7 +103,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	}
 
 	Texture* terrainTexture = ExternFileManager::ReadTextureFile("grass.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
-	Material terrainMaterial = { 0xffffffff, terrainTexture };
+	Material terrainMaterial(0xffffffff, terrainTexture);
 	std::vector<const Material*> materials(1);
 	materials[0] = &terrainMaterial;
 
