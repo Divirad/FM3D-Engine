@@ -266,10 +266,11 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
 
                     menu.Items.Add(menu_add);
-                    menu.Items.Add(menu_res);
-                    menu.Items.Add(menu_adde);
+					menu.Items.Add(menu_adde);
+					menu.Items.Add(new Separator());
+					menu.Items.Add(menu_res);
                 }
-                else if (this.type == ItemTypes.Directory)
+                else if (this.type == ItemTypes.EntityFile)
                 {
                     var menu_ee = new MenuItem();
                     menu_ee.Header = "Edit Entity";
@@ -286,6 +287,20 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     menu_ot.Click += OnTextEditor;
                     menu.Items.Add(menu_ot);
                 }
+				
+				menu.Items.Add(new Separator());
+
+				if (this.State== ItemState.NOT_PROJECT) {
+					var menu_include = new MenuItem();
+					menu_include.Header = "Include";
+					menu_include.Click += IncludeFile;
+					menu.Items.Add(menu_include);
+				} else {
+					var menu_exclude = new MenuItem();
+					menu_exclude.Header = "Exclude";
+					menu_exclude.Click += ExcludeFile;
+					menu.Items.Add(menu_exclude);
+				}
 
                 return menu;
             }
@@ -325,11 +340,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             Item i;
             CreateFile(x, ItemTypes.UnknownFile, out i);
         }
+		private void IncludeFile(object sender, EventArgs args) {
+			State = ItemState.NORMAL;
+		}
+		private void ExcludeFile(object sender, EventArgs args) {
+			State = ItemState.NOT_PROJECT;
+		}
 
-        #endregion
+		#endregion
 
-        #region Parent
-        public Item Parent { get; private set; }
+		#region Parent
+		public Item Parent { get; private set; }
         public bool IsRootItem
         {
             get

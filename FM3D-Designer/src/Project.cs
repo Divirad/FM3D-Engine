@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Xml;
 using MahApps.Metro.Controls.Dialogs;
+using FM3D_Designer.src.ToolWindows.FileBrowser;
 
 namespace FM3D_Designer.src
 {
@@ -361,30 +362,28 @@ namespace FM3D_Designer.src
             MainWindow.Instance.visualStudio.AddClass("Fischilein", "Quelle.cpp", new string[] { "Blah" });
         }
 
-        public static void TestEntityConvertTostr() {
-            Entity blah = new Entity();
-            blah.name = "ENTITYYY";
-            blah._propauto.Add(new Property { name = "Auto1", type = "int", m_get = true, m_selected = false, m_set = false });
-            blah._propauto.Add(new Property { name = "Auto2", type = "float", m_get = false, m_selected = false, m_set = true });
+		// View.Instance.logic.RootDirectories
 
-            blah._propcustom.Add(new Property { name = "Custom1", type = "float", m_get = false, m_selected = false, m_set = true });
-            blah._propcustom.Add(new Property { name = "Custom2", type = "bool", m_get = true, m_selected = false, m_set = false });
+		public List<Entity> GetAllEntities() {
+			List<Entity> all = new List<Entity>();
 
-            blah.components.Add(new Component { name = "Comp1", m_const = true, m_custom = true, m_selected = true, m_standard = true });
-            blah.components.Add(new Component { name = "Comp2", m_const = false, m_custom = false, m_selected = false, m_standard = false });
-            blah.components.Add(new Component { name = "Comp3", m_const = true, m_custom = true, m_selected = true, m_standard = true });
-
-            MessageBox.Show(blah.ToString(true));
-            MessageBox.Show(blah.ToString(false));
-            MessageBox.Show("Converting to StringList");
-
-            List<string> entities = new List<string>();
-            entities.Add(blah.ToString());
-            MessageBox.Show("Sending it via. PIPE");
-            MainWindow.Instance.visualStudio.SendEntities(entities);
-
-
-
+			foreach (var i in Item.AllItems[ItemTypes.EntityFile]) {
+				if (i.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
+					all.Add(new Entity(i.Path, true));
+				}
+			}
+			return all;
+		}
+		// Project.CurrentProject.GetAllEntities()
+		public List<string> ConvertAllEntitiesToString() {
+			List<string> list = new List<string>();
+			foreach(Entity e in Project.CurrentProject.GetAllEntities()) {
+				list.Add(e.ToString());
+			}
+			return list;
+		}
+		public static void TestEntityConvertTostr() {
+			MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
         }
     }
 }

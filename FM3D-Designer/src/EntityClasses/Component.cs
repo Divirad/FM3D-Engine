@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FM3D_Designer.src {
 
-    class Component {
+    public class Component {
         public Component() { }
         public Component(string comp_str) {
             string[] compdata = comp_str.Split(SC.SEPVAL);
