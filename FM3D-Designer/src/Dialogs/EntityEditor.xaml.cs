@@ -69,19 +69,42 @@ public partial class EntityEditor : DialogBase
             _avaiabel.Add(new Component() { name = "FM3D::ScaleComponent" });
             _avaiabel.Add(new Component() { name = "FM3D::RenderableComponent" });
 
-            ObservableCollection<string> components;
-            if(!MainWindow.Instance.visualStudio.GetComponents(out components))
-            {
-                MainWindow.Instance.ShowMessageAsync("VisualStudio Error", "Could not get components");
-                return;
-            }
-            foreach(var c in components)
-            {
-                _avaiabel.Add(new Component() { name = c });
-            }
+            //ObservableCollection<string> components;
+            //if(!MainWindow.Instance.visualStudio.GetComponents(out components))
+            //{
+            //    MainWindow.Instance.ShowMessageAsync("VisualStudio Error", "Could not get components");
+            //    return;
+            //}
+            //foreach(var c in components)
+            //{
+            //    _avaiabel.Add(new Component() { name = c });
+            //}
         }
+		private void AutoProps() {
+			foreach (Component check in _entity.components) {
+				if (check.m_standard == true) {
+					switch (check.name) {
+						case "FM3D::PositionComponent":
+							_entity._propauto.Add(new Property() { name = "Position", m_get = true, m_set = true, type = "FM3D::Vector3f" });
+							break;
+						case "FM3D::RotationComponent":
+							_entity._propauto.Add(new Property() { name = "Rotation", m_get = true, m_set = true, type = "FM3D::Vector3f" });
+							break;
+						case "FM3D::ScaleComponent":
+							_entity._propauto.Add(new Property() { name = "Scale", m_get = true, m_set = true, type = "FM3D::Vector3f" });
+							break;
+						case "FM3D::RenderableComponent":
+							_entity._propauto.Add(new Property() { name = "Model", m_get = true, m_set = true, type = "const FM3D::Model*" });
+							break;
+						default:
+							break;
+					}
+				}
+			}
 
-        private void LoadListBox()
+		}
+
+		private void LoadListBox()
         {
             lb_comp.ItemsSource = _entity.components;
             lb_auto.ItemsSource = _entity._propauto;
@@ -209,33 +232,7 @@ public partial class EntityEditor : DialogBase
             this.Refresh();
 
         }
-        private void AutoProps()
-        {
-            foreach (Component check in _entity.components)
-            {
-                if (check.m_standard == true)
-                {
-                    switch (check.name)
-                    {
-                        case "FM3D::PositionComponent":
-                            _entity._propauto.Add(new Property() { name = "Position", m_get = true, m_set = true, type = "FM3D::Vector3f" });
-                            break;
-                        case "FM3D::RotationComponent":
-                            _entity._propauto.Add(new Property() { name = "Rotation", m_get = true, m_set = true, type = "FM3D::Vector3f" });
-                            break;
-                        case "FM3D::ScaleComponent":
-                            _entity._propauto.Add(new Property() { name = "Scale", m_get = true, m_set = true, type = "FM3D::Vector3f" });
-                            break;
-                        case "FM3D::RenderableComponent":
-                            _entity._propauto.Add(new Property() { name = "Model", m_get = true, m_set = true, type = "const FM3D::Model*" });
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-
-        }
+       
 
         private void DeletePropauto(string prop)
         {
@@ -248,21 +245,66 @@ public partial class EntityEditor : DialogBase
         #region LOAD
         private async void LoadEntity(string path)
         {
-
             string xmlfile = System.IO.File.ReadAllText(_path);
             if (xmlfile.Contains("EntityPreset"))
             {
-                Project result = new Project(path);
-
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.IgnoreWhitespace = true;
                 XmlReader xml = XmlReader.Create(path, settings);
 
                 xml.ReadToDescendant("EntityPreset");
 
-                LoadXmlFile(path, xml.ReadSubtree());
-                
-                xml.Close();
+				XmlReader xml2 = xml.ReadSubtree();
+
+				// LoadXmlFile(path, xml.ReadSubtree());
+				while (xml2.Read()) {
+					if ((xml2.NodeType == XmlNodeType.Element) && (xml2.Name == "EntityPreset") && (xml2.Depth == 0)) {
+						xml2.MoveToAttribute("preset");
+						_entity.name = xml2.Value;
+						tb_entityname.Text += _entity.name;
+						// LoadProjectFiles(xml);
+						while (xml2.Read()) {
+							if (xml2.NodeType == XmlNodeType.Element) {
+								if (xml2.Name == "Component") {
+									Component temp = new Component();
+									xml2.MoveToAttribute("name");
+									temp.name = xml2.Value;
+									xml2.MoveToAttribute("const");
+									temp.m_const = Convert.ToBoolean(xml2.Value);
+									xml2.MoveToAttribute("standard");
+									temp.m_standard = Convert.ToBoolean(xml2.Value);
+
+									AddComponent(temp.name, temp.m_const, temp.m_standard);
+								}
+								if (xml2.Name == "Property") {
+									Property temp = new Property();
+									xml2.MoveToAttribute("name");
+									temp.name = xml2.Value;
+
+									xml2.MoveToAttribute("get");
+									temp.m_get = Convert.ToBoolean(xml2.Value);
+
+									xml2.MoveToAttribute("set");
+									temp.m_set = Convert.ToBoolean(xml2.Value);
+
+									xml2.MoveToAttribute("typ");
+									temp.type = xml2.Value;
+
+									xml2.MoveToAttribute("auto");
+
+									if (Convert.ToBoolean(xml2.Value) == true) {
+										//Abfragen
+										_entity._propauto.Add(temp);
+									} else {
+										_entity._propcustom.Add(temp);
+									}
+								}
+							}
+						}
+					}
+				}
+
+				xml.Close();
             } else { await _window.ShowMessageAsync("ERROR", "No Entityfile!"); }
 
         }

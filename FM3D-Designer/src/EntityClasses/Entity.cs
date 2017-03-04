@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml;
 
 namespace FM3D_Designer.src {
     static class SC {
@@ -11,7 +12,7 @@ namespace FM3D_Designer.src {
         public static char SEP_PC = '!';   // Seperates The Properties and Components in Lists
         public static char SEPENT = '|';  // Seperate: Name|List1|List2|List3
     };
-    class Entity {
+    public class Entity {
         public Entity() {
 
         }
@@ -35,8 +36,7 @@ namespace FM3D_Designer.src {
                 if (comp != "" && comp != "\n") { components.Add(new Component(comp)); }
             }
             #endregion
-
-
+			
             #region AUTO PROPERTY ANALYSE
             string[] autoraw = rawdata[2].Split(SC.SEP_PC);
             // PropsAuto-string splitting
@@ -56,7 +56,74 @@ namespace FM3D_Designer.src {
             #endregion
         }
 
-        public string name { get; set; }
+		public Entity(string path, bool b) {
+
+			string xmlfile = System.IO.File.ReadAllText(path);
+			if (xmlfile.Contains("EntityPreset")) {
+				XmlReaderSettings settings = new XmlReaderSettings();
+				settings.IgnoreWhitespace = true;
+				XmlReader xml = XmlReader.Create(path, settings);
+
+				xml.ReadToDescendant("EntityPreset");
+
+				XmlReader xml2 = xml.ReadSubtree();
+
+				// LoadXmlFile(path, xml.ReadSubtree());
+				while (xml2.Read()) {
+					if ((xml2.NodeType == XmlNodeType.Element) && (xml2.Name == "EntityPreset") && (xml2.Depth == 0)) {
+						xml2.MoveToAttribute("preset");
+						this.name = xml2.Value;
+						// LoadProjectFiles(xml);
+						while (xml2.Read()) {
+							if (xml2.NodeType == XmlNodeType.Element) {
+								if (xml2.Name == "Component") {
+									Component temp = new Component();
+
+									xml2.MoveToAttribute("name");
+									temp.name = xml2.Value;
+
+									xml2.MoveToAttribute("const");
+									temp.m_const = Convert.ToBoolean(xml2.Value);
+
+									xml2.MoveToAttribute("standard");
+									temp.m_standard = Convert.ToBoolean(xml2.Value);
+
+									this.components.Add(temp);
+								}
+								if (xml2.Name == "Property") {
+									Property temp = new Property();
+									xml2.MoveToAttribute("name");
+									temp.name = xml2.Value;
+
+									xml2.MoveToAttribute("get");
+									temp.m_get = Convert.ToBoolean(xml2.Value);
+
+									xml2.MoveToAttribute("set");
+									temp.m_set = Convert.ToBoolean(xml2.Value);
+
+									xml2.MoveToAttribute("typ");
+									temp.type = xml2.Value;
+
+									xml2.MoveToAttribute("auto");
+
+									if (Convert.ToBoolean(xml2.Value) == true) {
+										//Abfragen
+										this._propauto.Add(temp);
+									} else {
+										this._propcustom.Add(temp);
+									}
+								}
+							}
+						}
+					}
+				}
+
+				xml.Close();
+			} else { MessageBox.Show("ERROR", "No Entityfile!"); }
+
+		}
+
+		public string name { get; set; }
         public List<Component> components = new List<Component>();
         public List<Property> _propauto = new List<Property>();
         public List<Property> _propcustom = new List<Property>();

@@ -58,15 +58,15 @@ namespace VS_Extension {
                     }
                     if (isthere) {
                     } else {
-                        space.AddClass(name);
+                        space.AddClass(name,0,bases);
                     }
                     break;
                 }
             }
 
         }
-
-        public VCCodeFunction AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
+		//DIS DUS WURK
+		public VCCodeFunction AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
             bool isthere = false;
              
             foreach (VCCodeNamespace space in model.Namespaces) {
@@ -92,14 +92,16 @@ namespace VS_Extension {
 
             return null;
         }
-
-        public void AddTextBodyOfMethod(VCCodeFunction cf, string cmd) {
+		//DIS DUS WURK
+		public void AddTextBodyOfMethod(VCCodeFunction cf, string cmd) {
             cf.BodyText = cmd;
         }
+		//DIS DUS WURK
 		public void AddAttribute(VCCodeFunction cf, string name, object typ) {
 			cf.AddParameter(name, typ);
 		}
-        public void AddVariable(string classname, string namespacename, string name, object type, object position, vsCMAccess access, object location) {
+		//DIS DUS WURK
+		public void AddVariable(string classname, string namespacename, string name, object type, object position, vsCMAccess access, object location) {
             bool isthere = false;
             
             foreach(VCCodeNamespace space in model.Namespaces) {
@@ -107,13 +109,13 @@ namespace VS_Extension {
                     foreach(VCCodeClass class_ in space.Classes) {
                         if (class_.Name==classname) {
                             foreach (VCCodeVariable variable in class_.Variables) {
-                                if (variable.Name==classname) {
+                                if (variable.Name==name) {
                                     isthere = true;
                                 }
                             }
                             if (isthere) {
                             } else {
-                                class_.AddVariable(classname, type, position, access, location);
+                                class_.AddVariable(name, type, -1, access, location);
                             }
 
                         }
@@ -124,8 +126,8 @@ namespace VS_Extension {
         }
 
 
-
-        public void AddClass(string name, object bases = null) {
+		//DIS DUS WURK, BUT U DOUN NEED IT
+		public void AddClass(string name, object bases = null) {
             bool isthere = false;
             foreach (CodeElement class_ in model.Classes) {
                 if (name == class_.FullName) {

@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace FM3D_Designer.src {
 
-    class Property {
+    public class Property {
         public Property() {
 
         }

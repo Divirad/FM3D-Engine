@@ -74,6 +74,10 @@
     <VSCTCompile Include="MainPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="NewFM3DLogoNormal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\Command1.png" />
     <Content Include="Resources\MainPackage.ico" />
     <Content Include="stylesheet.css" />
