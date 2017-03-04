@@ -66,6 +66,27 @@ namespace VS_Extension {
 
         }
 
+        public void AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
+            bool isthere = false;
+             
+            foreach (VCCodeNamespace space in model.Namespaces) {
+                if (space.Name == namespacename) {
+
+                    foreach (VCCodeClass clazz in space.Classes) {
+                        if (clazzname == clazz.Name) {
+                            foreach(VCCodeFunction funk in clazz.Functions) {
+
+                            }
+                            if (isthere) {
+                            } else {
+                                space.AddFunction(name, kind, type, null, access);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
 
         public void AddVariable(string classname, string namespacename, string name, object type, object position, vsCMAccess access, object location) {
             bool isthere = false;

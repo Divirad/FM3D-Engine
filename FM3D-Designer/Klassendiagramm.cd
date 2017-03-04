@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="FM3D_Designer.Compiler" Collapsed="true">
-    <Position X="21.25" Y="0.5" Width="1.5" />
+    <Position X="16" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAI=</HashCode>
       <FileName>Compiler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.Properties.Resources">
-    <Position X="28.75" Y="3.75" Width="1.5" />
+    <Position X="26.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.Properties.Settings" Collapsed="true">
-    <Position X="23" Y="3.5" Width="1.5" />
+    <Position X="13.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.App" Collapsed="true">
-    <Position X="19.5" Y="0.5" Width="1.5" />
+    <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\App.xaml.cs</FileName>
@@ -48,36 +48,36 @@
       <FileName>src\DocumentWindow.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FM3D_Designer.src.Component">
-    <Position X="23.5" Y="8.75" Width="1.75" />
+  <Class Name="FM3D_Designer.src.Component" Collapsed="true">
+    <Position X="22.75" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAEAAAAAAAAAAAEAAAAQBAAAAACAAA=</HashCode>
       <FileName>src\EntityClasses\Component.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FM3D_Designer.src.SC">
-    <Position X="19.25" Y="8.75" Width="1.5" />
+  <Class Name="FM3D_Designer.src.SC" Collapsed="true">
+    <Position X="22.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAoAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\EntityClasses\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FM3D_Designer.src.Entity">
-    <Position X="21" Y="8.75" Width="2.25" />
+  <Class Name="FM3D_Designer.src.Entity" Collapsed="true">
+    <Position X="22.75" Y="9" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAwAAAAAAAAAAAAEAACAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\EntityClasses\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.FM3DPropertyFile">
-    <Position X="21.25" Y="4.25" Width="1.5" />
+    <Position X="23" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAgAAAAACAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>src\FM3DPropertyFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.GLControl" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23" Y="0.5" Width="1.5" />
+    <Position X="22.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgBAAAAEAAAAAAAAAAABAAAAAAAAIAACAgA=</HashCode>
       <FileName>src\GLControl.xaml.cs</FileName>
@@ -85,7 +85,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FM3D_Designer.src.InvBooleanToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.5" Y="1.5" Width="1.5" />
+    <Position X="13.5" Y="1.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\InvBooleanToVisibilityConverter.cs</FileName>
@@ -93,7 +93,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FM3D_Designer.src.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="15.75" Y="3.5" Width="1.5" />
+    <Position X="18.75" Y="5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -103,15 +103,15 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.CustomCommands" Collapsed="true">
-    <Position X="26.5" Y="0.5" Width="1.5" />
+  <Class Name="FM3D_Designer.src.CustomCommands">
+    <Position X="28.25" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>src\MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.NullToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="21.25" Y="3.5" Width="1.5" />
+    <Position X="13.5" Y="1.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\NullToVisibilityConverter.cs</FileName>
@@ -119,7 +119,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FM3D_Designer.src.PipeSystem" Collapsed="true">
-    <Position X="29" Y="12.5" Width="1.5" />
+    <Position X="19" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAIAIChAEAIIQAAAAAAwAAAAAQIAAQEAAgCQAAI=</HashCode>
       <FileName>src\PipeSystem.cs</FileName>
@@ -155,7 +155,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.ResourceFile">
-    <Position X="27" Y="3.75" Width="1.5" />
+    <Position X="24.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>src\ResourceFile.cs</FileName>
@@ -169,7 +169,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.VisualStudio">
-    <Position X="27.25" Y="12.5" Width="1.5" />
+    <Position X="17.25" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EBAAACIAACAAAAAAEABAgCIgAABAgAIAAAAAAACAIAA=</HashCode>
       <FileName>src\VisualStudio.cs</FileName>
@@ -199,15 +199,15 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FM3D_Designer.src.Dialogs.IntUnequalToBoolConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="24.75" Y="1.5" Width="1.5" />
+    <Position X="13" Y="2.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\ChangeMeshDialog.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="FM3D_Designer.src.Dialogs.DialogBase" Collapsed="true">
-    <Position X="5.25" Y="17.5" Width="1.5" />
+  <Class Name="FM3D_Designer.src.Dialogs.DialogBase">
+    <Position X="7.75" Y="16.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAA=</HashCode>
       <FileName>src\Dialogs\DialogManager.cs</FileName>
@@ -237,7 +237,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FM3D_Designer.src.Dialogs.ModelDialogIconConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="28.25" Y="2.5" Width="1.5" />
+    <Position X="17" Y="2.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\ModelDialog.xaml.cs</FileName>
@@ -245,7 +245,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FM3D_Designer.src.Dialogs.MeshTypeConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.5" Y="2.5" Width="1.5" />
+    <Position X="26.25" Y="2.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\ModelDialog.xaml.cs</FileName>
@@ -261,7 +261,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FM3D_Designer.src.Dialogs.NewResourceLogic" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.5" Y="1.5" Width="1.5" />
+    <Position X="22.75" Y="3.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAEAAICIAAAAAAAgAIgAAAQGAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\NewResourceLogic.cs</FileName>
@@ -284,29 +284,29 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Creator">
-    <Position X="21.75" Y="15.75" Width="3" />
+  <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Creator" Collapsed="true">
+    <Position X="22" Y="16" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Creator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.ItemTypes" Collapsed="true">
-    <Position X="15.75" Y="15.75" Width="1.5" />
+    <Position X="22" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAhAAAAAAAAAAAAAAAAAkAAEAAAAMAgCAAAAAAAA=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.ItemType" Collapsed="true">
-    <Position X="17.5" Y="15.75" Width="2.25" />
+    <Position X="22" Y="14.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AACIAAAAAACAAAAEAYEAAAAAAAAEAAAEAgEAAAEAAAA=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Item" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20" Y="15.75" Width="1.5" />
+  <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Item" BaseTypeListCollapsed="true">
+    <Position X="20" Y="15.25" Width="1.5" />
     <NestedTypes>
       <Enum Name="FM3D_Designer.src.ToolWindows.FileBrowser.Item.ItemState" Collapsed="true">
         <TypeIdentifier>
@@ -321,7 +321,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Logic" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23" Y="1.5" Width="1.5" />
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="FM3D_Designer.src.ToolWindows.FileBrowser.Logic.ViewMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\ToolWindows\FileBrowser\Logic.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAQACACAIBQAMBEIBEgAAAQggAAABAAAACCCAABAII=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Logic.cs</FileName>
@@ -384,7 +391,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.WindowLayouts.MainLayout">
+  <Class Name="FM3D_Designer.src.WindowLayouts.MainLayout" Collapsed="true">
     <Position X="0.5" Y="10.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>BmAAAQAAAAAEAAAAAAAABAAAACAAgAAAQAAAAgAAJGA=</HashCode>
@@ -424,7 +431,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.WindowLayouts.StartLayout" Collapsed="true">
+  <Class Name="FM3D_Designer.src.WindowLayouts.StartLayout">
     <Position X="13" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAgBAAAADEAAAAAAQggBAAAAAAAAAAAAAABAAAA=</HashCode>
@@ -448,8 +455,8 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.Property">
-    <Position X="25.5" Y="8.75" Width="2.5" />
+  <Class Name="FM3D_Designer.src.Property" Collapsed="true">
+    <Position X="22.75" Y="10.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAAFAAAAABAAAAAAAAA=</HashCode>
       <FileName>src\EntityClasses\Properties.cs</FileName>

@@ -1,1 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Project name="project 0"><ProjectFiles name="ProjectFiles"><Directory name="SATAAN" type="Directory" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN"><Directory name="resources test" type="Directory" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test"><UnknownFile name="MaterialTest.fm_mat" type="UnknownFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\MaterialTest.fm_mat" /><MeshFile name="meshTest.fm_mesh" type="MeshFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\meshTest.fm_mesh" /><TextureFile name="Modeltest.fm_mod" type="TextureFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\Modeltest.fm_mod" /><SkeletonFile name="SkelettTest.fm_skel" type="SkeletonFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\SkelettTest.fm_skel" /><TextureFile name="TextureTest.fm_tex" type="TextureFile" path="D:\fm3d-engine\FM3D-Designer\TestProjects\Project 0\ProjectFiles\SATAAN\resources test\TextureTest.fm_tex" /></Directory></Directory></ProjectFiles><CPlusPlus><FM3D_File name="fm3d.xml" /><Solution name="GameProject.sln" /></CPlusPlus></Project>
+﻿
+
+		<?xml version="1.0" encoding="utf-8"?>
+		<!--FM3D-Projekt-Datei-->
+		<Project name="TestProjekt">
+			<!--Ordnerstruktur des Projektes-->
+			<ProjectFiles name="ProjectFiles">
+				<!--Beschreibung der Ordnerstruktur für Modelle-->
+				<Directory name="Models" type="Directory">
+					<Directory name="TestOrdner" type="Directory">
+						<MaterialFile name="MaterialTest.fm_mat" type="MaterialFile"/>
+						<MeshFile name="meshTest.fm_mesh" type="MeshFile"/>
+						<ModelFile name="Modeltest.fm_mod" type="ModelFile"/>
+						<SkeletonFile name="SkelettTest.fm_skel" type="SkeletonFile"/>
+					</Directory>
+				</Directory>
+				<!--Beschreibung der Ordnerstruktur für Texturen-->
+				<Directory name="Textures" type="Directory">
+					<TextureFile name="TextureTest.fm_tex" type="TextureFile"/>
+				</Directory>
+				<!--Beschreibung der Ordnerstruktur für Entities-->
+				<Directory name="Entities" type="Directory">
+					<TextureFile name="Pumuckel.ent" type="EntityFile"/>
+				</Directory>
+			</ProjectFiles>
+			<!--Daten für die Kommunikation mit der Extension via Pipe-->
+			<CPlusPlus>
+				<FM3D_File name="fm3d.xml" />
+				<Solution name="GameProject.sln" />
+			</CPlusPlus>
+		</Project>

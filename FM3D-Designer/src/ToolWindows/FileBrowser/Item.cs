@@ -19,7 +19,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
     {
         public static Dictionary<string, ItemType> FileTypes { get; } = new Dictionary<string, ItemType>();
 
-        //Static Properties
+        //Static Properties 
         public static ItemType Directory { get; } = new ItemType("Directory", "",
             new Uri("/FM3D-Designer;component/resources/images/file browser/folder_closed_icon.ico", UriKind.Relative),
             new Uri("/FM3D-Designer;component/resources/images/file browser/folder_bigIcon.png", UriKind.Relative),
