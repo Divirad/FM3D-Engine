@@ -16,8 +16,8 @@ namespace FM3D_Designer.src
             settings.IgnoreWhitespace = true;
             XmlReader xml;
             try
-            {
-                xml = XmlReader.Create(path + "/fm3d.xml", settings);
+            {   
+                xml = XmlReader.Create(path, settings);
             }
             catch (System.IO.FileNotFoundException)
             {

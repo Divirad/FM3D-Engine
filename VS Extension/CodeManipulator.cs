@@ -66,7 +66,7 @@ namespace VS_Extension {
 
         }
 
-        public void AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
+        public VCCodeFunction AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
             bool isthere = false;
              
             foreach (VCCodeNamespace space in model.Namespaces) {
@@ -75,19 +75,30 @@ namespace VS_Extension {
                     foreach (VCCodeClass clazz in space.Classes) {
                         if (clazzname == clazz.Name) {
                             foreach(VCCodeFunction funk in clazz.Functions) {
-
+                                if (funk.Name == name) { isthere = true; }
                             }
                             if (isthere) {
+                                return null;
                             } else {
-                                space.AddFunction(name, kind, type, null, access);
+                                VCCodeFunction cf = clazz.AddFunction(name, kind, type, null, access) as VCCodeFunction;
+                                cf.TypeString = type.ToString();
+                                return cf;
                             }
                         }
                     }
                     break;
                 }
             }
+
+            return null;
         }
 
+        public void AddTextBodyOfMethod(VCCodeFunction cf, string cmd) {
+            cf.BodyText = cmd;
+        }
+		public void AddAttribute(VCCodeFunction cf, string name, object typ) {
+			cf.AddParameter(name, typ);
+		}
         public void AddVariable(string classname, string namespacename, string name, object type, object position, vsCMAccess access, object location) {
             bool isthere = false;
             

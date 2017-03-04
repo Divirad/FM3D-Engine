@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="FM3D-Extension.Felix Lösing.Max Schmitt.6e28563b-93de-4ed1-81a7-a7b9d41309fe" Version="0.00007" Language="en-US" Publisher="Felix Lösing, Max Schmitt" />
+    <Identity Id="FM3D-Extension.Felix Lösing.Max Schmitt.6e28563b-93de-4ed1-81a7-a7b9d41309fe" Version="0.00012" Language="en-US" Publisher="Felix Lösing, Max Schmitt" />
     <DisplayName>FM3D-Extension</DisplayName>
     <Description xml:space="preserve">A visual studio extension for working with the FM3D-Designer</Description>
     <MoreInfo>https://github.com/FM3D/FM3D-Engine</MoreInfo>
