@@ -33,7 +33,7 @@ namespace DesignerLib {
 			throw std::runtime_error("OpenGL Context failed to start!");
 		}
 
-		Matrix4f projectionMatrix = Matrix4f::Perspective(70.0f, (float)m_width / (float)m_height, 0.1f, 10000.0f);
+		Matrix4f projectionMatrix = Matrix4f::ProjectionFOV(70.0f, (float)m_width / (float)m_height, 0.1f, 10000.0f);
 		m_renderTarget.reset(m_renderSystem->CreateRenderTarget2D(Vector2i(m_width, m_height), true));
 		m_renderer.reset(m_renderSystem->CreateRenderer3D(projectionMatrix, m_width, m_height, m_renderTarget.get()));
 
