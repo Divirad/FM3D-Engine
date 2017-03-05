@@ -166,7 +166,7 @@
 
             <StackPanel>
                 <Label HorizontalAlignment="Center" >Name Your Fancy Entity!</Label>
-                <TextBox Name="tb_entityname" Text="{Binding name}" TextChanged="tb_entityname_TextChanged"></TextBox>
+                <TextBox Name="tb_entityname" Text="" TextChanged="tb_entityname_TextChanged"></TextBox>
                 <Button 
                     x:Name="btn_cancel" 
                     FontWeight="Normal" 

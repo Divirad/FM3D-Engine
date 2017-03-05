@@ -56,7 +56,7 @@ public partial class EntityEditor : DialogBase
 
 			if (newent == false) {
 				LoadEntity(path);
-				tb_entityname.Text = _entity.name;
+					tb_entityname.Text = _entity.name;
 				foreach (Component c in _entity.components) {
 
 					List<Component> delete = new List<Component>();
@@ -70,7 +70,6 @@ public partial class EntityEditor : DialogBase
 					}
 				}
 			}
-
 			LoadCBAvaiabel();
 			LoadListBox();
 		}

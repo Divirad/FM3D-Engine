@@ -65,6 +65,7 @@ namespace VS_Extension {
             }
 
         }
+		
 		//DIS DUS WURK
 		public VCCodeFunction AddMethod(string namespacename, string clazzname, string name, vsCMFunction kind, object type, vsCMAccess access = vsCMAccess.vsCMAccessDefault, object bases = null) {
             bool isthere = false;
@@ -80,9 +81,15 @@ namespace VS_Extension {
                             if (isthere) {
                                 return null;
                             } else {
-                                VCCodeFunction cf = clazz.AddFunction(name, kind, type, -1, access) as VCCodeFunction;
-                                cf.TypeString = type.ToString();
-                                return cf;
+								int ii = 0;
+								if (access== vsCMAccess.vsCMAccessProtected) {
+									ii = 1;
+								} else {
+									ii = 0;
+								}
+								VCCodeFunction cf = clazz.AddFunction(name, kind, type, ii, access) as VCCodeFunction;
+								cf.TypeString = type.ToString();
+								return cf;
                             }
                         }
                     }
@@ -115,7 +122,7 @@ namespace VS_Extension {
                             }
                             if (isthere) {
                             } else {
-                                class_.AddVariable(name, type, -1, access, location);
+                                class_.AddVariable(name, type,-1, access, location);
                             }
 
                         }

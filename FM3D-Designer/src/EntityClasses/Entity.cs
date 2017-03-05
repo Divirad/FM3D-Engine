@@ -30,27 +30,29 @@ namespace FM3D_Designer.src {
 		public Entity(string str) {
 			// Name
 			string[] rawdata = str.Split(SC.ENTCOMP);
-			name = rawdata[0];
-			// Components
+			
+			string namee = rawdata[0];
+			name = namee;
 			string[] comps = rawdata[1].Split(SC.COMP);
 
-			foreach (string c in comps) {
-				if (c != "" && c != "\n" && c != " ") {
-					List<Property> a = new List<Property>();
-					components.Add(new Component(c, out a));
-					foreach (Property prop in a) {
-						_propauto.Add(prop);
+				foreach (string c in comps) {
+					if (c != "" && c != "\n" && c != " ") {
+						List<Property> a = new List<Property>();
+						components.Add(new Component(c, out a));
+						foreach (Property prop in a) {
+							_propauto.Add(prop);
+						}
 					}
 				}
-			}
 
-			// Properties
-			string[] props = rawdata[2].Split(SC.COMPSEP);
-			foreach (string p in props) {
-				if (p != "" && p != "\n" && p != " ") {
-					_propcustom.Add(new Property(p));
+				// Properties
+				string[] props = rawdata[2].Split(SC.COMPSEP);
+				foreach (string p in props) {
+					if (p != "" && p != "\n" && p != " ") {
+						_propcustom.Add(new Property(p));
+					}
 				}
-			}
+			
 		}
 
 		//Dusnt wurk
