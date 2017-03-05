@@ -260,20 +260,23 @@ namespace FM3D_Designer.src
                 /// 
                 /// ################################# FILES ####################################################
                 /// 
-                //System.Diagnostics.Process.Start(Environment.CurrentDirectory+ "\\..\\..\\resources\\proj"); //GameProject.sln
+
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\" + dirname + ".sln");
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\" + dirname + ".vcxproj");
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\GameProject.vcxproj");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp", cppdir + @"\Quelle.cpp");
-                
-                Project.Load(pathtofile);
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
+
+				if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h")) { return false; }
+				System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h", cppdir + @"\Base.h");
+
+				Project.Load(pathtofile);
                 return true;
             }
         }
