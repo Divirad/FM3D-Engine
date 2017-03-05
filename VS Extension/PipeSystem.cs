@@ -9,6 +9,7 @@ using System.IO.Pipes;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.VisualStudio.VCCodeModel;
+using FM3D_Designer.src;
 
 namespace VS_Extension
 {
@@ -195,38 +196,9 @@ namespace VS_Extension
 
 			mani.AddNamespace("Entities");
             mani.AddClass("preset_" + ent.name, "Entities", "FM3D::Preset");
-            foreach (Property prop in ent._propauto) {
-				// erstellt das Attribut in der Klasse
-                mani.AddVariable("preset_" + ent.name , "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessProtected, null);
-				// erstellt Get Set Methoden
-				if (prop.m_get) {
-					VCCodeFunction cf = mani.AddMethod(
-						"Entities", 
-						"preset_" + ent.name, 
-						"Get" + prop.name, 
-						EnvDTE.vsCMFunction.vsCMFunctionFunction, 
-						prop.type, 
-						EnvDTE.vsCMAccess.vsCMAccessProtected);
-
-					mani.AddTextBodyOfMethod(cf, "return m_" + prop.name + ";");
-				}
-				if (prop.m_set) {
-					VCCodeFunction cf_ = mani.AddMethod(
-						"Entities", 
-						"preset_" + ent.name, 
-						"Set" + prop.name, 
-						EnvDTE.vsCMFunction.vsCMFunctionFunction, 
-						"void" , 
-						EnvDTE.vsCMAccess.vsCMAccessProtected);
-
-					mani.AddAttribute(cf_, "m_" + prop.name + "_",prop.type);
-					mani.AddTextBodyOfMethod(cf_, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
-				}
-			}
-
 			foreach (Property prop in ent._propcustom) {
 				// erstellt das Attribut in der Klasse
-				mani.AddVariable("preset_" + ent.name, "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessProtected, null);
+				mani.AddVariable("preset_" + ent.name, "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessPrivate, null);
 				// erstellt Get Set Methoden
 				if (prop.m_get) {
 
@@ -264,12 +236,91 @@ namespace VS_Extension
 			mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
 			string components="";
 			foreach (Component comp in ent.components) {
-				if (comp.m_standard) {
-					components += "e->Add<" + comp.name + ">(" + "" + ");";
+				string properties = "";
+				int counter = 0;
+
+				foreach (Property prop in comp._propauto) {
+					if (comp.m_standard) {
+
+						if (comp._propauto.Count >= 1) {
+							if (counter < comp._propauto.Count) {
+								properties += "m_" + prop.name + ","; counter++;
+							} else {
+								properties += "m_" + prop.name;
+							}
+						} else {
+							properties += "m_" + prop.name;
+						}
+					}
+					
+
+					// erstellt das Attribut in der Klasse
+					mani.AddVariable("preset_" + ent.name, "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessPrivate, null);
+					// erstellt Get Set Methoden
+					if (prop.m_get) {
+
+						VCCodeFunction qq = mani.AddMethod(
+							"Entities",
+							"preset_" + ent.name,
+							"Get" + prop.name,
+							EnvDTE.vsCMFunction.vsCMFunctionFunction,
+							prop.type,
+							EnvDTE.vsCMAccess.vsCMAccessProtected);
+
+						mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+					}
+					if (prop.m_set) {
+						VCCodeFunction pp = mani.AddMethod(
+							"Entities",
+							"preset_" + ent.name,
+							"Set" + prop.name,
+							EnvDTE.vsCMFunction.vsCMFunctionFunction,
+							"void",
+							EnvDTE.vsCMAccess.vsCMAccessProtected);
+
+						mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+						mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+					}
 				}
+
+				if (comp.m_standard) {
+					components += "e->Add<" +  comp.name + ">(" + properties + "); \n";
+					properties = "";
+				}
+
+				foreach (Property prop in ent._propcustom) {
+					// erstellt das Attribut in der Klasse
+					mani.AddVariable("preset_" + ent.name, "Entities", "m_" + prop.name, prop.type, null, EnvDTE.vsCMAccess.vsCMAccessPrivate, null);
+					// erstellt Get Set Methoden
+					if (prop.m_get) {
+
+						VCCodeFunction qq = mani.AddMethod(
+							"Entities",
+							"preset_" + ent.name,
+							"Get" + prop.name,
+							EnvDTE.vsCMFunction.vsCMFunctionFunction,
+							prop.type,
+							EnvDTE.vsCMAccess.vsCMAccessProtected);
+
+						mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+					}
+					if (prop.m_set) {
+						VCCodeFunction pp = mani.AddMethod(
+							"Entities",
+							"preset_" + ent.name,
+							"Set" + prop.name,
+							EnvDTE.vsCMFunction.vsCMFunctionFunction,
+							"void",
+							EnvDTE.vsCMAccess.vsCMAccessProtected);
+
+						mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+						mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+					}
+				}
+
 			}
 
-			mani.AddTextBodyOfMethod(setcomp, "return");
+			mani.AddTextBodyOfMethod(setcomp, components);
 		}
 		#endregion
 

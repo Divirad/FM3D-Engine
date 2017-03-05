@@ -329,7 +329,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             Item i;
             CreateFile(x, ItemTypes.EntityFile, out i);
             string filepath = this.Path + "\\" +x;
-            System.IO.File.WriteAllText(filepath, @"<EntityPreset preset=" + '\u0022' + x + '\u0022' +" ></EntityPreset>");
+            System.IO.File.WriteAllText(filepath, x.Replace(".ent","") + "||");
         }
 
         private async void OnAddNewFile(object sender, EventArgs args)

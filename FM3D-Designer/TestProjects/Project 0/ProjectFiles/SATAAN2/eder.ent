@@ -1,1 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?><EntityPreset preset="eder"><Component name="FM3D::RenderableComponent" const="True" standard="True"><Property name="Model" typ="const FM3D::Model*" get="False" set="True" /></Component></EntityPreset>

@@ -12,9 +12,7 @@ namespace FM3D_Designer.src {
 
         }
         public Property(string props_str) {
-			MessageBox.Show(props_str);
 			if (props_str != "" && props_str != "\n" && props_str!=" ") {
-				MessageBox.Show(props_str);
 				string[] propdata = props_str.Split(SC.VAL);
 				name = propdata[0];
 				type = propdata[1];

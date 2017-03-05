@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Xml;
 using MahApps.Metro.Controls.Dialogs;
 using FM3D_Designer.src.ToolWindows.FileBrowser;
+using System.Windows.Media;
 
 namespace FM3D_Designer.src
 {
@@ -369,7 +370,8 @@ namespace FM3D_Designer.src
 
 			foreach (var i in Item.AllItems[ItemTypes.EntityFile]) {
 				if (i.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
-					// XML
+					Entity ent = new Entity(System.IO.File.ReadAllText(i.Path));
+					all.Add(ent);
 				}
 			}
 			return all;
@@ -383,28 +385,15 @@ namespace FM3D_Designer.src
 			return list;
 		}
 		public static void TestEntityConvertTostr() {
+			//(189, 00, 255));
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(189, 00, 255));
+			MainWindow.Instance.tb_statbar.Text = "Exporting Enities...";
 
-			Entity blah = new Entity();
-			blah.name = "EntityPresetTeeest";
+			MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
 
-			blah._propcustom.Add(new Property { name = "Custom1", type = "float", m_get = false, m_selected = false, m_set = true });
-			blah._propcustom.Add(new Property { name = "Custom2", type = "bool", m_get = true, m_selected = false, m_set = false });
-			List<Property> a = new List<Property>();
-			a.Add(new Property { name = "Auto1", type = "int", m_get = true, m_selected = false, m_set = false });
-			a.Add(new Property { name = "Auto2", type = "float", m_get = false, m_selected = false, m_set = true });
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));
 
-			blah.components.Add(new Component { name = "Comp1", m_const = true,  m_selected = true, m_standard = true, _propauto=a });
-			blah.components.Add(new Component { name = "Comp2", m_const = false, m_selected = false, m_standard = false, _propauto = a });
-			blah.components.Add(new Component { name = "Comp3", m_const = true, m_selected = true, m_standard = true , _propauto = a });
-
-			MessageBox.Show(blah.ToString());
-			MessageBox.Show(blah.ToString(true));
-			MessageBox.Show(blah.ToString(false));
-
-			Entity aa = new Entity(blah.ToString());
-			MessageBox.Show(aa.ToString(true));
-			MessageBox.Show(aa.ToString(false));
-			//MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
+			MainWindow.Instance.tb_statbar.Text = "VisualStudio is Started";
 		}
 	}
 }

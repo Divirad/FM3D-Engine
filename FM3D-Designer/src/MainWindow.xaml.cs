@@ -37,8 +37,8 @@ namespace FM3D_Designer.src
 
         public VisualStudio visualStudio { get; private set; } = new VisualStudio();
         public Compiler compiler { get; private set; } = new Compiler();
-
-        private Brush statusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));    //Standard blue
+																	//0, 122, 204)
+		private Brush statusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));    //Standard blue
         public Brush StatusColor
         {
             get

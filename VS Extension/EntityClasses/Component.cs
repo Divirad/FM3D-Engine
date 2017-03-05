@@ -1,14 +1,9 @@
-﻿using DevComponents.WPF.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FM3D_Designer.src {
 
-    public class Component {
+	public class Component {
 		
 		public Component() { }
 

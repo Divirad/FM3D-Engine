@@ -53,77 +53,85 @@ namespace FM3D_Designer.src {
 			}
 		}
 
-		public Entity(XmlReader xml) {
+		//Dusnt wurk
+		//public Entity(XmlReader xml) {
 
-			xml.ReadToDescendant("EntityPreset");
-			XmlReader xml2 = xml.ReadSubtree();
+		//	xml.ReadToDescendant("EntityPreset");
+		//	xml.MoveToAttribute("preset");
+		//	name = xml.Value;
+		//	MessageBox.Show(xml.Value);
 
-			// LoadXmlFile(path, xml.ReadSubtree());
-			while (xml2.Read()) {
-				if ((xml2.NodeType == XmlNodeType.Element) && (xml2.Name == "EntityPreset") && (xml2.Depth == 0)) {
-					xml2.MoveToAttribute("preset");
-					name = xml2.Value;
+		//	xml.ReadToDescendant("Project");
 
-					// LoadProjectFiles(xml);
-					while (xml2.Read()) {
-						if (xml2.NodeType == XmlNodeType.Element) {
-							if (xml2.Name == "Component") {
-								Component temp = new Component();
+		//	while (xml.Read()) {
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "Component") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//		}
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "CustomProperty") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//			//LoadProperties(xml);
+		//		}
+		//	}
+		//}
 
-								xml2.MoveToAttribute("name");
-								temp.name = xml2.Value;
-								xml2.MoveToAttribute("const");
-								temp.m_const = Convert.ToBoolean(xml2.Value);
-								xml2.MoveToAttribute("standard");
-								temp.m_standard = Convert.ToBoolean(xml2.Value);
-								if (!xml2.IsEmptyElement) {
+		//public void load1(XmlReader xml) {
+		//	Component lastcomp = new Component();
+		//	while (xml.Read()) {
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "Component") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			while (xml.Read() && xml.Name == "Property") {
+						
+		//					xml.MoveToAttribute("name");
+		//					MessageBox.Show(xml.Value + " Property");
+		//			}
+		//		}
+		//		else if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "CustomProperty") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//			//LoadProperties(xml);
+		//		}
+		//	}
+		//	xml.Close();
+		////}
 
-									while (xml2.Read()) {
-										if (xml2.Name == "Property") {
-											Property proptemp = new Property();
-											xml2.MoveToAttribute("name");
-											proptemp.name = xml2.Value;
+		//private static void LoadProperties(XmlReader xml) {
+		//	while (xml.Read()) {
+		//		//if (xml.NodeType == XmlNodeType.Element) {
 
-											xml2.MoveToAttribute("get");
-											proptemp.m_get = Convert.ToBoolean(xml2.Value);
+		//			if (xml.Name.Contains("Property")) {
+		//				xml.MoveToAttribute("name");
+		//				MessageBox.Show(xml.Value + "Custom");
+		//				//var xf = new File(xml.Value);
+		//				//folder.Content.Add(xf);
+		//				//folder.Files.Add(xf);
+		//			} 
+		//			//else if (xml.Name == "Directory") {
+		//			//	xml.MoveToAttribute("name");
+		//			//	//Directory f = new Directory(xml.Value);
+		//			//	xml.MoveToElement();
+		//			//	//if (xml.IsStartElement())
+		//			//	if (!xml.IsEmptyElement) {
+		//			//		xml.MoveToContent();
+		//			//		//LoadProjectFiles(f, xml);
+		//			//	}
+		//			//	//folder.Content.Add(f);
+		//			//	//folder.SubDirectories.Add(f);
+		//		//	//}
+		//		//} else if (xml.NodeType == XmlNodeType.EndElement) {
+		//		//	return;
+		//		//}
+		//	}
+		//}
 
-											xml2.MoveToAttribute("set");
-											proptemp.m_set = Convert.ToBoolean(xml2.Value);
-
-											xml2.MoveToAttribute("typ");
-											proptemp.type = xml2.Value;
-
-											_propauto.Add(proptemp);
-											temp._propauto.Add(proptemp);
-										}
-									}
-								}
-								components.Add(temp);
-							}
-							if (xml2.Name == "Property") {
-								Property temp = new Property();
-								xml2.MoveToAttribute("name");
-								temp.name = xml2.Value;
-
-								xml2.MoveToAttribute("get");
-								temp.m_get = Convert.ToBoolean(xml2.Value);
-
-								xml2.MoveToAttribute("set");
-								temp.m_set = Convert.ToBoolean(xml2.Value);
-
-								xml2.MoveToAttribute("typ");
-								temp.type = xml2.Value;
-
-								_propcustom.Add(temp);
-							}
-						}
-					}
-				}
-			}
-
-			xml.Close();
-
-		}
 
 		public static Entity EntityToXML(Entity ent, string path) {
 
@@ -155,7 +163,7 @@ namespace FM3D_Designer.src {
 				}
 				
 				foreach (Property prop in ent._propcustom) {
-					writer.WriteStartElement("Property");
+					writer.WriteStartElement("CustomProperty");
 					writer.WriteAttributeString("name", prop.name);
 					writer.WriteAttributeString("typ", prop.type);
 					writer.WriteAttributeString("get", prop.m_get.ToString());

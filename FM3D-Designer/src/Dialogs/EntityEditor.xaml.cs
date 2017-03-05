@@ -69,9 +69,6 @@ public partial class EntityEditor : DialogBase
 						_available.Remove(del);
 					}
 				}
-				foreach (Property prop in _entity._propcustom) {
-
-				}
 			}
 
 			LoadCBAvaiabel();
@@ -95,8 +92,7 @@ public partial class EntityEditor : DialogBase
 			List<Property> a4 = new List<Property>();
 			a4.Add(new Property() { name = "Model", m_get = true, m_set = true, type = "const FM3D::Model*" });
 			_available.Add(new Component() { name = "FM3D::RenderableComponent", _propauto = a4 });
-
-			MessageBox.Show("BLAHH");
+			
             //ObservableCollection<string> components;
             //if(!MainWindow.Instance.visualStudio.GetComponents(out components))
             //{
@@ -203,7 +199,6 @@ public partial class EntityEditor : DialogBase
             {
                 if (temp.m_selected == true)
                 {
-                    var a = MessageBox.Show(temp.name + " selected!!");
                     _selectedc = temp;
                     break;
                 }
@@ -273,27 +268,22 @@ public partial class EntityEditor : DialogBase
             }
         }
 		
-        private async void LoadEntity(string path)
+        private void LoadEntity(string path)
         {
-			string xmlfile = System.IO.File.ReadAllText(_path);
-			if (xmlfile.Contains("EntityPreset")) {
-
-				XmlReaderSettings settings = new XmlReaderSettings();
-				settings.IgnoreWhitespace = true;
-				XmlReader xml = XmlReader.Create(path, settings);
-
-				Entity ent = new Entity(xml);
-				MessageBox.Show(ent.ToString(true));
-				_entity = ent;
-				MessageBox.Show(_entity.ToString(true));
-
-			} else { await _window.ShowMessageAsync("ERROR", "No Entityfile!"); }
+			string ent = System.IO.File.ReadAllText(path);
+			Entity entnew;
+			if (path=="") {
+				entnew = new Entity();
+			} else {
+				entnew = new Entity(ent);
+			}
+			_entity = entnew;
 
 		}
 		
         private void WriteEntity(string path)
         {
-			Entity.EntityToXML(_entity, path);
+			System.IO.File.WriteAllText(path,_entity.ToString());
         }
 
         private void tb_entityname_TextChanged(object sender, TextChangedEventArgs e)
