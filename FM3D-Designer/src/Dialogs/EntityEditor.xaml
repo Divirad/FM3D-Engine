@@ -55,7 +55,7 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding name}" />
-                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}" />
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}" Unchecked="CheckBox_Unchecked" Checked="cb_standard_Checked" />
                                 <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Unchecked="CheckBox_Unchecked" Checked="cb_standard_Checked"/>
                             </Grid>
                         </DataTemplate>
@@ -166,7 +166,7 @@
 
             <StackPanel>
                 <Label HorizontalAlignment="Center" >Name Your Fancy Entity!</Label>
-                <TextBox Name="tb_entityname" TextChanged="tb_entityname_TextChanged"></TextBox>
+                <TextBox Name="tb_entityname" Text="" TextChanged="tb_entityname_TextChanged"></TextBox>
                 <Button 
                     x:Name="btn_cancel" 
                     FontWeight="Normal" 

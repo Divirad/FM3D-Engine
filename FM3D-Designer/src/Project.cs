@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Xml;
 using MahApps.Metro.Controls.Dialogs;
 using FM3D_Designer.src.ToolWindows.FileBrowser;
+using System.Windows.Media;
 
 namespace FM3D_Designer.src
 {
@@ -259,20 +260,23 @@ namespace FM3D_Designer.src
                 /// 
                 /// ################################# FILES ####################################################
                 /// 
-                //System.Diagnostics.Process.Start(Environment.CurrentDirectory+ "\\..\\..\\resources\\proj"); //GameProject.sln
+
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\" + dirname + ".sln");
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\" + dirname + ".vcxproj");
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\GameProject.vcxproj");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Quelle.cpp", cppdir + @"\Quelle.cpp");
-                
-                Project.Load(pathtofile);
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
+
+				if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h")) { return false; }
+				System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h", cppdir + @"\Base.h");
+
+				Project.Load(pathtofile);
                 return true;
             }
         }
@@ -369,7 +373,8 @@ namespace FM3D_Designer.src
 
 			foreach (var i in Item.AllItems[ItemTypes.EntityFile]) {
 				if (i.State == ToolWindows.FileBrowser.Item.ItemState.NORMAL) {
-					all.Add(new Entity(i.Path, true));
+					Entity ent = new Entity(System.IO.File.ReadAllText(i.Path));
+					all.Add(ent);
 				}
 			}
 			return all;
@@ -383,7 +388,15 @@ namespace FM3D_Designer.src
 			return list;
 		}
 		public static void TestEntityConvertTostr() {
+			//(189, 00, 255));
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(189, 00, 255));
+			MainWindow.Instance.tb_statbar.Text = "Exporting Enities...";
+
 			MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
-        }
-    }
+
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+
+			MainWindow.Instance.tb_statbar.Text = "VisualStudio is Started";
+		}
+	}
 }

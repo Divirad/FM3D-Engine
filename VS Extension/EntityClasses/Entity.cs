@@ -1,122 +1,221 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml;
 
-namespace VS_Extension {
-    class SC {
-        public static char SEPVAL = ';';  // Char for seperating Values
-        public static char SEP_PC = '!';   // Seperates The Properties and Components in Lists
-        public static char SEPENT = '|';  // Seperate: Name|List1|List2|List3
-    };
-    class Entity {
-        public Entity() {
-
-        }
-        //convert string to Entity
-        public Entity(string entity) {
-
-            // Split in 4 strings in array
-            // [NAME] SC.SEPENT [COMPS] SC.SEPENT [PROPSAUTO] SC.SEPENT [PROPSCUSTOM]
-
-            string[] rawdata = entity.Split(SC.SEPENT);
-            name = rawdata[0];
-
-            #region COMPONENT ANALYSE
-            // Split in all Existing Comps
-            // [COMPS] = [(COMP) ! (COMP) ! (COMP)]
-            string[] compsraw = rawdata[1].Split(SC.SEP_PC);
-
-            // Component-string splitting
-            // (COMPS) = ({Name} {m_custom} {m_const} {m_standard})
-            foreach (string comp in compsraw) {
-                if (comp != "" && comp != "\n") { components.Add(new Component(comp)); }
-            }
-            #endregion
+namespace FM3D_Designer.src {
+    static class SC {
+        public static char VAL = ';';  // Char for seperating Values
+        public static char COMPSEP = '!';   // Seperates The Properties and Components in Lists
+        public static char ENTCOMP = '|';  // Seperate: Name|COMP|PROP|
+		public static char COMP = '~';  // Seperate: Name|COMP|PROP|
+		public static char cSEPp = '#';   // Seperate: COMPDATA # PROP
+	};
 
 
-            #region AUTO PROPERTY ANALYSE
-            string[] autoraw = rawdata[2].Split(SC.SEP_PC);
-            // PropsAuto-string splitting
-            // (COMPS) = ({Name} {m_custom} {m_const} {m_standard
-            foreach (string prop in autoraw) {
-                if (prop != "" && prop != "\n") { _propauto.Add(new Property(prop)); }
-            }
-            #endregion
+    public class Entity {
+        
+		public string name { get; set; }
+		public List<Component> components = new List<Component>();
+		public List<Property> _propauto = new List<Property>();
+		public List<Property> _propcustom = new List<Property>();
 
-            #region CUSTOM PROPERTY ANALYSE
-            string[] customraw = rawdata[3].Split(SC.SEP_PC);
-            // PropsAuto-string splitting
-            // (COMPS) = ({Name} {m_custom} {m_const} {m_standard})
-            foreach (string prop in customraw) {
-                if (prop != "" && prop != "\n") { _propcustom.Add(new Property(prop)); }
-            }
-            #endregion
-        }
+		public Entity() {
 
-        public string name { get; set; }
-        public List<Component> components = new List<Component>();
-        public List<Property> _propauto = new List<Property>();
-        public List<Property> _propcustom = new List<Property>();
+		}
+		public Entity(string str) {
+			// Name
+			string[] rawdata = str.Split(SC.ENTCOMP);
+			
+			string namee = rawdata[0];
+			name = namee;
+			string[] comps = rawdata[1].Split(SC.COMP);
 
-        public override string ToString() {
-            string result = "";
-            result += name + SC.SEPENT;
+				foreach (string c in comps) {
+					if (c != "" && c != "\n" && c != " ") {
+						List<Property> a = new List<Property>();
+						components.Add(new Component(c, out a));
+						foreach (Property prop in a) {
+							_propauto.Add(prop);
+						}
+					}
+				}
 
-            foreach (Component c in components) {
-                result += c.ToString() + SC.SEP_PC;
-            }
+				// Properties
+				string[] props = rawdata[2].Split(SC.COMPSEP);
+				foreach (string p in props) {
+					if (p != "" && p != "\n" && p != " ") {
+						_propcustom.Add(new Property(p));
+					}
+				}
+			
+		}
 
-            result += SC.SEPENT;
+		//Dusnt wurk
+		//public Entity(XmlReader xml) {
 
-            foreach (Property p in _propauto) {
-                result += p.ToString() + SC.SEP_PC;
-            }
+		//	xml.ReadToDescendant("EntityPreset");
+		//	xml.MoveToAttribute("preset");
+		//	name = xml.Value;
+		//	MessageBox.Show(xml.Value);
 
-            result += SC.SEPENT;
+		//	xml.ReadToDescendant("Project");
 
-            foreach (Property p in _propcustom) {
-                result += p.ToString() + SC.SEP_PC;
-            }
+		//	while (xml.Read()) {
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "Component") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//		}
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "CustomProperty") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//			//LoadProperties(xml);
+		//		}
+		//	}
+		//}
 
-            result += "\n";
+		//public void load1(XmlReader xml) {
+		//	Component lastcomp = new Component();
+		//	while (xml.Read()) {
+		//		if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "Component") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			while (xml.Read() && xml.Name == "Property") {
+						
+		//					xml.MoveToAttribute("name");
+		//					MessageBox.Show(xml.Value + " Property");
+		//			}
+		//		}
+		//		else if ((xml.NodeType == XmlNodeType.Element) && (xml.Name == "CustomProperty") && (xml.Depth == 1)) {
+		//			xml.MoveToAttribute("name");
+		//			name = xml.Value;
+		//			MessageBox.Show(xml.Value + "Custom");
+		//			//LoadProperties(xml);
+		//			//LoadProperties(xml);
+		//		}
+		//	}
+		//	xml.Close();
+		////}
 
-            return result;
-        }
+		//private static void LoadProperties(XmlReader xml) {
+		//	while (xml.Read()) {
+		//		//if (xml.NodeType == XmlNodeType.Element) {
 
-        public string ToString(bool i) {
-            string result = "";
-            switch (i) {
-                case true:
-                    result += "------------\n"
-                        + name + "\n" +
-                        "------------\n";
-                    foreach (Component c in components) {
-                        result += c.ToString(1) + "\n" + "\n";
-                    }
-                    result += "------------\n";
-                    break;
-                case false:
-                    result += "------------\n"
-                        + name + "\n" +
-                        "------------\n";
-                    result += "CUSTOM" + "\n" +
-                       "------------\n";
-                    foreach (Property p1 in _propcustom) {
-                        result += p1.ToString(1) + "\n" + "\n";
-                    }
-                    result += "------------\n";
-                    result += "AUTO" + "\n" +
-                       "------------\n";
-                    foreach (Property p2 in _propauto) {
-                        result +=  p2.ToString(1) + "\n" + "\n";
-                    }
-                    break;
-            }
-            return result;
-        }
+		//			if (xml.Name.Contains("Property")) {
+		//				xml.MoveToAttribute("name");
+		//				MessageBox.Show(xml.Value + "Custom");
+		//				//var xf = new File(xml.Value);
+		//				//folder.Content.Add(xf);
+		//				//folder.Files.Add(xf);
+		//			} 
+		//			//else if (xml.Name == "Directory") {
+		//			//	xml.MoveToAttribute("name");
+		//			//	//Directory f = new Directory(xml.Value);
+		//			//	xml.MoveToElement();
+		//			//	//if (xml.IsStartElement())
+		//			//	if (!xml.IsEmptyElement) {
+		//			//		xml.MoveToContent();
+		//			//		//LoadProjectFiles(f, xml);
+		//			//	}
+		//			//	//folder.Content.Add(f);
+		//			//	//folder.SubDirectories.Add(f);
+		//		//	//}
+		//		//} else if (xml.NodeType == XmlNodeType.EndElement) {
+		//		//	return;
+		//		//}
+		//	}
+		//}
+
+
+		public static Entity EntityToXML(Entity ent, string path) {
+
+			if (File.Exists(path) == true) {
+				File.Delete(path);
+			}
+
+			using (XmlWriter writer = XmlWriter.Create(path)) {
+				writer.WriteStartDocument();
+				writer.WriteStartElement("EntityPreset");
+				writer.WriteAttributeString("preset", ent.name);
+
+				foreach (Component comp in ent.components) {
+					writer.WriteStartElement("Component");
+					writer.WriteAttributeString("name", comp.name);
+					writer.WriteAttributeString("const", comp.m_const.ToString());
+					writer.WriteAttributeString("standard", comp.m_standard.ToString());
+
+					foreach (Property propauto in comp._propauto) {
+						writer.WriteStartElement("Property");
+						writer.WriteAttributeString("name", propauto.name);
+						writer.WriteAttributeString("typ", propauto.type);
+						writer.WriteAttributeString("get", propauto.m_get.ToString());
+						writer.WriteAttributeString("set", propauto.m_set.ToString());
+						writer.WriteEndElement();
+					}
+
+					writer.WriteEndElement();
+				}
+				
+				foreach (Property prop in ent._propcustom) {
+					writer.WriteStartElement("CustomProperty");
+					writer.WriteAttributeString("name", prop.name);
+					writer.WriteAttributeString("typ", prop.type);
+					writer.WriteAttributeString("get", prop.m_get.ToString());
+					writer.WriteAttributeString("set", prop.m_set.ToString());
+					writer.WriteEndElement();
+				}
+
+				writer.WriteEndElement();
+				writer.WriteEndDocument();
+			}
+
+			return ent;
+		}
+
+		public override string ToString() {
+			string str="";
+
+			str += name;
+			str += SC.ENTCOMP;
+			foreach(Component c in components) {
+				str+=c.ToString();
+				str += SC.COMP;
+			}
+			str += SC.ENTCOMP;
+
+			foreach (Property prop in _propcustom) {
+				str += prop.ToString();
+				str += SC.COMPSEP;
+			}
+
+			return str;
+		}
+
+		public string ToString(bool a) {
+			string str = "";
+			if (a) {
+				str += "-----------" + "\n";
+				str += name + "\n";
+				str += "-----------" + "\n";
+
+				foreach (Component c in components) {
+					str += c.ToString(2) + "\n";
+				}
+			} else {
+				foreach (Property p in _propcustom) {
+					str += p.ToString(2) + "\n";
+				}
+			}
+			return str;
+		}
     }
 
 }

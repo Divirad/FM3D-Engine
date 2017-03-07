@@ -1,1 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?><EntityPreset preset="EDERR"><Component name="FM3D::ScaleComponent" const="True" standard="True" /><Property name="Scale" get="True" set="True" typ="FM3D::Vector3f" auto="True" /><Property name="Namefdsfd" get="True" set="True" typ="Type" auto="False" /></EntityPreset>

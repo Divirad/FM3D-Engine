@@ -25,7 +25,9 @@ namespace FM3D_Designer.src.WindowLayouts {
         public static MainLayout Instance { get; set; }
         public ToolWindows.FileBrowser.View fileBrowser { get; private set; }
         public MainLayout(MainWindow mainWindow) {
-            if (Instance != null)
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(255, 00, 00));
+			MainWindow.Instance.tb_statbar.Text = "Please Start VisualStudio";
+			if (Instance != null)
                 throw new InvalidOperationException("You cant create multiple objects of MainLayout!");
             Instance = this;
 
@@ -89,8 +91,10 @@ namespace FM3D_Designer.src.WindowLayouts {
             FM3DPropertyFile fmFile = new FM3DPropertyFile();
             fmFile.Load(Project.CurrentProject.GetProjectPath() + "/Cpp/fm3d.xml");
             MainWindow.Instance.visualStudio.Start(fmFile.PipeName, Project.CurrentProject._Directory + "/Cpp/GameProject.sln");
-        }
-
+			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+			MainWindow.Instance.tb_statbar.Text = "VisualStudio is Started";
+		}
+		
         private void StartVSNoDebug(object sender, RoutedEventArgs e) {
             MainWindow.Instance.visualStudio.Start(false);
         }
