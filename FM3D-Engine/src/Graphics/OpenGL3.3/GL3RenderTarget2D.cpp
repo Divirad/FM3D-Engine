@@ -42,6 +42,7 @@ namespace FM3D {
 
 	std::vector<byte> GL3RenderTarget2D::GetPixelData() {
 		std::vector<byte> result(m_size.x * m_size.y * 3);
+		m_texture->BindForReading();
 		GLCall(glReadPixels(0, 0, m_size.x, m_size.y, GL_RGB, GL_UNSIGNED_BYTE, &result[0]));
 		return result;
 	}

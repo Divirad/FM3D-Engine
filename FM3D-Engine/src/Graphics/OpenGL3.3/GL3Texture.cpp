@@ -116,4 +116,9 @@ namespace FM3D {
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
 		GLCall(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 	}
+
+	void GL3Texture::BindForReading() {
+		GLCall(glBindTexture(GL_TEXTURE_2D, m_tID));
+		GLCall(glPixelStorei(GL_PACK_ALIGNMENT, 1));
+	}
 }

@@ -24,6 +24,7 @@ namespace FM3D {
 		static void UnbindAll();
 
 		void BindForEditing() override;
+		void BindForReading() override;
 		void SetPixels(int level, int x, int y, int width, int height, unsigned char* pixels) override;
 
 		inline const uint GetID() const { return m_tID; }

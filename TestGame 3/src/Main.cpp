@@ -167,6 +167,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			Move(camera, laptopCam);
 			renderer3D->SetForceWireFrame(Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_F5));
+
+			if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_N)) {
+				target2D->ReSize(Vector2i(win->GetWidth(), win->GetHeight()));
+			}
+			if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_M)) {
+				target2D->ReSize(Vector2i(win->GetWidth() / 4, win->GetHeight() / 4));
+			}
 			
 			camera.Preset(camera.FIRSTPERSON, false);
 			

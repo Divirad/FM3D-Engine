@@ -13,8 +13,6 @@ namespace FM3D {
 
 		GL3GBuffer m_gbuffer;
 
-		uint m_width, m_height;
-
 		GL3DirectionalLightShader m_dirLightShader;
 		GL3PointLightShader m_pointLightShader;
 		GL3NullShader m_nullShader;
@@ -47,5 +45,6 @@ namespace FM3D {
 		void SetWireframe(bool enable);
 		bool SetShader(int config);
 		void SetMaterial(const Material* material);
+		void Resize(uint width, uint height);
 	};
 }
