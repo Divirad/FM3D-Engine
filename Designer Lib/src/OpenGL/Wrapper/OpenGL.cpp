@@ -2,6 +2,7 @@
 #define NO_FM3D
 #include "../InternOpengl.h"
 #include <cliext\vector>
+#include <iostream>
 
 using namespace  System::Windows::Media;
 using namespace  System::Windows::Media::Imaging;
@@ -29,9 +30,13 @@ namespace DesignerLib {
 	}
 
 	void OpenGL::Render(Image^ image) {
+		std::cout << "Stat Pixeling" << std::endl;
 		auto bytes = m_gl->Render();
+		std::cout << "Pixels received" << std::endl;
 		std::reverse(bytes.begin(), bytes.end());
+		std::cout << "Pixels reversed" << std::endl;
 		cliext::vector<unsigned char> data(bytes.begin(), bytes.end());
+		std::cout << m_gl->GetWidth() << " & " << m_gl->GetHeight() << std::endl;
 		BitmapSource^ bitmapSource = BitmapSource::Create(m_gl->GetWidth(), m_gl->GetHeight(), 300, 300, PixelFormats::Rgb24, BitmapPalettes::Gray256, data.to_array(), m_gl->GetWidth() * 3);
 		image->Source = bitmapSource;
 	}

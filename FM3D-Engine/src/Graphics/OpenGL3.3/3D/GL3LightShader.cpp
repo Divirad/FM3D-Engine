@@ -28,6 +28,10 @@ namespace FM3D {
 		SetUniform1i(m_normalTextureUnitLocation, 2);
 	}
 
+	void GL3LightShader::Resize(uint width, uint height) {
+		SetUniform2f(m_screenSizeLocation, Vector2f(width, height));
+	}
+
 	GL3PointLightShader::GL3PointLightShader() : GL3LightShader(FileManager::ReadShaderFile(PATH + string("Light.vert"), {}).c_str(), FileManager::ReadShaderFile(PATH + string("PointLight.frag"), {}).c_str()) {
 		m_pointLightLocation.Color = GetUniformLocation("gPointLight.Base.Color");
 		m_pointLightLocation.AmbientIntensity = GetUniformLocation("gPointLight.Base.AmbientIntensity");

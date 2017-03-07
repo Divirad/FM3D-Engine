@@ -42,6 +42,7 @@ namespace FM3D {
 
 	std::vector<byte> GL3RenderTarget2D::GetPixelData() {
 		std::vector<byte> result(m_size.x * m_size.y * 3);
+		m_texture->BindForReading();
 		GLCall(glReadPixels(0, 0, m_size.x, m_size.y, GL_RGB, GL_UNSIGNED_BYTE, &result[0]));
 		return result;
 	}
@@ -68,13 +69,17 @@ namespace FM3D {
 			throw std::exception("Error on creating RenderTarget2D!");
 		GLErrorCheck();
 
+		std::cout << "Framebuffer: " << m_frameBuffer << " (" << m_texture->GetID() << ", " << m_depthBuffer << ")" << std::endl;
+
 		GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	}
 
 	void GL3RenderTarget2D::Delete() {
-		delete m_texture;
-		GLCall(glDeleteTextures(1, &m_depthBuffer)); //silently ignores 0's
+		std::cout << "Del Framebuffer: " << m_frameBuffer << " (" << m_texture->GetID() << ", " << m_depthBuffer << ")" << std::endl;
+
 		GLCall(glDeleteFramebuffers(1, &m_frameBuffer));
+		delete m_texture;
+		GLCall(glDeleteRenderbuffers(1, &m_depthBuffer)); //silently ignores 0's
 
 		m_texture = nullptr;
 		m_depthBuffer = 0;

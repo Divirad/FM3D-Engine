@@ -17,6 +17,7 @@ namespace FM3D {
 		void SetEyeWorldPos(const Vector3f& EyeWorldPos);
 		void SetWVP(const Matrix4f& WVP);
 		void Initialize(uint width, uint height);
+		void Resize(uint width, uint height);
 	};
 
 	class GL3PointLightShader : public GL3LightShader {

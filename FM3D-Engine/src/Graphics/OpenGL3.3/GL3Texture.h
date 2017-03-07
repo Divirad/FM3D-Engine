@@ -17,6 +17,8 @@ namespace FM3D {
 		GL3Texture(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, float* pixels, uint bits);
 		GL3Texture(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits);
 	public:
+		~GL3Texture();
+
 		void Shutdown() override;
 
 		void Bind() const;
@@ -24,6 +26,7 @@ namespace FM3D {
 		static void UnbindAll();
 
 		void BindForEditing() override;
+		void BindForReading() override;
 		void SetPixels(int level, int x, int y, int width, int height, unsigned char* pixels) override;
 
 		inline const uint GetID() const { return m_tID; }

@@ -36,6 +36,7 @@ namespace FM3D {
 		uint GetHeight() const { return m_height; };
 
 		virtual void BindForEditing() = 0;
+		virtual void BindForReading() = 0;
 		virtual void Unbind() const = 0;
 		virtual void SetPixels(int level, int x, int y, int width, int height, unsigned char* pixels) = 0;
 	};
