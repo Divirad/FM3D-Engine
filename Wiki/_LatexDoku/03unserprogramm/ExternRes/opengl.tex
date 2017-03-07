@@ -1,0 +1,25 @@
+\subsection{OpenGL}
+\label{opengl}
+\subsubsection{Beschreibung der OpenGL}
+Zum Darstellen von Grafiken wird von der FM3D-Engine OpenGL (Open Graphics Library, deutsch: Offene Grafikbibliothek)verwendet. Diese Bibliothek ist eine Schnittstelle für Grafikanwendungen, die es ermöglicht auf Funktionen der Grafikkarte zugreifen zu können. Geschrieben ist sie in C was ein Problemloses Einbinden in C++ ermöglicht.
+
+Da Grafikkarten immer innovativer werden und somit mehr Leistung bekommen, wird OpenGL immer weiter entwickelt. So entstehen immer wieder neuere Versionen der Bibliothek. Die aktuellste Version ist OpenGL 4.5 (Stand 2016). 
+
+Die verschiedenen Versionen werden grundsätzlich in zwei Gruppen unterteilen: \textit{Legacy OpenGL} und \textit{Modern OpenGL}. \textit{Modern OpenGL} beschreibt hier alle Versionen ab 3.0. und \textit{Legacy OpenGL} alle Versionen darunter. 
+
+Die FM3D-Engine verwendet ausschließlich modern OpenGL 3.3. und höher. Dies bietet weit aus mehr Flexibilität und bessere Performance. Eine frühere Version von OpenGL wäre obsolet.
+Rechner dessen Grafikkarte höchstens \textit{Legacy OpenGL} verwenden, wären nicht im Stande modernes 3D-Rendering zu unterstützen.
+
+Hier zu erwähnen sind auch die Erweiterungen von OpenGL. Da OpenGL nicht nur von einer einzigen Firma entwickelt wird, sondern viele Firmen ein Mitspracherecht haben, werden neue Funktionen meist speziell von einem Hersteller entwickelt. Funktionen dieser Erweiterungen erhalten einem zum Hersteller gehörenden Suffix. Wenn sich mehrere Hersteller zusammenschließen für eine Erweiterung bekommt sie den Suffix „EXT“. Wenn das Architecture Review Board ARB beschließt eine Erweiterung hinzuzufügen, so bekommt sie den Suffix „ARB“ und wird in der nächsten Version zum Core-Library hinzugefügt. 
+
+In der FM3D-Engine wird versucht diese Erweiterungen möglichst zu vermeiden. Hersteller spezifische Erweiterungen werden gar nicht verwendet, damit die Engine auf möglichst vielen Systemen verwendet werden kann. Leider sind einige der für die FM3D-Engine wichtigen Funktionen die verwendet werden noch nicht in der Core-Library. Daher müssen Erweiterungen verwendet werden.
+
+\subsubsection{Funktionsweise}
+
+Mit OpenGL kann man nicht direkt zB. einen Delphin oder einen Baum rendern. Da OpenGL nur Dreiecke  rendert, benötigt man um diese Abbildungen darzustellen ein 3D-Modell. Dieses besteht aus Dreieckigen flächen die aus "Verticles" (Punkte) gebildet werden. (Siehe \cref{Dolphin})
+
+Neben den Dreiecken ist es zudem möglich einzelne Linien oder Punkte zu rendern. Dies Folgt dem gleichen Prinzip, nur werden hierbei weitaus weniger Punkte zur eindeutigen Definition benötigt. Dies ist aber bei der Darstellung von den 3D-Modellen nicht wirklich relevant. 
+Möchte man also nun einen Delphin darstellen, so braucht man ein 3D-Modell, welches einen Delphin darstellt und aus den besagten Dreiecken besteht. Solche Modelle kann man mit verschiedenen Modellierungsprogrammen wie zum Beispiel "Blender" oder "3DS-MAX" erstellen.
+
+Früher nutzte OpenGL eine Fixed \textit{function pipeline}. Damit war gemeint, dass fest in der Grafikkarte definiert war, wie die Dreiecke verarbeitet und gerendert werden. Man konnte jedem Punkt des Dreiecks einen feste Koordinate %Punkt
+zuweisen und optionale weitere Attribute wie Textur-Koordinaten und Farbe hinzufügen. Mit diesen Werten wurde das Dreieck dann gerendert. Heute gibt es sogenannte \textit{Shader}. Diese bestimmen wie ein Objekt gerendert wird. 

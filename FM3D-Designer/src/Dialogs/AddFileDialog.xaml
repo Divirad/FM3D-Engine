@@ -76,7 +76,7 @@
             Height="40"  
             Margin="10, 10" 
             Content="Cancel" 
-            IsCancel="True" Click="btn_cancel_Click">
+            IsCancel="True" Click="Cancel">
         </Button>
 
         <Button
@@ -90,7 +90,7 @@
             FontSize="15"
             Width="150"
             Height="40"
-            Margin="10, 10" Click="btn_add_Click">
+            Margin="10, 10" Click="Add">
         </Button>
 
     </Grid>

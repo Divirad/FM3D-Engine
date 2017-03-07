@@ -1,0 +1,40 @@
+\section{Engine - Systeme}
+\subsection{Math System}
+
+Das Math-System ist für sämtliche mathematischen Berechnungen zuständig. Dazu gehören sehr einfache Rechnungen wie Umwandlung von Grad in Bogenmaß, aber auch komplexere Rechnungen wie zum Beispiel Matrix-Rechnungen. 
+Dazu beinhaltet das System mehrere Hilfsklassen, welche in anderen Systemen verwendet werden können. Die Hauptaufgabe ist die Umsetzung der linearen Algebra. 
+
+Um den dreidimensionalen Raum des Spiels darzustellen werden in der FM3D-Engine Vektoren verwendet. Deswegen arbeitet das Math-System hauptsächlich mit Vektoren.
+%removed by max
+%werden auch die meisten Brechungen mit Vektoren ausgeführt.
+
+Es gibt für Vektoren mit zwei, drei und vier Dimensionen jeweils eine \textit{Template}-Klasse. So kann man in der FM3D-Engine Vektoren mit unterschiedlichen Datentypen für einen Skalar verwenden. 
+Diese \textit{Vektor}-Klassen beinhalten Methoden für mathematischen Operatoren, die auf Vektoren anwendbar. Zudem verwendet sie überladene Operatoren, um das zugreifen im Code zu erleichtern. 
+Dazu gehören: 
+\begin{itemize}
+	\item Addition
+	\item Subtraktion
+	\item Multiplikation
+	\item Division
+	\item Bildung des Kreuz- und Skalar-Produktes
+\end{itemize}
+
+Außerdem ist es möglich die Länge des Vektors zu berechnen und normalisieren.
+Es gibt für die grundlegenden Datentypen einen vordefinierten Typ, damit nicht immer ein Vektor mit Template-Parameter ausgeschrieben werden muss. 
+
+Dieser ist folgendermaßen aufgebaut:
+$$"`Vector"' + Dimension + Abkürzung des Datentyps$$
+Ein dreidimensionaler Vektor mit dem Skalar-Datentyp \textit{float} wäre zum Beispiel: 
+$$Vector3f$$
+
+Zu linearer Algebra gehört selbstverständlich auch die Möglichkeit Matrizen zu transformieren.
+%Removed by max
+%mit Matrizen Transformationen darzustellen. 
+Dafür enthält das Math-System die Matrix4f Klasse. Diese repräsentiert eine $4x4$ Matrix mit dem Skalar-Datentyp Float. Sie besitzt die Möglichkeit mit anderen Matrizen, vierdimensionalen und dreidimensionalen Vektoren, multipliziert zu werden. Sie kann auch mit anderen Matrizen addiert, sowie invertiert und transponiert werden. Außerdem enthält die Matrix4f-Klasse einige statische Methoden, um bestimmte Matrizen zu erstellen. Dazu gehören Transformations-, Rotations-, Skalierungs- und Projektionsmatrizen.
+
+\subsection{Memory System}
+\subsection{File System}
+\subsection{Graphics System}
+\input{03unserprogramm/Engine/entitysystem}
+
+\subsection{Input System}

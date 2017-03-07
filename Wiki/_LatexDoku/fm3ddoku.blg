@@ -1,0 +1,23 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: fm3ddoku.aux
+The style file: IEEEtran.bst
+A level-1 auxiliary file: 01einfuhrung/einfuhrung.aux
+A level-1 auxiliary file: 02theorie/theorie.aux
+A level-1 auxiliary file: 03unserprogramm/unserprogramm.aux
+A level-1 auxiliary file: 04verwendung/verwendung.aux
+A level-1 auxiliary file: 05resumee/resumee.aux
+A level-1 auxiliary file: 06anhang/anhang.aux
+Database file #1: 06anhang/literatur.bib
+I was expecting a `,' or a `}'---line 42 of file 06anhang/literatur.bib
+ :  note = "
+ :          [accessed 27-Januar-2017]"
+I'm skipping whatever remains of this entry
+Repeated entry---line 115 of file 06anhang/literatur.bib
+ : @misc{ xml
+ :           ,
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+(There were 2 error messages)

@@ -1,0 +1,148 @@
+% Dokumentenklasse
+\documentclass[a4paper,12pt,liststotoc, parskip=half]{scrreprt}
+
+% ============ Pakete ============
+% Dokumentinformationen
+\usepackage[
+	pdftitle={FM3D Engine},	
+	pdfsubject={},
+	pdfauthor={Felix Lösing and Max Schmitt},
+	pdfkeywords={},
+	% Links nicht einrahmen
+	% hidelinks
+]{hyperref}
+
+% FONTS
+\usepackage[utf8]{inputenc}				% UTF-8 Zeichensatz
+\usepackage[ngerman]{babel}				% Alle Bezeichnungen auf die deutsche Sprache anpassen
+\usepackage[T1]{fontenc}				% Unterstützung für westeuropäische Codierung(Umlaute)
+
+
+\usepackage{fancyhdr}					% Einfache Bearbeitung von Kopf- und Fußzeile
+
+\usepackage{graphicx}					% Grafiken einbinden
+\usepackage{subfig}						% Abbildungen und Tabellen
+%\graphicspath{{Anhang/bilder/}}		% Pfad zu Grafiken
+
+\usepackage{lmodern}					% Verändert die Schriftart auf "Latin Modern"
+\usepackage{color}						% Farbenmanagement
+%\usepackage[printonlyused]{acronym}		% Abkürzungsverzeichnis
+\usepackage{booktabs}					% Tabellen ("Publication Quality")
+\usepackage[onehalfspacing]{setspace}	% Abstände
+\usepackage{geometry}					% Seiten-Layout
+\usepackage{authblk}
+
+% Zusätzliche Schriftzeichen der American Mathematical Society
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+%Package für Todo-Notes
+\usepackage{todonotes}
+
+%Erweiterte Referenzen
+\usepackage{hyperref}
+\usepackage[ngerman, nameinlink, noabbrev]{cleveref}
+
+%Abkürzungsverzeichnis
+\usepackage[printonlyused ]{acronym}
+
+% Zitatgedöns
+%\usepackage{multibib}
+%\usepackage{hyperref}
+
+%\newcites{Refs,Urls,Graf}{Literaturverzeichnis, Internetadressenverzeichnis, Grafikverzeichnis}
+
+% ============ Kopf- und Fußzeile ============
+% Style
+\pagestyle{fancy}
+
+% Kopfzeile
+\lhead{ }
+\chead{ }
+\rhead{ }
+
+% Fußzeile
+\lfoot{ \leftmark}
+\cfoot{\slshape }
+\rfoot{\thepage}
+
+% Trennlinien
+%\renewcommand{\headrulewidth}{0.0pt}	% keine trennlinie nach der Kopfzeile
+\renewcommand{\footrulewidth}{0.2pt}		% Dünne Trennline vor der Fußzeile
+
+% ============ Paketeinstellungen & Sonstiges ============
+% Besondere Trennungen
+\hyphenation{De-zi-mal-tren-nung}
+\hyphenation{Ent-wick-lung}
+\hyphenation{ent-wick-eln}
+\hyphenation{Library}
+
+%Helvetia FONT
+\usepackage{mathptmx}
+\usepackage{helvet}
+
+\bibliographystyle{IEEEtran}
+
+
+% ============ Dokumentbeginn ============
+
+%\setmainfont{Calibri}
+\begin{document}
+% Seiten ohne Kopf- und Fußzeilen sowie Seitenzahl
+\pagestyle{fancy}
+%\include{titel}
+
+\title{%
+  Programmierung einer Engine für erleichterte 3D-Spiele-Entwicklung \\
+  \large ----------------- \\ BG13 \\ ----------------- \\ Groß-Gerau \\ Trebur \\  --------------------------}
+
+\date{\today}
+\author{Felix Lösing und Max Schmitt}
+\affil{Berufliches Gymnasium Groß-Gerau}
+
+\maketitle
+%\newpage\null\thispagestyle{empty}
+
+% Festlegung der Art der Zitierung
+%\bibliographystyle{unsrt}
+%\bibliographystyle{unsrt}
+% Beendet eine Seite und erzwingt auf den nachfolgenden Seiten die Ausgabe aller Gleitobjekte
+% (z.B. Abbildungen), die bislang definiert, aber noch nicht ausgegeben wurden. Dieser Befehl fügt,
+% falls nötig, eine leere Seite ein, sodaß die nächste Seite nach den Gleitobjekten eine ungerade
+% Seitennummer hat. 
+\cleardoubleoddpage{}
+
+% Seiten ab jetzt mit Kopf- und Fußzeilen sowie Seitenzahl
+\pagestyle{fancy}
+
+% Kopfzeile
+\lhead{}
+\chead{ \leftmark}
+\rhead{}
+
+% Fußzeile
+\lfoot{FM3D-Dokumentation}
+\cfoot{\thepage}
+\rfoot{ %\slshape 
+\date{\today} }
+
+% Inhaltsverzeichnis
+\begingroup
+  \renewcommand*{\chapterpagestyle}{empty}
+  \pagestyle{empty}
+  \tableofcontents
+  %\clearpage
+\endgroup
+
+% Kapitel einbinden
+\include{01einfuhrung/einfuhrung}
+\include{02theorie/theorie}
+\include{03unserprogramm/unserprogramm}
+\include{04verwendung/verwendung}
+\include{05resumee/resumee}
+\include{06anhang/anhang}
+
+% Literaturverzeichnis
+\bibliography{06anhang/literatur}
+
+\end{document} %Process exited with error(s)

@@ -247,7 +247,7 @@ namespace FM3D_Designer.src
                     writer.WriteAttributeString("Name", dirname);
 
                     writer.WriteStartElement("MainProject");
-                    writer.WriteAttributeString("Name", dirname);
+                    writer.WriteAttributeString("Name", "GameProject");
                     writer.WriteEndElement();
 
                     writer.WriteStartElement("Pipe");

@@ -51,21 +51,21 @@
   <Class Name="FM3D_Designer.src.Component" Collapsed="true">
     <Position X="22.75" Y="9.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAAAEAAAAAAAAAAAEAAAAQBAAAAACAAA=</HashCode>
+      <HashCode>AAgAAAAAAEAAAAAEAAAAAAAAAAAEAAAAABAAAAACAAA=</HashCode>
       <FileName>src\EntityClasses\Component.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.SC" Collapsed="true">
     <Position X="22.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAoAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAgAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\EntityClasses\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.Entity" Collapsed="true">
     <Position X="22.75" Y="9" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAwAAAAAAAAAAAAEAACAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAwAABAAAAAAAAAEAACAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\EntityClasses\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -150,7 +150,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAgAgAABAAAAAAECBCIAAAAIAAAAxABAAAAAAACCA=</HashCode>
+      <HashCode>AAAAgAgAABAAEAAAECBCIAAAAIAAAAxABAAAAAAACCA=</HashCode>
       <FileName>src\Project.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -182,16 +182,16 @@
       <FileName>src\WindowLayout.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FM3D_Designer.src.Dialogs.AddFileDialog" Collapsed="true">
+  <Class Name="FM3D_Designer.src.Dialogs.AddFileDialog">
     <Position X="9.75" Y="19" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\AddFileDialog.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.Dialogs.ChangeMeshDialog" Collapsed="true">
-    <Position X="0.75" Y="19" Width="1.5" />
+  <Class Name="FM3D_Designer.src.Dialogs.ChangeMeshDialog">
+    <Position X="0.75" Y="19" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAoAAAAAAAIAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>src\Dialogs\ChangeMeshDialog.xaml.cs</FileName>
@@ -221,15 +221,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FM3D_Designer.src.Dialogs.EntityEditor" Collapsed="true">
-    <Position X="5.25" Y="19" Width="1.5" />
+    <Position X="5.25" Y="19" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>CIAAAkUAAgBKEACAEEAAAgQBlAAAEBBgAAAAkAAAACA=</HashCode>
+      <HashCode>CIIAAMEEQgBLAACAEABABAQBkAAAABAAAgBAEAIAAAA=</HashCode>
       <FileName>src\Dialogs\EntityEditor.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FM3D_Designer.src.Dialogs.ModelDialog" Collapsed="true">
-    <Position X="7.5" Y="19" Width="1.5" />
+  <Class Name="FM3D_Designer.src.Dialogs.ModelDialog">
+    <Position X="8" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAIAMAAAAAAAAAAAAAAAAAAAAAEEA=</HashCode>
       <FileName>src\Dialogs\ModelDialog.xaml.cs</FileName>
@@ -252,8 +252,8 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="FM3D_Designer.src.Dialogs.NewResourceDialog" Collapsed="true">
-    <Position X="3" Y="19" Width="1.5" />
+  <Class Name="FM3D_Designer.src.Dialogs.NewResourceDialog">
+    <Position X="3" Y="19" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>src\Dialogs\NewResourceDialog.xaml.cs</FileName>
@@ -315,20 +315,13 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AQTAAcAAAAASFAIEYAUEYAYIwAADAAISAAQABCigAUk=</HashCode>
+      <HashCode>AQTAEcAAAAASFAIEYAUEZAYIwAADAAISAAQABCigAUk=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FM3D_Designer.src.ToolWindows.FileBrowser.Logic" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="1.5" Y="0.5" Width="1.5" />
-    <NestedTypes>
-      <Enum Name="FM3D_Designer.src.ToolWindows.FileBrowser.Logic.ViewMode" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>src\ToolWindows\FileBrowser\Logic.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAQACACAIBQAMBEIBEgAAAQggAAABAAAACCCAABAII=</HashCode>
       <FileName>src\ToolWindows\FileBrowser\Logic.cs</FileName>

@@ -1,0 +1,31 @@
+\chapter{Theorie}
+\label{theorie}
+
+\input{02theorie/Rendering}
+\input{02theorie/projectionmatrix}
+
+\section[Extensible Markup Language]{Extensible Markup Language\cite{xml}\cite{xmlcstutorials}\cite{msdn}}
+\label{extensiblemarkuplanguage}
+
+Im Designer wird häufig die \textit{Extensible Markup Language} (kurz \ac{XML}) verwendet.  Diese \textit{erweiterbare Auszeichnungssprache} wird im FM3D-Designer gebraucht, um in gespeicherten Dateien hierarchisch strukturiert Daten in Textdateien zu speichern.
+Sowohl die Projektdateien, Entity-Dateien, Modeldateien uvm. werden in Form von \ac{XML} beschrieben. 
+\ac{XML} beschreibt eine Baumstruktur von Daten die hierarchisch angeordnet sind. Ein \ac{XML}-Dokument besteht aus Elementen, Attributen, Verarbeitungsanweisungen und/oder Kommentaren. 
+Ein Element kann mittels einem Paar aus Start-Tag (zB. \textit{<Tag>}) und End-Tag (zB. \textit{</Tag>}) oder einem leeren Tag (zB. \textit{<Tag/>}) erfolgen.
+Diesen Elementen kann man nun beliebig viele Attribute zuordnen, welche wiederum Werte besitzen.
+Die Werte der Attribute sind standardmäßig in Form des Datentyps \textit{String}. Dieser muss in C-Sharp zunächst in den benötigten Datentyp umgewandelt werden.
+Als Beispiel wird nun das Dokument in \cref{xmlbsp} verwendet. 
+In \cref{xmlbsp} erkennt man zunächst einen Verarbeitungshinweis, welcher die XML-Version und Zeichenkodierung spezifiziert. Das darauffolgende Element \textit{<Wald>} besitzt das Unterelement \textit{<Baum>}. Dieses Element besitzt das Attribut \textit{name} mit dem Wert \textit{Eiche}. 
+Dieses Element \textit{<Baum>} enthält weitere drei Unterelemente als leere Tags. Sie besitzen keine weiteren Unterelemente. Das Element \textit{<Stamm>} besitzt das Attribut \textit{LängeInMeter} mit dem Wert \textit{"`3"'}. Möchte man diesen Wert als Integer in C-Sharp verwenden, so muss man diesen String erst in einen solchen Typ konvertieren. Des weiteren besitzt das Element \textit{<Baum>} noch zwei Unterelemente mit dem Namen \textit{<Blatt>}. Beide dieser besitzen das Attribut \textit{Farbe}. Auch hier liegt der Wert als String vor.
+In \cref{fm3dprojekt} wird ein kommentiertes FM3D-Projekt dargestellt. Die Kommentare werden nicht in der Datei gespeichert und sind nur für die Veranschaulichung abgebildet.
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{03unserprogramm/Designer/xmlbsp.png}
+		\caption{XML-Beispiel}\label{xmlbsp}
+	\end{center}
+\end{figure}
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=\textwidth]{03unserprogramm/Designer/FM3DProjektdatei.PNG}.
+		\caption{FM3D-Projektdatei, welche vom Designer erstellt und gespeichert wird}\label{fm3dprojekt}
+	\end{center}
+\end{figure}

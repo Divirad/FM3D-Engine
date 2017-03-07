@@ -32,7 +32,7 @@ namespace FM3D_Designer.src.Dialogs
 public partial class EntityEditor : DialogBase
     {
         private Entity _entity = new Entity();
-        public List<Component> _available = new List<Component>();
+        private List<Component> _available = new List<Component>();
 
         private Component _selectedc = new Component();
         private Property _selectedp = new Property();
@@ -158,24 +158,20 @@ public partial class EntityEditor : DialogBase
             }
         }
 
-        private void AddComponent(string component_)
-        {
-            if (component_ != "")
-            {
-            cb_addcomp.Items.Remove(component_);
+		private void AddComponent(string component_) {
+			if (component_ != "") {
+				cb_addcomp.Items.Remove(component_);
 
-                foreach (Component listed in _available)
-                {
-                    if ((string)listed.name == component_)
-                    {
-                        _entity.components.Add(listed);
-                        _available.Remove(listed);
-                        Refresh();
-                        break;
-                    }
-                }
-            }
-        }
+				foreach (Component listed in _available) {
+					if ((string)listed.name == component_) {
+						_entity.components.Add(listed);
+						_available.Remove(listed);
+						Refresh();
+						break;
+					}
+				}
+			}
+		}
 
 		private void AddComponent(string component_, bool _const, bool _stand) {
 			if (component_ != "") {
@@ -211,23 +207,23 @@ public partial class EntityEditor : DialogBase
 
         }
 
-        private void Button_Remove(object sender, RoutedEventArgs e)
+        private void Remove(object sender, RoutedEventArgs e)
         {
             DeleteComponent();
             
         }
 
-        private void bt_add_Click(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e)
         {
             AddComponent((string)cb_addcomp.SelectedItem);
         }
 
-        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void btn_save_Click(object sender, RoutedEventArgs e)
+        private void Save(object sender, RoutedEventArgs e)
         {
         //    ToolWindows.FileBrowser.Item item;
         //    item.CreateFile();
@@ -237,7 +233,7 @@ public partial class EntityEditor : DialogBase
             WriteEntity(_path);
         }
 
-        private void cb_standard_Checked(object sender, RoutedEventArgs e)
+        private void Checked(object sender, RoutedEventArgs e)
         {
             _entity._propauto.Clear();
 			foreach(Component c in _entity.components) {
@@ -247,7 +243,7 @@ public partial class EntityEditor : DialogBase
             this.Refresh();
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void Unchecked(object sender, RoutedEventArgs e)
         {
             _entity._propauto.Clear();
 			foreach (Component c in _entity.components) {
@@ -258,7 +254,6 @@ public partial class EntityEditor : DialogBase
 
         }
        
-
         private void DeletePropauto(string prop)
         {
             foreach(Property prop_ in _entity._propauto)
@@ -285,19 +280,19 @@ public partial class EntityEditor : DialogBase
 			System.IO.File.WriteAllText(path,_entity.ToString());
         }
 
-        private void tb_entityname_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextChangedToEN(object sender, TextChangedEventArgs e)
         {
             _entity.name = tb_entityname.Text;
         }
 
-        private void tb_propcustom_Click(object sender, RoutedEventArgs e)
+        private void AddCustomProp(object sender, RoutedEventArgs e)
         {
             _entity._propcustom.Add(new Property() { name = (string)tb_propnam.Text, type=(string)tb_proptype.Text });
             this.Refresh();
             //.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
 
-        private void bt_deletecustomprop(object sender, RoutedEventArgs e)
+        private void DeleteCustomProp(object sender, RoutedEventArgs e)
         {
             foreach (Property temp in _entity._propcustom)
             {

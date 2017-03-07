@@ -28,12 +28,12 @@ namespace FM3D_Designer.src.Dialogs
             InitializeComponent();
         }
 
-        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void btn_add_Click(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e)
         {
             //STUFF
             this.Close();

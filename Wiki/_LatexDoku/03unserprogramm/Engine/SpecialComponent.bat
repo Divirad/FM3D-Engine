@@ -1,0 +1,1 @@
+inkscape SpecialComponent.svg --export-pdf=SpecialComponent.pdf

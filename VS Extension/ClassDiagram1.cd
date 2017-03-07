@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VS_Extension.CodeAnalyzer">
+    <Position X="0.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAEAAAAAAAAAAAAAAgAAAAAAAAAEAAAAAIAAA=</HashCode>
+      <FileName>CodeAnalyzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VS_Extension.CodeManipulator">
+    <Position X="3.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAEAAAABAABgAAQAAAAAAAAAAABAAAAIAAA=</HashCode>
+      <FileName>CodeManipulator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VS_Extension.Command1" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAARAAAAAAAAAAAAIAIAAgQQAgAAAAAAA=</HashCode>
+      <FileName>Command1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VS_Extension.FM3DPropertyFile" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAgAAAAACAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>FM3DPropertyFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VS_Extension.MainPackage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIACFQQgCIBCQAAEBIABgACChSAIAAYQAYAkAIIIQA=</HashCode>
+      <FileName>MainPackage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VS_Extension.PipeSystem">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAChEAAMAAAAAAAAQCAAAgQAAAQEAAAAQACI=</HashCode>
+      <FileName>PipeSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D_Designer.src.Component">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAEAAAAAEAAAAAAAAAAAEAAAAABAAAAACAAA=</HashCode>
+      <FileName>EntityClasses\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D_Designer.src.SC">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAgAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityClasses\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D_Designer.src.Entity">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAABAAAAAAAAAEAACAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityClasses\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FM3D_Designer.src.Property" Collapsed="true">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAAFAAAAABAAAAAAAAA=</HashCode>
+      <FileName>EntityClasses\Properties.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -55,8 +55,8 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <TextBlock Grid.Column="0"   HorizontalAlignment="Center"    Text="{Binding name}" />
-                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}" Unchecked="CheckBox_Unchecked" Checked="cb_standard_Checked" />
-                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Unchecked="CheckBox_Unchecked" Checked="cb_standard_Checked"/>
+                                <CheckBox  Grid.Column="2"   HorizontalAlignment="Center"    IsChecked="{Binding m_const}" Unchecked="Unchecked" Checked="Checked" />
+                                <CheckBox  Grid.Column="3"   HorizontalAlignment="Center"    IsChecked="{Binding m_standard}" Unchecked="Unchecked" Checked="Checked"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -68,8 +68,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <ComboBox Grid.Column="0" Name="cb_addcomp" Margin="0,0,10,10" ItemsSource = "{Binding name}"/>
-                    <Button Click="bt_add_Click" Width="100" Grid.Column="1" Margin="10,0,0,10">Add</Button>
-                    <Button Click="Button_Remove" Width="100" Grid.Column="2" Margin="10,0,0,10">Delete Selected</Button>
+                    <Button Click="Add" Width="100" Grid.Column="1" Margin="10,0,0,10">Add</Button>
+                    <Button Click="Remove" Width="100" Grid.Column="2" Margin="10,0,0,10">Delete Selected</Button>
                 </Grid>
             </Grid>
         </TabItem>
@@ -130,8 +130,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="tb_propnam" Grid.Column="0">Name</TextBox>
                     <TextBox x:Name="tb_proptype" Grid.Column="1">Type</TextBox>
-                    <Button Grid.Column="2" Click="tb_propcustom_Click">Add</Button>
-                    <Button Grid.Column="3" Click="bt_deletecustomprop">Delete Selected</Button>
+                    <Button Grid.Column="2" Click="AddCustomProp">Add</Button>
+                    <Button Grid.Column="3" Click="DeleteCustomProp">Delete Selected</Button>
                 </Grid>
                 
                 <ListBox Name="lb_custom" Grid.Row="5" Margin="10,10,10,10" BorderThickness="0.5" >
@@ -166,7 +166,7 @@
 
             <StackPanel>
                 <Label HorizontalAlignment="Center" >Name Your Fancy Entity!</Label>
-                <TextBox Name="tb_entityname" Text="" TextChanged="tb_entityname_TextChanged"></TextBox>
+                <TextBox Name="tb_entityname" Text="" TextChanged="TextChangedToEN"></TextBox>
                 <Button 
                     x:Name="btn_cancel" 
                     FontWeight="Normal" 
@@ -177,7 +177,7 @@
                     Margin="10, 10" 
                     Content="Close" 
                     IsCancel="True"
-                    Click="btn_cancel_Click">
+                    Click="Cancel">
                 </Button>
                 <Button
                     x:Name="btn_add"
@@ -189,7 +189,7 @@
                     Width="150"
                     Height="40"
                     Margin="10, 10"
-                    Click="btn_save_Click">
+                    Click="Save">
                 </Button>
 
             </StackPanel>

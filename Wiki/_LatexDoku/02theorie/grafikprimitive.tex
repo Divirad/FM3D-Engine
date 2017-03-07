@@ -1,0 +1,31 @@
+\section{Grafikprimitive}
+
+%https://www.inf.tu-dresden.de/content/institutes/smt/cg/teaching/seminars/ProseminarSS09/09%20Arbeiten/Sebastian%20Hubl/Ausarbeitung.pdf
+Die Grafikprimitiven bei OpenGL sind Punkte, Linien und Dreiecke. Es sind die Elemente, aus denen jedes einzelne Objekt in OpenGL gerendert wird. 
+Jeder dieser Raumpunkte besitzt jeweils 3 Bytes auf 24 Bit Farbtiefe
+Farbe eines Raumpunktes
+->3 Bytes auf 24 Bit Farbtiefe 
+
+->Dreiecke aus 3 vertices 
+
+
+\subsection{OpenGL Viewing Pipeline}
+Um eine 3D-Szene auf einem 2D-Bildschirm zu rendern, muss OpenGL die Modelle, welche aus Dreiecken, gebildet aus immer drei verbundenen \textit{Vertices}, mithilfe einer sogenannten \textit{Pipeline} transformieren. Diese \textit{Pipeline} transformiert die Vertices in 4 verschiedenen Transformationsschritten:
+
+\begin{itemize}
+\item Viewing Transformation
+\item Projection Transformation
+\item Viewport Transformation
+\end{itemize}
+
+\subsubsection{Viewing Transformation}
+OpenGL liefert so gesehen keine Kamera die frei bewegbar ist. Sie ist fest an den Koordinaten (0.0, 0.0, 0.0) festgesetzt. Das heißt, der einzige Weg eine Illusion von Bewegung zu erzeugen ist, die komplette Szene um die Kamera zu drehen dies geschieht mit der sogenannten Modelview Matrix
+
+
+\subsubsection{Projection Transformation}
+
+\subsubsection{Viewport Transformation}
+
+\section{Licht}
+
+\section{Texturen}
