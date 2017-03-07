@@ -25,7 +25,7 @@ namespace DesignerLib {
 		m_renderSystem.reset(RenderSystem::Create(FM3D::Renderer::OpenGL3_3));
 		auto ptr = Window::SetInstance(Window::Create(Platform::WINDOWS, m_hInst));
 		m_window.reset(ptr);
-		m_window->Start(1280, 720, L"Backgound Window", true);
+		m_window->Start(2, 2, L"Backgound Window", false);
 
 
 		if (!m_renderSystem->Initialize(m_width, m_height, false, static_cast<Win32Window*>(m_window.get())->GetHwnd(), false)) {

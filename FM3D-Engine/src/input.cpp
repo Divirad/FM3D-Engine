@@ -13,30 +13,30 @@ namespace FM3D
 		if (m_pressed[wParam] != true)
 		{
 			m_pressed[wParam] = true;
-			cout << "INPUT:: K  :: >>" << wParam << "<< ACTIVATED\n";
+			//cout << "INPUT:: K  :: >>" << wParam << "<< ACTIVATED\n";
 		}
 	}
 	void Inputsystem::keyReleased(WPARAM wParam) {
 		m_pressed[wParam] = false;
-		cout << "INPUT:: K  :: >>" << wParam << "<< DEACTIVATED\n";
+		//cout << "INPUT:: K  :: >>" << wParam << "<< DEACTIVATED\n";
 	}
 
 	void Inputsystem::MPressed(LPARAM lParam, int LorR) {
 		m_mousekey[LorR].clicked = ACTIVATED;
 		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
-		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick <<" ACTIVATED\n";
+		//cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick <<" ACTIVATED\n";
 	}
 
 	void Inputsystem::MReleased(LPARAM lParam, int LorR) {
 		m_mousekey[LorR].clicked = RELEASED;
 		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
-		cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick << "<< RELEASED\n";
+		//cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick << "<< RELEASED\n";
 	}
 
 	void Inputsystem::MWheel(short wheeldata)
 	{
 		wheel = wheeldata;
-		cout << "INPUT:: W  :: " << wheeldata << "-Wheeldata";
+		//cout << "INPUT:: W  :: " << wheeldata << "-Wheeldata";
 	}
 
 	void Inputsystem::MMove(LPARAM lParam)

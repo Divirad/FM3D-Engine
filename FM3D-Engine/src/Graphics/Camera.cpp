@@ -24,7 +24,8 @@ namespace FM3D {
 		case FIRSTPERSON:
 		{	
 			//if (INPUT->CheckIfMouseIsPressed(MOUSE_LEFT) == true) { FP_pres(1.0f); }
-			FP_pres(1.0f);
+			if(GetFocus() != NULL)
+				FP_pres(1.0f);
 			break;
 		}
 		default:

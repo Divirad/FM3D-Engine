@@ -27,8 +27,7 @@ namespace FM3D {
 				return GL_NEAREST_MIPMAP_NEAREST;
 			}
 		default:
-			std::cout << "Unknown Texture Filter!" << std::endl;
-			return 0;
+			assert(false); //Unknown Texture Filter!
 		}
 	}
 
@@ -45,8 +44,7 @@ namespace FM3D {
 		case CLAMP_TO_BORDER:
 			return GL_CLAMP_TO_BORDER;
 		default:
-			std::cout << "Unknown Texture Wrap!" << std::endl;
-			return 0;
+			assert(false); //Unknown Texture Wrap!
 		}
 	}
 
@@ -73,6 +71,8 @@ namespace FM3D {
 		SetParameters(filterMode, wrapMode, mipMapMode);
 
 		Unbind();
+
+		std::cout << "Texture: " << m_tID << std::endl;
 	}
 
 	GL3Texture::GL3Texture(uint width, uint height, FilterMode filterMode, WrapMode wrapMode, MipMapMode mipMapMode, char* pixels, uint bits):
@@ -90,9 +90,16 @@ namespace FM3D {
 		SetParameters(filterMode, wrapMode, mipMapMode);
 
 		Unbind();
+
+		std::cout << "Texture: " << m_tID << std::endl;
+	}
+
+	GL3Texture::~GL3Texture() {
+		Shutdown();
 	}
 
 	void GL3Texture::Shutdown() {
+		std::cout << "Del Texture: " << m_tID << std::endl;
 		GLCall(glDeleteTextures(1, &m_tID));
 	}
 

@@ -111,14 +111,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
 
-	OUTPUT_INFO(3, "Hallo", "Infooo");
-	OUTPUT_ERROR(4, "Hallu", "Yeeeaah");
-
 	//2D
 	Text text0{ "", font, 0xff000000 };
 	Text text1{ "", font, 0xff000000 };
 	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, res.emptyTex);
 	Quad barkQuad(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(0.25, 0.25), 0xffffffff, res.leavesTexture);
+
+	bool resolution = true;
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -137,18 +136,20 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 			//target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
-			renderer2D->Begin();
+			//renderer2D->Begin();
 
-			Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, target3D->GetTexture());
-			renderer2D->Submit(&renderedScene);
+			//Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, target3D->GetTexture());
+			//renderer2D->Submit(&renderedScene);
 
-			renderer2D->Submit(&textBack);
-			renderer2D->Submit(&barkQuad);
-			renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
-			renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
-			renderer2D->End();
-			renderer2D->Flush();
-			target2D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
+			//renderer2D->Submit(&textBack);
+			//renderer2D->Submit(&barkQuad);
+			//renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
+			//renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
+			//renderer2D->End();
+			//renderer2D->Flush();
+			//target2D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
+
+			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderSystem->EndRendering();
 
@@ -168,15 +169,21 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			Move(camera, laptopCam);
 			renderer3D->SetForceWireFrame(Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_F5));
 
-			if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_N)) {
-				target2D->ReSize(Vector2i(win->GetWidth(), win->GetHeight()));
+			if (!resolution && Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_N)) {
+				std::cout << "---------------------" << std::endl;
+				std::cout << "------Higher----------" << std::endl;
+				target3D->ReSize(Vector2i(win->GetWidth(), win->GetHeight()));
+				resolution = !resolution;
 			}
-			if (Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_M)) {
-				target2D->ReSize(Vector2i(win->GetWidth() / 4, win->GetHeight() / 4));
+			else if (resolution && Inputsystem::GetInstance()->CheckIfKeyIsPressed(KEY_M)) {
+				std::cout << "---------------------" << std::endl;
+				std::cout << "------Smaller--------" << std::endl;
+				target3D->ReSize(Vector2i(win->GetWidth() / 4, win->GetHeight() / 4));
+				resolution = !resolution;
 			}
-			
+
 			camera.Preset(camera.FIRSTPERSON, false);
-			
+
 			QueryPerformanceCounter(&time2);
 			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;
 			std::stringstream stream;

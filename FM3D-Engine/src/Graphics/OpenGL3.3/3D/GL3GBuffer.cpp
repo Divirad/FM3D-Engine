@@ -15,8 +15,8 @@ namespace FM3D {
 	void GL3GBuffer::StartFrame() {
 		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo));
 		GLCall(glViewport(0, 0, m_width, m_height));
-		GLCall(glDrawBuffer(GL_COLOR_ATTACHMENT4));
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
+		GLCall(glDrawBuffer(GL_COLOR_ATTACHMENT3));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 	}
 
 
@@ -35,10 +35,8 @@ namespace FM3D {
 		GLCall(glDrawBuffer(GL_NONE));
 	}
 
-
-
 	void GL3GBuffer::BindForLightPass() {
-		GLCall(glDrawBuffer(GL_COLOR_ATTACHMENT4));
+		GLCall(glDrawBuffer(GL_COLOR_ATTACHMENT3));
 
 		for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 			GLCall(glActiveTexture(GL_TEXTURE0 + i));
@@ -50,21 +48,23 @@ namespace FM3D {
 	void GL3GBuffer::BindForFinalPass() {
 		//GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo));
-		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT4));
+		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT3));
 	}
 
 	void GL3GBuffer::DebugRendering(uint width, uint height) {
-		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
 		GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo));
 
 		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT0));
-		GLCall(glBlitFramebuffer(0, 0, width, height, 0, 0, width/2, height/2, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		GLCall(glBlitFramebuffer(0, 0, width, height, 0, 0, width / 2, height / 2, GL_COLOR_BUFFER_BIT, GL_LINEAR));
 
 		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT1));
-		GLCall(glBlitFramebuffer(0, 0, width, height, 0, height/2, width/2, height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		GLCall(glBlitFramebuffer(0, 0, width, height, 0, height / 2, width / 2, height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
 
 		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT2));
-		GLCall(glBlitFramebuffer(0, 0, width, height, width/2, height/2, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		GLCall(glBlitFramebuffer(0, 0, width, height, width / 2, height / 2, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR));
+
+		GLCall(glReadBuffer(GL_COLOR_ATTACHMENT3));
+		GLCall(glBlitFramebuffer(0, 0, width, height, width / 2, 0, width, height / 2, GL_COLOR_BUFFER_BIT, GL_LINEAR));
 	}
 
 	bool GL3GBuffer::Resize(uint width, uint height) {
@@ -103,7 +103,7 @@ namespace FM3D {
 
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_finalTexture));
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGB, GL_FLOAT, NULL));
-		GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0));
+		GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, m_finalTexture, 0));
 
 		GLenum Status = GLCall(glCheckFramebufferStatus(GL_FRAMEBUFFER));
 
@@ -113,23 +113,31 @@ namespace FM3D {
 		}
 
 		GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0));
+
+		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+
+		std::cout << "GBuffer: " << m_fbo << " (" << m_textures[0] << ", " << m_textures[1] << ", " << m_textures[2] << ", " << m_depthTexture << ", " << m_finalTexture << ")" << std::endl;
 	}
 
 	void GL3GBuffer::Delete() {
+		std::cout << "Del GBuffer: " << m_fbo << " (" << m_textures[0] << ", " << m_textures[1] << ", " << m_textures[2] << ", " << m_depthTexture << ", " << m_finalTexture << ")" << std::endl;
+
+
 		if (m_fbo != 0) {
 			GLCall(glDeleteFramebuffers(1, &m_fbo));
 		}
 
 		if (m_textures[0] != 0) {
-			glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
+			GLCall(glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures));
 		}
 
 		if (m_depthTexture != 0) {
-			glDeleteTextures(1, &m_depthTexture);
+			GLCall(glDeleteTextures(1, &m_depthTexture));
 		}
 
 		if (m_finalTexture != 0) {
-			glDeleteTextures(1, &m_finalTexture);
+			GLCall(glDeleteTextures(1, &m_finalTexture));
 		}
 	}
 }
