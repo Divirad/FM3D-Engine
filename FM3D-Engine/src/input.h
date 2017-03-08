@@ -177,8 +177,8 @@ namespace FM3D
 		Vector2f GetLastposInst() { return lastposinst; }
 
 		void DoIfKeyPressed(int keyid, void(*f)());
-		bool CheckIfKeyIsPressed(int keyid);
-		bool CheckIfMouseIsPressed(int keyid);
+		bool CheckKey(int keyid);
+		bool CheckMouse(int keyid);
 
 	};
 

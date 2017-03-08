@@ -50,7 +50,7 @@ namespace FM3D
 		m_mousekey[ID].clicked = tof;
 	}
 
-	bool Inputsystem::CheckIfKeyIsPressed(int keyid)
+	bool Inputsystem::CheckKey(int keyid)
 	{
 		if (m_pressed[keyid] == true)
 		{
@@ -59,7 +59,7 @@ namespace FM3D
 		else { return false; }
 	}
 
-	bool Inputsystem::CheckIfMouseIsPressed(int keyid)
+	bool Inputsystem::CheckMouse(int keyid)
 	{
 		if(m_mousekey[keyid].clicked==KEYCLICK::ACTIVATED)return	true;
 		else return false;

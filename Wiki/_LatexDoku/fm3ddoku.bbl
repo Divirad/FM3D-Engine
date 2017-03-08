@@ -95,6 +95,10 @@ Microsoft, ``Microsoft api- und referenzkatalog,'' 2017. [Online]. Available:
   \url{https://msdn.microsoft.com/de-de/library, note =}
 \BIBentrySTDinterwordspacing
 
+\bibitem{entityrelationshipmodel}
+P.~Dr.~Chen, \emph{The Entity-Relationship Model -- Toward a Unified View of
+  Data}, 1976.
+
 \bibitem{wikipedia_wpf}
 \BIBentryALTinterwordspacing
 Wikipedia, ``Windows presentation foundation --- wikipedia{,} the free
