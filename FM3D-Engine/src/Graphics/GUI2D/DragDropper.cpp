@@ -23,7 +23,7 @@ namespace FM3D {
 				clicked = Inputsystem::NOCLICK;
 			}
 		}
-		else if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::RELEASED) {
+		else if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::RELEASED) {
 			
 			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
 			clicked = Inputsystem::NOCLICK;

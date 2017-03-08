@@ -1,5 +1,13 @@
 \subsection{Entity System}
 \label{entitysystem}
+Bevor das Entity-System erläutert wird, muss erst geklärt werden, was ein Entity bzw. eine Entität überhaupt ist. Die Verwendung von Entities in der Engine werden im folgenden erläutert.
+Peter Dr. Chen, welcher das Entity-Relationship-Model in den Jahren 1970 bis 1976 entwickelt wurde, definiert eine Entität als folgende:
+\begin{quote}
+	([...] Eine Entität ist ein "`Ding"', welche deutlich unterschieden werden kann. Als Beispiel für eine Entität kann zB. eine spezifische Person, Firma oder ein Event betrachtet werden. [...])
+	(Aus \cite{entityrelationshipmodel}, Zitat aus dem Englischen übersetzt v. Max Schmitt)
+\end{quote}
+\todo[inline]{kann ich auf Homms blätter verweisen?}
+
 Die FM3D-Engine verwendet ein \textit{Entity-Component-System} um Objekte eines Spieles zu verwalten. Im Gegensatz zu einem vererbungs-basierten Entity-System ist dieses sehr flexibel. 
 Die Grundidee besteht darin, die \textit{Daten} und \textit{Logik} eines Entities aufzuteilen. Hierfür werden alle Daten eines Entities (alle Attribute eines Entities) in Komponenten geschrieben. %removed by max Variablen -> Attribute
 Die Logik (Methoden, die das Entity ausführen soll) wird in einen Manager geschrieben. 

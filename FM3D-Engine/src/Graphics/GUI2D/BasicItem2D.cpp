@@ -166,7 +166,7 @@ namespace FM3D {
 	
 	bool BasicItem2D::Click(int keyID) {
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
-		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::ACTIVATED &&
+		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::ACTIVATED &&
 			FieldCecker()==INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
@@ -180,7 +180,7 @@ namespace FM3D {
 	Inputsystem::KEYCLICK BasicItem2D::ccRectangle(int keyID) {
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
 
-		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::ACTIVATED &&
+		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::ACTIVATED &&
 			FieldCecker() == INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was ACTIVATED" << std::endl;
@@ -189,7 +189,7 @@ namespace FM3D {
 		}
 
 		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
-		if (Inputsystem::GetInstance()->CheckIfMouseIsPressed(keyID) == Inputsystem::RELEASED &&
+		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::RELEASED &&
 			FieldCecker() == INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was RELEASED" << std::endl;
