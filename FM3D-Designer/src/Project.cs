@@ -11,6 +11,7 @@ using System.Xml;
 using MahApps.Metro.Controls.Dialogs;
 using FM3D_Designer.src.ToolWindows.FileBrowser;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
 
 namespace FM3D_Designer.src
 {
@@ -267,8 +268,8 @@ namespace FM3D_Designer.src
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\GameProject.vcxproj");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\" + dirname + ".vcxproj.filters");
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\GameProject.vcxproj.filters");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
@@ -276,7 +277,15 @@ namespace FM3D_Designer.src
 				if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h")) { return false; }
 				System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Base.h", cppdir + @"\Base.h");
 
-				Project.Load(pathtofile);
+#if DEBUG
+                string EngineIncludeDir = Environment.CurrentDirectory + @"\..\..\..\Debug";
+                string EngineDllDir = Environment.CurrentDirectory + @"\..\..\..\FM3D-Engine";
+#endif
+
+                System.IO.File.WriteAllText(cppdir + @"\GameProject.vcxproj", System.IO.File.ReadAllText(cppdir + @"\GameProject.vcxproj").
+                    Replace("ENGINE_INLCUDE_DIR", EngineIncludeDir).Replace("ENGINE_DLL_DIR", EngineDllDir));
+
+                    Project.Load(pathtofile);
                 return true;
             }
         }
