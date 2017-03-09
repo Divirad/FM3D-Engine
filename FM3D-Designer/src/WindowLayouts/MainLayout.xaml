@@ -34,14 +34,13 @@
             </MenuItem>
             <MenuItem Header="_View" >
                 <MenuItem Header="Add Window">
-                    <MenuItem Header="File Browser" Click="OpenFileBrowser"/>
                     <MenuItem Header="Text Editor" Click="OpenTextEditor"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Extras" >
                 <MenuItem Header="_Contact"/>
                 <MenuItem Header="_Help"/>
-                <MenuItem Header="_Fork Us On Github.com"/>
+                <MenuItem Header="_Fork Us On Github.com" Click="ForkUsOnGitHub"/>
             </MenuItem>
         </Menu>
         <ToolBarTray IsLocked="True" Grid.Row="1">

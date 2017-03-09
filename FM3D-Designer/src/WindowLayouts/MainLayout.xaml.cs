@@ -75,6 +75,9 @@ namespace FM3D_Designer.src.WindowLayouts {
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
+		public void ForkUsOnGitHub(object sender, RoutedEventArgs e) {
+			System.Diagnostics.Process.Start("http://github.com/fm3d/fm3d-engine");
+		}
 
         public void OpenTextEditor(object sender, RoutedEventArgs e) {
             SplitPanel splitPanel = new SplitPanel();
