@@ -5,6 +5,24 @@
 Falls ein Projekt ohne den FM3D-Designer erstellt wird, so muss die FM3D manuell eingebunden werden. 
 
 \subsection{Voreinstellungen}
+Zunächst müssen sie die OpenGL, FreeImage, FreeType und Assimp in das Projekt einbinden. Die FM3D-Engine wird automatisch eingebunden.
+$$Configuration Properties->C/C++->Additional Include Directories$$\cref{include}
+$$Configuration Properties->Linker->Additional Include Directories$$
+\cref{liblib}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=\textwidth]{04verwendung/Engine/include.png}
+		\caption{Include Verzeichnisse}\label{includeinc}
+	\end{center}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=\textwidth]{04verwendung/Engine/lib.png}
+		\caption{Lib-Verzeichnisse}\label{liblib}
+	\end{center}
+\end{figure}
 
 \subsection{Kamera}
 
