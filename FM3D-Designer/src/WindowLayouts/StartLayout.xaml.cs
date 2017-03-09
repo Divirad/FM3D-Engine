@@ -174,5 +174,38 @@ namespace FM3D_Designer.src.WindowLayouts
         {
              tb_path.Text = Properties.Settings.Default.lastpath;
         }
-    }
+
+		private void AboutUs(object sender, RoutedEventArgs e) {
+			gitcom.Visibility = Visibility.Hidden;
+			INFORMATIONS.aboutus();
+		}
+
+		private void Help(object sender, RoutedEventArgs e) {
+			INFORMATIONS.opendoku();
+		}
+
+		private void ForkUsOnGitHub(object sender, RoutedEventArgs e) {
+			INFORMATIONS.forkus();
+		}
+	}
+}
+
+namespace FM3D_Designer.src {
+	class INFORMATIONS {
+		static public void aboutus() {
+			MainWindow.Instance.ShowMessageAsync("FM3D-Team",
+				"FM3D-Engine 2017©\n" +
+				"Made by\n" +
+				"\t\t\t\tFelix Lösing & Max Schmitt\n\n" +
+				"Contact:\n\t\t\t\tfm3d@gmx-topmail.de"
+				, MahApps.Metro.Controls.Dialogs.MessageDialogStyle.Affirmative);
+		}
+		static public void opendoku() {
+			System.Diagnostics.Process.Start("https://github.com/FM3D/FM3D-Engine/blob/master/Wiki/_LatexDoku/fm3ddoku.pdf");
+		}
+
+		static public void forkus() {
+			System.Diagnostics.Process.Start("https://github.com/FM3D/FM3D-Engine/");
+		}
+	}
 }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DevComponents.WpfDock;
 using MahApps.Metro.Controls;
 using System.ComponentModel;
+using MahApps.Metro.Controls.Dialogs;
 
 ///Hauptnamespace
 /**
@@ -94,7 +95,7 @@ namespace FM3D_Designer.src
             if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
         #endregion
-    }
+	}
 
 
     public static class CustomCommands {
