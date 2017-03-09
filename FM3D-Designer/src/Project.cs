@@ -11,6 +11,7 @@ using System.Xml;
 using MahApps.Metro.Controls.Dialogs;
 using FM3D_Designer.src.ToolWindows.FileBrowser;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
 
 namespace FM3D_Designer.src
 {
