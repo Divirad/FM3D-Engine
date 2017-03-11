@@ -20,11 +20,13 @@ namespace DesignerLib {
 	public:
 		property int BoneCount;
 		property System::String^ Name;
+		property unsigned int Id;
 
 		Skeleton(int boneCount, System::String^ name, FM3D::Skeleton* skeleton) {
 			this->m_skeleton = skeleton;
 			this->BoneCount = boneCount;
 			this->Name = name;
+			this->Id = 0xffffffff;
 		}
 
 		FM3D::Skeleton* GetIntern() { return m_skeleton; }

@@ -1,4 +1,5 @@
 #include "InternMesh.h"
+#include "../FileWriting.h"
 
 using namespace FM3D;
 
@@ -29,4 +30,14 @@ namespace DesignerLib {
 	bool InternMeshPart::HasColorData() { return m_part->vertices.HasColorData(); }
 	bool InternMeshPart::HasBoneData() { return m_part->vertices.HasBoneData(); }
 	bool InternMeshPart::HasTangentData() { return m_part->vertices.HasTangentData(); }
+
+	void InternMeshPart::WriteToFile(std::ofstream& file) {
+		WriteRawToFile(file, m_part->indicesCount);
+		WriteRawToFile(file, m_part->indexSize);
+		file.write(reinterpret_cast<char*>(m_part->indices), m_part->indicesCount * m_part->indexSize); //Indices
+		WriteRawToFile(file, m_part->vertices.GetVertexCount());
+		WriteRawToFile(file, m_part->vertices.GetVertexData());
+		file.write(reinterpret_cast<char*>(m_part->vertices.GetData()), m_part->vertices.GetVertexCount() * m_part->vertices.GetVertexSize()); //Vertices
+		WriteRawToFile(file, m_part->supportsInstancing);
+	}
 }

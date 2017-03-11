@@ -33,6 +33,7 @@ namespace DesignerLib {
 		InternMeshPart* m_part;
 		System::String^ name;
 	public:
+
 		property System::String^ Name {
 			System::String^ get() {
 				return name;
@@ -52,6 +53,10 @@ namespace DesignerLib {
 			this->Visible = vis;
 			OnPropertyChanged("Visible");
 		}
+
+		[DisplayName("Supports Instancing")]
+		[Description("If true, multiple models with this mesh can be rendered with one drawcall for better performance")]
+		property bool SupportsInstancing;
 
 		[Category("Vertex data")]
 		[DisplayName("Position")]
@@ -136,10 +141,23 @@ namespace DesignerLib {
 
 	public ref class Mesh : System::ComponentModel::INotifyPropertyChanged {
 	public:
+		property bool IsSaved;
+
 		property ObservableCollection<MeshPart^>^ Parts;
 		property Skeleton^ Skelet;
+		property System::String^ Name;
+		property System::String^ Path;
+		property unsigned int Id;
+		property bool SupportsInstancing {
+			bool get() {
+				for each(auto p in Parts) {
+					if (!p->SupportsInstancing) return false;
+				}
+				return true;
+			}
+		}
 
-		Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton);
+		Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton, System::String^ name, System::String^ path);
 
 		void RemovePart(MeshPart^ part) {
 			if (Parts->Remove(part)) {
@@ -148,9 +166,14 @@ namespace DesignerLib {
 		}
 
 		virtual event System::ComponentModel::PropertyChangedEventHandler^ PropertyChanged;
+
+		void WriteToFile();
+		void ExportToFile();
 	private:
 		void OnPropertyChanged(System::String^ name) {
 			this->PropertyChanged(this, gcnew System::ComponentModel::PropertyChangedEventArgs(name));
 		}
+
+		void OnPartChanged(System::Object^ sender, System::ComponentModel::PropertyChangedEventArgs^ e);
 	};
 }

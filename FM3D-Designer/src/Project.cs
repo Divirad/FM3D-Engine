@@ -74,12 +74,14 @@ namespace FM3D_Designer.src
         private static Project _CurrentProject = null;
         public static Project CurrentProject { get { return _CurrentProject; } }
 
+        public ResourceFile resourceFile { get; private set; }
+
         public Project(string path)
         {
             this._Directory = new FileInfo(path).Directory.FullName;
             this._Name = "UnknownName";
             this.ProjectFiles = new RootDirectory("ProjectFiles", this._Directory + ProjectFilesDirectory);
-
+            this.resourceFile = new ResourceFile(_Directory + "/Cpp/Resources.h");
         }
 
         public void SetProjName(string name) {

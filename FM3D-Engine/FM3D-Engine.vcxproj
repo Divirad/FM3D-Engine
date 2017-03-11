@@ -469,6 +469,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <None Include="ClassDiagram.mdj" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram11.cd" />
+    <None Include="ClassDiagram12.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl" />
     <None Include="Dependencies\Assimp\include\Assimp\material.inl" />

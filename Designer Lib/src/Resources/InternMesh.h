@@ -10,6 +10,7 @@ namespace FM3D {
 #include <Engine.h>
 #endif
 #include <vector>
+#include <fstream>
 
 namespace DesignerLib {
 
@@ -39,5 +40,7 @@ namespace DesignerLib {
 		bool HasTangentData();
 
 		FM3D::MeshPart* GetRaw() { return m_part; }
+
+		void WriteToFile(std::ofstream& file);
 	};
 }

@@ -7,7 +7,7 @@
         xmlns:fm="clr-namespace:FM3D_Designer.src"
         xmlns:lay="clr-namespace:FM3D_Designer.src.WindowLayouts"
         mc:Ignorable="d"
-        Header="Vertices">
+        Header="Vertices" Closed="ToolWindow_Closed">
     <fm:ToolWindow.Resources>
         <BooleanToVisibilityConverter x:Key="BToVConv"/>
         <fm:NullToVisibilityConverter x:Key="NToVConv"/>

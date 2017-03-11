@@ -18,7 +18,7 @@ namespace FM3D {
 		bool IsAnimated() const { return m_isAnimated; }
 	};
 
-	class AnimatedModel : public Model {
+	class ENGINE_DLL AnimatedModel : public Model {
 	private:
 		const Animation* m_animation;
 

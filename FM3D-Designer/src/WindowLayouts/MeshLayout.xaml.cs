@@ -31,9 +31,10 @@ namespace FM3D_Designer.src.WindowLayouts
         public MeshLayout(DesignerLib.Mesh mesh)
         {
             this.mesh = mesh;
+            this.mesh.PropertyChanged += this.OnMeshProperty;
             InitializeComponent();
 
-            this.Header = "Mesh";
+            this.Header = this.mesh.Name + (this.mesh.IsSaved ? "" : "*");
             this.Initialize(mainWindow, this.dockSite);
 
             {
@@ -154,6 +155,27 @@ namespace FM3D_Designer.src.WindowLayouts
         private void OnPropertyChanged(string name)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void SaveProjectCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.mesh.WriteToFile();
+            Project.CurrentProject.resourceFile.WriteFile();
+            this.Header = this.mesh.Name;
+            this.mesh.IsSaved = true;
+        }
+
+        private void OnMeshProperty(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "IsSaved")
+            {
+                this.Header = this.mesh.Name + (this.mesh.IsSaved ? "" : "*");
+                if(this.mesh.IsSaved)
+                {
+                    this.mesh.WriteToFile();
+                    Project.CurrentProject.resourceFile.WriteFile();
+                }
+            }
         }
     }
 }

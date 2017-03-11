@@ -190,6 +190,7 @@
     <ClInclude Include="Dependencies\Assimp\include\Assimp\version.h" />
     <ClInclude Include="Dependencies\FreeImage\FreeImage.h" />
     <ClInclude Include="src\Dll.h" />
+    <ClInclude Include="src\FileWriting.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\OpenGL\InternCamera.h" />
     <ClInclude Include="src\OpenGL\InternOpengl.h" />

@@ -19,6 +19,7 @@ namespace DesignerLib {
 
 	public ref class ExternResource : INotifyPropertyChanged {
 	private:
+		System::String^ m_resPath;
 		ResourceLoader* m_loader;
 		Dictionary<FoundResource^, uint>^ m_meshPartMap;
 	public:
@@ -27,7 +28,7 @@ namespace DesignerLib {
 
 		ExternResource();
 		~ExternResource();
-		void Load(System::String^ path);
+		void Load(System::String^ path, System::String^ resPath);
 
 		virtual event PropertyChangedEventHandler^ PropertyChanged;
 

@@ -25,5 +25,10 @@ namespace FM3D_Designer.src.ToolWindows.Mesh
 
             this.grid.DataContext = layout;
         }
+
+        private void ToolWindow_Closed(object sender, RoutedEventArgs e)
+        {
+            this.grid.ItemsSource = null;
+        }
     }
 }
