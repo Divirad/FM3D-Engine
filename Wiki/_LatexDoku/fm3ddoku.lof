@@ -13,18 +13,18 @@
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Perspektivische Projektion\relax }}{25}{figure.caption.29}
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Near-/Far-Clipping Plane\relax }}{25}{figure.caption.30}
 \contentsline {figure}{\numberline {2.12}{\ignorespaces XML-Beispiel\relax }}{27}{figure.caption.32}
-\contentsline {figure}{\numberline {2.13}{\ignorespaces FM3D-Projektdatei, welche vom Designer erstellt und gespeichert wird\relax }}{27}{figure.caption.33}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces FM3D-Projektdatei\relax }}{27}{figure.caption.33}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Klassendiagramm der Component-Klassen\relax }}{33}{figure.caption.36}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Klassendiagramm der Fenster-Klassen\relax }}{37}{figure.caption.40}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Klassendiagramm der Dialog-Klassen\relax }}{38}{figure.caption.41}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Klassendiagramm der Klassen, die f\IeC {\"u}r das erstellen der Entities \IeC {\"u}ber die Pipe notwendig sind\relax }}{45}{figure.caption.64}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Klassendiagramm der Fenster-Klassen\relax }}{47}{figure.caption.70}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Component-Klassen\relax }}{35}{figure.caption.47}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Fenster-Klassen\relax }}{39}{figure.caption.51}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Klassendiagramm der Dialog-Klassen\relax }}{40}{figure.caption.52}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Entity-Klassen im Designer\relax }}{47}{figure.caption.75}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces VisualStudio-Extension\relax }}{49}{figure.caption.81}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Der Dialog um ein neues Projekt zu erstellen\relax }}{52}{figure.caption.77}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Der Haupt-Arbeitsplatz des FM3D-Designers\relax }}{54}{figure.caption.79}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Das Extension Men\IeC {\"u}\relax }}{54}{figure.caption.80}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Include Verzeichnisse\relax }}{55}{figure.caption.81}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Lib-Verzeichnisse\relax }}{56}{figure.caption.82}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Der Dialog um ein neues Projekt zu erstellen\relax }}{54}{figure.caption.88}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Der Haupt-Arbeitsplatz des FM3D-Designers\relax }}{56}{figure.caption.90}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Das Extension Men\IeC {\"u}\relax }}{56}{figure.caption.91}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Include Verzeichnisse\relax }}{57}{figure.caption.92}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Lib-Verzeichnisse\relax }}{58}{figure.caption.93}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

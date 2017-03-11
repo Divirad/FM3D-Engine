@@ -40,11 +40,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	#if DEBUG
 	//
-	// Display Rendersystem error if something wents wrong
+	// Display Rendersystem error if something wents wrong in DebugMode
 	//
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
+	#else
+	renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)
 	#endif
 
 	// Initializing the projectionmatrix

@@ -32,9 +32,38 @@ Zu linearer Algebra gehört selbstverständlich auch die Möglichkeit Matrizen z
 %mit Matrizen Transformationen darzustellen. 
 Dafür enthält das Math-System die Matrix4f Klasse. Diese repräsentiert eine $4x4$ Matrix mit dem Skalar-Datentyp Float. Sie besitzt die Möglichkeit mit anderen Matrizen, vierdimensionalen und dreidimensionalen Vektoren, multipliziert zu werden. Sie kann auch mit anderen Matrizen addiert, sowie invertiert und transponiert werden. Außerdem enthält die Matrix4f-Klasse einige statische Methoden, um bestimmte Matrizen zu erstellen. Dazu gehören Transformations-, Rotations-, Skalierungs- und Projektionsmatrizen.
 
-\subsection{Memory System}
 \subsection{File System}
-\subsection{Graphics System}
+Um Dateien verschiedener Formate in der FM3D-Engine verwenden zu können, wird die Klasse \textit{ExternFileManager} verwendet.
+Die \textit{ExternFileManager} Klasse besitzt Methoden um Schriftarten, Bilder und Modelle zu laden. Der Methode \textit{ReadFontFile} um die Schriftarten zu laden übergibt man eine Referenz zu dem Namen der Datei. Zudem gibt man die Größe und die Skalierung der Schriftart an. Um die Textur auch in einem RenderSystem dar zu stellen, benötigt die Methode auch eine Referenz zu einem existierenden Objekt der \textit{RenderSystem}-Klasse. Die Methode benötigt zudem eine doppelte Referenz zu einem bereits erstelltes Objekt der Klasse \textit{Font}. 
+Die Methode \textit{ReadTextureFile} gibt eine Referenz zu einem Objekt der Klasse Textur zurück. Als Übergabeparameter benötigt diese Methode zunächst das RenderSystem in dem die Textur gerendert werden soll. Außerdem benötigt diese Methode noch  die Enumerationen vom Typen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}, welche in der Klasse \textit{Textur} stehen. Alle dieser Enumerationen besitzen bereits in dieser Methode einen Standardwert und müssen nicht explizit angegeben. Zur Erläuterung dieser Enumerationen siehe den \cref{Textureclass}. 
+Die Methode \textbf{ReadModelFile} benötigt als Übergabeparameter den Dateinamen, das RenderSystem in dem das Model geladen werden soll. Ein boolescher Übergabeparameter gibt an, ob \textit{Instancing} verwendet werden soll. Der darauffolgende  boolescher Wert gibt an, ob eine Animation in dem Model verwendet werden soll. Eine vierstellige Matrix \textit{Matrix4f} gibt \todo[inline]{!!!} an.
+Zur Initialisierung wird die Methode \textit{Initialize} verwendet.
+
+\subsection{Graphic System}
+
+\subsubsection{Fenster}
+Jedes GUI benötigt ein \textit{Fenster}, in dem die Grafiken angezeigt werden können. Dafür existiert die Klasse \textit{Win32Window}, die von der Klasse Windows erbt, welche die Grundstruktur und Grundinformationen für ein Fenster besitzt. 
+Um ein Fenster zu starten verwendet man die Methode \textit{Start}, welcher man die Größe Breite und Höhe des Fensters, den Fenstertitel übergibt. Das Fenster kann mit der Methode \textit{Close} geschlossen werden.
+Aus der Klasse Windows werden \textit{Get-} und \textit{Set-}Methoden für die Größe und Position des Fensters auf dem Bildschirm und private Attribute die diese Werte angeben geerbt.
+Zudem besitzt die Klasse \textit{Window} statische Methoden um ein Fenster zu erstellen, die Position eines Fensters zu bestimmen, eine Konsole zu starten und die Position dieser zu bestimmen.
+
+\subsubsection{RenderSystem}
+Um in diesem Fenster nun zu rendern benötigt man ein Objekt der Klasse RenderSystem. Das RenderSystem kontrolliert das Rendering der FM3D-Engine in der Anwendung. Diese Klasse besitzt eine Initialisierungsmethode, welcher man die Werte 
+
+\subsubsection{Font-Klasse}
+\label{Fontclass}
+Objekte der Font-Klasse repräsentieren Schriftarten, welche man im Programm rendern kann.
+\todo[inline]{!!!}
+\subsubsection{Texture-Klasse}
+\label{Textureclass}
+Die Klasse besitzt die Enumerationen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}
+\todo[inline]{!!!}
+\subsubsection{Model-Klasse}
+\label{Modelclass}
+\todo[inline]{!!!}
+\subsubsection{Material-Klasse}
+\todo[inline]{!!!}
+
 \input{03unserprogramm/Engine/entitysystem}
 
 \subsection{Tasten-Eingabe System}

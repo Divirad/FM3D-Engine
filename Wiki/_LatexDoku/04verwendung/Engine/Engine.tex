@@ -1,12 +1,14 @@
 \section{Engine}
 \label{verwendung_engine}
-
-\subsection{Einbindung der FM3D-Engine}
-Falls ein Projekt ohne den FM3D-Designer erstellt wird, so muss die FM3D manuell eingebunden werden. 
+Wenn sie die FM3D-Engine in Kombination mit dem FM3D-Designer verwenden, so wird Ihnen bei der Projekterstellung ein funktionsfähiges VisualStudio C++ Projekt generiert, welches in der VisualStudio-Solution \textit{GameProject.sln} zu finden ist.
+Es wird ihnen geraten, nichts an dem generierten Code zu ändern.
+In der Datei \textit{"'presets.h"`} werden die Entity-Presets generiert, welche Sie im Designer erstellen können.
+Sie können dem Projekt auch neue Dateien hinzufügen und unabhängig vom generierten Code programmieren. Weitere Dateien, welche ursprünglich nicht zu dem generierten Projekt gehört haben sollten keinen Einfluss auf die Funktionalität des generierten Codes haben.
+Das Spiel an sich steht in der Main.cpp Datei, welche im Projekt bereits vorhanden ist.
 
 \subsection{Voreinstellungen}
-Zunächst müssen sie die OpenGL, FreeImage, FreeType und Assimp in das Projekt einbinden. Die FM3D-Engine wird automatisch eingebunden.
-$$Configuration Properties->C/C++->Additional Include Directories$$\cref{include}
+Zunächst müssen sie die Bibliotheken OpenGL, FreeImage, FreeType und Assimp in das Projekt einbinden. Falls Sie die Engine in Kombination mit dem FM3D-Designer verwenden, so wird die FM3D-Engine automatisch eingebunden. Falls nicht, so müssen Sie die FM3D-Engine manuell einbinden.
+$$Configuration Properties->C/C++->Additional Include Directories$$\cref{includeinc}
 $$Configuration Properties->Linker->Additional Include Directories$$
 \cref{liblib}
 
@@ -25,8 +27,14 @@ $$Configuration Properties->Linker->Additional Include Directories$$
 \end{figure}
 
 \subsection{Kamera}
+Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht.
 
 \subsection{Entities}
+Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Dies geschieht mit dem folgenden Syntax:
+%Beispiel
+Wenn ein Entity das Komponent \textit{RenderableComponent} besitzt, so kann es in dem eindeutig kommentierten Abschnitt "'Submit objects here to renderer"` dem Renderer übergeben werden.
+%Beispiel
+Bevor Sie den Entities die Modelle zuweisen, vergessen Sie nicht die Modelle in die Projektmappe von VisualStudio zu laden.
 
 \subsection{Inputsystem}
 \label{inputsystemver}
