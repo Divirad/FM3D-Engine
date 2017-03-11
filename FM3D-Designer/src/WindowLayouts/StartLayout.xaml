@@ -27,15 +27,16 @@
                 <MenuItem Header="New" Command="New"/>
                 <MenuItem Header="Open" Command="Open"/>
                 <Separator />
-                <MenuItem Header="Close" />
-                <Separator />
-            </MenuItem>
                 <MenuItem Header="Last Project" Click="MenuItem_Click"/>
-            <MenuItem Header="_View">
-                <MenuItem Header="Minimize"/>
-                <MenuItem Header="Maximize"/>
+                <Separator />
+                <MenuItem Header="Close" />
             </MenuItem>
-            <MenuItem Header="_Help" />
+            
+            <MenuItem Header="_Extras" >
+                <MenuItem Header="_About us" Click="AboutUs"/>
+                <MenuItem Header="_Help" Click="Help"/>
+                <MenuItem Header="_Fork Us On Github.com" Click="ForkUsOnGitHub"/>
+            </MenuItem>
         </Menu>
         <!--GRID DEFINITION-->
         <Grid Grid.Row="2">
@@ -139,7 +140,7 @@
 	            Padding="5"
 	            FontSize="30">
                 </TextBlock>
-            <WebBrowser Grid.Column="1" Grid.Row ="2" Name="wbSample" Margin="10,10,10,10" Source="https://github.com/FM3D/FM3D-Engine/commits/master" ></WebBrowser>
+            <WebBrowser Name="gitcom" Grid.Column="1" Grid.Row ="2" Margin="10,10,10,10" Source="https://github.com/FM3D/FM3D-Engine/commits/master" ></WebBrowser>
 
         </Grid>
     </Grid>

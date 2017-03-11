@@ -106,12 +106,23 @@ namespace FM3D_Designer.src
 
         private void OnClosing(object sender, EventArgs e)
         {
-            Close();
-			// 122, 204
-			//MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(255, 00, 00));
-			//MainWindow.Instance.tb_statbar.Text = "Please Start VisualStudio";
-			MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync("Visual Studio Info", "Lost Connection of Visual Studio. Maybe it was closed?\nYou can restart it from the toolbar.", MessageDialogStyle.Affirmative); }));
+			//Close();
+			//MainWindow.Instance.Invoke(new Action(() => {
+			//	MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(255, 00, 00));
+			//}));
+			//MainWindow.Instance.Invoke(new Action(() => {
+			//	MainWindow.Instance.tb_statbar.Text = "Please Start VisualStudio";
+			//}));
+
+			MainWindow.Instance.Invoke(new Action(() => {
+				MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(255, 00, 00));
+				MainWindow.Instance.tb_statbar.Text = "Please Start VisualStudio";
+				MainWindow.Instance.ShowMessageAsync("Visual Studio Info", "Lost Connection of Visual Studio. Maybe it was closed?\nYou can restart it from the toolbar.", MessageDialogStyle.Affirmative);
+
+			}));
         }
+
+
 
         private void OnConnected(object sender, EventArgs args)
         {

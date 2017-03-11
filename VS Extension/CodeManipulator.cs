@@ -40,7 +40,7 @@ namespace VS_Extension {
             }
             if (isthere) {
             } else {
-                model.AddNamespace(namespacename);
+                model.AddNamespace(namespacename,-1);
             }
         }
 

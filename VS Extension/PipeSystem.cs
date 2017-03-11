@@ -179,13 +179,13 @@ namespace VS_Extension
 
         #region Export Entities
         private static void CreateEntity() {
-            CodeManipulator manipulator = new CodeManipulator("Base.h");
+            CodeManipulator manipulator = new CodeManipulator("presets.h");
 			string entstr = reader.ReadLine();
 			Entity temp = new Entity(entstr);
             manipulator.AddNamespace("FM3D");
             manipulator.AddClass("Preset", "FM3D", null);
 
-            CreateBase(temp, new CodeManipulator("Base.h"));
+            CreateBase(temp, new CodeManipulator("presets.h"));
             //manipulator.AddAttribute("Wuschel", "Blah3");
         }
 

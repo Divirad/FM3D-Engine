@@ -66,8 +66,6 @@ namespace VS_Extension
         public void AddClassAnalyzer(string name) {
             var file = p.ProjectItems.Item(1).FileCodeModel;
             file.AddClass("");
-            AddClassExample2(file);
-
         }
 		
 

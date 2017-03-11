@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
 using System.Collections.ObjectModel;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FM3D_Designer.src.WindowLayouts {
     /// <summary>
@@ -75,7 +76,6 @@ namespace FM3D_Designer.src.WindowLayouts {
             this.dockSite.SplitPanels.Add(splitPanel);
             dg.UpdateVisibility();
         }
-
         public void OpenTextEditor(object sender, RoutedEventArgs e) {
             SplitPanel splitPanel = new SplitPanel();
             DockWindowGroup dg = new DockWindowGroup();
@@ -123,5 +123,20 @@ namespace FM3D_Designer.src.WindowLayouts {
          
             MainWindow.Instance.visualStudio.Start(true);
         }
-    }
+
+
+		private void AboutUs(object sender, RoutedEventArgs e) {
+
+			INFORMATIONS.aboutus();
+		}
+
+		private void Help(object sender, RoutedEventArgs e) {
+			INFORMATIONS.opendoku();
+		}
+
+		private void ForkUsOnGitHub(object sender, RoutedEventArgs e) {
+			INFORMATIONS.forkus();
+		}
+
+	}
 }
