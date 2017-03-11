@@ -33,7 +33,6 @@ namespace DesignerLib {
 	public:
 
 		property System::String^ Name;
-		property System::String^ Path;
 		property ResourceType ResType;
 		property ObservableCollection<FoundResource^>^ Content;
 		property bool IsReference;
@@ -45,6 +44,14 @@ namespace DesignerLib {
 		property ContextMenu^ CMenu {
 			ContextMenu^ get();
 		}
+
+		property bool IsEditable {
+			bool get() {
+				return !IsReference && (ResType != ResourceType::MeshPart);
+			}
+		}
+
+		property System::String^ Path;
 
 		FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master, bool needSkeleton);
 		FoundResource(FoundResource^ parent, FoundResource^ reference, ExternResource^ master);

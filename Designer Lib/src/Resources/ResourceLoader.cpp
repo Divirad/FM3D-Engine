@@ -47,6 +47,22 @@ namespace DesignerLib {
 		}
 	}
 
+	static const aiString* GetMeshName(const aiNode* node) {
+		if (node->mNumMeshes > 0)
+			return &node->mName;
+		bool subMeshes = false;
+		const aiString* s;
+		for (uint i = 0; i < node->mNumChildren; i++) {
+			s = GetMeshName(node->mChildren[i]);
+			if (s != nullptr) {
+				if(subMeshes)
+					return &node->mName;
+				subMeshes = true;
+			}
+		}
+		return s;
+	}
+
 	bool ResourceLoader::Load(const std::string& path, std::string& mesh, std::vector<std::string>& parts, bool& needSkelet, std::vector<bool>& animated) {
 		importer = new Assimp::Importer();
 		importer->SetPropertyInteger(AI_CONFIG_PP_LBW_MAX_WEIGHTS, 4);
@@ -57,7 +73,8 @@ namespace DesignerLib {
 		}
 
 		//Return Mesh
-		mesh = "Combined Mesh";
+		auto name = GetMeshName(scene->mRootNode);
+		mesh = name ? name->C_Str() : "Unnamed Mesh";
 		needSkelet = false;
 
 		for (uint i = 0; i < scene->mNumMeshes; i++) {

@@ -29,7 +29,7 @@ namespace FM3D_Designer.src.Dialogs
 
             ExternResource res = this.Resources["res"] as ExternResource;
             res.Master = this;
-            res.Load(path);
+            res.Load(path, ToolWindows.FileBrowser.View.Instance.logic.CurrentDirectory.Path);
         }
 
         public void OnRemove(FoundResource A_0)
@@ -63,6 +63,21 @@ namespace FM3D_Designer.src.Dialogs
 
         private void Button_Accept(object sender, RoutedEventArgs e)
         {
+            //Test Resources
+            var res = from r in (this.Resources["res"] as ExternResource).Resources
+                      group r.Path by r.Path into grouped
+                      where grouped.Count() > 1
+                      select grouped.Key;
+            if(res != null && res.Count() > 0)
+            {
+                if(res.Count() == 1)
+                    MainWindow.Instance.ShowMessageAsync("Error on loading resources", "Doubled path: " + res.First());
+                else
+                    MainWindow.Instance.ShowMessageAsync("Error on loading resources", "Doubled paths: \n" + string.Join("\n", from r in res select r));
+                return;
+            }
+
+            //Load Resources
             this.Close();
 
             bool first = true;

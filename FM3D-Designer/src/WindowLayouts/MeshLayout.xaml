@@ -10,6 +10,10 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:FM3D_Designer.src">
     
+    <local:WindowLayout.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveProjectCommand"/>
+    </local:WindowLayout.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -17,7 +21,7 @@
         </Grid.RowDefinitions>
         <Menu x:Name="menu" Grid.Row="0">
             <MenuItem Header="_File" >
-                <MenuItem Header="_Save"/>
+                <MenuItem Header="_Save"  Command="ApplicationCommands.Save"/>
             </MenuItem>
             <MenuItem Header="_Edit" />
             <MenuItem Header="_View" >
