@@ -20,7 +20,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
 	Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
 
-
 	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
 	ExternFileManager::Initialize();
 

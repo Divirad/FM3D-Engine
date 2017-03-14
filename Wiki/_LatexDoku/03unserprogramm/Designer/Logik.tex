@@ -22,7 +22,6 @@ Diese Klasse beschreibt die Grundstruktur eines Objektes, welches in einer Ordne
 \subsubsection{Filebrowser View-Logic}
 \label{fbview}
 Die Klasse \textit{Logic}, welche im Namespace "`\textit{FM3D\_Designer.src.ToolWindows.FileBrowser}"' steht, erbt von dem Interface \textit{INotifyPropertyChanged}. \textit{INotifyPropertyChanged} ist ein Interface, womit Events gefeuert werden können, wenn sich eine bestimmte Eigenschaft ändert, sodass andere Klassen wie zb. ein Fenster darauf reagieren können.
-Dies benutzt man hier, um \todo{!!!}
 Die Klasse enthält eine Enumeration, welche die Anzeigeeinstellung des File-Browser beschreibt. 
 Eine in der Klasse \textit{Logic} stehende \textit{ObservableCollection} enthält alle Wurzelverzeichnisse, welche mit der Klasse \textit{Item} beschrieben werden. In einem Objekt der Klasse \textit{Item} namens \textit{\_CurrentDirectory} und der Eigenschaft \textit{CurrentDirectory}, welche das \textit{Item}-Objekt von \textit{\_CurrentDirectory} zurück gibt, wird das aktuelle . Ein Interface vom Typ \textit{IList} gibt den Inhalt der aktuell ausgewählten \textit{Directory} im File-Browser (Siehe \cref{filebrowser}) zurück. Zudem besitzt diese Klasse verschiedene Methoden zur Interaktion mit dem File-Browser.
 

@@ -167,7 +167,6 @@ namespace FM3D_Designer.src.WindowLayouts
             Project.Load(file);
 
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
-            
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

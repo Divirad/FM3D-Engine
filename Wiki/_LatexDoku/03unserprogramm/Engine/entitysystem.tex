@@ -6,8 +6,6 @@ Peter Dr. Chen, welcher das Entity-Relationship-Model in den Jahren 1970 bis 197
 	([...] Eine Entität ist ein "`Ding"', welche deutlich unterschieden werden kann. Als Beispiel für eine Entität kann zB. eine spezifische Person, Firma oder ein Event betrachtet werden. [...])
 	(Aus \cite{entityrelationshipmodel}, Zitat aus dem Englischen übersetzt v. Max Schmitt)
 \end{quote}
-\todo[inline]{kann ich auf Homms blätter verweisen?}
-
 Die FM3D-Engine verwendet ein \textit{Entity-Component-System} um Objekte eines Spieles zu verwalten. Im Gegensatz zu einem vererbungs-basierten Entity-System ist dieses sehr flexibel. 
 Die Grundidee besteht darin, die \textit{Daten} und \textit{Logik} eines Entities aufzuteilen. Hierfür werden alle Daten eines Entities (alle Attribute eines Entities) in Komponenten geschrieben. %removed by max Variablen -> Attribute
 Die Logik (Methoden, die das Entity ausführen soll) wird in einen Manager geschrieben. 
@@ -36,12 +34,11 @@ Alle Komponenten müssen nach ihrer ID sortiert werden, da nur Komponenten, die 
 	\end{center}
 \end{figure}
 
-Möchte man eine neue Komponente erstellen, so muss man eine Klasse erstellen, die von der Klasse Component erbt. Die Component-Klasse ist eine leere Klasse und dient nur dazu, verschiedene Komponenten auf eine allgemeine Weise zu speichern. 
-\todo[inline]{KOMISCHER SATZ: START}
-Wenn eine neue Komponente erstellt wird nicht unbedingt der Konstruktor aufgerufen wird, wenn ein alter Komponent wieder verwendet werden kann, muss jede Klasse, die von Component erbt die Methode Construct mit beliebigen Parametern enthalten, sowie die Methode Destruct ohne Parameter. 
-\todo[inline]{KOMISCHER SATZ: ENDE}
+Möchte man eine neue Komponente erstellen, so muss man eine Klasse erstellen, die von der Klasse Component erbt. Die Component-Klasse ist eine leere Klasse und dient nur dazu, verschiedene Komponenten auf eine allgemeine Weise zu speichern.  %% Komischer satz Start
+Wenn eine neue Komponente erstellt wird und nicht unbedingt der Konstruktor aufgerufen wird, so muss jede Klasse, die von Component erbt die Methode Construct mit beliebigen Parametern enthalten, sowie die Methode Destruct ohne Parameter. %% Komischer satz Ende 
 Da Vererbung in diesem Fall einen großen Geschwindigkeitsverlust bewirken würde, muss die \textit{Construct}-Methode mit Hilfe von Templates aufgerufen werden. Bei der \textit{Destruct}-Methode ist dies leider nicht so einfach möglich, da der Datentyp zum Zeitpunkt der Zerstörung nicht mehr bekannt ist muss ein Funktions-Pointer für jeden Komponenten-Typ gespeichert werden. Dieser zeigt auf eine Funktion, welche einen \textit{Component}-Pointer erst zu dem spezifischen Komponenten-Pointer casted und dann die Destruct-Methode aufruft. Diese Funktion ist eine statische Template-Methode in der Component-Klasse. Mit dem Template-Parameter ist es möglich diese Methode für verschiedene Komponenten zu verwenden. Der Pointer wird in einem Objekt der Klasse \textit{EntityIds} gespeichert und kann verwendet werden, indem die statische Methode \textit{Destruct} aufgerufen wird, der sowohl die Komponente, als auch die ID übergeben wird. 
 Er wird beim erstmaligen aufrufen der Methode Get() für jeden Komponent-Typ mit der Methode InitComponent() erstellt. Diese Klassen sind in \cref{ClassDiagramComponents} dargestellt.
-
-Ein Manager ist eine Klasse, die von der Basisklasse \textit{Manager} erbt. 
+% könnte sein dass es falsch ist.
+% edited by max:
+Ein Manager ist eine Klasse, die von der Basisklasse \textit{Manager} erbt. Der Manager führt für jedes Entity die Komponenten-spezifischen Methoden aus.
 \todo[inline]{Erklärung des Managers}

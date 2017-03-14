@@ -36,7 +36,7 @@ Dafür enthält das Math-System die Matrix4f Klasse. Diese repräsentiert eine $
 Um Dateien verschiedener Formate in der FM3D-Engine verwenden zu können, wird die Klasse \textit{ExternFileManager} verwendet.
 Die \textit{ExternFileManager} Klasse besitzt Methoden um Schriftarten, Bilder und Modelle zu laden. Der Methode \textit{ReadFontFile} um die Schriftarten zu laden übergibt man eine Referenz zu dem Namen der Datei. Zudem gibt man die Größe und die Skalierung der Schriftart an. Um die Textur auch in einem RenderSystem dar zu stellen, benötigt die Methode auch eine Referenz zu einem existierenden Objekt der \textit{RenderSystem}-Klasse. Die Methode benötigt zudem eine doppelte Referenz zu einem bereits erstelltes Objekt der Klasse \textit{Font}. 
 Die Methode \textit{ReadTextureFile} gibt eine Referenz zu einem Objekt der Klasse Textur zurück. Als Übergabeparameter benötigt diese Methode zunächst das RenderSystem in dem die Textur gerendert werden soll. Außerdem benötigt diese Methode noch  die Enumerationen vom Typen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}, welche in der Klasse \textit{Textur} stehen. Alle dieser Enumerationen besitzen bereits in dieser Methode einen Standardwert und müssen nicht explizit angegeben. Zur Erläuterung dieser Enumerationen siehe den \cref{Textureclass}. 
-Die Methode \textbf{ReadModelFile} benötigt als Übergabeparameter den Dateinamen, das RenderSystem in dem das Model geladen werden soll. Ein boolescher Übergabeparameter gibt an, ob \textit{Instancing} verwendet werden soll. Der darauffolgende  boolescher Wert gibt an, ob eine Animation in dem Model verwendet werden soll. Eine vierstellige Matrix \textit{Matrix4f} gibt \todo[inline]{!!!} an.
+Die Methode \textit{ReadModelFile} benötigt als Übergabeparameter den Dateinamen, das RenderSystem in dem das Model geladen werden soll. Ein boolescher Übergabeparameter gibt an, ob \textit{Instancing} verwendet werden soll. Der darauffolgende  boolescher Wert gibt an, ob eine Animation in dem Model verwendet werden soll. Eine vierstellige Matrix \textit{Matrix4f} gibt \todo[inline]{!!!} an.
 Zur Initialisierung wird die Methode \textit{Initialize} verwendet.
 
 \subsection{Graphic System}
@@ -53,16 +53,28 @@ Um in diesem Fenster nun zu rendern benötigt man ein Objekt der Klasse RenderSy
 \subsubsection{Font-Klasse}
 \label{Fontclass}
 Objekte der Font-Klasse repräsentieren Schriftarten, welche man im Programm rendern kann.
-\todo[inline]{!!!}
+
 \subsubsection{Texture-Klasse}
 \label{Textureclass}
-Die Klasse besitzt die Enumerationen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}
-\todo[inline]{!!!}
+Die Klasse besitzt die Enumerationen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}. In \textit{FilterMode} gibt verschiedene Filtermodi an, in denen die Textur gerendert wird.
+Wenn verschiedene nebenstehende Pixel auf der Textur nicht auf den Bildschirm "'passen"` bzw. aufgrund der Transformation nicht parallel nebeneinander gerendert werden können, so muss zwischen den beiden Modi LINEAR und NEAREST auswählen. Der Modus NEAREST bildet eine Mischung der nebenstehenden Pixeln. 
+Im Gegensatz du NEAREST bildet der Modus LINEAR bildet harte Kanten der gerendeten Textur.
+Die Enumeration \textit{WrapMode} gibt an, wie die Textur auf das Modell gerendert werden soll und \textit{MipMap}.
+Möchte man eine Textur für OpenGL erstellen, so verwendet man dafür die Klasse GL3Texture, welche von der Klasse Texture erbt. Diese Klasse beschreibt eine Textur, wie sie in OpenGL verwendet wird.
+
 \subsubsection{Model-Klasse}
 \label{Modelclass}
-\todo[inline]{!!!}
+Die Klasse \textit{Model} besitzt alle Eigenschaften, die auch jedes andere Model besitzt. Darunter fällt ein Skelett, ein boolescher Wert, der angibt ob Instancing verwendet werden soll und die Anzahl der Teile. 
+Der Begriff Instancing beschreibt das folgende:
+Nehmen wir an, man rendert eine Szene mit einer Vielzahl an Modellen, welche eine Menge gleicher Vertices-Sätzen besitzen, aber eine andere Transformation besitzen.
+Nehmen wir als Beispiel einen Baum:
+Dieser Baum besitzt hunderte Blätter, welche alle gleich modelliert sind. Würde man ein einzelnes Blatt rendern, so würde dies sehr schnell verarbeitet werden. Aber die ganzen Render-Aufrufe verlangsamen das Programme um ein Vielfaches. 
+Bei Instancing werden nun verschiedene Instanzen dieses Blattes gerendert. Dies spart eine Menge Zeit und lässt das Programm wesentlich schneller laufen.
+Die Klasse \textit{AnimatedModel} erbt von der Klasse Model und beschreibt ein Model, welches animiert wird.
+
 \subsubsection{Material-Klasse}
-\todo[inline]{!!!}
+Um ein Modell zu rendern, so muss man ihm ein Material zuweisen. Jedes Model besteht aus verschiedenen Materialien welche von der Klasse Material beschrieben werden.
+So kann man verschiedene Objekten die gleichen Materialien zuweisen. Möchte man zum Beispiel einen Tisch und einen Stuhl aus Holz rendern, so könnte man ein Material \textit{Holz} mit einer Textur, die \textit{Holz} abbildet. Dieses Material könnte man sowohl dem Tisch als auch dem Stuhl zuweisen.
 
 \input{03unserprogramm/Engine/entitysystem}
 
