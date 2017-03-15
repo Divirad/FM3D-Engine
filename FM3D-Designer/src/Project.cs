@@ -279,8 +279,14 @@ namespace FM3D_Designer.src
 				if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\presets.h")) { return false; }
 				System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\presets.h", cppdir + @"\presets.h");
 
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h", cppdir + @"\Resources.h");
+
+                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.cpp")) { return false; }
+                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.cpp", cppdir + @"\Resources.cpp");
+
 #if DEBUG
-				string EngineDllDir = Environment.CurrentDirectory + @"\..\..\..\Debug";
+                string EngineDllDir = Environment.CurrentDirectory + @"\..\..\..\Debug";
 				string EngineIncludeDir = Environment.CurrentDirectory + @"\..\..\..\FM3D-Engine";
 #endif
 				System.IO.File.WriteAllText(cppdir + @"\GameProject.vcxproj", System.IO.File.ReadAllText(cppdir + @"\GameProject.vcxproj").

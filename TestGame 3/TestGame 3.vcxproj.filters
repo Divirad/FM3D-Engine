@@ -55,6 +55,7 @@
     <None Include="res\Tree.dae" />
     <None Include="res\house.dae" />
     <None Include="res\island\island.dae" />
+    <None Include="res\allo.fbx" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\font.ttf" />
