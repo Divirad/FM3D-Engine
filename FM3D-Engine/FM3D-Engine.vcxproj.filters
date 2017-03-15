@@ -668,7 +668,6 @@
     <None Include="ClassDiagram.mdj" />
     <None Include="Dependencies\FreeType\freetype262d.pdb" />
     <None Include="Dependencies\FreeType\x64\freetype262d.pdb" />
-    <None Include="ClassDiagram.cd" />
     <None Include="src\Graphics\OpenGL3.3\2D\GL3Shader2D.frag" />
     <None Include="src\Graphics\OpenGL3.3\2D\GL3Shader2D.vert" />
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\DirectionalLight.frag" />
