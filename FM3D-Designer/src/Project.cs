@@ -188,7 +188,8 @@ namespace FM3D_Designer.src
             else
             {
                 System.IO.Directory.CreateDirectory(cppdir);
-                System.IO.Directory.CreateDirectory(text);
+				System.IO.Directory.CreateDirectory(cppdir+@"\GameProject");
+				System.IO.Directory.CreateDirectory(text);
                 System.IO.Directory.CreateDirectory(ent);
                 System.IO.Directory.CreateDirectory(mesh);
 
@@ -260,24 +261,23 @@ namespace FM3D_Designer.src
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
-                /// 
-                /// ################################# FILES ####################################################
-                /// 
+				/// 
+				/// ################################# FILES ####################################################
+				/// 
+				string cd = Environment.CurrentDirectory;
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj", cppdir + @"\GameProject.vcxproj");
+				if (!System.IO.File.Exists( cd + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
+                System.IO.File.Copy( cd + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\GameProject.vcxproj.filters", cppdir + @"\GameProject.vcxproj.filters");
+                if (!System.IO.File.Exists( cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj")) { return false; }
+                System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj", cppdir + @"\GameProject\GameProject.vcxproj");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj.filters")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj.filters", cppdir + @"\GameProject\GameProject.vcxproj.filters");
 
-				if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\presets.h")) { return false; }
-				System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\presets.h", cppdir + @"\presets.h");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
+                System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
 
                 if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h")) { return false; }
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h", cppdir + @"\Resources.h");
@@ -286,14 +286,32 @@ namespace FM3D_Designer.src
                 System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.cpp", cppdir + @"\Resources.cpp");
 
 #if DEBUG
-                string EngineDllDir = Environment.CurrentDirectory + @"\..\..\..\Debug";
-				string EngineIncludeDir = Environment.CurrentDirectory + @"\..\..\..\FM3D-Engine";
+				string currentDir = cd.Replace(@"\FM3D-Designer\bin\Debug", @"");
+				string EngineDllDir = currentDir + @"\Debug";
+				string EngineIncludeDir =	currentDir + @"\FM3D-Engine";
+											
+				string AssimpLib =			currentDir+ @"\FM3D-Engine\Dependencies\Assimp\lib";
+				string AssimpInc =			currentDir + @"\FM3D-Engine\Dependencies\Assimp\include"; 
+											
+				string FreeTypeLib =		currentDir + @"\FM3D-Engine\Dependencies\FreeType";
+				string FreeTypeInc =		currentDir + @"\FM3D-Engine\Dependencies\FreeType\include";
+											
+				string FreeImageLib =		currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
+				string FreeImageInc =		currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
+											
+				string GLEWLib =			currentDir + @"\FM3D-Engine\Dependencies\GLEW\lib";
+				string GLEWInc =			currentDir + @"\FM3D-Engine\Dependencies\GLEW\include";
+
+
+				string Libs = EngineDllDir+";"+ AssimpLib+";"+ FreeTypeLib+";"+FreeImageLib+ ";"+ GLEWLib;
+				string Incs = EngineIncludeDir+";"+ AssimpInc+";"+ FreeTypeInc+";"+ FreeImageInc+ ";"+ GLEWInc;
+
 #endif
-				System.IO.File.WriteAllText(cppdir + @"\GameProject.vcxproj", System.IO.File.ReadAllText(cppdir + @"\GameProject.vcxproj").
-					Replace("ENGINE_INCLUDE_DIR", EngineIncludeDir).Replace("ENGINE_DLL_DIR", EngineDllDir));
-				
+				System.IO.File.WriteAllText(cppdir + @"\GameProject\GameProject.vcxproj", System.IO.File.ReadAllText(cppdir + @"\GameProject\GameProject.vcxproj").
+					Replace("ENGINE_INCLUDE_DIR", Incs).Replace("ENGINE_DLL_DIR", EngineDllDir).Replace("ENGINE_DIR", Libs));
+
 				Project.Load(pathtofile);
-                return true;
+				return true;
             }
         }
         

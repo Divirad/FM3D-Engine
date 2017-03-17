@@ -63,6 +63,13 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>resources\images\ICON.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.WPF.Controls">
       <HintPath>DotNetBar\DevComponents.WPF.Controls.dll</HintPath>
@@ -381,6 +388,8 @@
     <Resource Include="resources\images\ModelDialog\Mesh_icon.png" />
     <Resource Include="resources\images\ModelDialog\Model_icon.png" />
     <Resource Include="resources\images\export_icon.png" />
+    <Resource Include="ICON.ico" />
+    <None Include="resources\images\ICON.ico" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\ConsoleApplication1.sln" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />
@@ -436,7 +445,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 und x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

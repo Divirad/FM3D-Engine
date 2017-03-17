@@ -465,7 +465,6 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\WindowSystem\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram.mdj" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram11.cd" />

@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         x:Class="FM3D_Designer.src.MainWindow"
         mc:Ignorable="d"
-        Title="FM3D-Designer"
+        Title="FM3D Designer"
         x:Name="root"
         Height="720" Width="1280" Closing="MetroWindow_Closing">
     <Grid>

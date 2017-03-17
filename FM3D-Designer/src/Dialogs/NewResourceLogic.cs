@@ -55,15 +55,20 @@ namespace FM3D_Designer.src.Dialogs
             switch (selectedType)
             {
                 case 0:
-                    throw new NotImplementedException("Texture loading not implemented");
-                case 1:
+#if DEBUG
+					throw new NotImplementedException("Texture loading not implemented");
+#else
+					System.Windows.MessageBox.Show("Texture loading not implemented");
+#endif
+					break;
+				case 1:
                     var window = System.Windows.Application.Current.MainWindow as MetroWindow;
                     window.ShowModelDialog(this.Path);
                     break;
             }
         }
         public Command AddCommand { get; private set; }
-        #endregion
+#endregion
 
         public string Path { get; set; } = "";
 
@@ -74,13 +79,13 @@ namespace FM3D_Designer.src.Dialogs
             AddCommand = new Command(this.OnAddClick, null);
         }
 
-        #region NotifyPropertyChanged
+#region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string name)
         {
             if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
-        #endregion
+#endregion
     }
 }
