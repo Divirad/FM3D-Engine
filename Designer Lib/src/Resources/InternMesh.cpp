@@ -8,6 +8,10 @@ namespace DesignerLib {
 	InternMeshPart::InternMeshPart(FM3D::MeshPart* part): m_part(part) {
 	}
 
+	InternMeshPart::~InternMeshPart() {
+		delete m_part;
+	}
+
 	std::vector<InternVertex>* InternMeshPart::GetVertices() {
 		auto result = new std::vector<InternVertex>(m_part->vertices.GetVertexCount());
 		for (uint i = 0, c = m_part->vertices.GetVertexCount(); i < c; i++) {
@@ -39,5 +43,23 @@ namespace DesignerLib {
 		WriteRawToFile(file, m_part->vertices.GetVertexData());
 		file.write(reinterpret_cast<char*>(m_part->vertices.GetData()), m_part->vertices.GetVertexCount() * m_part->vertices.GetVertexSize()); //Vertices
 		WriteRawToFile(file, m_part->supportsInstancing);
+	}
+
+	InternMeshPart* InternMeshPart::FromFile(std::ifstream& file) {
+		uint indicesCount = ReadRawFromFile<uint>(file);
+		uint indexSize = ReadRawFromFile<uint>(file);
+		char* indices = new char[indicesCount * indexSize];
+		file.read(indices, indicesCount * indexSize); //Indices
+		uint vertexCount = ReadRawFromFile<uint>(file);
+		uint vertexData = ReadRawFromFile<uint>(file);
+
+		Vertices vertices(vertexCount, vertexData);
+		char* verticesData = new char[vertexCount * vertices.GetVertexSize()];
+		file.read(verticesData, vertexCount * vertices.GetVertexSize()); //Vertices
+		vertices.SetData(reinterpret_cast<FM3D::byte*>(verticesData));
+
+		bool supportsInstancing = ReadRawFromFile<bool>(file);
+
+		return new InternMeshPart(new FM3D::MeshPart(indicesCount, static_cast<void*>(indices), std::move(vertices), indexSize, supportsInstancing));
 	}
 }

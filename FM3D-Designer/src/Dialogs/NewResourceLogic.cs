@@ -66,6 +66,7 @@ namespace FM3D_Designer.src.Dialogs
         #endregion
 
         public string Path { get; set; } = "";
+
         public NewResourceLogic()
         {
             TypeCommand = new Command(this.OnRadioChanged, null);

@@ -45,8 +45,8 @@
         <dc:AdvTree Margin="0, 30" Grid.Column="1" DataContext="{StaticResource res}" SelectionMode="Single" SelectionBoxType="Full" ItemsSource="{Binding Resources, Mode=OneWay}">
             <dc:AdvTree.ColumnDefinitions>
                 <dc:ColumnDefinitionCollection AllowColumnReorder="False" ShowGridLines="True">
-                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name"/>
-                    <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path">
+                    <dc:ColumnDefinition Header="Name" Width="auto" BindingMemberPath="Name" CellIsEditable="True"/>
+                    <dc:ColumnDefinition Header="Path" Width="auto" BindingMemberPath="Path" CellIsEditable="True">
                         <dc:ColumnDefinition.CellStyle>
                             <Style TargetType="{x:Type dc:AdvTreeCell}">
                                 <Setter Property="IsEditable" Value="{Binding DataContext.IsEditable, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type dc:AdvTreeNode}}}"/>

@@ -29,6 +29,7 @@ namespace DesignerLib {
 
 	public:
 		InternMeshPart(FM3D::MeshPart* part);
+		~InternMeshPart();
 
 		std::vector<InternVertex>* GetVertices();
 
@@ -42,5 +43,6 @@ namespace DesignerLib {
 		FM3D::MeshPart* GetRaw() { return m_part; }
 
 		void WriteToFile(std::ofstream& file);
+		static InternMeshPart* FromFile(std::ifstream& file);
 	};
 }

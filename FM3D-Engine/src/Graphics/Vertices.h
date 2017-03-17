@@ -29,6 +29,7 @@ namespace FM3D {
 	public:
 		Vertices(uint vertexCount, uint vertexData);
 		Vertices(const Vertices&);
+		Vertices(Vertices&&);
 		~Vertices();
 		Vertices& operator=(const Vertices& other);
 
@@ -85,6 +86,7 @@ namespace FM3D {
 		uint GetVertexCount() const;
 		uint GetVertexData() const;
 
+		void SetData(const byte* data);
 		byte* GetData();
 		const byte* GetData() const;
 	};

@@ -10,6 +10,12 @@ namespace FM3D {
 		memcpy(m_data, other.m_data, other.GetVertexSize() * other.m_vertexCount);
 	}
 
+	Vertices::Vertices(Vertices&& other) : m_vertexData(other.m_vertexData), m_data(other.m_data), m_vertexCount(other.m_vertexCount) {
+		other.m_data = nullptr;
+		other.m_vertexCount = 0;
+		other.m_vertexData = 0;
+	}
+
 	Vertices& Vertices::operator=(const Vertices& other) {
 		m_vertexData = other.m_vertexData;
 		m_data = new byte[other.GetVertexSize() * other.m_vertexCount];
@@ -229,6 +235,13 @@ namespace FM3D {
 
 	uint Vertices::SizeOfBoneData() {
 		return SizeOfBoneIndex() + SizeOfBoneWeight();
+	}
+
+	void Vertices::SetData(const byte* data) {
+		delete[] m_data;
+		auto size = m_vertexCount * GetVertexSize();
+		m_data = new byte[size];
+		memcpy(m_data, data, size);
 	}
 
 	byte* Vertices::GetData() {

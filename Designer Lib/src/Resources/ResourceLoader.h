@@ -34,7 +34,7 @@ namespace DesignerLib {
 		~ResourceLoader();
 		bool Load(const std::string& path, std::string& mesh, std::vector<std::string>& parts, bool& needSkelet, std::vector<bool>& animated);
 		FM3D::MeshPart* GetMeshPart(unsigned int id);
-		FM3D::Skeleton* GetSkeleton(int& bcount);
+		FM3D::Skeleton* GetSkeleton();
 	};
 
 }

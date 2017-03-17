@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using DevComponents.WpfDock;
 using FM3D_Designer.src.ToolWindows.Mesh;
 using System.ComponentModel;
+using FM3D_Designer.src.ToolWindows.FileBrowser;
+using MahApps.Metro.Controls.Dialogs;
+using System.IO;
 
 namespace FM3D_Designer.src.WindowLayouts
 {
@@ -22,6 +25,18 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class MeshLayout : WindowLayout, INotifyPropertyChanged
     {
+
+        public static void OpenFile(Item file)
+        {
+            var mesh = DesignerLib.ResourceReferences.AddMesh(file.Path);
+            MainWindow.Instance.AttachNewWindowLayout(new MeshLayout(mesh.Target), true);
+        }
+        public static void LoadFile(Item file)
+        {
+            if (new FileInfo(file.Path).Length > 1)
+                DesignerLib.ResourceReferences.AddMesh(file.Path);
+        }
+
         public PartsWindow partsWin { get; private set; }
         public PartsPropWindow partsPropWin { get; private set; }
         public VerticesWindow verticesWin { get; private set; }

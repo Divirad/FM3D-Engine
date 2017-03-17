@@ -1,6 +1,8 @@
 ﻿using DevComponents.WpfDock;
+using FM3D_Designer.src.ToolWindows.FileBrowser;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,17 @@ namespace FM3D_Designer.src.WindowLayouts
     /// </summary>
     public partial class SkeletonLayout : WindowLayout
     {
+        public static void OpenFile(Item file)
+        {
+            var skel = DesignerLib.ResourceReferences.AddSkeleton(file.Path);
+            MainWindow.Instance.AttachNewWindowLayout(new SkeletonLayout(skel.Target), true);
+        }
+        public static void LoadFile(Item file)
+        {
+            if(new FileInfo(file.Path).Length > 1)
+            DesignerLib.ResourceReferences.AddSkeleton(file.Path);
+        }
+
         public ToolWindows.Skeleton.MeshWindow meshWindow { get; private set; }
         public DesignerLib.Skeleton skeleton { get; private set; }
         public SkeletonLayout(DesignerLib.Skeleton skeleton)

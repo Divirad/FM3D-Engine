@@ -88,6 +88,7 @@
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
                         <Setter Property="ContextMenu" Value="{Binding CMenu}"/>
                         <EventSetter Event="TreeViewItem.MouseRightButtonDown" Handler="TreeViewItemRClick"/>
+                        <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>

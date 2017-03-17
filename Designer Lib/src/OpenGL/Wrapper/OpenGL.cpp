@@ -22,7 +22,7 @@ namespace DesignerLib {
 		for each(auto p in mesh->Parts) {
 			parts.push_back((p->GetIntern()->GetRaw()));
 		}
-		return gcnew Renderable(m_gl->Initialize(width, height, cam->GetCamera(), parts, mesh->Skelet != nullptr ? mesh->Skelet->GetIntern() : nullptr));
+		return gcnew Renderable(m_gl->Initialize(width, height, cam->GetCamera(), parts, mesh->Skelet != nullptr ? mesh->Skelet->Target->GetIntern() : nullptr));
 	}
 
 	void OpenGL::ChangeSize(Size^ size) {

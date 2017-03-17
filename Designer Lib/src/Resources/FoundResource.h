@@ -51,7 +51,15 @@ namespace DesignerLib {
 			}
 		}
 
-		property System::String^ Path;
+		System::String^ _Path;
+		property System::String^ Path {
+			System::String^ get() {
+				return _Path;
+			}
+			void set(System::String^ val) {
+				_Path = val;
+			}
+		}
 
 		FoundResource(System::String^ name, System::String^ path, ResourceType type, ExternResource^ master, bool needSkeleton);
 		FoundResource(FoundResource^ parent, FoundResource^ reference, ExternResource^ master);

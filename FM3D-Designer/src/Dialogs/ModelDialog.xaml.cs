@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DesignerLib;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.Controls;
+using FM3D_Designer.src.ToolWindows.FileBrowser;
 
 namespace FM3D_Designer.src.Dialogs
 {
@@ -83,17 +84,26 @@ namespace FM3D_Designer.src.Dialogs
             bool first = true;
             Skeleton skel;
             var meshes = (this.Resources["res"] as ExternResource).GetMeshes(out skel);
+            var l = Project.CurrentProject._Directory.Length;
             foreach (var mesh in meshes)
             {
+                if (!mesh.Path.StartsWith(Project.CurrentProject._Directory))
+                    throw new Exception("New mesh is not in project directory");
+                View.Instance.logic.CreateFile(mesh.Path.Substring(l), ItemTypes.MeshFile);
+                mesh.WriteToFile();
                 MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.MeshLayout(mesh), first);
                 first = false;
             }
             if (skel != null)
             {
+                if (!skel.Path.StartsWith(Project.CurrentProject._Directory))
+                    throw new Exception("New skeleton is not in project directory");
+                View.Instance.logic.CreateFile(skel.Path.Substring(l), ItemTypes.SkeletonFile);
+                skel.WriteToFile();
                 MainWindow.Instance.AttachNewWindowLayout(new WindowLayouts.SkeletonLayout(skel), first);
                 first = false;
             }
-
+            Project.CurrentProject.resourceFile.WriteFile();
         }
 
         private void Button_Cancel(object sender, RoutedEventArgs e)

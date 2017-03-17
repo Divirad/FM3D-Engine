@@ -39,7 +39,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
             InitializeComponent();
             this.Header = "File Browser";
-            
+
             this.Initialize(mainWindow);
         }
 
@@ -63,6 +63,19 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             TreeViewItem item = (TreeViewItem)sender;
             item.IsSelected = true;
             e.Handled = true;
+        }
+
+        private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
+        {
+            if (sender is TreeViewItem)
+            {
+                if (!((TreeViewItem)sender).IsSelected)
+                {
+                    return;
+                }
+                logic.OpenFile();
+            }
+
         }
     }
 }

@@ -203,8 +203,11 @@
     <ClInclude Include="src\Resources\ExternResource.h" />
     <ClInclude Include="src\Resources\FoundResource.h" />
     <ClInclude Include="src\Resources\InternMesh.h" />
+    <ClInclude Include="src\Resources\InternSkeleton.h" />
     <ClInclude Include="src\Resources\Mesh.h" />
     <ClInclude Include="src\Resources\ResourceLoader.h" />
+    <ClInclude Include="src\Resources\ResourceRef.h" />
+    <ClInclude Include="src\Resources\ResourceReferences.h" />
     <ClInclude Include="src\Resources\Skeleton.h" />
     <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
@@ -246,6 +249,10 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="src\Resources\InternSkeleton.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="src\Resources\Mesh.cpp" />
     <ClCompile Include="src\Resources\ResourceLoader.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -257,6 +264,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="src\Resources\Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

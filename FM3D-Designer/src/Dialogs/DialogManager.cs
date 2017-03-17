@@ -50,12 +50,12 @@ namespace FM3D_Designer.src.Dialogs
             window.ShowMetroDialogAsync(new EntityEditor(window, path, isnewentity ));
         }
 
-        public static void ShowAddFileDialog(this MetroWindow window, String path)
+        public static void ShowAddFileDialog(this MetroWindow window, string path)
         {
             window.ShowMetroDialogAsync(new AddFileDialog(window, path));
         }
 
-        public async static void ShowModelDialog(this MetroWindow window, String path)
+        public async static void ShowModelDialog(this MetroWindow window, string path)
         {
             await window.ShowMetroDialogAsync(new ModelDialog(window, path));
         }

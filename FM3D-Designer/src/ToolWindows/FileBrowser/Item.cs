@@ -12,6 +12,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using FM3D_Designer.src.Dialogs;
 using System.IO;
+using FM3D_Designer.src.WindowLayouts;
 
 namespace FM3D_Designer.src.ToolWindows.FileBrowser
 {
@@ -44,12 +45,14 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         public static ItemType SkeletonFile { get; } = new ItemType("Skeleton File", ".fm_skel",
             //http://www.flaticon.com/free-icon/standing-up-man_10522 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_icon.png", UriKind.Relative),
-            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_bigIcon.png", UriKind.Relative));
+            new Uri("/FM3D-Designer;component/resources/images/file browser/skeleton_bigIcon.png", UriKind.Relative),
+            SkeletonLayout.OpenFile, SkeletonLayout.LoadFile);
 
         public static ItemType MeshFile { get; } = new ItemType("Mesh File", ".fm_mesh",
             //http://www.flaticon.com/free-icon/cubes_106841#term=cubes&page=1&position=69 31.01.2017
             new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_icon.png", UriKind.Relative),
-            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_bigIcon.png", UriKind.Relative));
+            new Uri("/FM3D-Designer;component/resources/images/file browser/mesh_bigIcon.png", UriKind.Relative),
+            MeshLayout.OpenFile, MeshLayout.LoadFile);
 
         public static ItemType TextureFile { get; } = new ItemType("Texture File", ".fm_tex",
             //http://de.seaicons.com/microsoft-paint-net-symbol/ 31.01.2017
@@ -69,14 +72,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             = new Uri("/FM3D-Designer;component/resources/images/warning.png", UriKind.Relative);
         private static Uri StandardNotProjectImage { get; }
             = new Uri("/FM3D-Designer;component/resources/images/file browser/file_nonproj_icon.ico", UriKind.Relative);
-        private static Uri StandardNotProjectBigImage { get; } 
+        private static Uri StandardNotProjectBigImage { get; }
             = new Uri("/FM3D-Designer;component/resources/images/file browser/file_nonproj_icon.ico", UriKind.Relative);
 
         //Fields
-        private readonly string name;
-        private readonly string extension;
+        private readonly Action<Item> opener;
+        private readonly Action<Item> creator;
 
         //Properties
+        public string Name { get; private set; }
+        public string Extension { get; private set; }
+
         public Uri ImageSource { get; private set; }
         public Uri ExpandedImageSource { get; private set; }
         public Uri BigImageSource { get; private set; }
@@ -87,10 +93,10 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         //Constructors
         public ItemType(string name, string extension, Uri imageSource, Uri bigImageSource, Uri notProjectImageSource,
-            Uri notProjectBigImageSource, Uri expandedImageSource = null, Uri notProjectExpandedImageSource = null)
+            Uri notProjectBigImageSource, Uri expandedImageSource = null, Uri notProjectExpandedImageSource = null, Action<Item> opener = null, Action<Item> creator = null)
         {
-            this.name = name;
-            this.extension = extension;
+            this.Name = name;
+            this.Extension = extension;
 
             this.ImageSource = imageSource;
             this.ExpandedImageSource = expandedImageSource;
@@ -100,16 +106,19 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this.NotProjectExpandedImageSource = notProjectExpandedImageSource;
             this.NotProjectBigImageSource = notProjectBigImageSource;
 
-            if(this.extension != "")
+            this.opener = opener;
+            this.creator = creator;
+
+            if (this.Extension != "")
             {
-                ItemTypes.FileTypes.Add(this.extension, this);
+                ItemTypes.FileTypes.Add(this.Extension, this);
             }
         }
 
-        public ItemType(string name, string extension, Uri imageSource, Uri bigImageSource)
+        public ItemType(string name, string extension, Uri imageSource, Uri bigImageSource, Action<Item> opener = null, Action<Item> creator = null)
         {
-            this.name = name;
-            this.extension = extension;
+            this.Name = name;
+            this.Extension = extension;
 
             this.ImageSource = imageSource;
             this.ExpandedImageSource = null;
@@ -119,16 +128,29 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this.NotProjectExpandedImageSource = null;
             this.NotProjectBigImageSource = StandardNotProjectBigImage;
 
-            if (this.extension != "")
+            this.opener = opener;
+            this.creator = creator;
+
+            if (this.Extension != "")
             {
-                ItemTypes.FileTypes.Add(this.extension, this);
+                ItemTypes.FileTypes.Add(this.Extension, this);
             }
         }
 
         //Methods
         public override string ToString()
         {
-            return name;
+            return Name;
+        }
+
+        public void Open(Item item)
+        {
+            this.opener?.Invoke(item);
+        }
+
+        public void Create(Item item)
+        {
+            this.creator?.Invoke(item);
         }
     }
 
@@ -148,7 +170,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         public string Path { get; private set; }
 
-        private Project.FileObject fileObject;
+        public Project.FileObject FileObject { get; private set; }
 
         //Constructor
         public Item(Item parent, Logic logic, ItemType type, string name, string path, ItemState state, Project.FileObject fileObject)
@@ -159,11 +181,13 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             this._Name = name;
             this._State = state;
             this.Path = path;
-            this.fileObject = fileObject;
+            this.FileObject = fileObject;
 
             if (!Item.AllItems.ContainsKey(type))
                 Item.AllItems.Add(type, new List<Item>());
             Item.AllItems[type].Add(this);
+
+            this.type.Create(this);
         }
 
         //Properties and Methods
@@ -341,7 +365,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             CreateFile(x, ItemTypes.UnknownFile, out i);
         }
 		private void IncludeFile(object sender, EventArgs args) {
-			State = ItemState.NORMAL;
+            MakeStateNormal();
 		}
 		private void ExcludeFile(object sender, EventArgs args) {
 			State = ItemState.NOT_PROJECT;
@@ -493,8 +517,8 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             if(addToProject)
             {
                var dir = new Project.Directory(name, path);
-                (this.fileObject as Project.Directory).Content.Add(dir);
-                (this.fileObject as Project.Directory).SubDirectories.Add(dir);
+                (this.FileObject as Project.Directory).Content.Add(dir);
+                (this.FileObject as Project.Directory).SubDirectories.Add(dir);
                 item = new Item(this, this.logic, type, name, path, ItemState.NORMAL, dir);
             }
             else item = new Item(this, this.logic, type, name, path, ItemState.NOT_PROJECT, null);
@@ -526,6 +550,39 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             ToStringName() + "\n" + ToStringType();
             
             return thisitem;
+        }
+
+        public void MakeStateNormal()
+        {
+            if (this.State != ItemState.NORMAL)
+            {
+                if (this.Parent.State != ItemState.NORMAL)
+                    this.Parent.MakeStateNormal();
+                if (this.type == ItemTypes.Directory)
+                {
+                    if (this.State == ItemState.NOT_FOUND)
+                    {
+                        this.FileObject = new Project.Directory(this.Name, this.Path);
+                        (this.Parent.FileObject as Project.Directory).SubDirectories.Add(this.FileObject as Project.Directory);
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(this.Path);
+                    }
+                }
+                else
+                {
+                    if (this.State == ItemState.NOT_FOUND)
+                    {
+                        this.FileObject = new Project.File(this.Name);
+                        (this.Parent.FileObject as Project.Directory).Files.Add(this.FileObject as Project.File);
+                    }
+                    else
+                    {
+                        File.Create(this.Path);
+                    }
+                }
+            }
         }
 
         #region NotifyPropertyChanged

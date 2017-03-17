@@ -190,8 +190,7 @@ namespace DesignerLib {
 		return result;
 	}
 
-	Skeleton* ResourceLoader::GetSkeleton(int& bcount) {
-		bcount = boneOffsetMatrices->size();
+	Skeleton* ResourceLoader::GetSkeleton() {
 		return new FM3D::Skeleton(*boneOffsetMatrices, *animations);
 	}
 

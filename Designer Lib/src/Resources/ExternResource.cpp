@@ -1,5 +1,6 @@
 #include "ExternResource.h"
 #include "Mesh.h"
+#include "ResourceReferences.h"
 
 namespace DesignerLib {
 
@@ -53,7 +54,7 @@ namespace DesignerLib {
 				useSkel = false;
 				for each(auto part in res->Content) {
 					if (part->ResType == ResourceType::MeshPart) {
-						parts->Add(gcnew MeshPart(part->Name, true, m_loader->GetMeshPart(m_meshPartMap[part])));
+						parts->Add(gcnew MeshPart(part->Name, true, new InternMeshPart(m_loader->GetMeshPart(m_meshPartMap[part]))));
 					}
 					else if (part->IsReference) {
 						if (part->Reference->ResType == ResourceType::Skeleton) {
@@ -76,12 +77,12 @@ namespace DesignerLib {
 		}
 		if (sres == nullptr) return nullptr;
 
-		int bcount;
-		auto skeleton = m_loader->GetSkeleton(bcount);
-		skel = gcnew Skeleton(bcount, sres->Name, skeleton);
+		auto skeleton = m_loader->GetSkeleton();
+		skel = gcnew Skeleton(sres->Name, this->m_resPath + "/" + sres->Path + ".fm_skel", new InternSkeleton(skeleton));
+		auto refskel = ResourceReferences::NewSkeleton(skel);
 
 		for each (auto am in animatedMeshes) {
-			am->Skelet = skel;
+			am->Skelet = refskel;
 		}
 
 		return result;

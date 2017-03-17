@@ -73,6 +73,13 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 }
             }
         }
+
+        public void OpenFile()
+        {
+            if(this.CurrentDirectory.State == Item.ItemState.NORMAL)
+                this.CurrentDirectory.type.Open(this.CurrentDirectory);
+        }
+
         public IList<Item> CurrentDirectoryContent
         {
             get
@@ -180,6 +187,75 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
         public void Refresh()
         {
             throw new NotImplementedException();
+        }
+
+        private Item CreateItems(Item root, ItemType type, string fname, string fullName, string[] dirs, string[] fullDirs, int i)
+        {
+            Item item = root;
+            Item item2;
+            Project.File f;
+            Project.Directory d;
+            //Create all directories
+            for (;i < dirs.Length; i++)
+            {
+                (item.FileObject as Project.Directory).SubDirectories.Add(d = new Project.Directory(dirs[i], fullDirs[i]));
+                item.AddChild(item2 = new FileBrowser.Item(item, this, ItemTypes.Directory, dirs[i], fullDirs[i], Item.ItemState.NORMAL, d));
+                item = item2;
+            }
+            //Create file
+            (item.FileObject as Project.Directory).Files.Add(f = new Project.File(fname));
+            item.AddChild(item2 = new FileBrowser.Item(item, this, type, fname, fullName, Item.ItemState.NORMAL, f));
+            return item2;
+        }
+
+        public Item CreateFile(string path, ItemType type)
+        {
+            var dirs = path.Split('/', '\\');
+            var fname = dirs.Last();                //File name
+            var fullName = Project.CurrentProject._Directory + path; //Complete file path
+            Array.Resize(ref dirs, dirs.Length - 1); //Remove filename
+            var fullDirs = new string[dirs.Length];
+            fullDirs[0] = Project.CurrentProject._Directory + dirs[0];
+            for (int x = 1; x < dirs.Length; x++)
+            {
+                fullDirs[x] = fullDirs[x - 1] + "/" + dirs[x];
+            }
+
+            int i = 0;
+            Item d = (from it in RootDirectories where it.Name == dirs[i] select it).FirstOrDefault();
+            if (d == null)
+            {
+                //New Root Directory
+                Project.Directory dir = new Project.Directory(dirs[i], fullDirs[i]);
+                Project.CurrentProject.ProjectFiles.SubDirectories.Add(dir);
+                RootDirectories.Add(d = new Item(null, this, ItemTypes.Directory, dirs[i], fullDirs[i], Item.ItemState.NORMAL, dir));
+            }
+            i++;
+
+            Directory.CreateDirectory(fullDirs.Last());
+            File.Create(fullName)?.Close();
+
+            //Go through all existing directories
+            for (; i < dirs.Length; i++)
+            {
+                d.MakeStateNormal();
+                Item d2 = (from it in d.DirectoryChildren where it.Name == dirs[i] select it).FirstOrDefault();
+                if (d2 != null)
+                {
+                    d = d2;
+                }
+                else
+                {
+                    return CreateItems(d, type, fname, fullName, dirs, fullDirs, i);
+                }
+            }
+            d.MakeStateNormal();
+            //Create file
+            var f = new Project.File(fname);
+            (d.FileObject as Project.Directory).Files.Add(f);
+            var result = new FileBrowser.Item(d, this, type, fname, fullName, Item.ItemState.NORMAL, f);
+            d.AddChild(result);
+            return result;
         }
 
         #region NotifyPropertyChanged

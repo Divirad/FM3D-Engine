@@ -6,6 +6,7 @@ namespace FM3D {
 #define NO_FM3D
 #include "InternMesh.h"
 #include "Skeleton.h"
+#include "ResourceRef.h"
 
 using namespace System::Collections::ObjectModel;
 using namespace System::ComponentModel;
@@ -113,7 +114,8 @@ namespace DesignerLib {
 			}
 		}
 
-		MeshPart(System::String^ name, bool vis, FM3D::MeshPart* part);
+		MeshPart(System::String^ name, bool vis, InternMeshPart* part);
+		~MeshPart();
 
 		[System::ComponentModel::BrowsableAttribute(false)]
 		property System::Collections::ObjectModel::ObservableCollection<Vertex^>^ Vertices {
@@ -144,7 +146,7 @@ namespace DesignerLib {
 		property bool IsSaved;
 
 		property ObservableCollection<MeshPart^>^ Parts;
-		property Skeleton^ Skelet;
+		property RefSkeleton^ Skelet;
 		property System::String^ Name;
 		property System::String^ Path;
 		property unsigned int Id;
@@ -157,7 +159,7 @@ namespace DesignerLib {
 			}
 		}
 
-		Mesh(ObservableCollection<MeshPart^>^ parts, Skeleton^ skeleton, System::String^ name, System::String^ path);
+		Mesh(ObservableCollection<MeshPart^>^ parts, RefSkeleton^ skeleton, System::String^ name, System::String^ path);
 
 		void RemovePart(MeshPart^ part) {
 			if (Parts->Remove(part)) {
@@ -169,11 +171,28 @@ namespace DesignerLib {
 
 		void WriteToFile();
 		void ExportToFile();
+
+		static Mesh^ FromFile(System::String^ path);
 	private:
 		void OnPropertyChanged(System::String^ name) {
 			this->PropertyChanged(this, gcnew System::ComponentModel::PropertyChangedEventArgs(name));
 		}
 
 		void OnPartChanged(System::Object^ sender, System::ComponentModel::PropertyChangedEventArgs^ e);
+	};
+
+	public ref class RefMesh : ResourceRef {
+	public:
+		property Mesh^ Target {
+			Mesh^ get() {
+				if (!IsLoaded) Load();
+				return (Mesh^) m_target->Target;
+			}
+		}
+		RefMesh(System::String^ path);
+		RefMesh(Mesh^ mesh);
+	private:
+		void OnMeshChanged(System::Object^ sender, System::ComponentModel::PropertyChangedEventArgs^ e);
+		void Load();
 	};
 }
