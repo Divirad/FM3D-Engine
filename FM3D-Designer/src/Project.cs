@@ -169,142 +169,139 @@ namespace FM3D_Designer.src
             }
         }
 
-        public static bool CreateProject(string dirpath, string dirname)
-        {
-            //XmlWriter writer = new XmlWriter();
-            string path = dirpath + @"\" + dirname;
-            string cppdir = path + @"\Cpp";
-            string projfiles = path + @"\ProjectFiles";
-            string ent = path + @"\ProjectFiles\Entities";
-            string text = path + @"\ProjectFiles\Textures";
-            string mesh = path + @"\ProjectFiles\Models";
-            string pathtofile = path + @"\" + dirname + ".fmproj";
-            string fm3dxml = path + @"\Cpp\fm3d.xml";
 
-            if (System.IO.File.Exists(pathtofile))
-            {
-                return false;
-            }
-            else
-            {
-                System.IO.Directory.CreateDirectory(cppdir);
-				System.IO.Directory.CreateDirectory(cppdir+@"\GameProject");
+		public static bool CreateProject(string dirpath, string dirname) {
+			//XmlWriter writer = new XmlWriter();
+			string path = dirpath + @"\" + dirname;
+			string cppdir = path + @"\Cpp";
+			string projfiles = path + @"\ProjectFiles";
+			string ent = path + @"\ProjectFiles\Entities";
+			string text = path + @"\ProjectFiles\Textures";
+			string mesh = path + @"\ProjectFiles\Models";
+			string pathtofile = path + @"\" + dirname + ".fmproj";
+			string fm3dxml = path + @"\Cpp\fm3d.xml";
+
+			if (System.IO.File.Exists(pathtofile)) {
+				return false;
+			} else {
+				System.IO.Directory.CreateDirectory(cppdir);
+				System.IO.Directory.CreateDirectory(cppdir + @"\GameProject");
 				System.IO.Directory.CreateDirectory(text);
-                System.IO.Directory.CreateDirectory(ent);
-                System.IO.Directory.CreateDirectory(mesh);
+				System.IO.Directory.CreateDirectory(ent);
+				System.IO.Directory.CreateDirectory(mesh);
 
-    ///
-    /// #################################FM3D PROJECT-FILE ####################################################
-    /// 
-                using (XmlWriter writer = XmlWriter.Create(pathtofile))
-                {
-                    writer.WriteStartDocument();
-                        writer.WriteStartElement("Project");
-                        writer.WriteAttributeString("name", dirname);
+				///
+				/// #################################FM3D PROJECT-FILE ####################################################
+				/// 
+				using (XmlWriter writer = XmlWriter.Create(pathtofile)) {
+					writer.WriteStartDocument();
+					writer.WriteStartElement("Project");
+					writer.WriteAttributeString("name", dirname);
 
-                            writer.WriteStartElement("ProjectFiles");
-                            
-                                writer.WriteStartElement("Directory");
-                                writer.WriteAttributeString("name", "Entities");
-                                writer.WriteString(" ");
-                                writer.WriteEndElement();
+					writer.WriteStartElement("ProjectFiles");
 
-                                writer.WriteStartElement("Directory");
-                                writer.WriteAttributeString("name", "Textures");
-                                writer.WriteString(" ");
-                                writer.WriteEndElement();
+					writer.WriteStartElement("Directory");
+					writer.WriteAttributeString("name", "Entities");
+					writer.WriteString(" ");
+					writer.WriteEndElement();
 
-                                writer.WriteStartElement("Directory");
-                                writer.WriteAttributeString("name", "Models");
-                                writer.WriteString(" ");
-                                writer.WriteEndElement();
+					writer.WriteStartElement("Directory");
+					writer.WriteAttributeString("name", "Textures");
+					writer.WriteString(" ");
+					writer.WriteEndElement();
 
-                            writer.WriteEndElement();
+					writer.WriteStartElement("Directory");
+					writer.WriteAttributeString("name", "Models");
+					writer.WriteString(" ");
+					writer.WriteEndElement();
 
-                            writer.WriteStartElement("CPlusPlus");
-                                writer.WriteStartElement("FM3D_File");
-                                writer.WriteAttributeString("name", "fm3d.xml");
-                                writer.WriteEndElement();
-                                writer.WriteStartElement("Solution");
-                                writer.WriteAttributeString("name", dirname+".sln");
-                                writer.WriteEndElement();
+					writer.WriteEndElement();
 
-                            writer.WriteEndElement();
-                        writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                }
+					writer.WriteStartElement("CPlusPlus");
+					writer.WriteStartElement("FM3D_File");
+					writer.WriteAttributeString("name", "fm3d.xml");
+					writer.WriteEndElement();
+					writer.WriteStartElement("Solution");
+					writer.WriteAttributeString("name", dirname + ".sln");
+					writer.WriteEndElement();
 
-    /// 
-    /// #################################FM3D XML ####################################################
-    /// 
-                System.Random t = new Random();
-                int rb = t.Next(100000, 1000000);
+					writer.WriteEndElement();
+					writer.WriteEndElement();
+					writer.WriteEndDocument();
+				}
 
-                System.Random a = new Random(rb);
-                int b = a.Next(100000, 1000000);
-                string projid = Convert.ToString(b);
+				/// 
+				/// #################################FM3D XML ####################################################
+				/// 
+				System.Random t = new Random();
+				int rb = t.Next(100000, 1000000);
 
-                using (XmlWriter writer = XmlWriter.Create(fm3dxml))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("FM3D_Project");
-                    writer.WriteAttributeString("Name", dirname);
+				System.Random a = new Random(rb);
+				int b = a.Next(100000, 1000000);
+				string projid = Convert.ToString(b);
 
-                    writer.WriteStartElement("MainProject");
-                    writer.WriteAttributeString("Name", "GameProject");
-                    writer.WriteEndElement();
+				using (XmlWriter writer = XmlWriter.Create(fm3dxml)) {
+					writer.WriteStartDocument();
+					writer.WriteStartElement("FM3D_Project");
+					writer.WriteAttributeString("Name", dirname);
 
-                    writer.WriteStartElement("Pipe");
-                    writer.WriteAttributeString("Name", "FM3D_" + dirname + "_" + projid);
-                    writer.WriteEndElement();
+					writer.WriteStartElement("MainProject");
+					writer.WriteAttributeString("Name", "GameProject");
+					writer.WriteEndElement();
 
-                    writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                }
+					writer.WriteStartElement("Pipe");
+					writer.WriteAttributeString("Name", "FM3D_" + dirname + "_" + projid);
+					writer.WriteEndElement();
+
+					writer.WriteEndElement();
+					writer.WriteEndDocument();
+				}
 				/// 
 				/// ################################# FILES ####################################################
 				/// 
 				string cd = Environment.CurrentDirectory;
 
 
-				if (!System.IO.File.Exists( cd + "\\..\\..\\resources\\proj\\GameProject.sln")){ return false; }
-                System.IO.File.Copy( cd + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject.sln")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject.sln", cppdir + @"\GameProject.sln");
 
-                if (!System.IO.File.Exists( cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj")) { return false; }
-                System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj", cppdir + @"\GameProject\GameProject.vcxproj");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj", cppdir + @"\GameProject\GameProject.vcxproj");
 
 				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj.filters")) { return false; }
 				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\GameProject.vcxproj.filters", cppdir + @"\GameProject\GameProject.vcxproj.filters");
 
-				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\Main.cpp")) { return false; }
-                System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\Main.cpp", cppdir + @"\Main.cpp");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\Main.cpp")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\Main.cpp", cppdir + @"\GameProject\Main.cpp");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.h", cppdir + @"\Resources.h");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\presets.h")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\presets.h", cppdir + @"\GameProject\presets.h");
 
-                if (!System.IO.File.Exists(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.cpp")) { return false; }
-                System.IO.File.Copy(Environment.CurrentDirectory + "\\..\\..\\resources\\proj\\Resources.cpp", cppdir + @"\Resources.cpp");
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\Resources.h")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\Resources.h", cppdir + @"\GameProject\Resources.h");
 
+				if (!System.IO.File.Exists(cd + "\\..\\..\\resources\\proj\\GameProject\\Resources.cpp")) { return false; }
+				System.IO.File.Copy(cd + "\\..\\..\\resources\\proj\\GameProject\\Resources.cpp", cppdir + @"\GameProject\Resources.cpp");
 #if DEBUG
 				string currentDir = cd.Replace(@"\FM3D-Designer\bin\Debug", @"");
 				string EngineDllDir = currentDir + @"\Debug";
-				string EngineIncludeDir =	currentDir + @"\FM3D-Engine";
-											
-				string AssimpLib =			currentDir+ @"\FM3D-Engine\Dependencies\Assimp\lib";
-				string AssimpInc =			currentDir + @"\FM3D-Engine\Dependencies\Assimp\include"; 
-											
-				string FreeTypeLib =		currentDir + @"\FM3D-Engine\Dependencies\FreeType";
-				string FreeTypeInc =		currentDir + @"\FM3D-Engine\Dependencies\FreeType\include";
-											
-				string FreeImageLib =		currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
-				string FreeImageInc =		currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
-											
-				string GLEWLib =			currentDir + @"\FM3D-Engine\Dependencies\GLEW\lib";
-				string GLEWInc =			currentDir + @"\FM3D-Engine\Dependencies\GLEW\include";
+				string EngineIncludeDir = currentDir + @"\FM3D-Engine";
+
+				string AssimpLib = currentDir + @"\FM3D-Engine\Dependencies\Assimp\lib";
+				string AssimpInc = currentDir + @"\FM3D-Engine\Dependencies\Assimp\include";
+
+				string FreeTypeLib = currentDir + @"\FM3D-Engine\Dependencies\FreeType";
+				string FreeTypeInc = currentDir + @"\FM3D-Engine\Dependencies\FreeType\include";
+
+				string FreeImageLib = currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
+				string FreeImageInc = currentDir + @"\FM3D-Engine\Dependencies\FreeImage";
+
+				string GLEWLib = currentDir + @"\FM3D-Engine\Dependencies\GLEW\lib";
+				string GLEWInc = currentDir + @"\FM3D-Engine\Dependencies\GLEW\include";
 
 
-				string Libs = EngineDllDir+";"+ AssimpLib+";"+ FreeTypeLib+";"+FreeImageLib+ ";"+ GLEWLib;
-				string Incs = EngineIncludeDir+";"+ AssimpInc+";"+ FreeTypeInc+";"+ FreeImageInc+ ";"+ GLEWInc;
+				string Libs = EngineDllDir + ";" + AssimpLib + ";" + FreeTypeLib + ";" + FreeImageLib + ";" + GLEWLib;
+				string Incs = EngineIncludeDir + ";" + AssimpInc + ";" + FreeTypeInc + ";" + FreeImageInc + ";" + GLEWInc;
 
 #endif
 				System.IO.File.WriteAllText(cppdir + @"\GameProject\GameProject.vcxproj", System.IO.File.ReadAllText(cppdir + @"\GameProject\GameProject.vcxproj").
@@ -312,10 +309,9 @@ namespace FM3D_Designer.src
 
 				Project.Load(pathtofile);
 				return true;
-            }
-        }
-        
-        public string GetProjectPath() {
+			}
+		}
+		public string GetProjectPath() {
             return _Directory; ;
         }
 
