@@ -4,7 +4,7 @@ namespace FM3D {
 
 	Window* Window::s_instance = nullptr;
 
-	Window::Window() {
+	Window::Window(): m_width(0), m_height(0) {
 		
 	}
 

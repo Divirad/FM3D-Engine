@@ -40,7 +40,7 @@ namespace FM3D {
 			std::cout << "Error on Creating Window" << std::endl;
 			return false;
 		}
-
+		SetWindowLongPtr(m_hWnd, GWLP_USERDATA, (LONG_PTR)this);
 		if(showWindow) ShowWindow(m_hWnd, SW_SHOWDEFAULT);
 		return true;
 	}
@@ -63,40 +63,48 @@ namespace FM3D {
 		DestroyWindow(m_hWnd);
 	}
 
-	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	Vector2i Win32Window::GetWorkSize() {
+		return  Vector2i((int)GetSystemMetrics(SM_CXSCREEN), (int)GetSystemMetrics(SM_CYSCREEN));
+	}
+
+	Vector2i Win32Window::GetWinPos() {
+		RECT rct;
+		GetWindowRect(m_hWnd, &rct);
+		return Vector2i(rct.left, rct.top);
+	}
+
+	LRESULT CALLBACK Win32Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		
-		Inputsystem* InputWP = Inputsystem::GetInstance();
-		
-		Window *win = Window::GetInstance();
-		win->SetHWND(hWnd);
+		Window* win = (Window*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		Input& inp = win->GetInput();
 		
 		switch (message) {
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
 		case WM_KEYDOWN:
-			InputWP->keyPressed(wParam);
+			inp.KeyPressed(wParam);
 			break; 
 		case WM_KEYUP:
-			InputWP->keyReleased(wParam);
+			inp.KeyReleased(wParam);
 			break;
 		case WM_LBUTTONDOWN:
-			InputWP->MPressed(lParam, MOUSE_LEFT);
+			inp.MPressed(lParam, MOUSE_LEFT);
 			break;
 		case WM_RBUTTONDOWN:
-			InputWP->MPressed(lParam, MOUSE_RIGHT);
+			inp.MPressed(lParam, MOUSE_RIGHT);
 			break;
 		case WM_LBUTTONUP:
-			InputWP->MReleased(lParam, MOUSE_LEFT);
+			inp.MReleased(lParam, MOUSE_LEFT);
 			break;
 		case WM_RBUTTONUP:
-			InputWP->MReleased(lParam, MOUSE_RIGHT);
+			inp.MReleased(lParam, MOUSE_RIGHT);
 			break;
 		case WM_MOUSEHWHEEL:
-			InputWP->MWheel(GET_WHEEL_DELTA_WPARAM(wParam));		//DOESNT WURK!
+			inp.MWheel(GET_WHEEL_DELTA_WPARAM(wParam));		//DOESNT WURK!
 			break;
 		case WM_MOUSEMOVE:
-			InputWP->MMove(lParam);
+			inp.MMove(lParam);
 			//std::cout << "Move " << GET_X_LPARAM(lParam) << "  " << GET_Y_LPARAM(lParam) << std::endl;
 			break;
 		case WM_SIZE:

@@ -166,15 +166,15 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 			Move(camera, laptopCam);
-			renderer3D->SetForceWireFrame(Inputsystem::GetInstance()->CheckKey(KEY_F5));
+			renderer3D->SetForceWireFrame(Window::GetInstance()->GetInput().CheckKey(KEY_F5));
 
-			if (!resolution && Inputsystem::GetInstance()->CheckKey(KEY_N)) {
+			if (!resolution && Window::GetInstance()->GetInput().CheckKey(KEY_N)) {
 				std::cout << "---------------------" << std::endl;
 				std::cout << "------Higher----------" << std::endl;
 				target3D->ReSize(Vector2i(win->GetWidth(), win->GetHeight()));
 				resolution = !resolution;
 			}
-			else if (resolution && Inputsystem::GetInstance()->CheckKey(KEY_M)) {
+			else if (resolution && Window::GetInstance()->GetInput().CheckKey(KEY_M)) {
 				std::cout << "---------------------" << std::endl;
 				std::cout << "------Smaller--------" << std::endl;
 				target3D->ReSize(Vector2i(win->GetWidth() / 4, win->GetHeight() / 4));
@@ -197,16 +197,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 void Move(Camera& camera, Camera& laptop) {
 	
-		if (Inputsystem::GetInstance()->CheckKey(KEY_LEFT)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_LEFT)) {
 			laptop.GetRotation().y += 3.0f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_RIGHT)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_RIGHT)) {
 			laptop.GetRotation().y -= 3.0f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_UP)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_UP)) {
 			laptop.GetRotation().x += 3.0f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_DOWN)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_DOWN)) {
 			laptop.GetRotation().x -= 3.0f;
 		}
 	{
@@ -214,14 +214,14 @@ void Move(Camera& camera, Camera& laptop) {
 		//std::cout << look << std::endl;
 		Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
 
-		bool forward = Inputsystem::GetInstance()->CheckKey(KEY_T);
-		bool backward = Inputsystem::GetInstance()->CheckKey(KEY_G);
-		bool left = Inputsystem::GetInstance()->CheckKey(KEY_F);
-		bool right = Inputsystem::GetInstance()->CheckKey(KEY_H);
+		bool forward = Window::GetInstance()->GetInput().CheckKey(KEY_T);
+		bool backward = Window::GetInstance()->GetInput().CheckKey(KEY_G);
+		bool left = Window::GetInstance()->GetInput().CheckKey(KEY_F);
+		bool right = Window::GetInstance()->GetInput().CheckKey(KEY_H);
 
 		float speedFW = 0.1f;
 		float speedSW = 0.1f;
-		if (Inputsystem::GetInstance()->CheckKey(KEY_STRG)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_STRG)) {
 			speedFW = speedSW = 0.01f;
 		}
 
@@ -237,10 +237,10 @@ void Move(Camera& camera, Camera& laptop) {
 		else if (!left && right) {
 			laptop.GetPosition() += orthLook * -speedSW;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_X)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_X)) {
 			laptop.GetPosition().y += 0.1f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_Y)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_Y)) {
 			laptop.GetPosition().y -= 0.1f;
 		}
 	}
@@ -250,14 +250,14 @@ void Move(Camera& camera, Camera& laptop) {
 		//std::cout << look << std::endl;
 		Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
 
-		bool forward = Inputsystem::GetInstance()->CheckKey(KEY_W);
-		bool backward = Inputsystem::GetInstance()->CheckKey(KEY_S);
-		bool left = Inputsystem::GetInstance()->CheckKey(KEY_A);
-		bool right = Inputsystem::GetInstance()->CheckKey(KEY_D);
+		bool forward = Window::GetInstance()->GetInput().CheckKey(KEY_W);
+		bool backward = Window::GetInstance()->GetInput().CheckKey(KEY_S);
+		bool left = Window::GetInstance()->GetInput().CheckKey(KEY_A);
+		bool right = Window::GetInstance()->GetInput().CheckKey(KEY_D);
 
 		float speedFW = 0.1f;
 		float speedSW = 0.1f;
-		if (Inputsystem::GetInstance()->CheckKey(KEY_STRG)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_STRG)) {
 			speedFW = speedSW = 0.01f;
 		}
 
@@ -273,10 +273,10 @@ void Move(Camera& camera, Camera& laptop) {
 		else if (!left && right) {
 			camera.GetPosition() += orthLook * -speedSW;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_SPACE)) {
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_SPACE)) {
 			camera.GetPosition().y += 0.1f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(0x10)) {
+		if (Window::GetInstance()->GetInput().CheckKey(0x10)) {
 			camera.GetPosition().y -= 0.1f;
 		}
 	}

@@ -420,9 +420,6 @@
     <ClInclude Include="src\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -642,6 +639,9 @@
     <ClInclude Include="src\Math\Matrix2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\WindowSystem\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Assimp\include\Assimp\color4.inl">
@@ -700,9 +700,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DLLMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderSystem.cpp">
@@ -850,6 +847,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\GUI\Polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowSystem\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

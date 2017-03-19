@@ -57,10 +57,10 @@ namespace FM3D {
 #include <src/Utilities/StringUtilities.h>
 #include <src/EventSystem.h>
 
+#include <src/WindowSystem/Input.h>
 #include <src/WindowSystem/Window.h>
 #include <src/WindowSystem/Win32Window.h>
-#include <src/input.h>
-#include <src/Utilities/CompCoords.h>	///
+#include <src/Utilities/CompCoords.h>
 
 #include <src/EntitySystem/Event.h>
 #include <src/EntitySystem/Component.h>

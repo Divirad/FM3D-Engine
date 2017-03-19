@@ -41,7 +41,7 @@ namespace FM3D {
 			//m_rotation = m_rotation.Subtract(Vector3f(dif.y, dif.x, 0.0f));
 		tagPOINT mp;
 		GetCursorPos(&mp);
-		ScreenToClient(((Win32Window*)Window::GetInstance())->GetHWND(), &mp);
+		ScreenToClient(((Win32Window*)Window::GetInstance())->GetHwnd(), &mp);
 		Vector2f mousePos(mp.x, mp.y);
 		Vector2f center = Vector2f(Window::GetInstance()->GetWidth(), Window::GetInstance()->GetHeight());
 		center *= 0.5f;
@@ -55,7 +55,7 @@ namespace FM3D {
 		tagPOINT p;
 		p.x = Window::GetInstance()->GetWidth() / 2;
 		p.y = Window::GetInstance()->GetHeight() / 2;
-		ClientToScreen(((Win32Window*)Window::GetInstance())->GetHWND(), &p);
+		ClientToScreen(((Win32Window*)Window::GetInstance())->GetHwnd(), &p);
 		SetCursorPos(p.x, p.y);
 	}
 }

@@ -63,7 +63,7 @@ namespace FM3D {
 		void Anchor(ANCHOR ad);	//DONE
 
 		void PicVisibility(float pro);
-		Inputsystem::KEYCLICK ccRectangle(int keyID);	//DONE
+		Input::KEYCLICK ccRectangle(int keyID);	//DONE
 
 		FIELDCHECK FieldCecker();
 		bool Collision(Quad &quad);

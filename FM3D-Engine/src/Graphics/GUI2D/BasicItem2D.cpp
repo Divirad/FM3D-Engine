@@ -147,7 +147,7 @@ namespace FM3D {
 	void BasicItem2D::PicVisibility(float pro) {}
 	
 	BasicItem2D::FIELDCHECK BasicItem2D::FieldCecker(){
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposInst());
+		ccresult = CompCoords::PixelToScreenSpace(Window::GetInstance()->GetInput().GetLastposInst());
 
 		//IN FIELD
 		//if (GetPosition0().xy <= ccresult &&
@@ -165,39 +165,39 @@ namespace FM3D {
 	}
 	
 	bool BasicItem2D::Click(int keyID) {
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
-		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::ACTIVATED &&
+		ccresult = CompCoords::PixelToScreenSpace(Window::GetInstance()->GetInput().GetLastposClick(keyID));
+		if (Window::GetInstance()->GetInput().CheckMouse(keyID) == Input::ACTIVATED &&
 			FieldCecker()==INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was pressed" << std::endl;
-			Inputsystem::GetInstance()->setKey(keyID, false);
+			//Window::GetInstance()->GetInput().SetKey(keyID, false);
 			return true;
 		}
 
 		return 0;
 	}
 
-	Inputsystem::KEYCLICK BasicItem2D::ccRectangle(int keyID) {
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
+	Input::KEYCLICK BasicItem2D::ccRectangle(int keyID) {
+		ccresult = CompCoords::PixelToScreenSpace(Window::GetInstance()->GetInput().GetLastposClick(keyID));
 
-		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::ACTIVATED &&
+		if (Window::GetInstance()->GetInput().CheckMouse(keyID) == Input::ACTIVATED &&
 			FieldCecker() == INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was ACTIVATED" << std::endl;
-			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
-			return Inputsystem::ACTIVATED;
+			//Window::GetInstance()->GetInput().SetMKey(keyID, Input::NOCLICK);
+			return Input::ACTIVATED;
 		}
 
-		ccresult = CompCoords::PixelToScreenSpace(Inputsystem::GetInstance()->GetLastposClick(keyID));
-		if (Inputsystem::GetInstance()->CheckMouse(keyID) == Inputsystem::RELEASED &&
+		ccresult = CompCoords::PixelToScreenSpace(Window::GetInstance()->GetInput().GetLastposClick(keyID));
+		if (Window::GetInstance()->GetInput().CheckMouse(keyID) == Input::RELEASED &&
 			FieldCecker() == INFIELD) {
 
 			std::cout << "INPUT:: QUD:: /w ID >>" << GetPosition0().z << "<< was RELEASED" << std::endl;
-			Inputsystem::GetInstance()->setKey(keyID, Inputsystem::NOCLICK);
-			return Inputsystem::RELEASED;
+			//Window::GetInstance()->GetInput().SetKey(keyID, Input::NOCLICK);
+			return Input::RELEASED;
 		}
 
-		return Inputsystem::NOCLICK;
+		return Input::NOCLICK;
 	}
 
 	bool BasicItem2D::Collision(Quad &quad){

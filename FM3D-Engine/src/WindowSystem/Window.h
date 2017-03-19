@@ -13,9 +13,11 @@ namespace FM3D {
 		Window();
 		int m_width, m_height;
 		EventSource <SizeChangeEvent> m_winNewsize;
-
-		HWND m_hwnd;
+		Input m_input;
 	public:
+		Window(const Window&) = delete;			//Prevent copying
+		Window& operator= (const Window&) = delete;
+
 		EventSource <SizeChangeEvent> &GetSizeChangeSource() { return m_winNewsize; }
 
 		virtual bool Start(int width, int height, LPCWSTR title, bool showWindow = true);
@@ -27,25 +29,15 @@ namespace FM3D {
 		static void StartConsole();
 		static void SetConsolePosition(int x, int y);
 
-		int GetWidth() { return m_width; }
+		inline int GetWidth() { return m_width; }
 		inline int GetHeight() { return m_height; }
-		
 		inline Vector2i GetWinSize(){ return  Vector2i(m_width,m_height); }
-		inline Vector2i GetWorkSize() { return  Vector2i((int)GetSystemMetrics(SM_CXSCREEN), (int)GetSystemMetrics(SM_CYSCREEN)); }
-		inline Vector2i GetWinPos() { 
 
-			/*WINDOWPLACEMENT wp;
-			HWND hw = *m_hwnd;
-			GetWindowPlacement(hw, &wp);
-*/	
-			RECT rct;
-			GetWindowRect(m_hwnd, &rct);
-			return Vector2i(rct.left, rct.top);
-			//return Vector2i(wp.rcNormalPosition.left, wp.rcNormalPosition.top); 
-		}
+		virtual Vector2i GetWorkSize() = 0;
+		virtual Vector2i GetWinPos() = 0;
 
-		inline HWND GetHWND() { return m_hwnd; };
-		inline void SetHWND(HWND hwnd) { m_hwnd = hwnd; }
+		inline Input& GetInput() { return m_input; }
+		inline const Input& GetInput() const { return m_input; }
 
 		static inline Window* GetInstance() { return s_instance; }
 		static inline Window* SetInstance(Window* win) { return s_instance = win; }

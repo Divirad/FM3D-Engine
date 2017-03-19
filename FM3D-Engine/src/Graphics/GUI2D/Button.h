@@ -12,7 +12,7 @@ namespace FM3D {
 		
 	protected:
 		FIELDCHECK ifinfield;
-		Inputsystem::KEYCLICK clicked;
+		Input::KEYCLICK clicked;
 		bool animate;
 
 	public:

@@ -19,10 +19,13 @@ namespace FM3D {
 		bool HasMessage();
 		void Close() override;
 
+		Vector2i GetWorkSize() override;
+		Vector2i GetWinPos() override;
+
 		inline HWND GetHwnd() { return m_hWnd; }
 	private:
 		
-		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		friend Window;
 	};
 

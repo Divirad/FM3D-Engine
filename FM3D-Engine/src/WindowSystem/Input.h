@@ -5,7 +5,6 @@
 #pragma warning(disable:4005)
 
 //KEYCODES
-//VollDieKrasseÄnderung 2.0
 #define MOUSE_LEFT		1
 #define MOUSE_RIGHT		2
 #define KEY_RIGHT		3
@@ -110,32 +109,28 @@
 #define KEY_F8			119
 #define KEY_F9			120
 
-#define INPUT Inputsystem::GetInstance()
 #pragma warning(pop)
 
-namespace FM3D 
-{
-	class ENGINE_DLL Inputsystem
-	{
+namespace FM3D {
+
+	class Win32Window;
+
+	class ENGINE_DLL Input {
+		friend class Win32Window;
 	public:
 		//Enum for Mousetracking system
-		enum KEYCLICK{
+		enum KEYCLICK {
 			NOCLICK,
 			ACTIVATED,
 			RELEASED
 		};
 
-		struct MOUSE
-		{
+		struct MOUSE {
 			KEYCLICK clicked = NOCLICK;
 			Vector2f lastposclick = Vector2f::Zero();
 		};
 
 	private:
-		///
-		///Static Object
-		///
-		static Inputsystem s_instance;
 		///Array for Key-Checking (using the makros from above) 
 		///Each Array field has the same Char-ID like the keys 
 		bool m_pressed[121] = { false };
@@ -143,35 +138,19 @@ namespace FM3D
 		MOUSE m_mousekey[4];
 		Vector2f lastposinst;
 
-		short wheel;		
+		short wheel;
 
 	public:
-		static Inputsystem* GetInstance() { return &s_instance; }
-		Inputsystem();
-		~Inputsystem();
+		Input();
+		~Input();
 
 
-		void Initialise(){}
+		void Initialize() {}
 
-		#pragma region Keys
-		void keyPressed(WPARAM wParam);
-		void keyReleased(WPARAM wParam);
-		void setKey(int ID, bool tof);
-		#pragma endregion
-
-		#pragma region	Mouse
-		void MPressed(LPARAM lParam, int LorR);
-		void MReleased(LPARAM lParam, int LorR);
-		void MMove(LPARAM lParam);
-		void setMKey(int ID, KEYCLICK tof);
-
-		void MWheel(short wheeldata);	//doesn't work!!
-		#pragma endregion
-
-		#pragma region Options
-		//void SetWindow(Window*window) { win = window; }	//Gibt komischen Fehler
-		//void SetMouseMode(COORDS_MODE mode);
-		#pragma endregion
+#pragma region Options
+										//void SetWindow(Window*window) { win = window; }	//Gibt komischen Fehler
+										//void SetMouseMode(COORDS_MODE mode);
+#pragma endregion
 
 		Vector2f GetLastposClick(int keyID) { return m_mousekey[keyID].lastposclick; }
 		Vector2f GetLastposInst() { return lastposinst; }
@@ -180,6 +159,17 @@ namespace FM3D
 		bool CheckKey(int keyid);
 		bool CheckMouse(int keyid);
 
+	private:
+		void KeyPressed(WPARAM wParam);
+		void KeyReleased(WPARAM wParam);
+		void SetKey(int ID, bool tof);
+
+		void MPressed(LPARAM lParam, int LorR);
+		void MReleased(LPARAM lParam, int LorR);
+		void MMove(LPARAM lParam);
+		void SetMKey(int ID, KEYCLICK tof);
+
+		void MWheel(short wheeldata);
 	};
 
 }

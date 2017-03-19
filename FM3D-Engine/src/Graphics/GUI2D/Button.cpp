@@ -12,7 +12,7 @@ namespace FM3D
 		AutoSize();
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = Inputsystem::NOCLICK;
+		clicked = Input::NOCLICK;
 		animate = true;
 	}
 
@@ -24,7 +24,7 @@ namespace FM3D
 		m_position1 = pos1;
 		SetColor(0xffffffff);
 		ifinfield = ALREADY_OUTFIELD; 
-		clicked = Inputsystem::NOCLICK;
+		clicked = Input::NOCLICK;
 		animate = true;
 	}
 
@@ -36,7 +36,7 @@ namespace FM3D
 		m_position1 = pos1;
 		SetColor(color); 
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = Inputsystem::NOCLICK;
+		clicked = Input::NOCLICK;
 		animate = true;
 	}
 
@@ -48,7 +48,7 @@ namespace FM3D
 		m_position1 = pos1;
 		SetColor(color);
 		ifinfield = ALREADY_OUTFIELD;
-		clicked = Inputsystem::NOCLICK;
+		clicked = Input::NOCLICK;
 		animate = animation;
 	}
 
@@ -159,7 +159,7 @@ namespace FM3D
 
 	bool Button::ClickAnimation(int keyID) {
 
-		if (ccRectangle(keyID) == Inputsystem::ACTIVATED /*&& clicked==false*/) {
+		if (ccRectangle(keyID) == Input::ACTIVATED /*&& clicked==false*/) {
 
 			/*clicked = true;*/
 			if (animate == true) { Animation(true, INFIELDANIM); }
@@ -168,11 +168,11 @@ namespace FM3D
 			return true;
 		}
 
-		else if (ccRectangle(keyID) == Inputsystem::RELEASED /*&& clicked == true*/) {
+		else if (ccRectangle(keyID) == Input::RELEASED /*&& clicked == true*/) {
 			//clicked = false;
 			if (animate == true) { Animation(false, INFIELDANIM); }
 			std::cout << "INPUT:: BUT:: RELEASED";
-			Inputsystem::GetInstance()->setMKey(keyID, Inputsystem::NOCLICK);
+			//Window::GetInstance()->GetInput().SetMKey(keyID, Input::NOCLICK);
 			return false;
 		}
 		return MOUSE_OUTOFFIELD;
