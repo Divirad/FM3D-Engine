@@ -1,0 +1,44 @@
+FM3D-Engine - Terms and conditions
+
+Preamble: 
+	This Agreement, accepted by using the Software governs the relationship between a user of the FM3D-Engine and the FM3D-Team. This Agreement sets the terms, rights, restrictions and obligations on using the FM3D-Engine and installed tools (hereinafter: The Software or FM3D-Engine) created and owned by Licensor, as detailed herein
+
+License Grant: 
+	Licensor hereby grants Licensee a Sublicensable, Non-assignable & non-transferable, Pepetual, Non-commercial, Including the rights to create and distribute creative/derivative works (just!) for free, Non-exclusive license, all with accordance with the terms set forth and other legal restrictions set forth in 3rd party software used while running Software.
+
+Limited: 
+Licensee may use Software for the purpose of:
+	Running Software on Licensee’s Website[s] and Server[s];
+	Allowing 3rd Parties to run Software on Licensee’s Website[s] and Server[s];
+	Publishing Software’s output to Licensee and 3rd Parties;
+	Distribute verbatim copies of Software’s output (including compiled binaries);
+	Modify Software to suit Licensee’s needs and specifications.
+	This license is granted perpetually, as long as you do not materially breach it.
+
+Non-Commercial: 
+	Licensee may not use Software for commercial purposes. For the purpose of this license, commercial purposes means that a 3rd party has to pay in order to access Software or that the Website that runs Software is behind a paywall.
+
+Including the Right to Create Derivative and Creative Works: 
+	Licensee may create derivative and creative works based on Software, including amending Software’s source code, modifying it, integrating it into a larger work or removing portions of Software, as long as no distribution of the derivative works is made
+
+Term & Termination: 
+	The Term of this license shall be until terminated. Licensor may terminate this Agreement, including Licensee’s license in the case where Licensee :
+		entered into any liquidation process; 
+		or exported The Software to any jurisdiction where licensor may not enforce his rights under this agreements in; 
+		or Licensee was in breach of any of this license's terms and conditions and such breach was not cured, immediately upon notification; 
+		or Licensee otherwise entered into any arrangement which caused Licensor to be unable to enforce his rights under this License.
+
+Payment: 
+	This version of the FM3D-Engine is freeware for creative and non-comercial use.
+
+
+Support: 
+	Software is provided under an AS-IS basis and without any support, updates or maintenance. Nothing in this Agreement shall require Licensor to provide Licensee with support or fixes to any bug, failure, mis-performance or other defect in the Software.
+
+Liability:  
+	To the extent permitted under Law, The Software is provided under an AS-IS basis. Licensor shall never, and without any limit, be liable for any damage, cost, expense or any other payment incurred by Licensee as a result of Software’s actions, failure, bugs and/or any other interaction between The Software  and Licensee’s end-equipment, computers, other software or any 3rd party, end-equipment, computer or services. 
+
+No-Warranty: 
+The Software is provided without any warranty; Licensor hereby disclaims any warranty that The Software shall be error free, without defects or code which may cause damage to Licensee’s computers or to Licensee, and that Software shall be functional. Licensee shall be solely liable to any damage, defect or loss incurred as a result of operating software and undertake the risks contained in running The Software on License’s Server[s] and Website[s].
+
+Prior Inspection: Licensee hereby states that it does not interfere with his regular operation and that it does meet the standards and scope of his computer systems and architecture. Licensee found that The Software interacts with his development, website and server environment and that it does not infringe any of End User License Agreement of any software Licensee may use in performing his services. Licensee hereby waives any claims regarding The Software's incompatibility, performance, results and features, and warrants that he inspected the The Software.

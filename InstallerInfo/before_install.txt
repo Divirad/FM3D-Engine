@@ -1,0 +1,11 @@
+Mindestvorraussetzungen...
+	...für den Computer, auf welchem später das Spiel gespielt wird:
+		- Windows 32-Bit/64-Bit
+		- OpenGL 3.3 oder höher
+
+	...für den Computer, auf welchem der Designer ausgeführt wird:
+	
+		- Windows 32-Bit/64-Bit
+		- OpenGL 3.3 oder höher
+		- .Net 4.5
+		- Visual Studio 15
