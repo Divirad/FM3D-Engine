@@ -1,0 +1,5 @@
+\section{DesignerLib - Allgemeiner Aufbau}
+
+Die DesignerLib ist eine Bibliothek, welche vom Designer verwendet wird. Sie ist in der Programmiersprache C++ mit \ac{CLR}-Kompatibilität geschrieben. Dies ermöglicht es Native C++-Code zusammen mit .Net-Code zu verwenden. Alle Klassen der Bibliothek befinden sich im Namespace DesignerLib. Die Bibliothek verwendet die FM3D-Engine als Bibliothek. Da in der Engine einige Klassen, die nicht mit \ac{CLR} kompatibel sind, verwendet werden wie \textit{std::mutex}, muss öfters eine Zwischenklasse erstellt werden ohne \ac{CLR}-Kompatibilität. Diese Enthält einen Pointer zu der FM3D-Klasse und wird in einer Managed-Klasse verwendet.
+
+Die Designerlib bildet eine Schnittstelle zwischen der Engine und dem Designer. Sie enthält Klassen zum Rendern eines Meshes, damit dieses im Designer angezeigt werden kann und auch Klassen, welche die verschiedenen Ressourcen repräsentieren. Diese sind dafür zuständig das externe Dateien geladen und umgewandelt werden, genauso wie das Laden und Speichern in eigenen Dateiformaten. 

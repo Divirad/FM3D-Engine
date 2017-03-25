@@ -53,3 +53,5 @@ Um die Farbe eines gerenderten Pixels zu bestimmen benötigen wir einige Informa
 	Quelle: https://clara.io/img/pub/amb\textunderscore diff\textunderscore spec.png
 	\caption{Lights}\label{Img:Lights}
 \end{figure}
+
+Die FM3D-Engine verwendet \textit{Deferred Rendering}. Dies bedeutet, dass erst alle Objekte einer Szene gerendert werden und die Ergebnisse daraus in mehreren Buffern gespeichert werden. Danach wird für jede Lichtquelle ein weiterer Renderprozess ausgeführt, wobei die vorher genannten Buffer als Input dienen. Das Ergebnis ist dann das zusehende Bild. Der Vorteil hierbei ist, dass keine Lichtberechnungen unnötig ausgeführt werden, da alle Pixel später zusehen sind und es gibt keine Begrenzung für die Anzahl der Lichtquellen. 

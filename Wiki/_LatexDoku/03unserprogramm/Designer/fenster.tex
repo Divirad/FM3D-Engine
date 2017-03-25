@@ -39,6 +39,9 @@ Nachdem nun ein Projekt erstellt oder geöffnet und geladen wurde, wird der User
 In dem ersten Reiter "'File"` kann der User entweder ein neues Projekt erstellen oder das aktuelle speichern. 
 Im zweiten Kontextmenüitem sind die Operationen aufrufbar, welche für die Kommunikation mit der Extension (\ref{extension}) über die Pipe(\ref{pipe}) benötigt werden. Diese Optionen sind auch in Icons unter dem Kontextmenü abgebildet, um dem User ein schnelles arbeiten zu ermöglichen. Im dritten Kontextmenüitem kann man nun die verschiedenen andockbaren Fenster auswählen. Im vierten und letzten sind Informationen zum Entwicklerteam und über dieses Projekt zu finden.
 
+\subsubsection{MeshLayout}
+Das MeshLayout wird verwendet um ein geöffnetes Mesh anzuzeigen. Dabei verwendetet es eine einfache Menüleiste, die es erlaubt verschiedene Toolwindows zu öffnen oder in den Vordergrund zu hohlen und das geladene Mesh zu speichern. Im MeshLayout ist das Mesh gespeichert und die Mesh-Toolwindows greifen über diese Klasse darauf zu, genauso wie auf andere Toolwindows. Zum Speichern werden die Methoden der DesignerLib verwendet.
+
 \subsection{ToolWindows}
 \subsubsection{FileBrowser}
 \label{filebrowser}
@@ -54,8 +57,15 @@ Der Texteditor ist ein Tool um Texte zu editieren.  Es verfügt über die wichti
 	\item Delete (Löschen)
 \end{itemize}
 
-\subsubsection{Mesh}
-\todo[inline]{idk}
+\subsubsection{Mesh-Parts-Window}
+Ein Mesh besteht aus mehreren Parts, welche alle in einer Listbox angezeigt werden. Andere Toolwindows verwenden dieses um herauszufinden welches Parts ausgewählt ist und demnach genauere Informationen zu zeigen. Wenn ein neuer Part ausgewählt wird updaten sich automatisch alle anderen Windows durch die Verwendung des \textit{INotifyPropertyChanged-Interface}. Es ist möglich mit einem Rechtsklick ein Part zu löschen, umzubenennen oder auszublenden.
+
+\subsubsection{Mesh-Vertices-Window}
+In diesem Fenster werden in einer Tabelle alle Vertices des aktuell ausgewähltenb Mesh-Parts angezeigt. Dafür müssen alle Vertices in Strings umgewandelt werden, was sehr Zeit aufwendig ist und viel Speicher verbraucht, daher ist es empfohlen dieses Toolwindow nur für kleinere Parts zu verwenden. 
+
+\subsubsection{Mesh-Parts-Property-Window}
+Dieses Toolwindow zeigt alle Eigenschaften eines Mesh-Parts. Zum Anzeigen wird ein PropertyGrid aus der DotNetBar-Bibliothek genutzt, da dieses automatisch alle Properties eines Objektes in die Tabelle einträgt. Um auszuwählen welche Properties angezeigt werden sollen und mit welcher Beschreibung besitzen alle Properties der Designerlib.MeshPart-Klasse dafür zuständige Attribute.
+
 \subsubsection{Skeleton-Tools}
 \todo[inline]{idk}
 
