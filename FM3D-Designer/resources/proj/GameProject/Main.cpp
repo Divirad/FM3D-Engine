@@ -88,7 +88,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			//
 			// Enter Gamelogic here!
 			//
-			renderer3D->SetForceWireFrame(Inputsystem::GetInstance()->CheckKey(KEY_F5));
+			renderer3D->SetForceWireFrame(Input::GetInstance()->CheckKey(KEY_F5));
 			camera.Preset(camera.FIRSTPERSON, false);
 		///#############################################
 		}
@@ -104,14 +104,14 @@ void Move(Camera& camera) {
 		Vector3f look = Math::GetLookingDirection2D(camera.GetRotation());
 		Vector3f orthLook = Matrix4f::Rotation(90.0f, Vector3f(0.0f, 1.0f, 0.0f)) * look;
 
-		bool forward = Inputsystem::GetInstance()->CheckKey(KEY_W);
-		bool backward = Inputsystem::GetInstance()->CheckKey(KEY_S);
-		bool left = Inputsystem::GetInstance()->CheckKey(KEY_A);
-		bool right = Inputsystem::GetInstance()->CheckKey(KEY_D);
+		bool forward = Input::GetInstance()->CheckKey(KEY_W);
+		bool backward = Input::GetInstance()->CheckKey(KEY_S);
+		bool left = Input::GetInstance()->CheckKey(KEY_A);
+		bool right = Input::GetInstance()->CheckKey(KEY_D);
 
 		float speedFW = 0.1f;
 		float speedSW = 0.1f;
-		if (Inputsystem::GetInstance()->CheckKey(KEY_STRG)) {
+		if (Input::GetInstance()->CheckKey(KEY_STRG)) {
 			speedFW = speedSW = 0.01f;
 		}
 
@@ -127,10 +127,10 @@ void Move(Camera& camera) {
 		else if (!left && right) {
 			camera.GetPosition() += orthLook * -speedSW;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(KEY_SPACE)) {
+		if (Input::GetInstance()->CheckKey(KEY_SPACE)) {
 			camera.GetPosition().y += 0.1f;
 		}
-		if (Inputsystem::GetInstance()->CheckKey(0x10)) {
+		if (Input::GetInstance()->CheckKey(0x10)) {
 			camera.GetPosition().y -= 0.1f;
 		}
 }

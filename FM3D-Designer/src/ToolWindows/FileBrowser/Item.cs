@@ -365,6 +365,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             CreateFile(x, ItemTypes.UnknownFile, out i);
         }
 		private void IncludeFile(object sender, EventArgs args) {
+            State = ItemState.NORMAL;
             MakeStateNormal();
 		}
 		private void ExcludeFile(object sender, EventArgs args) {
