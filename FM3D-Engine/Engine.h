@@ -65,6 +65,7 @@ namespace FM3D {
 #include <src/EntitySystem/Event.h>
 #include <src/EntitySystem/Component.h>
 #include <src/EntitySystem/Matcher.h>
+#include <src/EntitySystem/Preset.h>
 #include <src/EntitySystem/EntityCollection.h>
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>

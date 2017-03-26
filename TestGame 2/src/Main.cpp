@@ -5,56 +5,29 @@
 using ALL_FM3D_NAMESPACES;
 using namespace FM3D::Math;
 
-class RotLogic : public EntityLogic {
-	void Execute(EntityPtr entity) override {
-		std::cout << entity->Get<PositionComponent>()->GetPosition().x << std::endl;
-	}
+class TestPreset : public Preset {
+private:
+	IComponentArgs<PositionComponent>* m_pos;
 public:
-	RotLogic(EntityCollection& coll) : EntityLogic(coll.GetGroup(Matcher().AllOf({ RotationComponentId }))) {};
-};
+	TestPreset() {
+		m_pos = new ComponentArgs<PositionComponent, Vector3f>(Vector3f(0.0f, 0.0f, 1.0f));
+	}
 
-class ScaleLogic : public EntityLogic {
-	void Execute(EntityPtr entity) override {
-		std::cout << entity->Get<PositionComponent>()->GetPosition().x << std::endl;
+	void SetComponents(EntityPtr e) override {
+		m_pos->SetComponent(e);
 	}
-public:
-	ScaleLogic(EntityCollection& coll) : EntityLogic(coll.GetGroup(Matcher().AllOf({ ScaleComponentId }))) {};
-};
-
-class ScaleRotLogic : public EntityLogic {
-	void Execute(EntityPtr entity) override {
-		std::cout << entity->Get<PositionComponent>()->GetPosition().x << std::endl;
-	}
-public:
-	ScaleRotLogic(EntityCollection& coll) : EntityLogic(coll.GetGroup(Matcher().AllOf({ ScaleComponentId, RotationComponentId }))) {};
 };
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
+	Preset* p = new TestPreset();
+
 	EntityCollection coll;
 
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(1.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(2.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(3.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(4.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(5.0f, 0.0f, 0.0f))->Add<ScaleComponent>(Vector3f(0.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(6.0f, 0.0f, 0.0f))->Add<ScaleComponent>(Vector3f(0.0f, 0.0f, 0.0f))->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(7.0f, 0.0f, 0.0f))->Add<ScaleComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(8.0f, 0.0f, 0.0f))->Add<ScaleComponent>(Vector3f(0.0f, 0.0f, 0.0f));
-	coll.CreateEntity()->Add<PositionComponent>(Vector3f(9.0f, 0.0f, 0.0f))->Add<ScaleComponent>(Vector3f(0.0f, 0.0f, 0.0f));
+	auto e = coll.CreateEntity(p);
 
-	EntityLogicCollection lcoll;
-	EntityLogicPtr rotLogic(new RotLogic(coll));
-	EntityLogicPtr scaleLogic(new ScaleLogic(coll));
-	EntityLogicPtr scaleRotLogic(new ScaleRotLogic(coll));
-	lcoll.Add(rotLogic);
-	lcoll.Add(scaleLogic);
-
-	 rotLogic->ExecuteForAll(); std::cout << std::endl;
-	 scaleLogic->ExecuteForAll(); std::cout << std::endl;
-	 scaleRotLogic->ExecuteForAll(); std::cout << std::endl;
-	 lcoll.Execute(); std::cout << std::endl;
+	std::cout << e->GetComponentsCount() << std::endl;
 
 	 system("PAUSE");
 }

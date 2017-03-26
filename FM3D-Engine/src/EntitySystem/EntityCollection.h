@@ -139,9 +139,13 @@ namespace FM3D {
 			* Dieses wird entweder neu im Heap erstellt oder ein
 			* bereits gelöschtes FM3D::Entity wird erneut genutzt.
 			*
+			* @param preset Entity-Preset mit welchem das Entity
+			*				erstellt wird um direkt mehrere Komponeten
+			*				hinzuzufügen.
+			*
 			* @returns Pointer auf das erstellte FM3D::Entity
 			*/
-			EntityPtr CreateEntity();
+			EntityPtr CreateEntity(Preset* preset = nullptr);
 
 			///Testet ob Collection Entity enthält
 			/**
