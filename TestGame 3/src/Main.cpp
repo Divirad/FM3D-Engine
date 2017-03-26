@@ -13,8 +13,31 @@ EntityPtr CreateEntity(EntityCollection&, const Vector3f&, const Vector3f&, cons
 const AnimatedModel* GetModel(EntityPtr& e);
 void RenderLaptop(Camera& camera, Resources& res, const EntityPtr& e0, const EntityPtr& e1, const EntityPtr& e2, const EntityPtr& e3);
 
+int IntFunc(int x) {
+	static int y = 0;
+	int r =  x * y++;
+	std::cout << "I: " << r << std::endl;
+	return r;
+}
+
+void VoidFunc(int x) {
+	std::cout << "V: " << x << std::endl;
+}
+
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
+
+	Event<void(int)> e0;
+	e0 += VoidFunc;
+	e0 += VoidFunc;
+	e0(2);
+	Event<int(int)> e1;
+	e1 += IntFunc;
+	e1 += IntFunc;
+	auto rs = e1(2);
+	for (auto& r : rs) {
+		std::cout << "R: " << r << std::endl;
+	}
 
 	Output::Initialize();
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);

@@ -30,6 +30,8 @@
 #include <algorithm>
 #include <utility>
 #include <bitset>
+#include <type_traits>
+#include <typeinfo>
 
 #include <smmintrin.h>
 

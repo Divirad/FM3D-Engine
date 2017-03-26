@@ -101,6 +101,13 @@ Microsoft, ``Microsoft api- und referenzkatalog,'' 2017. [Online]. Available:
   \url{https://msdn.microsoft.com/de-de/library, note =}
 \BIBentrySTDinterwordspacing
 
+\bibitem{WikiRotation}
+\BIBentryALTinterwordspacing
+Wikipedia, ``Conversion between quaternions and euler angles,'' 2017, [accessed
+  10-März-2017]. [Online]. Available:
+  \url{https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles}
+\BIBentrySTDinterwordspacing
+
 \bibitem{entityrelationshipmodel}
 P.~Dr.~Chen, \emph{The Entity-Relationship Model -- Toward a Unified View of
   Data}, 1976.
