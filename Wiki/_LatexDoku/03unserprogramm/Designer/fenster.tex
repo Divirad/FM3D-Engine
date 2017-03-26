@@ -58,22 +58,17 @@ Der Texteditor ist ein Tool um Texte zu editieren.  Es verfügt über die wichti
 \end{itemize}
 
 \subsubsection{Mesh-Parts-Window}
-Ein Mesh besteht aus mehreren Parts, welche alle in einer Listbox angezeigt werden. Andere Toolwindows verwenden dieses um herauszufinden welches Parts ausgewählt ist und demnach genauere Informationen zu zeigen. Wenn ein neuer Part ausgewählt wird updaten sich automatisch alle anderen Windows durch die Verwendung des \textit{INotifyPropertyChanged-Interface}. Es ist möglich mit einem Rechtsklick ein Part zu löschen, umzubenennen oder auszublenden.
+Ein Mesh besteht aus mehreren Parts, welche alle in einer Listbox angezeigt werden. Andere Toolwindows verwenden dieses, um herauszufinden welches Part ausgewählt ist und demnach genauere Informationen zu zeigen. Wenn ein neuer Part ausgewählt wird updaten sich automatisch alle anderen Windows durch die Verwendung des \textit{INotifyPropertyChanged-Interface}. Es ist möglich mit einem Rechtsklick ein Part zu löschen, umzubenennen oder auszublenden.
 
 \subsubsection{Mesh-Vertices-Window}
-In diesem Fenster werden in einer Tabelle alle Vertices des aktuell ausgewähltenb Mesh-Parts angezeigt. Dafür müssen alle Vertices in Strings umgewandelt werden, was sehr Zeit aufwendig ist und viel Speicher verbraucht, daher ist es empfohlen dieses Toolwindow nur für kleinere Parts zu verwenden. 
+In diesem Fenster werden in einer Tabelle alle Vertices des aktuell ausgewählten Mesh-Parts angezeigt. Dafür müssen alle Vertices in Strings umgewandelt werden, was sehr Zeit aufwendig ist und viel Speicher verbraucht, daher ist es empfohlen dieses Toolwindow nur für kleinere Parts zu verwenden. 
 
 \subsubsection{Mesh-Parts-Property-Window}
 Dieses Toolwindow zeigt alle Eigenschaften eines Mesh-Parts. Zum Anzeigen wird ein PropertyGrid aus der DotNetBar-Bibliothek genutzt, da dieses automatisch alle Properties eines Objektes in die Tabelle einträgt. Um auszuwählen welche Properties angezeigt werden sollen und mit welcher Beschreibung besitzen alle Properties der Designerlib.MeshPart-Klasse dafür zuständige Attribute.
 
-\subsubsection{Skeleton-Tools}
-\todo[inline]{idk}
-
 \subsection{Dialogs}
 \subsubsection{Model-Loader | Add Resource-Dialog}
 Der Model-Loader ist dafür gedacht, um simpel Modelle in den Designer zu laden, um sie dann in der Engine weiter verwenden zu können. Die Modeldatei wird analysiert und die Daten werden in eine Datei in der Ordnerstruktur des Designers gespeichert.
-%Durch die Exportfunktion im Designer kann man nun Code generieren lassen, der die Modelle im Designer verwenden kann 
-\todo[inline]{!!!}
 
 \subsubsection{Entity-Editor}
 \label{entityeditor}

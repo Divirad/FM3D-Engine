@@ -182,9 +182,6 @@ namespace VS_Extension
             CodeManipulator manipulator = new CodeManipulator("presets.h");
 			string entstr = reader.ReadLine();
 			Entity temp = new Entity(entstr);
-            manipulator.AddNamespace("FM3D");
-            manipulator.AddClass("Preset", "FM3D", null);
-
             CreateBase(temp, new CodeManipulator("presets.h"));
             //manipulator.AddAttribute("Wuschel", "Blah3");
         }
@@ -192,7 +189,7 @@ namespace VS_Extension
         private static void CreateBase(Entity ent, CodeManipulator mani) {
 			
 			mani.AddNamespace("Entities");
-            mani.AddClass("preset_" + ent.name, "Entities", "FM3D::Preset");
+            mani.AddClass("preset_" + ent.name, "Entities", "Preset");
 			
 			VCCodeFunction setcomp = mani.AddMethod(
 						"Entities",
@@ -234,7 +231,7 @@ namespace VS_Extension
 							"Get" + prop.name,
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							prop.type,
-							EnvDTE.vsCMAccess.vsCMAccessProtected);
+							EnvDTE.vsCMAccess.vsCMAccessPublic);
 
 						mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
 					}
@@ -245,7 +242,7 @@ namespace VS_Extension
 							"Set" + prop.name,
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							"void",
-							EnvDTE.vsCMAccess.vsCMAccessProtected);
+							EnvDTE.vsCMAccess.vsCMAccessPublic);
 
 						mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
 						mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
@@ -268,7 +265,7 @@ namespace VS_Extension
 						"Get" + prop.name,
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						prop.type,
-						EnvDTE.vsCMAccess.vsCMAccessProtected);
+						EnvDTE.vsCMAccess.vsCMAccessPublic);
 
 					mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
 				}
@@ -279,7 +276,7 @@ namespace VS_Extension
 						"Set" + prop.name,
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
-						EnvDTE.vsCMAccess.vsCMAccessProtected);
+						EnvDTE.vsCMAccess.vsCMAccessPublic);
 
 					mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
 					mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
