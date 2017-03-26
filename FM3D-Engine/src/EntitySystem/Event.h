@@ -83,6 +83,9 @@ namespace FM3D {
 			* Funktion mit den Templateparametern des Events.
 			*/
 			using function = std::function<ReturnType(Args...)>;
+
+
+			using ReturnTypes = typename std::conditional<std::is_same<ReturnType, void>::value, void, std::vector<ReturnType>>::type;
 		private:
 			///Mutex für Multithreading
 			/**
@@ -191,7 +194,7 @@ namespace FM3D {
 			*
 			* @param args	Parameter welche verwendet werden, um die Funktionen aufzurufen
 			*/
-			inline ReturnType operator()(Args... args) {
+			inline ReturnTypes operator()(Args... args) {
 				return Invoker::Invoke(*this, args...);
 			}
 
@@ -202,7 +205,7 @@ namespace FM3D {
 			*
 			* @param args	Parameter welche verwendet werden, um die Funktionen aufzurufen
 			*/
-			inline ReturnType Invoke(Args... args) {
+			inline ReturnTypes Invoke(Args... args) {
 				return Invoker::Invoke(*this, args...);
 			}
 		};
@@ -211,9 +214,9 @@ namespace FM3D {
 		template <typename ReturnType, typename... Args>
 		std::vector<ReturnType> EventInternal::Invoker<ReturnType, Args...>::Invoke(Event<ReturnType(Args...)> &event, Args... params) {
 			std::lock_guard<std::mutex> lock(event.m_mutex);
-			ReturnTypes returnValues;
+			std::vector<ReturnType> returnValues;
 
-			for (const auto &functionPtr : event.m_functionList) {
+			for (const auto &functionPtr : event.m_functions) {
 				returnValues.push_back((*functionPtr)(params...));
 			}
 

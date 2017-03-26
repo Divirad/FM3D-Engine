@@ -8,13 +8,13 @@ namespace DesignerLib {
 	RefSkeleton::RefSkeleton(System::String^ path) {
 		_Path = path;
 		bool isDesignerFile = false;
-		std::ifstream file(ConvertString(_Path), std::ios::in | std::ios::binary | std::ios::trunc);
+		std::ifstream file(ConvertString(_Path), std::ios::in | std::ios::binary);
 		if (!file.is_open()) {
-			throw gcnew System::IO::IOException("Failed to read mesh file");
+			throw gcnew System::IO::IOException(ConvertString("Failed to open skeleton file: " + std::string(strerror(errno))));
 		}
 		byte type = ReadRawFromFile<byte>(file);	//File type
 		if (type == 5) isDesignerFile = true;
-		else if (type != 3) throw gcnew System::ArgumentException("File is not a mesh file!");
+		else if (type != 3) throw gcnew System::ArgumentException("File is not a skeleton file!");
 		_ID = ReadRawFromFile<unsigned int>(file); //Resource ID
 		std::string name = "Unknown";
 		if (isDesignerFile)
@@ -57,7 +57,7 @@ namespace DesignerLib {
 	void Skeleton::WriteToFile() {
 		std::ofstream file(ConvertString(this->Path), std::ios::out | std::ios::binary | std::ios::trunc);
 		if (!file.is_open()) {
-			throw gcnew System::IO::IOException("Failed to write mesh file");
+			throw gcnew System::IO::IOException(ConvertString("Failed to write skeleton file: " + std::string(strerror(errno))));
 		}
 
 		file.put(5); //File type

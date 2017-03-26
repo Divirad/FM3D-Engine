@@ -4,29 +4,28 @@ using namespace std;
 
 namespace FM3D {
 	Input::Input() : lastposinst(Vector2f::Zero()) {}
-	Input::~Input() {}
 
-	void Input::KeyPressed(WPARAM wParam) {
+	void Input::KeyPressed(uint key) {
 
-		if (m_pressed[wParam] != true) {
-			m_pressed[wParam] = true;
+		if (m_pressed[key] != true) {
+			m_pressed[key] = true;
 			//cout << "INPUT:: K  :: >>" << wParam << "<< ACTIVATED\n";
 		}
 	}
-	void Input::KeyReleased(WPARAM wParam) {
-		m_pressed[wParam] = false;
+	void Input::KeyReleased(uint key) {
+		m_pressed[key] = false;
 		//cout << "INPUT:: K  :: >>" << wParam << "<< DEACTIVATED\n";
 	}
 
-	void Input::MPressed(LPARAM lParam, int LorR) {
-		m_mousekey[LorR].clicked = ACTIVATED;
-		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
+	void Input::MPressed(float x, float y, int button) {
+		m_mousekey[button].pressed = true;
+		m_mousekey[button].lastposclick = Vector2f(x, y);
 		//cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick <<" ACTIVATED\n";
 	}
 
-	void Input::MReleased(LPARAM lParam, int LorR) {
-		m_mousekey[LorR].clicked = RELEASED;
-		m_mousekey[LorR].lastposclick = Vector2f(LOWORD(lParam), HIWORD(lParam));
+	void Input::MReleased(float x, float y, int button) {
+		m_mousekey[button].pressed = false;
+		m_mousekey[button].lastposclick = Vector2f(x, y);
 		//cout << "\nINPUT:: C  :: " << LorR << "-Mouse-Click @ the Coords >>X: " << m_mousekey[LorR].lastposclick << "<< RELEASED\n";
 	}
 
@@ -35,37 +34,31 @@ namespace FM3D {
 		//cout << "INPUT:: W  :: " << wheeldata << "-Wheeldata";
 	}
 
-	void Input::MMove(LPARAM lParam) {
-		lastposinst.x = static_cast<float>(GET_X_LPARAM(lParam));
-		lastposinst.y = static_cast<float>(GET_Y_LPARAM(lParam));
+	void Input::MMove(float x, float y) {
+		lastposinst.x = x;
+		lastposinst.y = y;
 	}
 
-	void Input::SetMKey(int ID, KEYCLICK tof) {
-		m_mousekey[ID].clicked = tof;
+	void Input::SetMKey(int ID, bool tof) {
+		m_mousekey[ID].pressed = tof;
 	}
 
 	bool Input::CheckKey(int keyid) {
-		if (m_pressed[keyid] == true) {
-			return  true;
-		}
-		else { return false; }
+		return m_pressed[keyid];
 	}
 
 	bool Input::CheckMouse(int keyid) {
-		if (m_mousekey[keyid].clicked == KEYCLICK::ACTIVATED)return	true;
-		else return false;
+		return m_mousekey[keyid].pressed;
 
 	}
 
 	void Input::DoIfKeyPressed(int keyid, void(*f)()) {
-
 		if (m_pressed[keyid] == true) {
 			(*f)();
 		}
 	}
 
-	void Input::SetKey(int ID, bool tof)		//trueorFalse
-	{
+	void Input::SetKey(int ID, bool tof) {
 		m_pressed[ID] = tof;
 	}
 

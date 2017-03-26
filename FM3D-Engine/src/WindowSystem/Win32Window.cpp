@@ -89,22 +89,22 @@ namespace FM3D {
 			inp.KeyReleased(wParam);
 			break;
 		case WM_LBUTTONDOWN:
-			inp.MPressed(lParam, MOUSE_LEFT);
+			inp.MPressed(static_cast<float>(GET_X_LPARAM(lParam)), static_cast<float>(GET_Y_LPARAM(lParam)), MOUSE_LEFT);
 			break;
 		case WM_RBUTTONDOWN:
-			inp.MPressed(lParam, MOUSE_RIGHT);
+			inp.MPressed(static_cast<float>(GET_X_LPARAM(lParam)), static_cast<float>(GET_Y_LPARAM(lParam)), MOUSE_RIGHT);
 			break;
 		case WM_LBUTTONUP:
-			inp.MReleased(lParam, MOUSE_LEFT);
+			inp.MReleased(static_cast<float>(GET_X_LPARAM(lParam)), static_cast<float>(GET_Y_LPARAM(lParam)), MOUSE_LEFT);
 			break;
 		case WM_RBUTTONUP:
-			inp.MReleased(lParam, MOUSE_RIGHT);
+			inp.MReleased(static_cast<float>(GET_X_LPARAM(lParam)), static_cast<float>(GET_Y_LPARAM(lParam)), MOUSE_RIGHT);
 			break;
 		case WM_MOUSEHWHEEL:
 			inp.MWheel(GET_WHEEL_DELTA_WPARAM(wParam));		//DOESNT WURK!
 			break;
 		case WM_MOUSEMOVE:
-			inp.MMove(lParam);
+			inp.MMove(static_cast<float>(GET_X_LPARAM(lParam)), static_cast<float>(GET_Y_LPARAM(lParam)));
 			//std::cout << "Move " << GET_X_LPARAM(lParam) << "  " << GET_Y_LPARAM(lParam) << std::endl;
 			break;
 		case WM_SIZE:

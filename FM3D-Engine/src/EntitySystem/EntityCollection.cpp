@@ -5,7 +5,7 @@ namespace FM3D {
 
 		EntityId EntityCollection::s_entityID = 0UL;
 
-		EntityPtr EntityCollection::CreateEntity() {
+		EntityPtr EntityCollection::CreateEntity(Preset* preset) {
 			EntityPtr entity;
 
 			if (m_reuseableEntities.size() > 0) {
@@ -30,6 +30,10 @@ namespace FM3D {
 
 			m_entities.insert(entity);
 			m_entityVector.clear();
+
+			if (preset != nullptr) {
+				preset->SetComponents(entity);
+			}
 
 			OnEntityCreated(this, entity);
 

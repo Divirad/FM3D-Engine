@@ -6,7 +6,7 @@ namespace FM3D {
 
 		class EntityLogicCollection;
 
-		class EntityLogic {
+		class ENGINE_DLL EntityLogic {
 			friend class EntityLogicCollection;
 		protected:
 			GroupPtr m_group;
@@ -22,7 +22,7 @@ namespace FM3D {
 
 		using EntityLogicPtr = std::shared_ptr<EntityLogic>;
 
-		class EntityLogicCollection {
+		class ENGINE_DLL EntityLogicCollection {
 		private:
 			std::unordered_set<EntityLogicPtr> m_manager;
 		public:

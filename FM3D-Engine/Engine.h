@@ -65,6 +65,7 @@ namespace FM3D {
 #include <src/EntitySystem/Event.h>
 #include <src/EntitySystem/Component.h>
 #include <src/EntitySystem/Matcher.h>
+#include <src/EntitySystem/Preset.h>
 #include <src/EntitySystem/EntityCollection.h>
 #include <src/EntitySystem/Group.h>
 #include <src/EntitySystem/Entity.h>
@@ -99,11 +100,11 @@ namespace FM3D {
 #include <src/Graphics/MeshCreator.h>
 
 //2DRendering
-#include <src/Graphics/GUI2D/BasicItem2D.h>
-#include <src/Graphics/GUI2D/PictureQuad.h>
-#include <src/Graphics/GUI2D/TextQuad.h>
-#include <src/Graphics/GUI2D/Button.h>
-#include <src/Graphics/GUI2D/DragDropper.h>
+//#include <src/Graphics/GUI2D/BasicItem2D.h>
+//#include <src/Graphics/GUI2D/PictureQuad.h>
+//#include <src/Graphics/GUI2D/TextQuad.h>
+//#include <src/Graphics/GUI2D/Button.h>
+//#include <src/Graphics/GUI2D/DragDropper.h>
 
 //DirectX11
 //#include <src/Graphics/D3D11/D3D11RenderSystem.h>

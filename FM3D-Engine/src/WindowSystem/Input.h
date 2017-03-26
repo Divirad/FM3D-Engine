@@ -118,23 +118,17 @@ namespace FM3D {
 	class ENGINE_DLL Input {
 		friend class Win32Window;
 	public:
-		//Enum for Mousetracking system
-		enum KEYCLICK {
-			NOCLICK,
-			ACTIVATED,
-			RELEASED
-		};
 
 		struct MOUSE {
-			KEYCLICK clicked = NOCLICK;
+			bool pressed = false;
 			Vector2f lastposclick = Vector2f::Zero();
 		};
 
 	private:
-		///Array for Key-Checking (using the makros from above) 
-		///Each Array field has the same Char-ID like the keys 
+		//Array for Key-Checking (using the makros from above) 
+		//Each Array field has the same Char-ID like the keys 
 		bool m_pressed[121] = { false };
-		///Vector for tracking the last position of mouse
+		//Vector for tracking the last position of mouse
 		MOUSE m_mousekey[4];
 		Vector2f lastposinst;
 
@@ -142,10 +136,6 @@ namespace FM3D {
 
 	public:
 		Input();
-		~Input();
-
-
-		void Initialize() {}
 
 #pragma region Options
 										//void SetWindow(Window*window) { win = window; }	//Gibt komischen Fehler
@@ -160,14 +150,14 @@ namespace FM3D {
 		bool CheckMouse(int keyid);
 
 	private:
-		void KeyPressed(WPARAM wParam);
-		void KeyReleased(WPARAM wParam);
+		void KeyPressed(uint key);
+		void KeyReleased(uint key);
 		void SetKey(int ID, bool tof);
 
-		void MPressed(LPARAM lParam, int LorR);
-		void MReleased(LPARAM lParam, int LorR);
-		void MMove(LPARAM lParam);
-		void SetMKey(int ID, KEYCLICK tof);
+		void MPressed(float x, float y, int button);
+		void MReleased(float x, float y, int button);
+		void MMove(float x, float y);
+		void SetMKey(int ID, bool tof);
 
 		void MWheel(short wheeldata);
 	};
