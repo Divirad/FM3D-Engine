@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:FM3D_Designer.src.ToolWindows.Skeleton"
         xmlns:fm="clr-namespace:FM3D_Designer.src"    
         mc:Ignorable="d"
-        Header="Animations"
-        Height="300" Width="300">
+        Header="Animations">
     <Grid>
         
     </Grid>

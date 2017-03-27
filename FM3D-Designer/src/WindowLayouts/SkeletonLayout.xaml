@@ -7,7 +7,28 @@
         xmlns:local="clr-namespace:FM3D_Designer.src"
         Header="Skeleton"
         mc:Ignorable="d">
+
+    <local:WindowLayout.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveProjectCommand"/>
+    </local:WindowLayout.CommandBindings>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="menu" Grid.Row="0">
+            <MenuItem Header="_File" >
+                <MenuItem Header="_Save"  Command="ApplicationCommands.Save"/>
+            </MenuItem>
+            <MenuItem Header="_Edit" />
+            <MenuItem Header="_View" >
+                <MenuItem Header="_Animations" Click="Menu_Animations"/>
+                <MenuItem Header="_Mesh" Click="Menu_Mesh"/>
+                <MenuItem Header="_Properties" Click="Menu_Properties"/>
+            </MenuItem>
+            <MenuItem Header="_Window" />
+        </Menu>
         <dd:DockSite Margin="4,0,4,0" Grid.Row="1"  Name="dockSite" VisualStyle="Office2016"/>
     </Grid>
 </local:WindowLayout>

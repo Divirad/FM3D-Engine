@@ -54,6 +54,14 @@ namespace DesignerLib {
 		if (_Name != Target->Name) OnPropertyChanged("Name");
 	}
 
+	Skeleton::Skeleton(System::String^ name, System::String^ path, InternSkeleton* skeleton) {
+		this->m_skeleton = skeleton;
+		this->Name = name;
+		this->Id = 0xffffffff;
+		this->Path = path;
+		this->IsSaved = false;
+	}
+
 	void Skeleton::WriteToFile() {
 		std::ofstream file(ConvertString(this->Path), std::ios::out | std::ios::binary | std::ios::trunc);
 		if (!file.is_open()) {
@@ -75,7 +83,24 @@ namespace DesignerLib {
 	}
 
 	Skeleton^ Skeleton::FromFile(System::String^ path) {
-		throw gcnew System::NotImplementedException();
-		// TODO: insert return statement here
+		std::ifstream file(ConvertString(path), std::ios::in | std::ios::binary);
+		if (!file.is_open()) {
+			throw gcnew System::IO::IOException(ConvertString("Failed to open skeleton file: " + std::string(strerror(errno))));
+		}
+
+		byte type = ReadRawFromFile<byte>(file); //File type
+		bool isDesignerFile = false;
+		if (type == 5) isDesignerFile = true;
+		else if (type != 3) throw gcnew System::ArgumentException("File is not a skeleton file!");
+
+		unsigned int resourceId = ReadRawFromFile<unsigned int>(file); //Resource ID
+		std::string name = "Unknown";
+		if (isDesignerFile)
+			name = ReadRawFromFile<std::string>(file);	//Name
+		unsigned int boneCount = ReadRawFromFile<unsigned int>(file); //Bone Count
+
+		auto skeleton = InternSkeleton::FromFile(file, boneCount);
+
+		return gcnew Skeleton(ConvertString(name), path, skeleton);
 	}
 }

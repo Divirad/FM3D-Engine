@@ -23,6 +23,6 @@ namespace DesignerLib {
 		unsigned int GetBoneCount();
 
 		void WriteToFile(std::ofstream& file);
-		static InternSkeleton* FromFile(std::ifstream& file);
+		static InternSkeleton* FromFile(std::ifstream& file, unsigned int boneCount);
 	};
 }

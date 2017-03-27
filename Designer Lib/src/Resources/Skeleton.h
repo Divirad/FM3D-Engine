@@ -21,6 +21,8 @@ namespace DesignerLib {
 	private:
 		InternSkeleton* m_skeleton;
 	public:
+		property bool IsSaved;
+
 		property unsigned int BoneCount {
 			unsigned int get() {
 				return m_skeleton->GetBoneCount();
@@ -30,12 +32,7 @@ namespace DesignerLib {
 		property System::String^ Path;
 		property unsigned int Id;
 
-		Skeleton(System::String^ name, System::String^ path, InternSkeleton* skeleton) {
-			this->m_skeleton = skeleton;
-			this->Name = name;
-			this->Id = 0xffffffff;
-			this->Path = path;
-		}
+		Skeleton(System::String^ name, System::String^ path, InternSkeleton* skeleton);
 
 		FM3D::Skeleton* GetIntern() { return m_skeleton->GetIntern(); }
 
