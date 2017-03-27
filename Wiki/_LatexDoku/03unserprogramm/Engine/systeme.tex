@@ -10,12 +10,6 @@ Zur Initialisierung wird die Methode \textit{Initialize} verwendet.
 
 \subsection{Graphic System}
 
-\subsubsection{Fenster}
-Jedes GUI benötigt ein \textit{Fenster}, in dem die Grafiken angezeigt werden können. Dafür existiert die Klasse \textit{Win32Window}, die von der Klasse Windows erbt, welche die Grundstruktur und Grundinformationen für ein Fenster besitzt. 
-Um ein Fenster zu starten verwendet man die Methode \textit{Start}, welcher man die Größe Breite und Höhe des Fensters, den Fenstertitel übergibt. Das Fenster kann mit der Methode \textit{Close} geschlossen werden.
-Aus der Klasse Windows werden \textit{Get-} und \textit{Set-}Methoden für die Größe und Position des Fensters auf dem Bildschirm und private Attribute die diese Werte angeben geerbt.
-Zudem besitzt die Klasse \textit{Window} statische Methoden um ein Fenster zu erstellen, die Position eines Fensters zu bestimmen, eine Konsole zu starten und die Position dieser zu bestimmen.
-
 \subsubsection{RenderSystem}
 Um in diesem Fenster nun zu rendern benötigt man ein Objekt der Klasse RenderSystem. Das RenderSystem kontrolliert das Rendering der FM3D-Engine in der Anwendung. Diese Klasse besitzt eine Initialisierungsmethode, welcher man die Werte 
 
