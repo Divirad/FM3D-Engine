@@ -1,22 +1,36 @@
-\subsection{Tasten-Eingabe System}
-Natürlich benötigt ein Spiel auch ein sicheres Eingabe-System, welches sowohl die Position der Maus ermittelt, aber auch die Abfrage jeder einzelnen Taste auf der Tastatur regelt. 
-Dafür wurde in der FM3D-Engine eine eigene Klasse implementiert, welche sich um dies kümmert.
-Um den Nutzer der FM3D-Engine davor zu bewahren nicht jeden einzelnen ASCII-Code jeder Taste auf der Tastatur nachzuschlagen, sind alle Tasten in Form von Makros definiert. 
-In dem Namespace FM3D befindet sich die Klasse Inputsystem. Diese Klasse besitzt eine rekursive Instanz, mit welcher man das Inputsystem ansprechen kann. 
-Die Klasse beinhaltet außerdem die Enumeration \textit{KEYCLICK}, welches den aktuellen Stand der Maustasten beschreibt. Diese können entweder gedrückt, nicht gedrückt oder losgelassen werden und sind in dieser Enumeration definiert.
-Eine Struktur \textit{MOUSE} enthält die Enumeration \textit{KEYCLICK} und einen zweidimensionalen Vektor des Typen \textit{Float}, welcher die zweidimensionale Position im Fenster angibt, an welcher eine Taste der Maus gedrückt wurde.
-Diese Struktur wird im Inputsystem als ein vier-Felder Array verwendet, welches jede Taste einer durchschnittlichen Maus beschreibt. Diese sind die linke, die rechte und die mittlere Maustaste. 
-Zudem besitzt das \textit{Inputsystem} einen Vektor \textit{lastposinst}, welcher ununterbrochen die Position der Maus ermittelt. Dies ist in den Spielen erforderlich in denen die Maus ununterbrochen die Kamera steuert.
+\subsection{Window-System}
 
-Für die Tastenabfrage wurde zunächst ein Integer Wert verwendet, in welchen der aktuell gedrückte ASCII-Code gespeichert wurde. Dies hat aber den Nachteil, dass nur eine Taste gedrückt sein bzw. abgefragt werden kann. Möchte man nun zum Beispiel einen Spiele-Charakter schräg durch einen Raum durch gedrückte Links- \textbf{und} Rechts-Taste bewegen, so wäre das mit dieser Möglichkeit nicht möglich. Deswegen beschreibt nun ein 121-Felder Array aus booleschen Werten die komplette Tastatur. Jede Feldnummer ist äquivalent zu dem zugeordneten ASCII-Code der Taste. Die Felder [1] bis [4] beschreiben die Maustasten. Einige Felder des Arrays sind nicht von einem ASCII Code auf der Tastatur \textit{belegt} und sind somit "`\textit{frei}"'. Dies hat den Vorteil, dass später simpel weitere Eingabegeräte in das Inputsystem eingebunden werden können.
-
-Die Klasse besitzt Methoden, welche in der Klasse Win32Window.h (Siehe Doxygen Dokumentation), die ein GUI-Fenster abbildet, um die verschiedenen Werte der Arrays und des Vektors zu setzen.
-Zudem besitzt die Klasse Methoden, die diese Werte zurück geben. (Für die Verwendung dieser Klasse siehe \cref{inputsystemver})
+Ein Spiel \textit{"`passiert"'} in unserem heutigen Zeitalter wie jedes andere GUI in einem \textit{Fenster}. Um ein solches zu erstellen wurde in der FM3D-Engine die Klassen \textit{Window} und \textit{Win32Window} implementiert.
+Window ist die Basisklasse, von welcher alle Fenstertypen erben sollen.
+Die Klasse besitzt die Attribute \textit{width} und \textit{heigth} vom Typ Integer, welche die Breite und Höhe eines Fensters darstellen.
+Es existieren ein Konstruktor und verschiedene Methoden, die die Interaktion mit einem Fenster ermöglichen. Alles erwähnte ist \textit{protected}.
+\textit{Start} startet unter Angabe der Parameter, welche die Breite, Höhe, den Fenster Titel, und die Sichtbarkeit des Fensters angeben, das bereits erstellte Fenster.
+\todo[inline]{HassMassage and Shouldclose??}
+Die Methode \textit{Close()} schließt ein Fenster. Mit der Methode Create() erstellt man ein neues Fenster mit den Übergabeparametern der Plattform auf welchem das Spiel bzw. die GUI laufen soll und einem Objekt der Klasse HINSTANCE, welches ein Handle für Windows-Anwendungen ist. Die Methode \textit{StartConsole()} startet eine Konsole für eventuelle Fehlerdiagnosen oder ähnliches. Mit der Methode \textit{SetConsolePosition} kann man nun mit Übergabeparametern X und Y vom Typ Integer, die Koordinaten auf dem Bildschirm beschreiben, die Position der Konsole auf dem Bildschirm setzen.
+Jedes \textit{Window}-Objekt besitzt ein Objekt der Klasse Input, doch dazu später mehr. Die Basistklasse \textit{Window} hat den Vorteil, dass man verschiedene Fensterklassen für verschiedene Betriebssysteme implementieren könnte. In der aktuellen Version der Engine existiert momentan nur eine Fensterklasse für Windows32 die von \textit{Window} erbt. Dies ist die Klasse  \textit{Win32Window}. 
+Wie schon erwähnt erbt die Klasse \textit{Windows32Window} von der Klasse \textit{Window} und die Klasse \textit{Window} steht zu \textit{Win32Window} in einer \textit{friend} Beziehung.
+\textit{Win32Window} besitzt die Attribute msg vom Typ \textit{MSG}, \textit{hWnd} vom Typ \textit{HWND}, \textit{hInstance} vom Typ \textit{HINSTANCE} und einen String der den Namen des Fensters beschreibt.
+HWND ist ein Windowshandle für Fenster und \textit{MSG} ein Windows-Datentyp für Informationen über die Nachrichten eines Threads. 
+Die Klasse besitzt zudem einen Konstruktor, dem man ein Objekt der Klasse \textit{HINSTANCE} übergibt, vier \textit{Public} Methoden und eine \textit{Private} Methode. Die Methode Start startet das Fenster und benötigt als Übergabeparameter die Höhe, die Breite, den Titel des Fensters und einen boolschen Wert, der angibt ob das Fenster angezeigt werden soll, oder nicht.
+\todo[inline]{HassMassage and Shouldclose?? WndPRoc}
+\textit{Close} schließt das Fenster.
 
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=\textwidth]{03unserprogramm/Engine/WindowSystem.pdf}
 		Es wurde auf die Angabe von Get- und Set-Methoden sowie Events verzichtet.
-		\caption{Window-System}\label{ClassDiagramComponents}
+		\caption{Window-System}\label{Windowsystem}
 	\end{center}
 \end{figure}
+
+Natürlich benötigt ein Spiel auch ein sicheres Eingabe-System, welches sowohl die Position der Maus ermittelt, aber auch die Abfrage jeder einzelnen Taste auf der Tastatur regelt. 
+Dafür wurde in der FM3D-Engine eine eigene Klasse implementiert, welche sich um dies kümmert.
+Um den Nutzer der FM3D-Engine davor zu bewahren nicht jeden einzelnen ASCII-Code jeder Taste auf der Tastatur nachzuschlagen, sind alle Tasten in Form von Makros definiert. 
+In dem Namespace FM3D befindet sich die Klasse Input. Die Klasse beinhaltet außerdem die Enumeration \textit{KEYCLICK}, welches den aktuellen Stand der Maustasten beschreibt. Diese können entweder gedrückt, nicht gedrückt oder losgelassen werden und sind in dieser Enumeration definiert.
+Eine Struktur \textit{MOUSE} enthält die Enumeration \textit{KEYCLICK} und einen zweidimensionalen Vektor des Typen \textit{Float}, welcher die zweidimensionale Position im Fenster angibt, an welcher eine Taste der Maus gedrückt wurde.
+Diese Struktur wird im Inputsystem als ein vier-Felder Array verwendet, welches jede Taste einer durchschnittlichen Maus beschreibt. Diese sind die linke, die rechte und die mittlere Maustaste. 
+Zudem besitzt das \textit{Inputsystem} einen Vektor \textit{lastposinst}, welcher ununterbrochen die Position der Maus ermittelt. Dies ist in den Spielen erforderlich in denen die Maus ununterbrochen die Kamera steuert.
+
+Für die Tastenabfrage wurde zunächst ein Integer Wert verwendet, in welchen der aktuell gedrückte ASCII-Code gespeichert wurde. Dies hat aber den Nachteil, dass nur eine Taste gedrückt sein bzw. abgefragt werden kann. Möchte man nun zum Beispiel einen Spiele-Charakter schräg durch einen Raum durch gedrückte Links- \textbf{und} Rechts-Taste bewegen, so wäre das mit dieser Möglichkeit nicht möglich. Deswegen beschreibt nun ein 121-Felder Array aus booleschen Werten die komplette Tastatur. Jede Feldnummer ist äquivalent zu dem zugeordneten ASCII-Code der Taste. Die Felder [1] bis [4] beschreiben die Maustasten. Einige Felder des Arrays sind nicht von einem ASCII Code auf der Tastatur \textit{belegt} und sind somit "`\textit{frei}"'. Dies hat den Vorteil, dass später simpel weitere Eingabegeräte in das Inputsystem eingebunden werden können.
+Die Klasse besitzt Methoden, welche in der Klasse Win32Window.h (Siehe Doxygen Dokumentation), die ein GUI-Fenster abbildet, die die verschiedenen Werte der Arrays und des Vektors setzen.
+Zudem besitzt die Klasse Methoden, die diese Werte zurück geben. (Für die Verwendung dieser Klasse siehe \cref{inputsystemver})

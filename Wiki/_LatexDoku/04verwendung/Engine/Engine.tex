@@ -30,6 +30,7 @@ $$Configuration Properties->Linker->Additional Include Directories$$
 Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht.
 
 \subsection{Entities}
+\todo[inline]{!!!}
 Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Dies geschieht mit dem folgenden Syntax:
 %Beispiel
 Wenn ein Entity das Komponent \textit{RenderableComponent} besitzt, so kann es in dem eindeutig kommentierten Abschnitt "'Submit objects here to renderer"` dem Renderer übergeben werden.
@@ -38,8 +39,8 @@ Bevor Sie den Entities die Modelle zuweisen, vergessen Sie nicht die Modelle in 
 
 \subsection{Inputsystem}
 \label{inputsystemver}
-Hierfür wird die Klasse \textit{Inputsystem} verwendet. Möchte man nun Tasten abfrage, so muss man zunächst auf die rekursive Instanz der Klasse zugreifen. 
-$$FM3D::Inputsystem::GetInstance()->$$
+Hierfür wird die Klasse \textit{Input} verwendet. Möchte man nun Tasten abfragen, so muss man zunächst über das Fenster auf das Objekt der Klasse Input zugreifen. 
+$$win->GetInput()$$
 Nun kann eine Methode aus dieser Klasse verwendet werden.
 Möchten Sie nun abfragen, ob eine Taste der Tastatur gedrückt wurde, verwenden Sie die Methode
 $$FM3D::Inputsystem::GetInstance()->CheckKey(int  keyid);$$
