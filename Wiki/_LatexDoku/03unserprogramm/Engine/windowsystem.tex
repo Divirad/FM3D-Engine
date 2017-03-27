@@ -6,7 +6,8 @@ Window ist die Basisklasse, von welcher alle Fenstertypen erben sollen.
 Die Klasse besitzt die Attribute \textit{width} und \textit{heigth} vom Typ Integer, welche die Breite und Höhe eines Fensters darstellen.
 Es existieren ein Konstruktor und verschiedene Methoden, die die Interaktion mit einem Fenster ermöglichen. Alles erwähnte ist \textit{protected}.
 \textit{Start} startet unter Angabe der Parameter, welche die Breite, Höhe, den Fenster Titel, und die Sichtbarkeit des Fensters angeben, das bereits erstellte Fenster.
-\todo[inline]{HassMassage and Shouldclose??}
+Die Methode HasMessage gibt an ob das Fenster eine Message hat und
+Shouldclose gibt zurück ob das Fenster geschlossen werden soll.
 Die Methode \textit{Close()} schließt ein Fenster. Mit der Methode Create() erstellt man ein neues Fenster mit den Übergabeparametern der Plattform auf welchem das Spiel bzw. die GUI laufen soll und einem Objekt der Klasse HINSTANCE, welches ein Handle für Windows-Anwendungen ist. Die Methode \textit{StartConsole()} startet eine Konsole für eventuelle Fehlerdiagnosen oder ähnliches. Mit der Methode \textit{SetConsolePosition} kann man nun mit Übergabeparametern X und Y vom Typ Integer, die Koordinaten auf dem Bildschirm beschreiben, die Position der Konsole auf dem Bildschirm setzen.
 Jedes \textit{Window}-Objekt besitzt ein Objekt der Klasse Input, doch dazu später mehr. Die Basistklasse \textit{Window} hat den Vorteil, dass man verschiedene Fensterklassen für verschiedene Betriebssysteme implementieren könnte. In der aktuellen Version der Engine existiert nur eine Fensterklasse für Windows32 die von \textit{Window} erbt. Dies ist die Klasse  \textit{Win32Window}. Die Klasse Windows besitzt zudem noch einige \textit{Get-} und \textit{Set-}Methoden unteranderem für die Größe und Position des Fensters auf dem Bildschirm.
 
@@ -14,7 +15,8 @@ Wie schon erwähnt erbt die Klasse \textit{Windows32Window} von der Klasse \text
 \textit{Win32Window} besitzt die Attribute msg vom Typ \textit{MSG}, \textit{hWnd} vom Typ \textit{HWND}, \textit{hInstance} vom Typ \textit{HINSTANCE} und einen String der den Namen des Fensters beschreibt.
 HWND ist ein Windowshandle für Fenster und \textit{MSG} ein Windows-Datentyp für Informationen über die Nachrichten eines Threads. 
 Die Klasse besitzt zudem einen Konstruktor, dem man ein Objekt der Klasse \textit{HINSTANCE} übergibt, vier \textit{Public} Methoden und eine \textit{Private} Methode. Die Methode Start startet das Fenster und benötigt als Übergabeparameter die Höhe, die Breite, den Titel des Fensters und einen boolschen Wert, der angibt ob das Fenster angezeigt werden soll, oder nicht.
-\todo[inline]{HassMassage and Shouldclose?? WndPRoc}
+Auch hier gibt die Methode HasMessage an ob das Fenster eine Message hat und
+Shouldclose gibt zurück ob das Fenster geschlossen werden soll. Nur sind diese Methoden auf Windows32 zugeschnitten und verwenden unteranderem auch die Methoden aus der Klasse Window.
 \textit{Close} schließt das Fenster. (für weitere Informationen Siehe \cref{Windowsystem})
 
 \begin{figure}
