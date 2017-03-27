@@ -27,11 +27,16 @@ $$Configuration Properties->Linker->Additional Include Directories$$
 \end{figure}
 
 \subsection{Kamera}
-Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht.
+Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht. Für Infos über den Syntax der Kamera wird empfohlen in der DoxyGen-Dokumentation die Klasse "`Camera"' nachzuschlagen.
 
 \subsection{Entities}
-\todo[inline]{!!!}
-Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Dies geschieht mit dem folgenden Syntax:
+Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Erstellen Sie zunächst beliebig viele Preset-Objekte ihrer erstellten Entity-Preset-Klasse. Sie können nun bei jedem beliebigen Objekt "`Preset-Einstellungen"' tätigen, in dem Sie dem Entity-Preset-Objekt Standardwerte zuweisen. 
+Initialisieren Sie nun einen Entity-Pointer (Klasse: \textit{EntityPtr}) und erstellen sie das Entity in der bereits initialisierten \textit{EntityCollection} namens \textit{scene}. Als Beispiel:
+\begin{lstlisting}{Entity}
+EntityCollection scene;
+EntityPtr baum = scene.CreateEntity();
+\end{lstlisting}
+Diese beinhaltet alle Entities die in dem Spiel verwendet werden.
 %Beispiel
 Wenn ein Entity das Komponent \textit{RenderableComponent} besitzt, so kann es in dem eindeutig kommentierten Abschnitt "'Submit objects here to renderer"` dem Renderer übergeben werden.
 %Beispiel
@@ -40,14 +45,24 @@ Bevor Sie den Entities die Modelle zuweisen, vergessen Sie nicht die Modelle in 
 \subsection{Inputsystem}
 \label{inputsystemver}
 Hierfür wird die Klasse \textit{Input} verwendet. Möchte man nun Tasten abfragen, so muss man zunächst über das Fenster auf das Objekt der Klasse Input zugreifen. 
-$$win->GetInput()$$
 Nun kann eine Methode aus dieser Klasse verwendet werden.
-Möchten Sie nun abfragen, ob eine Taste der Tastatur gedrückt wurde, verwenden Sie die Methode
-$$FM3D::Inputsystem::GetInstance()->CheckKey(int  keyid);$$
-Der Integer-Wert \textit{keyid} bildet den ASCII-Code der zu abfragenden Taste ab. Die Methode gibt einen booleschen Wert zurück. Die Methode $$CheckMouse(int  keyid)$$ dient dem selben Zweck, nur wird hierbei der Status der Maus abgefragt.
-Die Methode $$GetLastposClick(int keyID)$$
-gibt einen zweidimensionalen Vektor vom Typ Float zurück, welcher die Position vom letzten Klick der Maus mit einer bestimmten Maustaste beschreibt. \textit{keyID} stellt die zu klickende Taste dar. 
-$$GetLastposInst()$$
-Die obenstehende Methode gibt Daten in Form eines zweidimensionalen Vektors mit der aktuellen Position der Maus zurück.
+Möchten Sie nun abfragen, ob zB. die Taste F5 auf der Tastatur gedrückt wurde, so schreiben Sie dies so in den Code:
+\begin{lstlisting}{Input}
+win->GetInput().CheckKey(KEY_F5);
+\end{lstlisting}
+Möchten Sie nun überprüfen ob die Linke Maustaste gedrückt wurde so tun Sie dies folgendermaßen:
+\begin{lstlisting}{Input}
+win->GetInput().CheckMouse(MOUSE_LEFT);
+\end{lstlisting}
+
+Möchte man nun die Position des letzten Klicks mit der linken Maustaste ermitteln, benutzt man diese Methode:
+\begin{lstlisting}{Input}
+win->GetInput().GetLastposClick(MOUSE_LEFT);
+\end{lstlisting}
+Diese gibt einen zweidimensionalen Vektor vom Typ Float zurück, welcher die Position vom letzten Klick der Maus mit einer bestimmten Maustaste beschreibt. 
+Die folgende Methode gibt Daten in Form eines zweidimensionalen Vektors mit der aktuellen Position der Maus zurück.
+\begin{lstlisting}{Input}
+win->GetInput().GetLastposInst();
+\end{lstlisting}
 
 Alle Tasten der Tastatur und Maus können über Makros angesprochen werden. Auch können Sie die ASCII-Codes der einzelnen Tasten verwenden. Die Makros, welche die Tasten der Tastatur beschreiben starten mit \textit{"`KEY\_"'}. Die Makros, die für die Maus verwendet werden starten mit \textit{"`MAUS\_"'}.
