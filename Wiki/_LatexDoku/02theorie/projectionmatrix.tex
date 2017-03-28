@@ -1,8 +1,9 @@
 \subsection{Projection Matrix}
 \label{Sec:Projection}
-Wenn man sich einen Computerbildschirm anschaut, so stellt man relativ früh fest, dass er eine zweidimensionale Oberfläche ist. 
-Da aber die zu rendernde Szene dreidimensional ist, muss man diese Szene, bestehend aus mehreren Grafik-Primitiven, auf diese zweidimensionale Oberfläche projizieren. Dafür muss aber die Szene erst \textit{transformiert} werden, damit sie korrekt auf die Oberfläche projiziert wird. 
-Grob gesagt, wird also eine simulierte ideale Version einer Loch-Kamera mit einem unendlich kleinen Loch verwendet. Dies bedeutet, dass alle Objekte scharf dargestellt werden. Da eine Lochkamera das Bild verkehrt herum abbildet, wird (der Einfachheit wegen) die Bildebene vor dem Projektionszentrum abgebildet. Somit steht das Bild nun nicht mehr auf dem Kopf und muss nicht mehr invertiert werden. \cref{lochkamera}
+Wenn man sich einen Computerbildschirm anschaut, so stellt man relativ früh fest, dass er eine zweidimensionale Oberfläche besitzt. 
+Da aber die zu rendernde Szene dreidimensional ist, muss man diese Szene, bestehend aus mehreren dreidimensional angeordneten Grafik-Primitiven, auf diese zweidimensionale Oberfläche projizieren. Dafür verwendet man eine sogenannte \textit{Transformation}.
+
+Grob gesagt, wird also eine simulierte ideale Version einer Loch-Kamera mit einem unendlich kleinen Loch verwendet. Dies bedeutet, dass alle Objekte scharf dargestellt werden. Da eine Lochkamera aber das Bild verkehrt herum abbildet, wird der Einfachheit wegen die Bildebene vor dem Projektionszentrum abgebildet. Somit steht das Bild nun nicht mehr auf dem Kopf und muss nicht mehr invertiert werden. \cref{lochkamera}
 
 Wenn wir uns nun einen Punkt $P(p_{x}, p_{y}, p_{z})$ in der Szene anschauen, so geht durch diesen vom Projektionszentrum aus bis zum projizierten Punkt auf dem Bildschirm $P'(p'_{x}, p'_{y}, p'_{z})$ eine Gerade. Mit dem Strahlensatz lässt sich nun aus $\dfrac{p'_{x}}{\mathnormal{f}} = \dfrac{p_{x}}{p_{z}} $ und $ \dfrac{p'_{y}}{\mathnormal{f}} = \dfrac{p_{y}}{p_{z}} $ die folgende Formel für Punkt $P$ bestimmen, die da lautet $P'=(\mathnormal{f}\dfrac{p_{x}}{p_{z}}, \mathnormal{f}\dfrac{p_{y}}{p_{z}}, \mathnormal{f})$.
 Nun kann die Projektion in einer Matrix abgebildet werden.
