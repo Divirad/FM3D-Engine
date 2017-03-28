@@ -2,11 +2,13 @@
 \label{section:Normalmapping}
 
 Um die visuelle Qualität eines Models zu erhöhen, so muss man das Modell genauer modellieren und somit resultieren mehr Dreiecke. 
-Damit erhöht sich aber auch der Rechenaufwand für dieses Model und ab einer bestimmten Grenze ist die gewonnene Qualität nur sehr gering, der Rechenaufwand aber um so größer. Um ein Model trotzdem noch hochauflösender darzustellen wird ein Vorgang namens \textit{Normalmapping} verwendet. 
-Dieser baut auf Lichtberechnungen auf, denn ohne Licht gibt es keine zu erkennende verbesserte Qualität. Normalerweise hat jeder Vertex einen Normalenvektor und für einen Pixel wird er zwischen den 3 Vertices interpoliert. Mit Normalmapping weißt man jedem Pixel einen eigenen Normalenvektor zu, so ist es möglich die Oberfläche so aussehen zu lassen, als würde sie rau mit kleinen Unebenheiten sein, ohne den Rechenaufwand von dem Rendern vieler Dreiecke eines Meshes zu belasten.
-Den Unterschied Sieht man in \cref{img:Normalmapping}. Die Normalenvektoren werden in einer Textur gespeichert, sodass sie mit den normalen Texturen-Koordinaten verwendet werden können. Diese Textur wird im Material abgespeichert.
+Damit erhöht sich aber auch der Rechenaufwand für dieses Model. Ab einer bestimmten Grenze ist die gewonnene Qualität nur sehr gering, der Rechenaufwand aber um so größer. 
+Um ein Model trotzdem noch hochauflösender darzustellen, wird ein Vorgang namens \textit{Normalmapping} verwendet. 
+Dieser baut auf Lichtberechnungen auf. Ohne Licht gibt es keine zu erkennende verbesserte Qualität. Normalerweise hat jeder Vertex einen Normalenvektor und für einen Pixel wird er zwischen den drei Vertices interpoliert. 
+Mit Normalmapping weist man jedem Pixel einen eigenen Normalenvektor zu. So ist es möglich die Oberfläche so aussehen zu lassen, als würde sie rau mit kleinen Unebenheiten sein. Somit wird kein Rechenaufwand durch das Rendern vieler Dreiecke eines Meshes unnötig erzeugt.
+Den Unterschied sieht man in \cref{img:Normalmapping}. Die Normalenvektoren werden in einer Textur gespeichert, sodass sie mit den normalen Texturen-Koordinaten verwendet werden können. Diese Textur wird im Material abgespeichert.
 
-In einer Textur können drei Werte abgespeichert werden, Rot, Grün und Blau, jeweils mit einem Wert von 0 bis 1. Ein Normalenvektor hat aber drei Komponenten mit jeweils Werten von -1 bis 1, daher muss dieser erst berechnet werden:
+In einer Textur können drei Werte abgespeichert werden, rot, grün und glau, jeweils mit einem Wert von 0 bis 1. Ein Normalenvektor hat drei Komponenten mit jeweils Werten von -1 bis 1. Daher muss dieser erst berechnet werden:
 
 $ \overrightarrow{N} = 
 \begin{pmatrix}
@@ -19,12 +21,14 @@ x \\ y \\ z
  
 Der Normalenvektor $\begin{pmatrix}
 	0 \\ 0 \\ 1
-\end{pmatrix}$ zeigt direkt weg von dem Model, daher sind Normalmaps auch immer sehr bläulich, denn der meiste Anteil des Normalenvektors liegt in der Z-Komponente. Eine Beispiel Normalmap ist in \cref{img:Normalmap} zu sehen. Man kann diesen Vektor aber nicht direkt verwenden, da er im \textit{Tangent space} definiert ist. Dies bedeutet dass er relativ zu dem zugehörigen Dreieck steht.
-Man benötigt zudem einen Normalenvektor im \textit{Object space}, also relativ zu dem Model. 
+\end{pmatrix}$ zeigt direkt vom Model weg, daher sind Normalmaps auch immer sehr bläulich. Der meiste Anteil des Normalenvektors liegt in der Z-Komponente. Ein Beispiel einer Normalmap ist in \cref{img:Normalmap} zu sehen. Man kann diesen Vektor nicht direkt verwenden, da er im \textit{Tangent Space} definiert ist. 
+Dies bedeutet, dass er relativ zu dem zugehörigen Dreieck steht.
+Man benötigt zudem einen Normalenvektor im \textit{Object Space}, also relativ zu dem Model. 
 Zur Umwandlung wird eine 3x3 Matrix benötigt, die aus drei verschiedenen Vektoren des Tangent-Space gebildet wird. 
-Es können hierbei drei beliebige nicht linear abhängige Vektoren verwendet werden. Man bemerkt schnell, dass wenn alle drei orthogonal zueinander verlaufen, es simpler und effizienter ist die Matrix zu erstellen. 
-Der erste Vektor wird bereits angegeben. Dieser beschreibt den Standardnormalenvektor jedes Vertex. Hinzu kommt noch ein Tangentenvektor jedes Vertex. Dieser befindet sich ebenfalls im \ac{VBO} des Meshes, wie in \cref{table:VertexAufbau} abgebildet ist. Der dritte Vektor ist der Bitangentenvektor
-und kann mittels Kreuzprodukt aus diesen beiden berechnet werden. Es ist nötig alle drei Vektoren zu normalisieren, bevor die Matrix erstellt wird.
+Es können hierbei drei beliebige nicht linear abhängige Vektoren verwendet werden. Man bemerkt schnell, dass, wenn alle drei orthogonal zueinander verlaufen, es einfacher und effizienter ist die Matrix zu erstellen. 
+Der erste Vektor wird bereits angegeben. 
+\todo[inline]{woher?}
+Dieser beschreibt den Standardnormalenvektor jedes Vertex. Hinzu kommt noch ein Tangentenvektor jedes Vertex. Dieser befindet sich ebenfalls im \ac{VBO} des Meshes, wie in \cref{table:VertexAufbau} abgebildet. Der dritte Vektor ist der Bitangentenvektor und kann mittels Kreuzprodukt aus den Standardnormalenvektor und dem Tangentenvektor \todo[inline]{"kreuzprodukt beider" zu Standardnormalenvektor und dem Tangentenvektor. stimmt das?} berechnet werden. Es ist nötig alle drei Vektoren zu normalisieren, bevor die Matrix erstellt wird.
 
 Gegeben ist der Normalenvektor $\overrightarrow{N}$ und der Tangentenvektor $\overrightarrow{T}$
 
@@ -32,13 +36,13 @@ Die normalisierten Vektoren: $\overrightarrow{N_{0}} = \dfrac{\overrightarrow{N}
 
 Der Bitangentenvektor: $\overrightarrow{B} = \overrightarrow{N_{0}} \times \overrightarrow{T_{0}}$\qquad	$\overrightarrow{B_{0}} = \dfrac{\overrightarrow{B}}{|\overrightarrow{B}|}$
 
-Die Matrix sieht dann so aus: $M =  \begin{pmatrix}
+Die Matrix: $M =  \begin{pmatrix}
 T_{0x} & B_{0x} & N_{0x} \\
 T_{0y} & B_{0y} & N_{0y} \\
 T_{0z} & B_{0z} & N_{0z} \\
 \end{pmatrix}$
 
-Diese Matrix wird für erhöhte Leistung im Vertex shader erstellt und dann dem Fragment shader übergeben. In diesem muss dann nur der Normalenvektor aus der Normalmap geladen werden, dafür werden die gleichen Texturekoordinaten verwendet wie bei der Color texture, und mit dieser Matrix multipliziert werden.
+Diese Matrix wird für erhöhte Leistung im Vertex-Shader erstellt und daraufhin dem Fragment-Shader übergeben. In diesem muss der Normalenvektor aus der Normalmap geladen werden. Dafür werden die gleichen Texturkoordinaten (wie bei der Color-Texture) verwendet und mit dieser Matrix multipliziert.
 
 \begin{figure}
 	\begin{center}
