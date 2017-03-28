@@ -9,97 +9,97 @@
 \contentsline {subsection}{\numberline {1.2.3}Game-Engine}{4}{subsection.1.2.3}
 \contentsline {section}{\numberline {1.3}Geschichte}{5}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}Vergangenheit bis heute}{5}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Zukunft Der Game-Engine}{5}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.2}Zukunft der Game-Engine}{5}{subsection.1.3.2}
 \contentsline {section}{\numberline {1.4}Engines}{6}{section.1.4}
 \contentsline {subsection}{\numberline {1.4.1}GameMaker - YoyoGames}{6}{subsection.1.4.1}
-\contentsline {subsection}{\numberline {1.4.2}Unity3D - Unity Technologies}{6}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.2}Unity3D - Unity Technologies}{7}{subsection.1.4.2}
 \contentsline {chapter}{\numberline {2}Theorie}{8}{chapter.2}
 \contentsline {section}{\numberline {2.1}Rendering}{8}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}OpenGL Grundlagen}{8}{subsection.2.1.1}
-\contentsline {subsubsection}{\nonumberline Frame buffer}{8}{section*.5}
-\contentsline {subsubsection}{\nonumberline Buffer Objects}{10}{section*.7}
-\contentsline {subsubsection}{\nonumberline Pipeline\cite {Pipeline}}{10}{section*.12}
+\contentsline {subsubsection}{\nonumberline Frame-Buffer}{8}{section*.7}
+\contentsline {subsubsection}{\nonumberline Buffer Objects}{10}{section*.11}
+\contentsline {subsubsection}{\nonumberline Pipeline \cite {Pipeline}}{11}{section*.17}
 \contentsline {subsection}{\numberline {2.1.2}Physically Based Rendering}{15}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Normalmapping}{18}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {2.1.4}Animation}{20}{subsection.2.1.4}
-\contentsline {subsection}{\numberline {2.1.5}Projection Matrix}{22}{subsection.2.1.5}
-\contentsline {section}{\numberline {2.2}Extensible Markup Language}{26}{section.2.2}
-\contentsline {chapter}{\numberline {3}Unser Programm}{28}{chapter.3}
-\contentsline {section}{\numberline {3.1}Engine - Allgemeiner Aufbau}{28}{section.3.1}
-\contentsline {section}{\numberline {3.2}Engine - Systeme}{28}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Math System}{28}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}File System}{32}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Graphic System}{33}{subsection.3.2.3}
-\contentsline {subsubsection}{\nonumberline RenderSystem}{33}{section*.32}
-\contentsline {subsubsection}{\nonumberline Font-Klasse}{33}{section*.33}
-\contentsline {subsubsection}{\nonumberline Texture-Klasse}{33}{section*.34}
-\contentsline {subsubsection}{\nonumberline Model-Klasse}{34}{section*.35}
-\contentsline {subsubsection}{\nonumberline Material-Klasse}{34}{section*.36}
-\contentsline {subsection}{\numberline {3.2.4}Entity System}{34}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Window-System}{38}{subsection.3.2.5}
-\contentsline {subsubsection}{\nonumberline Fenster}{38}{section*.38}
-\contentsline {subsubsection}{\nonumberline Input-Klasse}{41}{section*.40}
-\contentsline {section}{\numberline {3.3}DesignerLib - Allgemeiner Aufbau}{42}{section.3.3}
-\contentsline {section}{\numberline {3.4}Designer - Allgemeiner Aufbau}{42}{section.3.4}
-\contentsline {section}{\numberline {3.5}GUI-Fenster}{43}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Layouts}{44}{subsection.3.5.1}
-\contentsline {subsubsection}{\nonumberline StartLayout}{44}{section*.44}
-\contentsline {subsubsection}{\nonumberline CreateProjekt}{44}{section*.45}
-\contentsline {subsubsection}{\nonumberline MainLayout}{47}{section*.46}
-\contentsline {subsubsection}{\nonumberline MeshLayout}{47}{section*.47}
-\contentsline {subsection}{\numberline {3.5.2}ToolWindows}{47}{subsection.3.5.2}
-\contentsline {subsubsection}{\nonumberline FileBrowser}{47}{section*.48}
-\contentsline {subsubsection}{\nonumberline TextEditor}{48}{section*.49}
-\contentsline {subsubsection}{\nonumberline Mesh-Parts-Window}{48}{section*.50}
-\contentsline {subsubsection}{\nonumberline Mesh-Vertices-Window}{48}{section*.51}
-\contentsline {subsubsection}{\nonumberline Mesh-Parts-Property-Window}{49}{section*.52}
-\contentsline {subsection}{\numberline {3.5.3}Dialogs}{49}{subsection.3.5.3}
-\contentsline {subsubsection}{\nonumberline Model-Loader | Add Resource-Dialog}{49}{section*.53}
-\contentsline {subsubsection}{\nonumberline Entity-Editor}{49}{section*.54}
-\contentsline {section}{\numberline {3.6}Logik}{50}{section.3.6}
-\contentsline {subsubsection}{\nonumberline Project-Klasse}{50}{section*.55}
-\contentsline {subsubsection}{\nonumberline RootDirectory-Klasse}{50}{section*.56}
-\contentsline {subsubsection}{\nonumberline Directory-Klasse}{50}{section*.57}
-\contentsline {subsubsection}{\nonumberline File-Klasse}{50}{section*.58}
-\contentsline {subsubsection}{\nonumberline FileObject-Klasse}{51}{section*.59}
-\contentsline {subsubsection}{\nonumberline Filebrowser View-Logic}{51}{section*.60}
-\contentsline {subsubsection}{\nonumberline Item}{51}{section*.61}
-\contentsline {subsubsection}{\nonumberline ItemType}{52}{section*.62}
-\contentsline {subsubsection}{\nonumberline Entity-Klassen}{53}{section*.63}
-\contentsline {subsubsection}{\nonumberline Creator}{54}{section*.65}
-\contentsline {subsubsection}{\nonumberline FM3DPropertyFile-Klasse}{54}{section*.66}
-\contentsline {subsubsection}{\nonumberline PipeSystem}{54}{section*.67}
-\contentsline {subsubsection}{\nonumberline FM3D-Extension}{54}{section*.68}
-\contentsline {section}{\numberline {3.7}Externe Bibliotheken}{56}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}OpenGL}{56}{subsection.3.7.1}
-\contentsline {subsubsection}{\nonumberline Beschreibung der OpenGL}{56}{section*.70}
-\contentsline {subsubsection}{\nonumberline Funktionsweise}{57}{section*.71}
-\contentsline {subsection}{\numberline {3.7.2}Windows Presentation Foundation}{57}{subsection.3.7.2}
-\contentsline {subsection}{\numberline {3.7.3}DotNetBar}{58}{subsection.3.7.3}
-\contentsline {subsection}{\numberline {3.7.4}MahApps}{58}{subsection.3.7.4}
-\contentsline {chapter}{\numberline {4}Verwendung}{59}{chapter.4}
-\contentsline {section}{\numberline {4.1}Mindestvorraussetzungen...}{59}{section.4.1}
-\contentsline {subsubsection}{\nonumberline ...f\IeC {\"u}r den Computer, auf welchem sp\IeC {\"a}ter das Spiel gespielt wird:}{59}{section*.74}
-\contentsline {subsubsection}{\nonumberline ...f\IeC {\"u}r den Computer, auf welchem der Designer ausgef\IeC {\"u}hrt wird:}{59}{section*.75}
-\contentsline {section}{\numberline {4.2}Designer}{60}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Neues Projekt erstellen}{60}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Altes Projekt laden}{61}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Hauptarbeitsplatz}{61}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}Extension}{61}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Engine}{62}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Voreinstellungen}{63}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Kamera}{64}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Entities}{64}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Inputsystem}{65}{subsection.4.3.4}
-\contentsline {chapter}{\numberline {5}Resum\IeC {\'e}}{66}{chapter.5}
-\contentsline {section}{\numberline {5.1}Verbesserungsf\IeC {\"a}higes}{66}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Software}{66}{subsection.5.1.1}
-\contentsline {subsubsection}{\nonumberline Ausbauf\IeC {\"a}higes im Designer}{66}{section*.81}
-\contentsline {subsubsection}{\nonumberline Ausbauf\IeC {\"a}higes in der Engine}{67}{section*.82}
-\contentsline {subsection}{\numberline {5.1.2}Team und Workflow}{67}{subsection.5.1.2}
-\contentsline {subsubsection}{\nonumberline Planung}{67}{section*.83}
-\contentsline {subsubsection}{\nonumberline Kommunikation}{68}{section*.84}
-\contentsline {subsubsection}{\nonumberline Klein Anfangen}{68}{section*.85}
-\contentsline {section}{\numberline {5.2}Haben wir unser Ziel erreicht?}{68}{section.5.2}
-\contentsline {section}{\numberline {5.3}Was haben wir gelernt?}{69}{section.5.3}
-\contentsline {chapter}{\numberline {A}Anhang}{70}{appendix.A}
+\contentsline {subsection}{\numberline {2.1.3}Normalmapping}{19}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Animation}{22}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Projection Matrix}{23}{subsection.2.1.5}
+\contentsline {section}{\numberline {2.2}Extensible Markup Language}{27}{section.2.2}
+\contentsline {chapter}{\numberline {3}Unser Programm}{29}{chapter.3}
+\contentsline {section}{\numberline {3.1}Engine - Allgemeiner Aufbau}{29}{section.3.1}
+\contentsline {section}{\numberline {3.2}Engine - Systeme}{29}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Math System}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}File System}{33}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Graphic System}{34}{subsection.3.2.3}
+\contentsline {subsubsection}{\nonumberline RenderSystem}{34}{section*.40}
+\contentsline {subsubsection}{\nonumberline Font-Klasse}{34}{section*.41}
+\contentsline {subsubsection}{\nonumberline Texture-Klasse}{34}{section*.42}
+\contentsline {subsubsection}{\nonumberline Model-Klasse}{35}{section*.43}
+\contentsline {subsubsection}{\nonumberline Material-Klasse}{35}{section*.44}
+\contentsline {subsection}{\numberline {3.2.4}Entity System}{35}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Window-System}{39}{subsection.3.2.5}
+\contentsline {subsubsection}{\nonumberline Fenster}{39}{section*.46}
+\contentsline {subsubsection}{\nonumberline Input-Klasse}{42}{section*.48}
+\contentsline {section}{\numberline {3.3}DesignerLib - Allgemeiner Aufbau}{43}{section.3.3}
+\contentsline {section}{\numberline {3.4}Designer - Allgemeiner Aufbau}{43}{section.3.4}
+\contentsline {section}{\numberline {3.5}GUI-Fenster}{44}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Layouts}{45}{subsection.3.5.1}
+\contentsline {subsubsection}{\nonumberline StartLayout}{45}{section*.52}
+\contentsline {subsubsection}{\nonumberline CreateProjekt}{45}{section*.53}
+\contentsline {subsubsection}{\nonumberline MainLayout}{48}{section*.54}
+\contentsline {subsubsection}{\nonumberline MeshLayout}{48}{section*.55}
+\contentsline {subsection}{\numberline {3.5.2}ToolWindows}{48}{subsection.3.5.2}
+\contentsline {subsubsection}{\nonumberline FileBrowser}{48}{section*.56}
+\contentsline {subsubsection}{\nonumberline TextEditor}{49}{section*.57}
+\contentsline {subsubsection}{\nonumberline Mesh-Parts-Window}{49}{section*.58}
+\contentsline {subsubsection}{\nonumberline Mesh-Vertices-Window}{49}{section*.59}
+\contentsline {subsubsection}{\nonumberline Mesh-Parts-Property-Window}{50}{section*.60}
+\contentsline {subsection}{\numberline {3.5.3}Dialogs}{50}{subsection.3.5.3}
+\contentsline {subsubsection}{\nonumberline Model-Loader | Add Resource-Dialog}{50}{section*.61}
+\contentsline {subsubsection}{\nonumberline Entity-Editor}{50}{section*.62}
+\contentsline {section}{\numberline {3.6}Logik}{51}{section.3.6}
+\contentsline {subsubsection}{\nonumberline Project-Klasse}{51}{section*.63}
+\contentsline {subsubsection}{\nonumberline RootDirectory-Klasse}{51}{section*.64}
+\contentsline {subsubsection}{\nonumberline Directory-Klasse}{51}{section*.65}
+\contentsline {subsubsection}{\nonumberline File-Klasse}{51}{section*.66}
+\contentsline {subsubsection}{\nonumberline FileObject-Klasse}{52}{section*.67}
+\contentsline {subsubsection}{\nonumberline Filebrowser View-Logic}{52}{section*.68}
+\contentsline {subsubsection}{\nonumberline Item}{52}{section*.69}
+\contentsline {subsubsection}{\nonumberline ItemType}{53}{section*.70}
+\contentsline {subsubsection}{\nonumberline Entity-Klassen}{54}{section*.71}
+\contentsline {subsubsection}{\nonumberline Creator}{55}{section*.73}
+\contentsline {subsubsection}{\nonumberline FM3DPropertyFile-Klasse}{55}{section*.74}
+\contentsline {subsubsection}{\nonumberline PipeSystem}{55}{section*.75}
+\contentsline {subsubsection}{\nonumberline FM3D-Extension}{55}{section*.76}
+\contentsline {section}{\numberline {3.7}Externe Bibliotheken}{57}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}OpenGL}{57}{subsection.3.7.1}
+\contentsline {subsubsection}{\nonumberline Beschreibung der OpenGL}{57}{section*.78}
+\contentsline {subsubsection}{\nonumberline Funktionsweise}{58}{section*.79}
+\contentsline {subsection}{\numberline {3.7.2}Windows Presentation Foundation}{58}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}DotNetBar}{59}{subsection.3.7.3}
+\contentsline {subsection}{\numberline {3.7.4}MahApps}{59}{subsection.3.7.4}
+\contentsline {chapter}{\numberline {4}Verwendung}{60}{chapter.4}
+\contentsline {section}{\numberline {4.1}Mindestvorraussetzungen...}{60}{section.4.1}
+\contentsline {subsubsection}{\nonumberline ...f\IeC {\"u}r den Computer, auf welchem sp\IeC {\"a}ter das Spiel gespielt wird:}{60}{section*.82}
+\contentsline {subsubsection}{\nonumberline ...f\IeC {\"u}r den Computer, auf welchem der Designer ausgef\IeC {\"u}hrt wird:}{60}{section*.83}
+\contentsline {section}{\numberline {4.2}Designer}{61}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Neues Projekt erstellen}{61}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Altes Projekt laden}{62}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Hauptarbeitsplatz}{62}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Extension}{62}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Engine}{63}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Voreinstellungen}{64}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Kamera}{65}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Entities}{66}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Inputsystem}{67}{subsection.4.3.4}
+\contentsline {chapter}{\numberline {5}Resum\IeC {\'e}}{69}{chapter.5}
+\contentsline {section}{\numberline {5.1}Verbesserungsf\IeC {\"a}higes}{69}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Software}{69}{subsection.5.1.1}
+\contentsline {subsubsection}{\nonumberline Ausbauf\IeC {\"a}higes im Designer}{69}{section*.89}
+\contentsline {subsubsection}{\nonumberline Ausbauf\IeC {\"a}higes in der Engine}{70}{section*.90}
+\contentsline {subsection}{\numberline {5.1.2}Team und Workflow}{70}{subsection.5.1.2}
+\contentsline {subsubsection}{\nonumberline Planung}{70}{section*.91}
+\contentsline {subsubsection}{\nonumberline Kommunikation}{71}{section*.92}
+\contentsline {subsubsection}{\nonumberline Klein Anfangen}{71}{section*.93}
+\contentsline {section}{\numberline {5.2}Haben wir unser Ziel erreicht?}{71}{section.5.2}
+\contentsline {section}{\numberline {5.3}Was haben wir gelernt?}{72}{section.5.3}
+\contentsline {chapter}{\numberline {A}Anhang}{73}{appendix.A}
