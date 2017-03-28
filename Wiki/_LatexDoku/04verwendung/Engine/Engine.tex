@@ -27,19 +27,60 @@ $$Configuration Properties->Linker->Additional Include Directories$$
 \end{figure}
 
 \subsection{Kamera}
-Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht. Für Infos über den Syntax der Kamera wird empfohlen in der DoxyGen-Dokumentation die Klasse "`Camera"' nachzuschlagen.
+Die Kamera ist in dem Generierten Projekt bereits vorhanden. Ihnen wird empfohlen die Werte der Position, Rotation und Zoom der Kamera im Bereich der \textit{Game-Logic} zu verändern. Auch dieser Bereich ist eindeutig mit Kommentaren kenntlich gemacht.
+In dem erstellten Projekt existiert bereits ein Objekt der Klasse \textit{Camera}. Die \textit{Get}-Methoden geben eine Referenz zu dem jeweiligen Parameter der Kamera. Diese können somit sofort manipuliert werden. Als Beispiel:
+\begin{lstlisting}{Cam}
+// Create Camera Object
+Camera camera(Vector3f(0.3f,0.4f,0.0f));
+// Positionattribute Manipulation
+camera.GetPosition().x += 0.5f;
+camera.GetPosition().y -= 0.1f;
+\end{lstlisting}
+Für weitere Infos über den Syntax der Kamera wird empfohlen in der DoxyGen-Dokumentation die Klasse "`Camera"' nachzuschlagen.
 
 \subsection{Entities}
-Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Erstellen Sie zunächst beliebig viele Preset-Objekte ihrer erstellten Entity-Preset-Klasse. Sie können nun bei jedem beliebigen Objekt "`Preset-Einstellungen"' tätigen, in dem Sie dem Entity-Preset-Objekt Standardwerte zuweisen. 
+Erstellen Sie zunächst die Entities an der eindeutig kommentierten Stelle \textit{"'Create Entities here"`}. Erstellen Sie zunächst beliebig viele Preset-Objekte ihrer erstellten Entity-Preset-Klasse. Sie können nun bei jedem beliebigen Objekt "`Preset-Einstellungen"' tätigen, in dem Sie dem Entity-Preset-Objekt Standardwerte zuweisen. Gehen wir davon aus, es gäbe ein Entitypreset Namens BaumPreset. Diesem wurde mittels Designer das RenderableComponent hinzugefügt.
+
+\begin{lstlisting}{Entity}
+BaumPreset baumpreset1;
+\end{lstlisting}
+Um nun dem Preset-Objekt ein Standartmodel zuzuweisen, verwendet man den folgenden Syntax:
+
+Erstellen wir zunächst ein Referenz-Objekt vom Typ Model.
+\begin{lstlisting}{Entity}
+Model* baummodel;
+\end{lstlisting}
+Um nun ein Model zu laden wird die Klasse \textit{ExternFileManager} wie folgt verwendet:
+\begin{lstlisting}{Entity}
+ExternFileManager::
+ReadModelFile("res/baum.dae", rendersystem, &baummodel, false, true);
+\end{lstlisting}
+Dies sagt nun Folgendes aus:
+Wir übergeben den Dateipfad "`res/baum.dae"' und ein Objekt des Render-Systems in dem dann das Model gerendert werden soll. Daraufhin wird  eine Adresse zu dem Objekt der Klasse \textit{Model} übergeben, in diese das Model gespeichert wird. Der darauffolgende boolesche Wert gibt an, ob Instancing verwendet werden soll und der folgende ob das Modell animierbar sein soll. Sie können nun simpel dem Objekt Baum dieses Standartmodell zuweisen. Dies geschieht wie folgt:
+\begin{lstlisting}{Entity}
+baumpreset1.SetModel(&baummodel);
+\end{lstlisting}
 Initialisieren Sie nun einen Entity-Pointer (Klasse: \textit{EntityPtr}) und erstellen sie das Entity in der bereits initialisierten \textit{EntityCollection} namens \textit{scene}. Als Beispiel:
 \begin{lstlisting}{Entity}
 EntityCollection scene;
 EntityPtr baum = scene.CreateEntity();
 \end{lstlisting}
-Diese beinhaltet alle Entities die in dem Spiel verwendet werden.
-%Beispiel
-Wenn ein Entity das Komponent \textit{RenderableComponent} besitzt, so kann es in dem eindeutig kommentierten Abschnitt "'Submit objects here to renderer"` dem Renderer übergeben werden.
-%Beispiel
+Ein Objekt der Klasse \textbf{EntityCollection} beinhaltet alle Entities die in dem Spiel verwendet werden. Jedoch können auch mehrere EntityCollection erstellt und verwendet werden.
+Um die Presets auf einen Entity-Pointer und somit auf ein Entity in einer EntityCollection anzuwenden, wird der folgende Syntax verwendet. 
+\begin{lstlisting}{Entity}
+baumpreset1.SetComponents(baum);
+\end{lstlisting}
+Nun wird dem Entity alle, mit den zuvor bearbeiteten Standartwerten, Komponenten zugewiesen.
+
+Wenn ein Entity das Komponent \textit{RenderableComponent} besitzt, so kann es in dem eindeutig kommentierten Abschnitt "'Submit objects here to renderer"` dem Renderer übergeben werden. Das heißt nun, dass das Model des Entities gerendert werden kann.
+\begin{lstlisting}{Entity}
+/// ##########################
+  //
+  //  Submit objects here to renderer!
+  //
+  renderer3D-Submit(baum.get());
+/// ##########################
+\end{lstlisting}
 Bevor Sie den Entities die Modelle zuweisen, vergessen Sie nicht die Modelle in die Projektmappe von VisualStudio zu laden.
 
 \subsection{Inputsystem}
@@ -66,3 +107,4 @@ win->GetInput().GetLastposInst();
 \end{lstlisting}
 
 Alle Tasten der Tastatur und Maus können über Makros angesprochen werden. Auch können Sie die ASCII-Codes der einzelnen Tasten verwenden. Die Makros, welche die Tasten der Tastatur beschreiben starten mit \textit{"`KEY\_"'}. Die Makros, die für die Maus verwendet werden starten mit \textit{"`MAUS\_"'}.
+(Für weitere Informationen: Siehe DoxyGen Dokumentation)
