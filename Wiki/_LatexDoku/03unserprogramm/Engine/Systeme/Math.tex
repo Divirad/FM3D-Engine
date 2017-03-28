@@ -1,9 +1,10 @@
 \subsection{Math System}
 
 Das Math-System ist für sämtliche mathematischen Berechnungen zuständig. Dazu gehören sehr einfache Rechnungen wie Umwandlung von Grad in Bogenmaß, aber auch komplexere Rechnungen wie zum Beispiel Matrix-Rechnungen. 
-Das System besteht aus Klassen, aber auch einigen C-Style Funktionen, welche kleine Berechnungen ausführen, wie das Umwandeln von Grad in Bogenmaß. Alle Klassen sind Templateklassen, damit sie so flexibel wie möglich sind und für verschiedene Zahl-Datentypen verwendet werden können. Auf Vererbung wurde komplett verzichtet, da es wichtig ist alle Berechnungen so schnell wie möglich auszuführen. Statt Vererbung wird daher Template-Spezialisierung verwendet. Dies hat zwar den Nachteil, dass einiger Code mehrfach geschrieben, bzw. kopiert werden musste, aber dafür werden keine virtuellen Methoden verwendet und somit ist die Größe eines Objektes genau definiert. Dies ist wichtig, da einige Objekt in großer Anzahl in einem Buffer verwendet werden, in welchem alle Objekte im Speicher direkt aneinander liegen. Alle Klassen und Funktionen befinden sich im Namespace FM3D::Math, alle Typdefinitionen nur im Namespace FM3D für leichteren Zugriff.
+Das System besteht aus Klassen, aber auch einigen C-Style Funktionen, welche kleine Berechnungen ausführen, wie das Umwandeln von Grad in Bogenmaß. Alle Klassen sind Templateklassen, damit sie so flexibel wie möglich sind und für verschiedene Zahl-Datentypen verwendet werden können. Auf Vererbung wurde komplett verzichtet, da es wichtig ist, alle Berechnungen so schnell wie möglich auszuführen. Statt Vererbung wird daher Template-Spezialisierung verwendet. Dies hat zwar den Nachteil, dass einiger Code mehrfach geschrieben bzw. kopiert werden musste, aber dafür werden keine virtuellen Methoden verwendet und somit ist die Größe eines Objektes genau definiert. 
+Dies ist wichtig, da einige Objekt in großer Anzahl in einem Buffer verwendet werden, in welchem alle Objekte im Speicher direkt aneinander liegen. Alle Klassen und Funktionen befinden sich im Namespace FM3D::Math, alle Typdefinitionen nur im Namespace FM3D für leichteren Zugriff.
 
-Die zwei Grund Klassen sind Vector und Matrix. Sie besitzen jeweils einen Templateparameter für den Zahl-Datentyp der intern verwendet wird, dazu besitzen sie Ganzzahltemplateparameter, welche die Größe bzw. die Dimension angeben. Vector kann für alle Dimensionen sämtliche mathematischen Grundoperationen und zusätzlich einige Operationen, welche mathematisch nicht möglich sind, im Programm nützlich sind (Kursiv markiert), durchführen:
+Die zwei Grund Klassen sind \textit{Vector} und \textit{Matrix}. Sie besitzen jeweils einen Templateparameter für den Zahl-Datentyp der intern verwendet wird. Dazu besitzen sie Ganzzahltemplateparameter, welche die Größe bzw. die Dimension angeben. Die Klasse Vector kann für alle Dimensionen sämtliche mathematischen Grundoperationen und zusätzlich einige Operationen, welche mathematisch nicht möglich, aber im Programm nützlich sind (Im Beispiel Kursiv markiert), durchführen:
 
 	\begin{longtable}[l]{ll}
 		$\bullet$ Vektor-Addition		& $\overrightarrow{a} + \overrightarrow{b} = \begin{pmatrix} a_{0} + b_{0} \\ a_{1} + b_{1}\\ \vdots  \end{pmatrix} = \overrightarrow{c}$ \\
@@ -20,9 +21,10 @@ Die zwei Grund Klassen sind Vector und Matrix. Sie besitzen jeweils einen Templa
 		$\bullet$ Quadrierte Länge		& $|\overrightarrow{a}|^{2} = a_{0}^{2}+a_{1}^{2}+\dots = c$\\
 	\end{longtable}
 
-Diese Operationen sind als Methoden implementiert bei denen das Objekt, welches die Methode ausführt, am Ende dem neuen Vektor entspricht, also $\overrightarrow{a} = \overrightarrow{c}$. Zurückgegeben wird eine Referenz auf das Objekt, damit die Methoden aneinander gekettet werden können. Außerdem sind die Operationen als statische Methoden implementiert, welche den Vektor $\overrightarrow{a}$ und  $\overrightarrow{b}$ bzw. $b$ als Parameter annimmt und ein neues Objekt zurückgibt, ohne die Argumente zu verändern. Zusätzlich ist für jede Methode der entsprechende Operator als inline Methode bzw. inline friend Funktion implementiert. Dieser ruft einfach nur die Methode auf, sieht aber besser aus im Code.
+Diese Operationen sind als Methoden implementiert, bei denen das Objekt, welches die Methode ausführt, am Ende dem neuen Vektor entspricht, also $\overrightarrow{a} = \overrightarrow{c}$. Zurückgegeben wird eine Referenz auf das Objekt, damit die Methoden aneinander gekettet werden können. Außerdem sind die Operationen als statische Methoden implementiert, welche den Vektor $\overrightarrow{a}$ und  $\overrightarrow{b}$ bzw. $b$ als Parameter annehmen und ein neues Objekt zurück geben, ohne die Argumente zu verändern. Zusätzlich ist für jede Methode der entsprechende Operator als \textit{inline} Methode bzw. \textit{inline friend} Funktion implementiert. 
+Dieser ruft einfach nur die Methode auf, ist aber in der Entwicklung übersichtlicher.
 
-Für Vektoren mit der Dimension zwei, drei und vier gibt es jeweils eine Spezialisierung der Template-Klasse. Das hat den Vorteil, dass die Member-Variablen richtige Namen haben und somit keine For-Schleifen verwendet werden müssen und die Klasse besitzt Methoden, welche nur für diese Dimension Anwendung finden. Dies sind zum Beispiel statische Methoden für die Koordinatenachsen oder das Kreuzprodukt für einen 3D-Vektor.
+Für Vektoren mit der Dimension zwei, drei und vier gibt es jeweils eine Spezialisierung der Template-Klasse. Das hat den Vorteil, dass die Member-Variablen richtige Namen habe, und somit keine For-Schleifen verwendet werden müssen und die Klasse besitzt Methoden, welche nur für diese Dimension Anwendung finden. Dies sind zum Beispiel statische Methoden für die Koordinatenachsen oder das Kreuzprodukt für einen 3D-Vektor.
 
 Die Matrix-Klasse verhält sich ähnlich wie die Vector-Klasse. Alle Elemente werden in einem Array gespeichert. Sie werden Reihe für Reihe gespeichert, was die folgenden Indices ergibt: \newline
 $\begin{pmatrix}
@@ -42,7 +44,7 @@ $\begin{pmatrix}
 Sie sind wie bei der Vector-Klasse als Methoden und Operatoren implementiert.
 
 Es gibt zwei verschiedene Matrix-Spezialisierungen: Eine 2x2 Matrix und 4x4 Matrix.
-Diese Klassen besitzen zusätzlich statische Methoden um spezielle Matrizen zu erstellen. Die 2x2 Matrix kann eine Rotationsmatrix für 2D-Vektoren erstellen, die 4x4 Matrix verschiedene Transformationsmatrizen für 3D-Vektoren:
+Diese Klassen besitzen zusätzlich statische Methoden, um spezielle Matrizen zu erstellen. Die 2x2 Matrix kann eine Rotationsmatrix für 2D-Vektoren erstellen, die 4x4 Matrix verschiedene Transformationsmatrizen für 3D-Vektoren:
 	\begin{longtable}[l]{ll}
 		$\bullet$ Projektionsmatrix & Siehe \cref{Sec:Projection}\\
 		$\bullet$ Translationsmatrix & Verschiebung für $\overrightarrow{v} = \begin{pmatrix}
@@ -61,13 +63,13 @@ Diese Klassen besitzen zusätzlich statische Methoden um spezielle Matrizen zu e
 		\end{pmatrix}$\\
 	\end{longtable}
 
- Bei der Multiplikation mit einem 3D-Vektor wird angenommen, dass die 4. Komponente des Vektors, welche nicht vorhanden ist, 1 beträgt. Dadurch ist es möglich Translationen abzubilden. Zusätzlich kann die 4x4 Matrix invertiert und transponiert werden.  
+Bei der Multiplikation mit einem 3D-Vektor wird angenommen, dass die 4. Komponente des Vektors, welche nicht vorhanden ist, 1 beträgt. Dadurch ist es möglich Translationen abzubilden. Zusätzlich kann die 4x4 Matrix invertiert und transponiert werden.  
 
 Damit nicht immer der volle Klassenname mit Templateargumenten ausgeschrieben werden muss, gibt es einige Typdefinitionen. Diese sind folgendermaßen aufgebaut:
 \newline"`Vector"' + \textit{Dimension} + \textit{Abkürzung des Datentyps}
 \newline"`Matrix"' + \textit{Anzahl Reihen} + \textit{Anzahl Spalten} + \textit{Abkürzung des Datentyps}
 \newline Für quadratische: "`Matrix"' + \textit{Anzahl Reihen} + \textit{Abkürzung des Datentyps}
 \newline"`Quaternion"' + \textit{Abkürzung des Datentyps}
-\newline Zum Beispiel für einen dreidimensionalen Vektor mit dem Skalar-Datentyp \textit{float}: 
-\newline\textit{Vector3f}
-Zusätzlich gibt es noch Typdefinitionen für Farben. Diese sind nur eine andere Schreibweise eines Vektors bei der "Vector" mit "Color" ersetzt wird.
+\newline Zum Beispiel einen dreistelligen Vektor für Float: 
+\newline\textit{Vector3f}.
+Zusätzlich gibt es noch Typdefinitionen für Farben. Diese sind nur eine andere Schreibweise eines Vektors bei der "`Vector"' mit "`Color"' ersetzt wird.
