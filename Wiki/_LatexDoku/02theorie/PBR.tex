@@ -1,41 +1,49 @@
 \subsection{Physically Based Rendering}
 
-In einer 3D-Szene eines Videospiels will man natürlich komplexere Objekte als simple Primitives darstellen. Diese Objekte bestehen aus vielen Primitives, in diesem Falle sind meist Dreiecke. 
-Die Art der Zusammensetzung ist unterschiedlich: manchmal kann es effizienter sein aneinander hängende Dreiecke zu verwenden. Jedoch werden meistens nur einzelne Dreiecke gerendert. 
+In einer 3D-Szene eines Videospiels will man natürlich komplexere Objekte als simple Primitives darstellen. Diese Objekte bestehen aus vielen Primitives, in diesem Falle meist Dreiecke. 
+Die Art der Zusammensetzung ist unterschiedlich. Manchmal kann es effizienter sein, aneinander hängende Dreiecke zu verwenden, jedoch werden meistens nur einzelne Dreiecke gerendert. 
 Einige Programme verwenden %auch andere 
 Polygone, welche aber auch aus Dreiecken bestehen. Daher ist dies irrelevant. 
-Ein Objekt, gebildet aus Dreiecken, nennt man \textit{Mesh}. Als Beispiel ist das Mesh eines Delfins in \cref{Dolphin} dargestellt. Die Farbe bzw. die "`Haut"' eines Objektes wird aus einem zweidimensionalem Bild gelesen. Genannt wird dies eine \textit{Textur}.
+Ein Objekt, gebildet aus Dreiecken, nennt man \textit{Mesh}. Als Beispiel ist das Mesh eines Delfins in \cref{Dolphin} dargestellt. Die Farbe bzw. die "`Haut"' eines Objektes wird aus einem zweidimensionalem Bild gelesen. Genannt wird dies \textit{Textur}.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{06anhang/bilder/delphin.jpg}
+		\caption{Mesh eines Delfins}
+		\label{Dolphin}
+	\end{center}
+\end{figure}
  
 Dafür besitzt jeder Vertex zusätzlich zu seiner Position eine zweidimensionale Position auf der Textur. So kann ermittelt werden, welche Pixel der Textur verwendet werden sollen.
-Mit Mesh und Textur ist es möglich ein Objekt in einer dreidimensionalen Szene anzuzeigen. In einem Videospiel würde dies jedoch nicht überzeugen. Es wird \ac{PBR} verwendet. \ac{PBR} ist eine Möglichkeit eine realistischere dreidimensionale Szene zu erzeugen, in dem physikalische Phänomene, wie Licht, berücksichtigt werden. 
-Wie ein Objekt auf Licht reagiert, hängt von verschiedenen Größen ab, wie die eigentliche Farbe des Objekts, die Oberflächenstruktur, aber auch die Farbe und Richtung des einfallenden Lichts. Alle Eigenschaften eines Objekts, die sich auf die Farbe auswirken, werden in einem \textit{Material} zusammengefasst. 
+Mit Mesh und Textur ist es möglich, ein Objekt in einer dreidimensionalen Szene anzuzeigen. In einem Videospiel würde dies jedoch nicht überzeugen. Es wird \ac{PBR} verwendet. \ac{PBR} ist eine Möglichkeit, eine realistischere dreidimensionale Szene zu erzeugen, indem physikalische Phänomene wie z.B. Licht berücksichtigt werden. 
+Wie ein Objekt auf Licht reagiert, hängt von vier verschiedenen Größen ab: der eigentlichen Farbe des Objekts, der Oberflächenstruktur, der Farbe und der Richtung des einfallenden Lichts. Alle Eigenschaften eines Objekts, die sich auf die Farbe auswirken, werden in einem \textit{Material} zusammengefasst. 
 Ein Objekt, welches gerendert werden soll, besitzt beides: 
 ein \textit{Mesh} und ein \textit{Material}. Das ganze wird zusammengefasst \textit{Model} genannt.
 
-Es gibt zwei Arten von Lichtquellen in der FM3D-Engine: \textit{Directional Light} und \textit{Point Lights}. Ein Directional Light besitzt eine Richtung, aber keine Position. Diese Art kann verwendet werden, um zum Beispiel eine Sonne zu simulieren, die ist soweit von der Erde entfernt, dass die Position irrelevant wird. Die Richtung der Strahlen hingegen ist wichtig und von der Tageszeit abhängig. 
+Es gibt zwei Arten von Lichtquellen in der FM3D-Engine: \textit{Directional Light} und \textit{Point Lights}. Ein Directional Light besitzt eine Richtung, aber keine Position. Diese Art kann verwendet werden, um zum Beispiel eine Sonne zu simulieren, die so weit von der Erde entfernt ist, dass die Position irrelevant wird. Die Richtung der Strahlen hingegen ist wichtig und von der Tageszeit abhängig. 
 
-Point Lights sind das genaue Gegenteil. Sie besitzen keine Lichtrichtung, sondern scheinen in alle Richtungen gleich. Dafür besitzen sie eine genau festgelegte Position, die relevant relevant ist, da die Lichtstärke mit zunehmendem Abstand kleiner wird. Point Lights können verwendet werden, um die meisten Lichtquellen darzustellen (als Beispiel: Laternen oder Fackeln).
+Point Lights sind das genaue Gegenteil. Sie besitzen keine Lichtrichtung, sondern scheinen in alle Richtungen gleich. Dafür besitzen sie eine genau festgelegte Position, die relevant ist, da die Lichtstärke mit zunehmendem Abstand kleiner wird. Point Lights können verwendet werden, um die meisten Lichtquellen darzustellen (als Beispiel: Laternen oder Fackeln).
 
 Man kann aber nicht nur zwischen Lichtquellen unterscheiden, sondern auch zwischen verschiedenen Arten des ausgesendeten Lichts. Die \ac{FM3D}-Engine verwendet ein Lichtmodell genannt "`Ambient/Diffuse/Specular"'. 
-\textit{Ambient Light} ist das Licht, dass man jeden Tag sieht, auch wenn gerade keine Sonne scheint oder man sich nicht in direkter Nähe einer Lichtquelle befindet. 
+\textit{Ambient Light} ist das Licht, das man jeden Tag sieht, auch wenn gerade keine Sonne scheint oder man sich nicht in direkter Nähe einer Lichtquelle befindet. 
 Es entsteht dadurch, dass Licht von allen Objekten wieder teilweise reflektiert wird und so eine schwache und gleichmäßige Beleuchtung entsteht. Ohne das Ambient Light wäre es hinter einem Haus, welches die Sonne verdeckt, komplett finster. 
 
 Die zweite Lichtart ist \textit{Diffuse Light}, welches abhängig von dem Auftrittswinkel des Lichtstrahls ist. Betrachten wir einen Würfel, so sehen wir: 
 die dem Licht zugewandte Seite ist heller, als die nur teilweise zugewandte Seite und die abgewandte Seite erfährt gar kein \textit{Diffuse Light}. 
 
-\textit{Specular light} modelliert die Lichtstrahlen, welche von einem Objekt reflektiert und in die Linse der Kamera bzw. in die Augen des Betrachters gelangen. Dies wird als blendendes, helles Licht wahrgenommen und ist oft auf metallischen Obeflächen zu erkennen. Diese drei Lichtarten sind in \cref{Img:Lights} dargestellt.
+\textit{Specular light} modelliert die Lichtstrahlen, welche von einem Objekt reflektiert und in die Linse der Kamera bzw. in die Augen des Betrachters gelangen. Dies wird als blendendes, helles Licht wahrgenommen und ist oft auf metallischen Oberflächen zu erkennen. Diese drei Lichtarten sind in \cref{Img:Lights} dargestellt.
 
-Alle Lichtberechnungen müssen für jeden Pixel ausgeführt werden und laufen daher im Fragment-Shader ab.
+Alle Lichtberechnungen müssen für jedes Pixel ausgeführt werden und laufen daher im Fragment-Shader ab.
 Um die Farbe eines gerenderten Pixels zu bestimmen, benötigt man einige Informationen: die Position, die Farbe, den Normalenvektor und Specular-Factor des Pixels. Diese vier Informationen reichen für alle Lichtberechnungen aus. Die Phase, in der sie erstellt bzw. berechnet werden, ist unterschiedlich. Ein Teil wird außerhalb des Programms in externen Programmen erstellt und als Vertex im Mesh oder als Information im Material gespeichert. Dabei unterscheidet man zwischen:
 \begin{itemize}
-	\item Der Information, die sich zwischen verschiedenen Objekten unterscheidet, aber nicht innerhalb des Objekts
+	\item Der Information, die sich für verschiedene Objekte unterscheidet, aber nicht innerhalb des Objekts
 	\item Information, die für jeden Vertex anders ist aber für jeden Pixel nur linear interpoliert werden muss
-	\item Information die für jeden Pixel anders ist
+	\item Information, die für jedes Pixel anders ist
 \end{itemize}
 
-Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes Material haben kann und es anders als ein Mesh nicht viel Speicher benötigt. Die Vertexinformationen werden im \ac{VBO} des Mesh gespeichert und automatisch linear interpoliert, wenn sie an den Fragment-Shader weiter gegeben werden. Pixelinformationen müssen einzeln in einer Textur gespeichert werden. Diese sind dann im Material enthalten, wobei diese nur referenziert werden, damit verschiedene Materials die gleichen Texturen verwenden können. In den Vertex-Informationen müssen hierfür zusätzlich Textur-Koordinaten gespeichert werden. Daraus ergeben sich die folgenden Werte, die in \cref{table:VertexAufbau} zu sehen sind.
+Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes Material haben kann und es anders als ein Mesh nicht viel Speicher benötigt. Die Vertexinformationen werden im \ac{VBO} des Mesh gespeichert und automatisch linear interpoliert, wenn sie an den Fragment-Shader weitergegeben werden. Pixelinformationen müssen einzeln in einer Textur gespeichert werden. Diese sind dann im Material enthalten, wobei diese nur referenziert werden, damit verschiedene Materials die gleichen Texturen verwenden können. In den Vertex-Informationen müssen hierfür zusätzlich Textur-Koordinaten gespeichert werden. Daraus ergeben sich die folgenden Werte, die in \cref{table:VertexAufbau} zu sehen sind.
 
-\begin{table}
+\begin{table}[h]
 	\caption{Vertex Aufbau}
 	\label{table:VertexAufbau}
 	\centering
@@ -48,8 +56,9 @@ Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes
 		3D-Vektor & Tangent & Tangentenvektor des Dreiecks. Benötigt wenn \\
 		 & & Normal maps verwendet werden. Siehe \cref{section:Normalmapping}\\\bottomrule[1.5pt]
 	\end{tabular}
+	Quelle: Eigene Darstellung
 \end{table}
-\begin{table}
+\begin{table}[h]
 	\caption{Material Aufbau}
 	\centering
 	\begin{tabular}{lll}\toprule[1.5pt]
@@ -64,17 +73,9 @@ Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes
 	 Boolean & UseWireframe & Gibt an ob ganze Dreiecke gerendert werden sollen\\
 	  & & oder nur die Kanten. (Nützlich für Debugging)\\\bottomrule[1.5pt]
 \end{tabular}
+	Quelle: Eigene Darstellung
 \end{table}
 
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=0.5\textwidth]{06anhang/bilder/delphin.jpg}
-		\caption{Mesh eines Delfins}
-		\label{Dolphin}
-	\end{center}
-\end{figure}
-\todo[inline]{delfin verschieben}
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.4]{02theorie/amb_diff_spec.png}

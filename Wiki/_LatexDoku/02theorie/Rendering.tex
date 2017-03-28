@@ -1,39 +1,40 @@
-\section[Rendering]{Rendering\cite{GLReference, OglDev, ThinMatrix, SparkyEngine, GLTut}}
+\section[Rendering]{Rendering}
 \label{rendering}
+
+Im folgenden Abschnitt werden die gewonnenen Erkenntnisse aus mehreren Online-Tutorials und Nutzerhandbüchern zusammengefasst. Verwendet wurden die Materialien der Khronos Group, E.Meiri, ThinMatrix, T.Cherno, OpenGL Tutorials.\cite{GLReference, OglDev, ThinMatrix, SparkyEngine, GLTut}
+
+
 \subsection{OpenGL Grundlagen}
 
-Die FM3D-Engine verwendet für die Darstellung von dreidimensionalen Szenen die Grafikbibliothek OpenGL. Mit OpenGL ist es möglich verschiedene kleine grafische Objekte zu rendern. Dieses entsprechen drei geometrischen Grundobjekte (\textit{Primitives}): 
-Punkte, Linien und Dreiecke. Zudem gibt es verschiedene Möglichkeiten diese aneinander zu reihen, wie in \cref{OpenGLPrimitives} dargestellt ist. Sie können alle einzeln, aber auch aneinanderhängend gerendert werden. Bei letzteren kann Speicher bei den angrenzenden Eckpunkten gespart werden. Diese \textit{Primitives} werden durch ihre Eckpunkte oder auch \textit{Vertices} genannt definiert. 
+Die FM3D-Engine verwendet für die Darstellung von dreidimensionalen Szenen die Grafikbibliothek OpenGL. Mit OpenGL ist es möglich, verschiedene kleine grafische Objekte zu rendern. Diese entsprechen drei geometrischen Grundobjekten (\textit{Primitives}): 
+Punkte, Linien und Dreiecke. Zudem gibt es verschiedene Möglichkeiten diese aneinander zu reihen, wie in \cref{OpenGLPrimitives} dargestellt ist. Sie können alle einzeln, aber auch aneinanderhängend gerendert werden. Bei letzterem kann Speicher bei den angrenzenden Eckpunkten gespart werden. Diese \textit{Primitives} werden durch ihre Eckpunkte, oder auch \textit{Vertices} genannt, definiert. 
 Sie beschreiben eine Position in einem dreidimensionalen Raum. OpenGL arbeitet mit einem orthografischem Koordinatensystem. Das heißt: alle drei Achsen sind orthogonal zueinander und reichen von den Werten -1 bis 1.
 
 \subsubsection{Frame-Buffer}
 Das aktuelle Bild wird in mehreren Buffern gespeichert. Die Größe der Buffer ist direkt proportional zu der Pixelanzahl des \textit{Viewports}, also zu dem Bereich, in welchem das gerenderte Bild dargestellt wird. 
-Am relevantesten ist der Color-Buffer, der die Farbe jedes Pixels in vier Floats speichert. Jeweils einen für Rot, Grün, Blau und einen Alpha-Wert, welcher die Transparenz beschreibt. Des Weiteren gibt es den Depth-Buffer. Dieser ist selten auch als Z-Buffer in der Literatur zu finden. Er beschreibt den Abstand zwischen dem aktuell gerenderten Pixel und der Kameraebene. Diese Information wird als Farbinformation in dem Depth-Buffer gespeichert. 
+Am relevantesten ist der Color-Buffer, der die Farbe jedes Pixels in vier Floats speichert: Jeweils einen für Rot, Grün, Blau und einen Alpha-Wert, welcher die Transparenz beschreibt. Des Weiteren gibt es den Depth-Buffer. Dieser ist selten auch als Z-Buffer in der Literatur zu finden. Er beschreibt den Abstand zwischen dem aktuell gerenderten Pixel und der Kameraebene. Diese Information wird als Farbinformation in dem Depth-Buffer gespeichert. 
 \todo[inline]{Channels? Wird nie erwähnt}
 Man benötigt nur einen Channel, da nur ein einziger Zahlenwert gespeichert werden muss. So ist, wenn man den Buffer anzeigt, nur ein Schwarz-Weiß-Bild zu sehen. 
 Je heller der Pixel ist, desto weiter weg befindet er sich. Die Größe des Depth-Buffer ist einstellbar. Je größer er ist, desto größer ist auch die Präzision, wobei der Depth-Buffer immer eine viel größere Präzision in der Nähe der Kamera besitzt und nach weiter hinten an Präzision verliert. Dies ist von Vorteil, wenn Objekte sehr nah an der Kamera gerendert werden, da dort eine sehr hohe Präzision erforderlich ist. 
 Die Präzision ist aber nicht sehr relevant, wenn das Objekt weiter entfernt ist. Der Depth-Buffer ist optional. Wird er nicht verwendet, so kann die räumliche Anordnung der Primitives nicht ermittelt werden. Welcher Pixel am Ende angezeigt wird, ist von der Reihenfolge, in der die Primitives gerendert werden, abhängig. Wobei das zuletzt gerenderte Primitive ganz vorne zu sehen ist. Diese Buffer sind in \cref{DepthBuffer} dargestellt. 
 
 Zudem gibt es noch den \textit{Stencil-Buffer}. Dieser ist ebenfalls optional und ordnet jedem Pixel einen bestimmten Wert zu. Er kann verwendet werden, um bei bestimmten Pixeln das Rendern zu verhindern. Wie er dies umsetzt, ist einstellbar. Es ist möglich verschiedene Operationen durchzuführen, wenn ein Pixel gerendert wird. Es ist zum Beispiel möglich, dass der Stencil-Wert auf 1 gesetzt oder um 1 erhöht wird. 
-Zudem ist es möglich den Stencil-Test einzustellen. Dieser wird bei jedem Renderprozess eines Pixels ausgeführt. So kann man zum Beispiel erreichen, dass nur dort, wo der Stencil-Buffer den Wert 1 besitzt, ein Pixel gerendert wird. 
-\todo[inline]{folgender Satz ganz komisch. Entweder überarbeiten oder mir zum umschreiben erläutern. Gruß Max :)}
-Dadurch können \textit{Schablonen} erstellt werden, bei welchen Objekte gerendert und bei welchen nicht gerendert werden können, daher auch der Name.
+Zudem ist es möglich den Stencil-Test einzustellen. Dieser wird bei jedem Renderprozess eines Pixels ausgeführt. So kann man zum Beispiel erreichen, dass nur dort, wo der Stencil-Buffer den Wert 1 besitzt, ein Pixel gerendert wird. Dadurch können \textit{Schablonen} erstellt werden, die festlegen welche Teile eines Objekts gerendert werden sollen.
 
 Alle Buffer zusammen werden in einem \ac{FBO} gespeichert. Dieses ermöglicht das gleichzeitige Aktivieren aller zugehörigen Buffer, sowie das Anzeigen des Color-Buffers auf dem Bildschirm. Es muss nicht speziell ein \ac{FBO} erstellt werden. Wenn keines erstellt wird, so wird standardmäßig direkt auf den \textit{Screen-Buffer} gerendert. Ein weiterer Vorteil ist, dass man ein \ac{FBO} sowohl als Output (dies ist die häufigere Verwendung) aber auch auch als Input verwenden kann. So kann man zum Beispiel eine gerenderte 3D-Szene in einer anderen 3D- oder 2D-Szene einfügen.  
 
 \subsubsection{Buffer Objects}
-Will man einen oder mehrere dieser \textit{Primitives} rendern, so laufen die Daten, welche diese \textit{Primitives} definieren, durch verschiedene Schritte. Diese werden in der Literatur auch oft als die "`Rendering-Pipeline"' bezeichnet. Bei Verwendung dieser Pipeline können immer nur eine Art von Primitives gleichzeitig gerendert werden.
-Die Daten werden dabei als Buffer auf der \ac{GPU} gespeichert. Verwendet werden dazu die \acp{VBO}, welche als Byte-Arrays vorliegen. Bei ihnen muss manuell eingestellt werden, wie diese Bytes interpretiert werden sollen. Dafür beschreibt man verschiedene Attribute mit Byte-Anzahl und Größe sowie DatenTyp. Zum Beispiel beschreiben die ersten 4 Bytes einen Float und die darauffolgenden 12 einen 3D-Float-Vektor. Es können auch mehrere \ac{VBO}s in einen \ac{VAO} zusammengefasst werden. \acp{VAO} speichern den Zustand der enthaltenen \acp{VBO} und die Information, welche Attribute verwendet werden. Zusätzlich zu einem oder mehreren \acp{VBO}, kann ein \ac{IBO} verwendet werden. Dieser besteht aus einem Array von ganz rationale Zahlen und wird ebenfalls auf der \ac{GPU} gespeichert. 
+Will man einen oder mehrere dieser \textit{Primitives} rendern, so laufen die Daten, welche diese \textit{Primitives} definieren, durch verschiedene Schritte. Diese werden in der Literatur auch oft als die "`Rendering-Pipeline"' bezeichnet. Bei Verwendung dieser Pipeline kann immer nur eine Art von Primitives gleichzeitig gerendert werden.
+Die Daten werden dabei als Buffer auf der \ac{GPU} gespeichert. Verwendet werden dazu die \acp{VBO}, welche als Byte-Arrays vorliegen. Bei ihnen muss manuell eingestellt werden, wie diese Bytes interpretiert werden sollen. Dafür beschreibt man verschiedene Attribute mit Byte-Anzahl und Größe sowie DatenTyp. Zum Beispiel beschreiben die ersten 4 Bytes einen Float und die darauffolgenden 12 einen 3D-Float-Vektor. Es können auch mehrere \ac{VBO}s in einem \ac{VAO} zusammengefasst werden. \acp{VAO} speichern den Zustand der enthaltenen \acp{VBO} und die Information, welche Attribute verwendet werden. Zusätzlich zu einem oder mehreren \acp{VBO} kann ein \ac{IBO} verwendet werden. Dieser besteht aus einem Array von ganz-rationalen Zahlen und wird ebenfalls auf der \ac{GPU} gespeichert. 
 Er beschreibt, welche Vertices für welche Primitives verwendet werden sollen, wobei Vertices mehrfach verwendet werden können. 
-Der Index-Buffer wird nacheinander durchgegangen und jeder darin gespeicherte Index steht für einen Wert im \ac{VBO}. Wenn man also viele Primitives hat, die sich einen gemeinsamen Punkt teilen, ist es effizienter, einen Index-Buffer zu verwenden, da dieser gemeinsame Vertex nur einmal gespeichert werden muss. In der Regel ist die Größe eines Vertex weitaus größer, als die Größe eines Index. Zum Beispiel können mit dem \ac{IBO} { 0, 1, 2, 2, 1, 3} zwei Dreiecke gerendert werden. So werden aber nur 4 Vertices benötig (0-3)\cite{ThinMatrix}.
-\todo[inline]{was ist 0-3? gruß Max}
+Der Index-Buffer wird nacheinander durchgegangen und jeder darin gespeicherte Index steht für einen Wert im \ac{VBO}. Wenn man also viele Primitives hat, die sich einen gemeinsamen Punkt teilen, ist es effizienter, einen Index-Buffer zu verwenden, da dieser gemeinsame Vertex nur einmal gespeichert werden muss. In der Regel ist die Größe eines Vertex weitaus größer, als die Größe eines Index. Zum Beispiel können mit dem \ac{IBO} { 0, 1, 2, 2, 1, 3} zwei Dreiecke gerendert werden. Für die gleiche Darstellung werden aber nur 4 Vertices benötig (0,1, 2, 3)\cite{ThinMatrix}.
 
 \subsubsection{Pipeline \cite{Pipeline}}
 Ein \ac{VBO} oder ein \ac{VAO} entsprechen dem Input der Pipeline, wobei in modernen Programmen immer \acp{VAO} verwendet werden, da sie zusätzliche Informationen speichern können.
 
 In der Pipeline bestehen mehrere Schritte aus Shadern. Diese Shader sind kleinere Programme, welche auf der Grafikkarte ausgeführt werden. Sie werden in der Programmiersprache GLSL programmiert. 
 Dies ist eine spezielle Sprache, die für Shader von OpenGL verwendet wird. Sie ähnelt stark C und besitzt einige bereits zur Verfügung gestellte Funktionen, um linear algebraische Rechnungen durchzuführen. 
-Sie unterscheidet sich stark zwischen den einzelnen OpenGL-Versionen, da ständig neue Features hinzugefügt werden. Die FM3D-Engine besitzt daher auch teilweise für verschiedene OpenGL-Versionen verschiedene Shader-Implementationen.
+Sie unterscheidet sich stark in den einzelnen OpenGL-Versionen, da ständig neue Features hinzugefügt werden. Die FM3D-Engine besitzt daher auch teilweise für verschiedene OpenGL-Versionen verschiedene Shader-Implementationen.
 
 Ein grober Überblick über die Rendering-Pipeline wird in \cref{RenderingPipeling} gegeben. Der erste Schritt ist das Erstellen der Daten und das Angeben der Attribute. Diese sind der Input für den \textit{Vertex-Shader}. 
 
@@ -49,17 +50,14 @@ Primitives, die sich nicht mehr in dem Bereich von -1 bis 1 befinden, werden ent
 
 Der nächste Schritt ist abhängig von der Art von Primitive, die man gewählt hat. Wenn man eine zusammenhängende Reihe von Primitives rendert, wird diese aufgelöst und in einzelne Primitves aufgeteilt. Dies geschieht so, dass folgende Operationen immer auf ganze Primitves ausgeführt werden und nicht nur auf einen Stream von Vertices. 
 Es wird auch eine Operation namens \textit{Face Culling} durchgeführt. Diese Operation wird nur für Dreiecke ausgeführt. Alle Dreiecke, die von der Kamera weg zeigen, werden ignoriert ohne sie zu rendern. 
-So kann verhindert werden, dass bei Objekten, die komplett aus Dreiecken umschlossen sind, bei denen die Rückseite eines Dreiecks sowieso nie zu sehen ist, keine unnötigen Dreiecke gerendert werden. Es kann eingestellt werden, ob diese Operation durchgeführt werden soll oder nicht. Für transparente Objekte kann sie zum Beispiel nicht verwendet werden, da dort die Rückseite trotzdem zu sehen ist.
+So kann verhindert werden, dass bei Objekten, die eine geschlossene Oberfläche aus Dreiecken aufweisen, bei denen die Rückseite eines Dreiecks sowieso nie zu sehen ist, unnötige Dreiecke gerendert werden. Es kann eingestellt werden, ob diese Operation durchgeführt werden soll oder nicht. Für transparente Objekte kann sie zum Beispiel nicht verwendet werden, da dort die Rückseite trotzdem zu sehen ist.
 
 Danach folgt der Schritt \textit{Rasterization}. Er beschreibt die Umwandlung von Primitives in \textit{Fragments}, also Pixel auf dem Bildschirm. Es werden bei diesem Schritt weitere Optimisierungsvorgänge durchgeführt, um keine unnötigen \textit{Fragments} zu rendern.
 
 Der vorletzte Schritt ist ein Shaderprogramm. Der \textit{Fragment-Shader} wird für jedes Fragment einmal ausgeführt und bestimmt die Farbe der Pixel. Als Input bekommt er den Output des davor ausgeführten Shaders, wobei die Werte für jedes Fragment interpoliert werden müssen und so eine Mischung aus den Daten jedes Vertex generiert wird. 
 Diese verteilen sich linear über das Primitive. Der Fragment-Shader ist der am häufigsten ausgeführte Shader. Daher sollten alle nicht unbedingt benötigten Berechnungen in vorherigen Shadern ausgeführt werden.
 
-Als finalen Schritt werden verschiedene Tests für das Fragment ausgeführt, wie der Depth- und Stencil-Test,
-\todo[inline]{Nur ein Depth und Stencil Test, oder meherer? Tests/Test} um zu bestimmen, ob das Fragment wirklich angezeigt werden soll. Wenn alle Tests positiv sind, wird das Fragment \todo[inline]{mit dem bestehenden Fragment?????!!!!}
-auf dem Buffer verrechnet.
-\todo[inline]{Siehe auskommentierten LaTeX-Code}
+Als finalen Schritt werden verschiedene Tests für das Fragment ausgeführt, wie der Depth- und der Stencil-Test, um zu bestimmen, ob das Fragment wirklich angezeigt werden soll. Wenn alle Tests positiv sind, wird das Fragment auf dem Buffer gespeichert.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.7]{02theorie/openglPrimitives.png}

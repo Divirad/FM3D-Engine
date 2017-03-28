@@ -56,7 +56,6 @@
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
 
-\usepackage{tocloft}
 
 % Zitatgedöns
 %\usepackage{multibib}
@@ -150,22 +149,11 @@
 
 \include{06anhang/abkuerzungsverzeichnis}
 % Tabellenverzeichnis
-
-\begin{figure}
-	\setlength{\cfttabnumwidth}{2cm} %die Breite f. "Tabelle 1.1"
-	\renewcommand{\thetable}{Tabelle \arabic{table}:}
-	\renewcommand{\tablename}{}
-\end{figure}
 	\listoftables
 \clearpage
 
 % Abbildungsverzeichnis
-\begin{figure}
-	\setlength{\cftfignumwidth}{2cm} 
-	\renewcommand{\thefigure}{Abb. \arabic{figure}:}
-	\renewcommand{\figurename}{}
 	\listoffigures
-\end{figure}
 
 
 \clearpage
