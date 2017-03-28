@@ -54,4 +54,18 @@ Um die Farbe eines gerenderten Pixels zu bestimmen benötigen wir einige Informa
 	\caption{Lights}\label{Img:Lights}
 \end{figure}
 
-Die FM3D-Engine verwendet \textit{Deferred Rendering}. Dies bedeutet, dass erst alle Objekte einer Szene gerendert werden und die Ergebnisse daraus in mehreren Buffern gespeichert werden. Danach wird für jede Lichtquelle ein weiterer Renderprozess ausgeführt, wobei die vorher genannten Buffer als Input dienen. Das Ergebnis ist dann das zusehende Bild. Der Vorteil hierbei ist, dass keine Lichtberechnungen unnötig ausgeführt werden, da alle Pixel später zusehen sind und es gibt keine Begrenzung für die Anzahl der Lichtquellen. 
+Die FM3D-Engine verwendet \textit{Deferred Rendering}. Dies bedeutet, dass erst alle Objekte einer Szene gerendert werden und die Ergebnisse daraus in mehreren Buffern gespeichert werden, zusammengefasst \textit{G-Buffer} genannt. Danach wird für jede Lichtquelle ein weiterer Renderprozess ausgeführt, wobei die vorher genannten Buffer als Input dienen. Das Ergebnis ist dann das zusehende Bild. Der Vorteil hierbei ist, dass keine Lichtberechnungen unnötig ausgeführt werden, da alle Pixel, für die die Berechnungen ausgeführt werden, später zusehen sind und es gibt keine Begrenzung für die Anzahl der Lichtquellen. Der Aufbau des G-Buffers ist in \cref{table:GBuffer} zu sehen.
+
+\begin{table}
+	\caption{G-Buffer Aufbau}
+	\label{table:GBuffer}
+	\centering
+	\begin{tabular}{rlll}\toprule[1.5pt]
+		Größe & Name & Channels & Beschreibung \\\midrule
+		96 Bit  & Position-Buffer & RGB mit je 32-Bit float & Speichert die Position im Worldspace.\\
+		128 Bit & Color-Buffer & RGBA mit je 32-Bit float & Speichert die Farbe jedes Pixels in den Werten RGB und den Specular factor im Alpha-Wert \\
+		96 Bit & Normal-Buffer & RGB mit je 32-Bit float & Speichert den Normalenvektor im Worldspace \\
+		32 Bit & Depth-Stencil-Buffer & 24 Bit Depth, 8 Bit Stencil & Speichert den Depth- und Stencil-Wert des resultierenden Bildes \\
+		128 Bit & Final-Buffer & RGBA mit je 32-Bit float & Speichert die resultierende Farbe jedes Pixels mit Alpha-Wert \\\bottomrule[1.5pt]
+	\end{tabular}
+\end{table}
