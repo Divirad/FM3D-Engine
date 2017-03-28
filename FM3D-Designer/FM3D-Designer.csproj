@@ -131,8 +131,8 @@
     <Compile Include="src\ToolWindows\Skeleton\AnimationsWindow.xaml.cs">
       <DependentUpon>AnimationsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ToolWindows\Skeleton\MeshWindow.xaml.cs">
-      <DependentUpon>MeshWindow.xaml</DependentUpon>
+    <Compile Include="src\ToolWindows\Skeleton\BonesWindow.xaml.cs">
+      <DependentUpon>BonesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\ToolWindows\Skeleton\PropertiesWindow.xaml.cs">
       <DependentUpon>PropertiesWindow.xaml</DependentUpon>
@@ -255,7 +255,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="src\ToolWindows\Skeleton\MeshWindow.xaml">
+    <Page Include="src\ToolWindows\Skeleton\BonesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

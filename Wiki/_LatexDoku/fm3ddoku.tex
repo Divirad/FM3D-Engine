@@ -51,6 +51,13 @@
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
 \lstset{language=C}
 
+% Fortlaufende nummerierung
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+\usepackage{tocloft}
+
 % Zitatgedöns
 %\usepackage{multibib}
 %\usepackage{hyperref}
@@ -143,10 +150,23 @@
 
 \include{06anhang/abkuerzungsverzeichnis}
 % Tabellenverzeichnis
-\listoftables
+
+\begin{figure}
+	\setlength{\cfttabnumwidth}{2cm} %die Breite f. "Tabelle 1.1"
+	\renewcommand{\thetable}{Tabelle \arabic{table}:}
+	\renewcommand{\tablename}{}
+\end{figure}
+	\listoftables
+\clearpage
 
 % Abbildungsverzeichnis
-\listoffigures
+\begin{figure}
+	\setlength{\cftfignumwidth}{2cm} 
+	\renewcommand{\thefigure}{Abb. \arabic{figure}:}
+	\renewcommand{\figurename}{}
+	\listoffigures
+\end{figure}
+
 
 \clearpage
 \pagenumbering{arabic} 
