@@ -35,7 +35,7 @@ namespace FM3D_Designer.src.WindowLayouts
             DesignerLib.ResourceReferences.AddSkeleton(file.Path);
         }
 
-        public ToolWindows.Skeleton.MeshWindow meshWindow { get; private set; }
+        public ToolWindows.Skeleton.BonesWindow bonesWindow { get; private set; }
         public ToolWindows.Skeleton.AnimationsWindow animWindow { get; private set; }
         public ToolWindows.Skeleton.PropertiesWindow propWindow { get; private set; }
         public DesignerLib.Skeleton skeleton { get; private set; }
@@ -49,7 +49,7 @@ namespace FM3D_Designer.src.WindowLayouts
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(meshWindow = new ToolWindows.Skeleton.MeshWindow());
+                dg.Items.Add(bonesWindow = new ToolWindows.Skeleton.BonesWindow());
                 splitPanel.Children.Add(dg);
                 DockSite.SetDock(splitPanel, Dock.Left);
                 DockSite.SetDockSize(splitPanel, 200);
@@ -77,7 +77,7 @@ namespace FM3D_Designer.src.WindowLayouts
                 dg.UpdateVisibility();
             }
 
-            meshWindow.Closed += OnMeshWinClosed;
+            bonesWindow.Closed += OnBonesWinClosed;
             animWindow.Closed += OnAnimWinClosed;
             propWindow.Closed += OnPropWinClosed;
         }
@@ -108,23 +108,23 @@ namespace FM3D_Designer.src.WindowLayouts
             }
         }
 
-        void Menu_Mesh(object sender, RoutedEventArgs e)
+        void Menu_Bones(object sender, RoutedEventArgs e)
         {
-            if (this.meshWindow != null)
+            if (this.bonesWindow != null)
             {
-                this.meshWindow.FocusContent();
+                this.bonesWindow.FocusContent();
             }
             else
             {
-                dockSite.FloatWindow(this.meshWindow = new ToolWindows.Skeleton.MeshWindow());
-                meshWindow.Closed += OnMeshWinClosed;
+                dockSite.FloatWindow(this.bonesWindow = new ToolWindows.Skeleton.BonesWindow());
+                bonesWindow.Closed += OnBonesWinClosed;
             }
         }
 
-        void OnMeshWinClosed(object sender, RoutedEventArgs e)
+        void OnBonesWinClosed(object sender, RoutedEventArgs e)
         {
-            this.meshWindow = null;
-            OnPropertyChanged("meshWin");
+            this.bonesWindow = null;
+            OnPropertyChanged("bonesWin");
         }
 
         void OnAnimWinClosed(object sender, RoutedEventArgs e)
