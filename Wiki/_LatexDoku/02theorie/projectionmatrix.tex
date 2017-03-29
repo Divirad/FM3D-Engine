@@ -1,55 +1,33 @@
 \subsection{Projection Matrix}
 \label{Sec:Projection}
-Wenn man sich einen Computerbildschirm anschaut, so stellt man fest, dass er eine zweidimensionale Oberfläche besitzt. 
-Da aber die zu rendernde Szene dreidimensional ist, muss man diese Szene, bestehend aus mehreren dreidimensional angeordneten Grafik-Primitiven, auf diese zweidimensionale Oberfläche projizieren. Dafür verwendet man eine sogenannte \textit{Transformation}.
-\todo[inline]{Keine Transformation}
 
-Man kann sich das Ganze so vorstellen, dass eine simulierte ideale Version einer Loch-Kamera mit einem unendlich kleinen Loch verwendet wird. Dies bedeutet, dass alle Objekte scharf dargestellt werden. Da eine Lochkamera aber das Bild verkehrt herum abbildet, wird der Einfachheit halber die Bildebene vor dem Projektionszentrum abgebildet. Somit steht das Bild nun nicht mehr auf dem Kopf und muss nicht mehr invertiert werden. \cref{lochkamera}
+Eine Projektionsmatrix wird meistens verwendet um ein dreidimensionales Koordinatensystem auf eine Ebene zu projizieren, sie kann aber auch dafür verwendet werden um ein dreidimensionales Koordinatensystem in ein anderes dreidimensionales Koordinatensystem zu projizieren, was hier Anwendung findet. OpenGL arbeitet mit einem orthografischen Koordinatensystem, ein Koordinatensystem bei dem alle Achsen orthogonal zueinander sind. Alle Achsen haben Werte von -1 bis 1. Wenn man ein anderes Koordinatensystem verwenden will benötigt man eine Projektionsmatrix. Diese projiziert das gewünschte Koordinatensystem in das von OpenGL verwendete. Dabei unterscheidet man zwischen zwei Arten von Projektionsmatrizen: orthografische und perspektivische. Diese projizieren das jeweilige Koordinatensystem in das OpenGL-Koordinatensystem (siehe \cref{img:projection}).
 
-Wenn wir uns nun einen Punkt $P(p_{x}, p_{y}, p_{z})$ in der Szene anschauen, so geht durch diesen vom Projektionszentrum bis zum projizierten Punkt auf dem Bildschirm $P'(p'_{x}, p'_{y}, p'_{z})$ eine Gerade. Mit dem Strahlensatz lässt sich nun aus $\dfrac{p'_{x}}{\mathnormal{f}} = \dfrac{p_{x}}{p_{z}} $ und $ \dfrac{p'_{y}}{\mathnormal{f}} = \dfrac{p_{y}}{p_{z}} $ die folgende Formel für Punkt $P$ bestimmen, die da lautet: $P'=(\mathnormal{f}\dfrac{p_{x}}{p_{z}}, \mathnormal{f}\dfrac{p_{y}}{p_{z}}, \mathnormal{f})$.
-Nun kann die Projektion in einer Matrix abgebildet werden.
+Eine orthografische Projektionsmatrix ist nur eine Skalierungsmatrix, da der Raum in jede Achse nur so gestreckt oder gestaucht werden muss, dass die Begrenzungen -1 und 1 ergeben. Dabei wird der gesamte Raum nicht verformt. Daher ist die Berechnung dieser Matrix auch sehr einfach. Für ein Koordinatensystem mit den Begrenzungen l \& r (links \& rechts) an der X-Achse, t \& b (top \& bottom) an der Y-Achse und n \& f (near \& far) an der Z-Achse:
+$$ M_{o} = \begin{pmatrix}
+\dfrac{2}{r-l} & 0 & 0 & \dfrac{r+l}{l-r} \\
+0 & \dfrac{2}{t-b} & 0 & \dfrac{t+b}{b-t} \\
+0 & 0 & \dfrac{2}{n-f} & \dfrac{f+n}{n-f} \\
+0 & 0 & 0 & 1
+\end{pmatrix} $$
 
-Weil $$\mathbf{P'}= \begin{pmatrix} p'_x \\ p'_y \\ p'_z \end{pmatrix}= \begin{pmatrix} f
-\frac{p_x}{p_z}\\ f \frac{p_y}{p_z}\\ f \end{pmatrix} \in \mathbb{R}^3 \longmapsto \underline{\mathbf{P'}}= \begin{pmatrix}f \, p_x \\f \, p_y \\ f \, p_z\\
-p_z\end{pmatrix} \in \mathbb{H}^3 $$
-gilt:	
+Eine perspektivische Projektionsmatrix projiziert eine perspektivisches Koordinatensystem in das OpenGL-Koordinatensystem. In einem perspektivischen Koordinatensystem verlaufen in einer Achsenrichtung alle parallele Geraden in diese Richtung zu genau einem Punkt, dem Fluchtpunkt. Ein bekanntes Beispiel dafür sind Schienen, die so aussehen als würden sie am Horizont zusammenlaufen. So nehmen wir die Welt war. Idealer weise wäre dieser Punkt unendlich weit weg. Da so eine Berechnung im Programm nicht möglich ist, wird der Raum in die Ferne durch die \textit{far plane} begrenzt.
+Für ein Koordinatensystem mit den Begrenzungen l \& r (links \& rechts) an der X-Achse, t \& b (top \& bottom) an der Y-Achse und n \& f (near \& far) an der Z-Achse:
 
+$$ M_{p} = \begin{pmatrix}
+\dfrac{2n}{r-l} & 0 & \dfrac{r+l}{r-l} & 0 \\
+0 & \dfrac{2n}{t-b} & \dfrac{t+b}{t-b} & 0 \\
+0 & 0 & \dfrac{-(f+n)}{f-n} & \dfrac{-2fn}{f-n} \\
+0 & 0 & -1 & 0
+\end{pmatrix} $$
+(vgl. Songho's Webseite \cite{ProjectionMatrixWeb})
 
-\begin{align}\mathbf{\underline{P'}} & =
-	\begin{pmatrix}f \, p_x \\f \, p_y \\ f \, p_z\\ p_z\end{pmatrix}  = \begin{bmatrix} f & 0 & 0 & 0 \\ 0 & f & 0 & 0 \\ 0 & 0 & f & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix} \begin{pmatrix}p_x \\p_y
-		\\ p_z\\ 1 \end{pmatrix} \end{align}
+Der Unterschied zwischen dem near und far Wert sollte möglichst gering sein, da sonst Präzisionsprobleme im Depth-Buffer auftreten können, da dieser eine höhere Präzision in der Nähe der Kamera besitzt und zusätzlich mit Fließkommazahlen arbeitet, welche ebenfalls noch einmal eine höhere Präzision gegen 0 haben. Die Wahl dieser Werte ist dem User der Engine überlassen, aber es sollte immer der kleinste akzeptierbare Wert für die Szene sein. (vgl. Khronos Website \cite{DepthProblem})
 
-Da die Projektion von OpenGL aber auf die negative Z-Achse ausgerichtet ist, gilt dementsprechend
-\begin{align}\mathbf{\underline{P'}} & =
-	\begin{pmatrix}f \, p_x \\f \, p_y \\ f \, p_z\\ -p_z\end{pmatrix}  = \begin{bmatrix} f & 0 & 0 & 0 \\ 0 & f & 0 & 0 \\ 0 & 0 & f & 0 \\ 0 & 0 & -1 & 0 \end{bmatrix} \begin{pmatrix}p_x \\p_y
-		\\ p_z\\ 1\end{pmatrix} \end{align}
-
-In der 3D-Computergrafik und somit auch in OpenGL verwendet man sogenannte \textit{Near-/ Far-Clipping} Ebenen, welche parallel zur Projektion (dem Bildschirm) stehen. Diese beiden Ebenen sind für die Begrenzung der Sicht gedacht. Alle Modelle/Punkte, die sich vor der \textit{Near-Clipping} Ebene befinden, sind zu nah. Dies heißt, dass sie nicht angezeigt werden sollen. Alle Modelle/Punkte, die sich vor der \textit{Far-Clipping} Ebene befinden, sind zu weit entfernt und werden ebenfalls nicht angezeigt. (Siehe \cref{nfplane}) Mathematisch kann man dies nun so umsetzen: für die \textit{Near-Clipping} Ebene hieße das $p_z=-z_n \quad$, dies entspricht $p'_z=-1$ . Die \textit{Far-Clipping} Ebene wäre mit $p_z=-z_f \quad$ definiert, was auch als $p'_z=1$ geschrieben werden kann.
-
-Zuerst nehmen wir uns die Parameter $a$ und $b$ in unsere bisherige Transformations-Matrix. 
-\todo[inline]{TODO!}
-%\url{http://www.mathematik.uni-marburg.de/~thormae/lectures/graphics1/graphics_6_1_ger_web.html#15}
-
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.7]{02theorie/Lochkamera.png}
-	Quelle: \url{http://www.mathematik.uni-marburg.de/~thormae/lectures/graphics1/graphics_6_1_ger_web.html#10}	
-	11.01.2017
-	\caption{Lochkamera in der Grafikprogrammierung}\label{lochkamera}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.7]{02theorie/perspektivischeprojektion.png}
-	Quelle: \url{http://www.mathematik.uni-marburg.de/~thormae/lectures/graphics1/graphics_6_1_ger_web.html#11}	
-	11.01.2017
-	\caption{Perspektivische Projektion}\label{perspproj}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.7]{02theorie/ViewModel11.png}
-	Quelle: \url{http://download.java.net/media/java3d/javadoc/1.4.0/javax/media/j3d/doc-files/ViewModel11.gif}	
+	\includegraphics[width=\textwidth]{02theorie/projektionen.png}
+	Quelle: \url{http://www.songho.ca/opengl/gl_projectionmatrix.html}	
 	14.01.2017
-	\caption{Near-/Far-Clipping Plane}\label{nfplane}
+	\caption{Projektions Koordinatensysteme}\label{img:projection}
 \end{figure}

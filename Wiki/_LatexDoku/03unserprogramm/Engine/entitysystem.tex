@@ -25,8 +25,7 @@ Wenn man auf alle Entities mit bestimmten Komponenten zugreifen will, kann die K
 Dies wird im Code durch die folgende Klassenstruktur ermöglicht. Die Hauptklasse Entity besitzt einen Container mit Komponenten, die nach ihrer ID sortiert sind. Um auf eine Komponente zuzugreifen, benötigt man nur die ID in Form eines 32-Bit Integers. Auf diese IDs kann man mit der Hilfsklasse \textit{ComponentIds} zugreifen. 
 Diese Klasse enthält eine statische Variable, die jedes Mal bei einer neuen ID erhöht wird. Auf die ID kann dann mit der statischen Template-Methode Get() zugegriffen werden.
  
-Um ein Entity zu erstellen, benötigt man ein Objekt der Klasse \textit{EntityCollection}. Mit der Entity-Klasse selbst kann kein ein Objekt erstellt werden.
-\todo[inline]{Wir sollten uns entscheiden ob kein oder ein xD}  
+Um ein Entity zu erstellen, benötigt man ein Objekt der Klasse \textit{EntityCollection}. Mit der Entity-Klasse selbst kann kein Objekt erstellt werden.
 Die \textit{EntityCollection} enthält eine \textit{Map} mit bereits gelöschten Komponenten, um diese wiederverwenden zu können. 
 Alle Komponenten müssen nach ihrer ID sortiert werden, da nur Komponenten, die mit dem neuen Typ übereinstimmen und daher die gleiche Speichergröße und Variablen haben, für den neuen Komponenten verwendet werden können.
 
