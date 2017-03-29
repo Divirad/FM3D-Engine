@@ -24,7 +24,7 @@
             <MenuItem Header="_Edit" />
             <MenuItem Header="_View" >
                 <MenuItem Header="_Animations" Click="Menu_Animations"/>
-                <MenuItem Header="_Mesh" Click="Menu_Bones"/>
+                <MenuItem Header="_Bones" Click="Menu_Bones"/>
                 <MenuItem Header="_Properties" Click="Menu_Properties"/>
             </MenuItem>
             <MenuItem Header="_Window" />

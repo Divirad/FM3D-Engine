@@ -390,6 +390,12 @@
     <Resource Include="resources\images\export_icon.png" />
     <Resource Include="ICON.ico" />
     <None Include="resources\images\ICON.ico" />
+    <Resource Include="resources\images\arrow_back.png" />
+    <Resource Include="resources\images\arrow_down.png" />
+    <Resource Include="resources\images\arrow_forward.png" />
+    <Resource Include="resources\images\arrow_left.png" />
+    <Resource Include="resources\images\arrow_right.png" />
+    <Resource Include="resources\images\arrow_up.png" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\ConsoleApplication1.sln" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />

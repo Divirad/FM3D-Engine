@@ -62,5 +62,61 @@ namespace FM3D_Designer.src
                 gl.Render(this.image);
             }
         }
+
+        private void Arrow_Forward(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().Z -= (float) this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+        private void Arrow_Back(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().Z += (float)this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+        private void Arrow_Left(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().X += (float)this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+        private void Arrow_Up(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().Y += (float)this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+        private void Arrow_Down(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().Y -= (float)this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+        private void Arrow_Right(object sender, RoutedEventArgs e)
+        {
+            lock (gl)
+            {
+                if (!this.speed.Value.HasValue) return;
+                this.renderable.GetPosition().X -= (float)this.speed.Value.Value;
+                this.InvalidateVisual();
+            }
+        }
+
     }
 }
