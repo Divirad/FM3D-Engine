@@ -34,6 +34,18 @@ B.~Koster, \emph{A Theory of Fun for Game Design}.\hskip 1em plus 0.5em minus
   0.4em\relax United States: O'Reilly and Associates, 6. November 2004, 2.
   Auflage.
 
+\bibitem{cryengine}
+\BIBentryALTinterwordspacing
+CryTek, ``Cryengine,'' 2017, [accessed 15-März-2017]. [Online]. Available:
+  \url{https://www.cryengine.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{gbdetails}
+\BIBentryALTinterwordspacing
+Wikipedia, ``Gameboy, details,'' 2017, [accessed 27-Januar-2017]. [Online].
+  Available: \url{https://de.wikipedia.org/wiki/Game_Boy#Details}
+\BIBentrySTDinterwordspacing
+
 \bibitem{GLReference}
 \BIBentryALTinterwordspacing
 K.~Group, ``Opengl® 4.5 reference pages,'' 2017, [accessed 28-Februar-2017].
