@@ -11,26 +11,29 @@ Zur Initialisierung wird die Methode \textit{Initialize} verwendet.
 \subsection{Graphic System}
 
 \subsubsection{RenderSystem}
-Um in diesem Fenster nun zu rendern, benötigt man ein Objekt der Klasse RenderSystem. Das RenderSystem kontrolliert das Rendering der FM3D-Engine in der Anwendung. Diese Klasse besitzt eine Initialisierungsmethode, welcher man die Werte 
-\todo[inline]{Todo!}
+Um in diesem Fenster nun zu rendern, benötigt man ein Objekt der Klasse RenderSystem. Das RenderSystem erstellt die Objekte der Grafikklassen je nachdem welche OpenGL Version man verwendet.
 
 \subsubsection{Font-Klasse}
 \label{Fontclass}
 Objekte der Font-Klasse repräsentieren Schriftarten, welche man im Programm rendern kann.
-\todo[inline]{Todo!}
 
 \subsubsection{Texture-Klasse}
 \label{Textureclass}
 Die Klasse besitzt die Enumerationen \textit{FilterMode}, \textit{WrapMode} und \textit{MipMapMode}. In \textit{FilterMode} gibt verschiedene Filtermodi an, in denen die Textur gerendert wird.
-Wenn verschiedene nebenstehende Pixel auf der Textur nicht auf den Bildschirm "`passen"' bzw. aufgrund der Transformation nicht parallel nebeneinander gerendert werden können, muss zwischen den beiden Modi LINEAR und NEAREST auswählen werden. Der Modus NEAREST bildet eine Mischung der nebenstehenden Pixel. 
-Im Gegensatz zu NEAREST bildet der Modus LINEAR harte Kanten der gerendeten Textur.
-Die Enumeration \textit{WrapMode} gibt an, wie die Textur auf das Modell gerendert werden soll und \textit{MipMap}
+Wenn verschiedene nebenstehende Pixel auf der Textur nicht auf den Bildschirm "`passen"' bzw. aufgrund der Transformation nicht parallel nebeneinander gerendert werden können, muss zwischen den beiden Modi NEAREST und LINEAR auswählen werden. Der Modus LINEAR bildet eine Mischung der nebenstehenden Pixel. 
+Im Gegensatz zu LINEAR bildet der Modus NEAREST harte Kanten der gerenderten Textur.
+Die Enumeration \textit{WrapMode} gibt an, wie die Textur auf das Modell gerendert werden soll und \textit{MipMap} gibt an wie die verschieden MipMaps, bzw. verschiedenen 
+
+bei der erstelllung 
+Linear verrechnet werden soll 
+
 \todo[inline]{TODO!}
 Möchte man eine Textur für OpenGL erstellen, so verwendet man dafür die Klasse GL3Texture, welche von der Klasse Texture erbt. Diese Klasse beschreibt eine Textur, wie sie in OpenGL verwendet wird.
 
 \subsubsection{Model-Klasse}
 \label{Modelclass}
-Die Klasse \textit{Model} besitzt alle Eigenschaften, die auch jedes andere Model besitzt. Darunter fallen ein Skelett, ein boolescher Wert, der angibt, ob Instancing verwendet werden soll und die Anzahl der Teile. \todo[inline]{TODO!} 
+Die Klasse \textit{Model} besitzt alle Eigenschaften, die auch jedes andere Model besitzt. Darunter fallen ein Skelett, ein boolescher Wert, der angibt, ob Instancing verwendet werden soll und mehrere Teile des Models.
+
 Der Begriff Instancing beschreibt das Folgende:
 Nehmen wir an, man rendert eine Szene mit einer Vielzahl an Modellen, welche eine Menge gleicher Vertices-Sätzen  besitzen, aber eine andere Transformation haben.
 Als Beispiel stellen wir uns einen zu rendernden Baum vor.

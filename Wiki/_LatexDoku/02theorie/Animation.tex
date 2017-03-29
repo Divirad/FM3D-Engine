@@ -19,8 +19,7 @@ $f = \dfrac{t - t_{0}}{t_{1} - t_{0}}$
 
 $\overrightarrow{P} = ((\overrightarrow{P_{0}} \cdot (1 - f)) + (\overrightarrow{P_{1}} \cdot f)$
 
-Für die Rotation muss \ac{SLERP} \cite{WikiSlerp} angewendet werden, dadurch bleibt die Kreisgeschwindigkeit über die Zeit konstant. Die Berechnung erfolgt für zwei Quaternionen, die eine Rotation repräsentieren.
-\todo[inline]{was sind Quaternionen}
+Für die Rotation muss \ac{SLERP} \cite{WikiSlerp} angewendet werden, dadurch bleibt die Kreisgeschwindigkeit über die Zeit konstant. Die Berechnung erfolgt für zwei Quaternionen, die eine Rotation repräsentieren (Quaternionen erweitern den Zahlenbereich der reelen Zahlen).
 $t_{0} \leq t \leq t_{1}$ \qquad $t_{0} < t_{1}$ \qquad Keyframes: $Q_{0}, Q_{1}$
 
 $f = \dfrac{t - t_{0}}{t_{1} - t_{0}}$

@@ -3,8 +3,7 @@
 
 Der Designer verfügt im allgemeinen über drei Arten, wie Seiten der GUI im Designer dargestellt werden können. Das Programm besitzt ein Hauptfenster, welches das Design von MahApps.Metro verwendet. (Siehe \cref{mahapps}, Zum besseren Verständnis der Seitenarten siehe \cref{windowclass})
 Dieses Hauptfenster kann nun in verschiedene Reiter unterteilt werden. Dies wurde wir mit der GUI Bibliothek DotNetBar entwickelt (Siehe \cref{dotnetbar}).
-Diese Reiter sind im Designer sogenannte \textit{Layouts}. Jeder der verschiedenen Layoutklassen steht im Namespace \textit{FM3D\_Designer.src.WindowLayouts} und erbt von der Klasse \textit{WindowLayout} im Namespace \textit{FM3D\_Designer.src}. Diese Klasse beinhaltet Attribute die jedes der Layouts verfügt.
-\todo[inline]{WTF??}
+Diese Reiter sind im Designer sogenannte \textit{Layouts}. Jeder der verschiedenen Layoutklassen steht im Namespace \textit{FM3D\_Designer.src.WindowLayouts} und erbt von der Klasse \textit{WindowLayout} im Namespace \textit{FM3D\_Designer.src}. Diese Klasse beinhaltet Attribute, die jedes der Layouts verfügt.
 Die Klasse WindowLayout, welche wiederum von der Klasse \textit{DockWindow} der DotNetBar-Bibliothek erbt, sorgt dafür, dass die verschiedenen Seiten als Reiter und Unterfenster (oder auch child-windows) behandelt werden.
 In jedem Layout ist es möglich verschiedene  kleinere Fenster aufzurufen. Der User kann diese Fenster innerhalb der Layouts oder des Desktops andocken. Jedes dieser \textit{ToolWindows} ist der Strukturierung wegen nochmal in einen weiteren Namespace unterteilt. Alle dieser \textit{ToolWindows} erben von der Klasse \textit{ToolWindow}, welche eine Initialisierungsmethode und eine Aggregation zu einem \textit{WindowLayout} verfügt.
 Auch die Klasse \textit{ToolWindow} erbt von der Klasse \textit{DockWindows}.
