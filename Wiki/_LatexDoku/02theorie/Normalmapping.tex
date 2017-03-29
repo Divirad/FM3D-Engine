@@ -6,7 +6,7 @@ Damit erhöht sich aber auch der Rechenaufwand für dieses Model. Ab einer besti
 Um ein Model trotzdem mit einer höheren Auflösung darzustellen, wird ein Vorgang namens \textit{Normalmapping} verwendet. 
 Dieser baut auf Lichtberechnungen auf. Ohne Licht gibt es keine zu erkennende verbesserte Qualität. Normalerweise hat jeder Vertex einen Normalenvektor und für einen Pixel wird er zwischen den drei Vertices interpoliert. 
 Mit Normalmapping weist man jedem Pixel einen eigenen Normalenvektor zu. So ist es möglich, die Oberfläche so aussehen zu lassen, als würde sie rau mit kleinen Unebenheiten sein. Somit wird kein Rechenaufwand durch das Rendern vieler Dreiecke eines Meshes unnötig erzeugt.
-Den Unterschied sieht man in \cref{img:Normalmapping}. Die Normalenvektoren werden in einer Textur gespeichert, sodass sie mit den normalen Texturen-Koordinaten verwendet werden können. Diese Textur wird im Material abgespeichert.
+Den Unterschied sieht man in \cref{img:Normalmapping}. Die Normalenvektoren werden in einer Textur gespeichert, sodass sie mit den normalen Textur-Koordinaten verwendet werden können. Diese Textur wird im Material abgespeichert.
 
 In einer Textur können die drei Werte rot, grün und blau, jeweils mit einem Wert von 0 bis 1, abgespeichert werden. Ein Normalenvektor hat drei Komponenten mit jeweils Werten von -1 bis 1. Daher muss dieser erst berechnet werden:
 

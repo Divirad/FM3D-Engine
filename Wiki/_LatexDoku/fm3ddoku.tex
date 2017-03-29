@@ -9,7 +9,7 @@
 	pdfauthor={Felix Lösing and Max Schmitt},
 	pdfkeywords={},
 	% Links nicht einrahmen
-	% hidelinks
+	hidelinks
 ]{hyperref}
 
 % FONTS
@@ -35,6 +35,8 @@
 % Zusätzliche Schriftzeichen der American Mathematical Society
 \usepackage{amsfonts}
 \usepackage{amsmath}
+
+\usepackage{pdfpages}
 
 %Package für Todo-Notes
 \usepackage{todonotes}
@@ -111,7 +113,13 @@
 \author{Felix Lösing und Max Schmitt}
 \affil{Berufliches Gymnasium Groß-Gerau}
 
-\maketitle
+\begin{titlepage}
+		\includepdf[pages={1}]{deckblatt.pdf}
+\end{titlepage}
+
+
+
+
 %\newpage\null\thispagestyle{empty}
 
 % Festlegung der Art der Zitierung

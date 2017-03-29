@@ -43,7 +43,24 @@ Um die Farbe eines gerenderten Pixels zu bestimmen, benötigt man einige Informa
 
 Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes Material haben kann und es anders als ein Mesh nicht viel Speicher benötigt. Die Vertexinformationen werden im \ac{VBO} des Mesh gespeichert und automatisch linear interpoliert, wenn sie an den Fragment-Shader weitergegeben werden. Pixelinformationen müssen einzeln in einer Textur gespeichert werden. Diese sind dann im Material enthalten, wobei diese nur referenziert werden, damit verschiedene Materials die gleichen Texturen verwenden können. In den Vertex-Informationen müssen hierfür zusätzlich Textur-Koordinaten gespeichert werden. Daraus ergeben sich die folgenden Werte, die in \cref{table:VertexAufbau} zu sehen sind.
 
-\begin{table}[h]
+Die FM3D-Engine verwendet \textit{Deferred Rendering}. Dies bedeutet, dass zuerst alle Objekte einer Szene gerendert und die Ergebnisse daraus in mehreren Buffern gespeichert werden, zusammengefasst \textit{G-Buffer} genannt. Danach wird für jede Lichtquelle ein weiterer Renderprozess ausgeführt, wobei die vorher genannten Buffer als Input dienen. Das Ergebnis ist in der \cref{Img:Lights} zu sehen. Der Vorteil hierbei ist, dass keine unnötige Lichtberechnungen ausgeführt werden muss, da alle Pixel später zu sehen sind und es keine Begrenzung für die Anzahl der Lichtquellen gibt. Der Aufbau des G-Buffers ist in \cref{table:GBuffer} zu sehen.
+
+Im ersten Renderdurchgang wird nur in den G-Buffer die Informationen Position, Normalenvektor und Farbe des jeweiligen Fragments gespeichert. Der zweite Renderdurchgang ist abhängig von der Lichtquelle. Zusätzlich zum G-Buffer benötigt der Shader die Position der Kamera und die Farbinformationen der jewiligen Lichtquelle. Die Farben für die drei Lichtarten werden dann nacheinander berechnet:
+
+Gegeben: \newline
+	Lichtinformationen: Richtung: $\overrightarrow{r}$ Farbe: $\overrightarrow{L_{c}}$ Ambient und Diffuse Intensität: $L_{a}, L_{d}$ \newline
+	GBufer: $\overrightarrow{G_{P}}, \overrightarrow{G_{N}}, \overrightarrow{G_{C}}$ \newline
+	Kameraposition: $\overrightarrow{K}$ \newline
+	Resultierende Farben der drei Lichtarten: $\overrightarrow{C_{A}},\overrightarrow{C_{D}},\overrightarrow{C_{S}}$\newline 
+	Finale Farbe:  $\overrightarrow{C_{F}},$
+	
+	$\overrightarrow{C_{A}} = \overrightarrow{L_{c}} \cdot L_{a}$\newline
+$\overrightarrow{C_{D}} = \overrightarrow{L_{c}} \cdot L_{d} \cdot (\overrightarrow{G_{N}} \cdot -\overrightarrow{r})$\newline
+$\overrightarrow{x} = \overrightarrow{r} - 2 \cdot (\overrightarrow{G_{N}} \cdot \overrightarrow{r}) \cdot \overrightarrow{G_{N}}$\newline
+$\overrightarrow{C_{S}} = \overrightarrow{L_{c}} \cdot \overrightarrow{G_{C rgb}} \cdot ((\overrightarrow{K} - \overrightarrow{G_{P}}) \cdot \overrightarrow{x})^{16}$
+	
+
+\begin{table}
 	\caption{Vertex Aufbau}
 	\label{table:VertexAufbau}
 	\centering
@@ -53,12 +70,12 @@ Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes
 		2D-Vektor & Textur Koordinate & Position des Vertex auf der Textur \\
 		3D-Vektor & Normal & Normalenvektor zum Dreieck \\
 		32-Bit Farbe & Color & Farbe des Vertex (optional, Standard ist weiß) \\
-		3D-Vektor & Tangent & Tangentenvektor des Dreiecks. Benötigt wenn \\
-		 & & Normal maps verwendet werden. Siehe \cref{section:Normalmapping}\\\bottomrule[1.5pt]
+		3D-Vektor & Tangent & Tangentenvektor des Dreiecks. \\
+		 & & Genaueres in \cref{section:Normalmapping}\\\bottomrule[1.5pt]
 	\end{tabular}
 	Quelle: Eigene Darstellung
 \end{table}
-\begin{table}[h]
+\begin{table}
 	\caption{Material Aufbau}
 	\centering
 	\begin{tabular}{lll}\toprule[1.5pt]
@@ -84,18 +101,16 @@ Erstere kann einfach im Material gespeichert werden, da jedes Objekt ein eigenes
 	\caption{Lights}\label{Img:Lights}
 \end{figure}
 
-Die FM3D-Engine verwendet \textit{Deferred Rendering}. Dies bedeutet, dass zuerst alle Objekte einer Szene gerendert und die Ergebnisse daraus in mehreren Buffern gespeichert werden, zusammengefasst \textit{G-Buffer} genannt. Danach wird für jede Lichtquelle ein weiterer Renderprozess ausgeführt, wobei die vorher genannten Buffer als Input dienen. Das Ergebnis ist in der \cref{Img:Lights} zu sehen. Der Vorteil hierbei ist, dass keine unnötige Lichtberechnungen ausgeführt werden muss, da alle Pixel später zu sehen sind und es keine Begrenzung für die Anzahl der Lichtquellen gibt. Der Aufbau des G-Buffers ist in \cref{table:GBuffer} zu sehen.
-
 \begin{table}
 	\caption{G-Buffer Aufbau}
 	\label{table:GBuffer}
 	\centering
 	\begin{tabular}{rlll}\toprule[1.5pt]
 		Größe & Name & Channels & Beschreibung \\\midrule
-		96 Bit  & Position-Buffer & RGB mit je 32-Bit float & Speichert die Position im Worldspace.\\
-		128 Bit & Color-Buffer & RGBA mit je 32-Bit float & Speichert die Farbe jedes Pixels in den Werten RGB und den Specular factor im Alpha-Wert \\
-		96 Bit & Normal-Buffer & RGB mit je 32-Bit float & Speichert den Normalenvektor im Worldspace \\
-		32 Bit & Depth-Stencil-Buffer & 24 Bit Depth, 8 Bit Stencil & Speichert den Depth- und Stencil-Wert des resultierenden Bildes \\
-		128 Bit & Final-Buffer & RGBA mit je 32-Bit float & Speichert die resultierende Farbe jedes Pixels mit Alpha-Wert \\\bottomrule[1.5pt]
+		96 Bit  & Position-Buffer & RGB mit je 32-Bit float & Position im Worldspace.\\
+		128 Bit & Color-Buffer & RGBA mit je 32-Bit float & Farbe jedes Pixels in den Werten RGB und den Specular factor im Alpha-Wert \\
+		96 Bit & Normal-Buffer & RGB mit je 32-Bit float & Normalenvektor im Worldspace \\
+		32 Bit & Depth-Stencil-Buffer & 24 Bit Depth, 8 Bit Stencil & Depth- und Stencil-Wert des resultierenden Bildes \\
+		128 Bit & Final-Buffer & RGBA mit je 32-Bit float & Resultierende Farbe jedes Pixels mit Alpha-Wert \\\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}

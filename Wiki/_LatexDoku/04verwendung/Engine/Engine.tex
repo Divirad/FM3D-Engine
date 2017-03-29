@@ -51,7 +51,8 @@ Model* baummodel;
 Um nun ein Model zu laden, wird die Klasse \textit{ExternFileManager} wie folgt verwendet:
 \begin{lstlisting}{Entity}
 ExternFileManager::
-ReadModelFile("res/baum.dae", rendersystem, &baummodel, false, true);
+ReadModelFile("res/baum.dae", rendersystem,
+&baummodel, false, true);
 \end{lstlisting}
 Dies sagt nun Folgendes aus:
 wir übergeben den Dateipfad "`res/baum.dae"' und ein Objekt des Render-Systems, in dem dann das Model gerendert werden soll. Daraufhin wird eine Adresse zu dem Objekt der Klasse \textit{Model} übergeben, in der das Model gespeichert wird. Der darauffolgende boolesche Wert gibt an, ob Instancing verwendet werden soll und der folgende, ob das Modell animierbar sein soll. Sie können nun dem Objekt Baum dieses Standartmodel zuweisen. Dies geschieht wie folgt:

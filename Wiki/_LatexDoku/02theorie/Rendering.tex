@@ -29,7 +29,7 @@ Die Daten werden dabei als Buffer auf der \ac{GPU} gespeichert. Verwendet werden
 Er beschreibt, welche Vertices für welche Primitives verwendet werden sollen, wobei Vertices mehrfach verwendet werden können. 
 Der Index-Buffer wird nacheinander durchgegangen und jeder darin gespeicherte Index steht für einen Wert im \ac{VBO}. Wenn man also viele Primitives hat, die sich einen gemeinsamen Punkt teilen, ist es effizienter, einen Index-Buffer zu verwenden, da dieser gemeinsame Vertex nur einmal gespeichert werden muss. In der Regel ist die Größe eines Vertex weitaus größer, als die Größe eines Index. Zum Beispiel können mit dem \ac{IBO} { 0, 1, 2, 2, 1, 3} zwei Dreiecke gerendert werden. Für die gleiche Darstellung werden aber nur 4 Vertices benötig (0,1, 2, 3)\cite{ThinMatrix}.
 
-\subsubsection{Pipeline \cite{Pipeline}}
+\subsubsection{Pipeline}
 Ein \ac{VBO} oder ein \ac{VAO} entsprechen dem Input der Pipeline, wobei in modernen Programmen immer \acp{VAO} verwendet werden, da sie zusätzliche Informationen speichern können.
 
 In der Pipeline bestehen mehrere Schritte aus Shadern. Diese Shader sind kleinere Programme, welche auf der Grafikkarte ausgeführt werden. Sie werden in der Programmiersprache GLSL programmiert. 
@@ -57,7 +57,7 @@ Danach folgt der Schritt \textit{Rasterization}. Er beschreibt die Umwandlung vo
 Der vorletzte Schritt ist ein Shaderprogramm. Der \textit{Fragment-Shader} wird für jedes Fragment einmal ausgeführt und bestimmt die Farbe der Pixel. Als Input bekommt er den Output des davor ausgeführten Shaders, wobei die Werte für jedes Fragment interpoliert werden müssen und so eine Mischung aus den Daten jedes Vertex generiert wird. 
 Diese verteilen sich linear über das Primitive. Der Fragment-Shader ist der am häufigsten ausgeführte Shader. Daher sollten alle nicht unbedingt benötigten Berechnungen in vorherigen Shadern ausgeführt werden.
 
-Als finalen Schritt werden verschiedene Tests für das Fragment ausgeführt, wie der Depth- und der Stencil-Test, um zu bestimmen, ob das Fragment wirklich angezeigt werden soll. Wenn alle Tests positiv sind, wird das Fragment auf dem Buffer gespeichert.
+Als finalen Schritt werden verschiedene Tests für das Fragment ausgeführt, wie der Depth- und der Stencil-Test, um zu bestimmen, ob das Fragment wirklich angezeigt werden soll. Wenn alle Tests positiv sind, wird das Fragment auf dem Buffer gespeichert. (vgl. \cite{Pipeline})
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.7]{02theorie/openglPrimitives.png}
