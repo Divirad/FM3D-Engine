@@ -7,7 +7,7 @@
         xmlns:fm="clr-namespace:FM3D_Designer.src"    
         mc:Ignorable="d"
         Header="Animations">
-    <Grid>
+    <ListBox x:Name="list" ItemsSource="{Binding Animations}">
         
-    </Grid>
+    </ListBox>
 </fm:ToolWindow>

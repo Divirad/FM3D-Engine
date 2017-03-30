@@ -59,7 +59,7 @@ namespace FM3D_Designer.src.WindowLayouts
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(animWindow = new ToolWindows.Skeleton.AnimationsWindow());
+                dg.Items.Add(animWindow = new ToolWindows.Skeleton.AnimationsWindow(this.skeleton));
                 splitPanel.Children.Add(dg);
                 DockSite.SetDock(splitPanel, Dock.Right);
                 DockSite.SetDockSize(splitPanel, 200);
@@ -103,7 +103,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             else
             {
-                dockSite.FloatWindow(this.animWindow = new ToolWindows.Skeleton.AnimationsWindow());
+                dockSite.FloatWindow(this.animWindow = new ToolWindows.Skeleton.AnimationsWindow(this.skeleton));
                 animWindow.Closed += OnAnimWinClosed;
             }
         }
