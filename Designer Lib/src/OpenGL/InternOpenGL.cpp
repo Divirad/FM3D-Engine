@@ -20,7 +20,7 @@ namespace DesignerLib {
 		m_height = height;
 
 		Global::Init();
-		Window::StartConsole();
+		//Window::StartConsole();
 
 		m_renderSystem.reset(RenderSystem::Create(FM3D::Renderer::OpenGL3_3));
 		auto ptr = Window::SetInstance(Window::Create(Platform::WINDOWS, m_hInst));

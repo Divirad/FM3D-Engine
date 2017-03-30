@@ -58,6 +58,10 @@
                 <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="iconsButton" Command="{Binding CommTreeMode, Source={StaticResource logic}}" CommandParameter="{x:Static local:Logic+ViewMode.ICONS}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/bigicons_icon.png" />
                 </Button>
+                <Separator/>
+                <Button Height="30" ToolTip="Directory Up" Command="{Binding CommDirUp, Source={StaticResource logic}}">
+                    <Image Source="/FM3D-Designer;component/resources/images/file browser/dir_up.png" />
+                </Button>
             </ToolBar>
         </ToolBarTray>
 
@@ -110,6 +114,12 @@
                         <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected2, Mode=TwoWay}"/>
+                        <EventSetter Event="MouseDoubleClick" Handler="OnListItemMouseDoubleClick" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
             </ListView>
         </Grid>
     </Grid>

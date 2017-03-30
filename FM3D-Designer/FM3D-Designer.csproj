@@ -396,6 +396,7 @@
     <Resource Include="resources\images\arrow_left.png" />
     <Resource Include="resources\images\arrow_right.png" />
     <Resource Include="resources\images\arrow_up.png" />
+    <Resource Include="resources\images\file browser\dir_up.png" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\ConsoleApplication1.sln" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.exe" />
     <Content Include="TestProjects\Project 0\Cpp\ConsoleApplication1\Debug\ConsoleApplication1.pdb" />

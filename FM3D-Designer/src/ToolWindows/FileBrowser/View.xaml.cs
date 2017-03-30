@@ -77,5 +77,19 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
 
         }
+
+        private void OnListItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
+        {
+            if (sender is ListBoxItem)
+            {
+                if (!((ListBoxItem)sender).IsSelected)
+                {
+                    return;
+                }
+                logic.OpenFile2();
+                logic.OpenDirectory();
+            }
+
+        }
     }
 }
