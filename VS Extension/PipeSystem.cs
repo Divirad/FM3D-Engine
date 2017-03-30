@@ -113,8 +113,9 @@ namespace VS_Extension
                         readString = s;
                     }
                 }
-
             }
+            writer.Close();
+            reader.Close();
         }
         #endregion
 
@@ -184,12 +185,12 @@ namespace VS_Extension
 			Entity temp = new Entity(entstr);
             CreateBase(temp, new CodeManipulator("presets.h"));
             //manipulator.AddAttribute("Wuschel", "Blah3");
+            MessageBox.Show("if you want to export a second time,\ndelete all Content in presets.h\n and include the FM3D-Engine with \n#include<Engine.h>","WARNING");
         }
 
         private static void CreateBase(Entity ent, CodeManipulator mani) {
-			
 			mani.AddNamespace("Entities");
-            mani.AddClass("preset_" + ent.name, "Entities", "Preset");
+            mani.AddClass("preset_" + ent.name, "Entities", "FM3D::EntitySystem::Preset");
 			
 			VCCodeFunction setcomp = mani.AddMethod(
 						"Entities",
