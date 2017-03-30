@@ -45,6 +45,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             CommTreeMode = new Command(CommModeAction, CommModeCondition);
             CommCollapseAll = new Command(CommCollapseAllAction, CommCollapseAllCondition);
             CommRefresh = new Command(CommRefreshAction, CommRefreshCondition);
+            CommDirUp = new Command(CommDirUpAction, CommDirUpCondition);
 
             this._Mode = ViewMode.TREE;
             UpdateGrid();
@@ -56,6 +57,9 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         #region Directories
         public ObservableCollection<Item> RootDirectories { get; private set; }
+
+        public Item ListItem { get; set; }
+
         private Item _CurrentDirectory;
         public Item CurrentDirectory
         {
@@ -76,8 +80,24 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
 
         public void OpenFile()
         {
-            if(this.CurrentDirectory.State == Item.ItemState.NORMAL)
+            if(this.CurrentDirectory.type != ItemTypes.Directory && this.CurrentDirectory.State == Item.ItemState.NORMAL)
                 this.CurrentDirectory.type.Open(this.CurrentDirectory);
+        }
+
+        public void OpenFile2()
+        {
+            if (this.ListItem.type != ItemTypes.Directory && this.ListItem.State == Item.ItemState.NORMAL)
+                this.ListItem.type.Open(this.ListItem);
+        }
+
+        public void OpenDirectory()
+        {
+            if (this.ListItem != null && this.ListItem.type == ItemTypes.Directory)
+            {
+                this.CurrentDirectory = this.ListItem;
+                this.CurrentDirectory.IsSelected = true;
+            }
+
         }
 
         public IList<Item> CurrentDirectoryContent
@@ -132,6 +152,17 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             Refresh();
         }
         public Command CommRefresh { get; private set; }
+
+        private bool CommDirUpCondition(object parameter)
+        {
+            return this.Mode == ViewMode.ICONS;
+        }
+        private void CommDirUpAction(object parameter)
+        {
+            this.CurrentDirectory = this.CurrentDirectory.Parent;
+            this.CurrentDirectory.IsSelected = true;
+        }
+        public Command CommDirUp { get; private set; }
         #endregion
 
         #region Grid, Tree, List

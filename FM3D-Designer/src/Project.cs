@@ -81,7 +81,7 @@ namespace FM3D_Designer.src
             this._Directory = new FileInfo(path).Directory.FullName + "\\";
             this._Name = "UnknownName";
             this.ProjectFiles = new RootDirectory("ProjectFiles", this._Directory + ProjectFilesDirectory);
-            this.resourceFile = new ResourceFile(_Directory + "/Cpp/Resources.h");
+            this.resourceFile = new ResourceFile(_Directory + "/Cpp/GameProject");
         }
 
         public void SetProjName(string name) {

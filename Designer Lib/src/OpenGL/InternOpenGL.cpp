@@ -20,7 +20,7 @@ namespace DesignerLib {
 		m_height = height;
 
 		Global::Init();
-		Window::StartConsole();
+		//Window::StartConsole();
 
 		m_renderSystem.reset(RenderSystem::Create(FM3D::Renderer::OpenGL3_3));
 		auto ptr = Window::SetInstance(Window::Create(Platform::WINDOWS, m_hInst));
@@ -50,7 +50,7 @@ namespace DesignerLib {
 			1.0f, 1.0f, 1.0f, 1.0f,
 			1.0f, 1.0f, 1.0f, 1.0f
 		};
-		m_emptyTex = m_renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::CLAMP, Texture::NONE, pixels, 32);
+		m_emptyTex = m_renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
 		m_emptyMat = new Material({ 0xffffffff, m_emptyTex });
 
 		m_mesh = m_renderSystem->CreateMesh(skeleton, false, aParts);

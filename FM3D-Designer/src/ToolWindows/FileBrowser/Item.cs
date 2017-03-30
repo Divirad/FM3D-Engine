@@ -228,6 +228,14 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
             }
         }
 
+        public string NameWithoutExtension
+        {
+            get
+            {
+                return _Name.Substring(0, _Name.LastIndexOf('.'));
+            }
+        }
+
         private bool _IsSelected = false;
         public bool IsSelected
         {
@@ -242,6 +250,24 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                     logic.CurrentDirectory = this;
                     _IsSelected = value;
                     OnPropertyChanged("IsSelected");
+                }
+            }
+        }
+
+        private bool _IsSelected2 = false;
+        public bool IsSelected2
+        {
+            get
+            {
+                return _IsSelected2;
+            }
+            set
+            {
+                if (value != _IsSelected2)
+                {
+                    logic.ListItem = this;
+                    _IsSelected2 = value;
+                    OnPropertyChanged("IsSelected2");
                 }
             }
         }
@@ -492,6 +518,7 @@ namespace FM3D_Designer.src.ToolWindows.FileBrowser
                 i.CollapseAll();
             }
         }
+
         public bool CreateFile(string name, ItemType type, out Item item, bool addToProject = true)
         {
             if (this.type != ItemTypes.Directory) throw new InvalidOperationException("Item is not a directory");

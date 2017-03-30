@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using FM3D_Designer.src.ToolWindows.FileBrowser;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FM3D_Designer.src
 {
-    public class ResourceFile {
+    public class ResourceFile
+    {
 
         private const string HEADER = @"//
 //	DO NOT TOUCH THIS!!!
@@ -37,54 +39,74 @@ public:
 	void LoadResources();
 };";
 
-        public string Path { get; set; }
+        public string Path_H { get; set; }
+        public string Path_CPP { get; set; }
 
         public ResourceFile(string path)
         {
-            this.Path = path;
+            this.Path_H = path + "/Resources.h";
+            this.Path_CPP = path + "/Resources.cpp";
         }
 
         public bool WriteFile()
         {
             try
             {
-                if (!File.Exists(Path)) File.Create(Path);
-                using (FileStream fstream = new FileStream(Path, FileMode.Truncate, FileAccess.Write, FileShare.Read))
+                if (!File.Exists(Path_H)) File.Create(Path_H);
+                using (FileStream fstream = new FileStream(Path_H, FileMode.Truncate, FileAccess.Write, FileShare.Read))
                 {
                     using (StreamWriter file = new StreamWriter(fstream))
                     {
+                        file.AutoFlush = true;
+
                         file.Write(HEADER);
                         uint i = 0;
-                        foreach (var f in Item.AllItems[ItemTypes.TextureFile])
+                        if (Item.AllItems.ContainsKey(ItemTypes.TextureFile))
                         {
-                            file.WriteLine("#define TEXTURE_" + f.Name.ToUpper() + " " + i++.ToString());
+                            foreach (var f in Item.AllItems[ItemTypes.TextureFile])
+                            {
+                                file.WriteLine("#define TEXTURE_" + f.NameWithoutExtension.ToUpper().Replace('-', '_') + " " + i++.ToString());
+                            }
                         }
                         i = 0;
-                        foreach (var f in Item.AllItems[ItemTypes.MeshFile])
+                        if (Item.AllItems.ContainsKey(ItemTypes.MeshFile))
                         {
-                            file.WriteLine("#define MESH_" + f.Name.ToUpper() + " " + i++.ToString());
+                            foreach (var f in Item.AllItems[ItemTypes.MeshFile])
+                            {
+                                file.WriteLine("#define MESH_" + f.NameWithoutExtension.ToUpper().Replace('-', '_') + " " + i++.ToString());
+                            }
                         }
                         i = 0;
-                        foreach (var f in Item.AllItems[ItemTypes.ModelFile])
+                        if (Item.AllItems.ContainsKey(ItemTypes.ModelFile))
                         {
-                            file.WriteLine("#define MODEL_" + f.Name.ToUpper() + " " + i++.ToString());
+                            foreach (var f in Item.AllItems[ItemTypes.ModelFile])
+                            {
+                                file.WriteLine("#define MODEL_" + f.NameWithoutExtension.ToUpper().Replace('-', '_') + " " + i++.ToString());
+                            }
                         }
                         i = 0;
-                        foreach (var f in Item.AllItems[ItemTypes.MaterialFile])
+                        if (Item.AllItems.ContainsKey(ItemTypes.MaterialFile))
                         {
-                            file.WriteLine("#define MATERIAL_" + f.Name.ToUpper() + " " + i++.ToString());
+                            foreach (var f in Item.AllItems[ItemTypes.MaterialFile])
+                            {
+                                file.WriteLine("#define MATERIAL_" + f.NameWithoutExtension.ToUpper().Replace('-', '_') + " " + i++.ToString());
+                            }
                         }
                         i = 0;
-                        foreach (var f in Item.AllItems[ItemTypes.SkeletonFile])
+                        if (Item.AllItems.ContainsKey(ItemTypes.SkeletonFile))
                         {
-                            file.WriteLine("#define SKELETON_" + f.Name.ToUpper() + " " + i++.ToString());
+                            foreach (var f in Item.AllItems[ItemTypes.SkeletonFile])
+                            {
+                                file.WriteLine("#define SKELETON_" + f.NameWithoutExtension.ToUpper().Replace('-', '_') + " " + i++.ToString());
+                            }
                         }
                         file.Write(RESOURCE_CLASS);
                     }
                 }
             }
-            catch
+            catch (Exception e)
             {
+                MainWindow.Instance.ShowMessageAsync("Filewriting error", "Error on writing the Resource.h and Resource.cpp: \n" + e.Message);
                 return false;
             }
             return true;
