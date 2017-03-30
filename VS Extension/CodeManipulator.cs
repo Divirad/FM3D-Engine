@@ -75,17 +75,20 @@ namespace VS_Extension {
 
                     foreach (VCCodeClass clazz in space.Classes) {
                         if (clazzname == clazz.Name) {
+
                             foreach(VCCodeFunction funk in clazz.Functions) {
                                 if (funk.Name == name) { isthere = true; }
                             }
+
                             if (isthere) {
-                                return null;
+                                VCCodeFunction cg=null;
+                                return cg;
                             } else {
 								int ii = 0;
 								if (access== vsCMAccess.vsCMAccessProtected) {
 									ii = 1;
 								} else {
-									ii = 0;
+									ii = -1;
 								}
 								VCCodeFunction cf = clazz.AddFunction(name, kind, type, ii, access) as VCCodeFunction;
 								cf.TypeString = type.ToString();
@@ -96,8 +99,8 @@ namespace VS_Extension {
                     break;
                 }
             }
-
-            return null;
+            VCCodeFunction cd = null;
+            return cd;
         }
 		//DIS DUS WURK
 		public void AddTextBodyOfMethod(VCCodeFunction cf, string cmd) {

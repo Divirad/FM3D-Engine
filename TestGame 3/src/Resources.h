@@ -98,7 +98,8 @@ struct Resources {
 	Material islandMaterial5;
 
 	void InitIsland(RenderSystem* renderSystem) {
-		ExternFileManager::ReadModelFile("island/island.dae", renderSystem, &islandModel, false, true);
+		ExternFileManager::
+			ReadModelFile("island/island.dae", renderSystem, &islandModel, false, true);
 
 		islandTexture0 = ExternFileManager::ReadTextureFile("island/arl1b.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
 		islandTexture1 = ExternFileManager::ReadTextureFile("island/grs1.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);

@@ -198,7 +198,11 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-			mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
+            if (setcomp!=null)
+            {
+                mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
+            }
+			
 
 			string components="";
 			foreach (Component comp in ent.components) {
@@ -232,8 +236,10 @@ namespace VS_Extension
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							prop.type,
 							EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-						mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                        if (qq!=null)
+                        {
+                            mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                        }						
 					}
 					if (prop.m_set) {
 						VCCodeFunction pp = mani.AddMethod(
@@ -243,9 +249,11 @@ namespace VS_Extension
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							"void",
 							EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-						mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
-						mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                        if (pp!=null)
+                        {
+                            mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+                            mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                        }
 					}
 				}
 				if (comp.m_standard) {
@@ -266,8 +274,10 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						prop.type,
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-					mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                    if (qq != null)
+                    {
+                        mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                    }
 				}
 				if (prop.m_set) {
 					VCCodeFunction pp = mani.AddMethod(
@@ -277,9 +287,11 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-					mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
-					mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                    if (pp!=null)
+                    {
+                        mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+                        mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                    }
 				}
 			}
 			mani.AddTextBodyOfMethod(setcomp, components);

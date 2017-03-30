@@ -362,6 +362,7 @@ namespace FM3D_Designer.src
                     Project.CurrentProject.AnalyseChildren(writer, i);
                     writer.WriteEndElement();
                 }
+
                 progress = 0.8;
                 controller.SetProgress(progress);
                 controller.SetMessage("Writging Pipe Information...");
