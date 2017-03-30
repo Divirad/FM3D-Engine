@@ -2,6 +2,29 @@
 
 namespace FM3D {
 
+	template<typename T>
+	void WriteRawToFile(std::ofstream& file, const T& t) {
+		file.write(reinterpret_cast<const char*>(&t), sizeof(T));
+	}
+
+	template<typename T>
+	T ReadRawFromFile(std::ifstream& file) {
+		char buffer[sizeof(T)];
+		file.read(buffer, sizeof(T));
+		return *reinterpret_cast<T*>(buffer);
+	}
+
+	template<>
+	inline std::string ReadRawFromFile<std::string>(std::ifstream& file) {
+		int length = ReadRawFromFile<int>(file);
+		char* buffer = new char[length + 1];
+		file.read(buffer, length);
+		buffer[length] = 0; //Set Nullbyte
+		std::string result = buffer;
+		delete buffer;
+		return result;
+	}
+
 	using namespace std;
 
 	string FileManager::resourcePath;
@@ -75,6 +98,47 @@ namespace FM3D {
 		else {
 			throw std::runtime_error("Can not open shader file " + filepath);
 		}
+	}
+
+	std::pair<uint, Mesh*> FileManager::ReadMeshFile(std::string filepath, RenderSystem* renderSystem, const std::map<unsigned int, FM3D::Skeleton*>& map) {
+		std::ifstream file(filepath);
+		if (!file.is_open()) throw std::runtime_error("Cant open mesh file");
+
+		bool isDesignerFile = false;
+		byte type = ReadRawFromFile<byte>(file);	//File type
+		if (type == 5) isDesignerFile = true;
+		else if (type != 3) throw std::runtime_error("File is not a mesh file!");
+		unsigned int resourceId = ReadRawFromFile<unsigned int>(file); //Resource ID
+		std::string name = "Unknown";
+		if (isDesignerFile)
+			name = ReadRawFromFile<std::string>(file);	//Name
+		unsigned int skeletonId = ReadRawFromFile<unsigned int>(file); //Skeleton ID
+		bool supportsInstancing = ReadRawFromFile<bool>(file);	//Supports instancing
+		int partsCount = ReadRawFromFile<int>(file); //Parts Count
+		std::vector<MeshPart> parts;
+		for (int i = 0; i < partsCount; i++) {
+			std::string pname = "Unknown";
+			if (isDesignerFile)
+				pname = ReadRawFromFile<std::string>(file);	//Part Name
+
+			uint indicesCount = ReadRawFromFile<uint>(file);
+			uint indexSize = ReadRawFromFile<uint>(file);
+			char* indices = new char[indicesCount * indexSize];
+			file.read(indices, indicesCount * indexSize); //Indices
+			uint vertexCount = ReadRawFromFile<uint>(file);
+			uint vertexData = ReadRawFromFile<uint>(file);
+
+			Vertices vertices(vertexCount, vertexData);
+			char* verticesData = new char[vertexCount * vertices.GetVertexSize()];
+			file.read(verticesData, vertexCount * vertices.GetVertexSize()); //Vertices
+			vertices.SetData(reinterpret_cast<FM3D::byte*>(verticesData));
+
+			bool psupportsInstancing = ReadRawFromFile<bool>(file);
+
+			parts.emplace_back(indicesCount, (void*)indices, std::move(vertices), indexSize, psupportsInstancing);
+		}
+
+		return std::make_pair(resourceId, renderSystem->CreateMesh(map.at(skeletonId), supportsInstancing, parts));
 	}
 
 	std::vector<std::vector<float>> FileManager::ReadTerrainFile(std::string filepath) {

@@ -30,6 +30,8 @@ namespace FM3D {
 		*/
 		static std::string ReadShaderFile(std::string filepath, const std::vector<std::string>& defines);
 
+		static std::pair<uint, Mesh*> ReadMeshFile(std::string filepath, RenderSystem* renderSystem, const std::map<unsigned int, FM3D::Skeleton*>& map);
+
 		static std::vector<std::vector<float>> ReadTerrainFile(std::string filepath);
 
 		static void Initialize(std::string resourcePath, std::string enginePath, std::string fileEnding);
