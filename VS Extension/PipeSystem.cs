@@ -113,8 +113,9 @@ namespace VS_Extension
                         readString = s;
                     }
                 }
-
             }
+            writer.Close();
+            reader.Close();
         }
         #endregion
 
@@ -184,12 +185,12 @@ namespace VS_Extension
 			Entity temp = new Entity(entstr);
             CreateBase(temp, new CodeManipulator("presets.h"));
             //manipulator.AddAttribute("Wuschel", "Blah3");
+            MessageBox.Show("if you want to export a second time,\ndelete all Content in presets.h\n and include the FM3D-Engine with \n#include<Engine.h>","WARNING");
         }
 
         private static void CreateBase(Entity ent, CodeManipulator mani) {
-			
 			mani.AddNamespace("Entities");
-            mani.AddClass("preset_" + ent.name, "Entities", "Preset");
+            mani.AddClass("preset_" + ent.name, "Entities", "FM3D::EntitySystem::Preset");
 			
 			VCCodeFunction setcomp = mani.AddMethod(
 						"Entities",
@@ -198,7 +199,11 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-			mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
+            if (setcomp!=null)
+            {
+                mani.AddAttribute(setcomp, "e", "FM3D::EntitySystem::EntityPtr");
+            }
+			
 
 			string components="";
 			foreach (Component comp in ent.components) {
@@ -232,8 +237,10 @@ namespace VS_Extension
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							prop.type,
 							EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-						mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                        if (qq!=null)
+                        {
+                            mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                        }						
 					}
 					if (prop.m_set) {
 						VCCodeFunction pp = mani.AddMethod(
@@ -243,9 +250,11 @@ namespace VS_Extension
 							EnvDTE.vsCMFunction.vsCMFunctionFunction,
 							"void",
 							EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-						mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
-						mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                        if (pp!=null)
+                        {
+                            mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+                            mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                        }
 					}
 				}
 				if (comp.m_standard) {
@@ -266,8 +275,10 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						prop.type,
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-					mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                    if (qq != null)
+                    {
+                        mani.AddTextBodyOfMethod(qq, "return m_" + prop.name + ";");
+                    }
 				}
 				if (prop.m_set) {
 					VCCodeFunction pp = mani.AddMethod(
@@ -277,9 +288,11 @@ namespace VS_Extension
 						EnvDTE.vsCMFunction.vsCMFunctionFunction,
 						"void",
 						EnvDTE.vsCMAccess.vsCMAccessPublic);
-
-					mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
-					mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                    if (pp!=null)
+                    {
+                        mani.AddAttribute(pp, "m_" + prop.name + "_", prop.type);
+                        mani.AddTextBodyOfMethod(pp, "m_" + prop.name + "=" + "m_" + prop.name + "_;");
+                    }
 				}
 			}
 			mani.AddTextBodyOfMethod(setcomp, components);

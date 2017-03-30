@@ -308,7 +308,7 @@ namespace FM3D_Designer.src
 					Replace("ENGINE_INCLUDE_DIR", Incs).Replace("ENGINE_DLL_DIR", EngineDllDir).Replace("ENGINE_DIR", Libs));
 
 				Project.Load(pathtofile);
-				return true;
+				return true; 
 			}
 		}
 		public string GetProjectPath() {
@@ -362,6 +362,7 @@ namespace FM3D_Designer.src
                     Project.CurrentProject.AnalyseChildren(writer, i);
                     writer.WriteEndElement();
                 }
+
                 progress = 0.8;
                 controller.SetProgress(progress);
                 controller.SetMessage("Writging Pipe Information...");
@@ -418,8 +419,8 @@ namespace FM3D_Designer.src
 			return list;
 		}
 		public static void TestEntityConvertTostr() {
-			//(189, 00, 255));
-			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(189, 00, 255));
+            
+            MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(189, 00, 255));
 			MainWindow.Instance.tb_statbar.Text = "Exporting Enities...";
 
 			MainWindow.Instance.visualStudio.SendEntities(Project.CurrentProject.ConvertAllEntitiesToString());
