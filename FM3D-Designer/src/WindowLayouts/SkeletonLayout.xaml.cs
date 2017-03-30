@@ -45,41 +45,42 @@ namespace FM3D_Designer.src.WindowLayouts
             InitializeComponent();
 
             this.Header = this.skeleton.Name + (this.skeleton.IsSaved ? "" : "*");
+            this.Initialize(mainWindow, this.dockSite);
 
             {
                 SplitPanel splitPanel = new SplitPanel();
                 DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(bonesWindow = new ToolWindows.Skeleton.BonesWindow());
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Left);
-                DockSite.SetDockSize(splitPanel, 200);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
-            }
-            {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(animWindow = new ToolWindows.Skeleton.AnimationsWindow(this.skeleton));
-                splitPanel.Children.Add(dg);
-                DockSite.SetDock(splitPanel, Dock.Right);
-                DockSite.SetDockSize(splitPanel, 200);
-                this.dockSite.SplitPanels.Add(splitPanel);
-                dg.UpdateVisibility();
-            }
-            {
-                SplitPanel splitPanel = new SplitPanel();
-                DockWindowGroup dg = new DockWindowGroup();
-                dg.Items.Add(propWindow = new ToolWindows.Skeleton.PropertiesWindow());
+                dg.Items.Add(bonesWindow = new ToolWindows.Skeleton.BonesWindow(this.skeleton));
                 splitPanel.Children.Add(dg);
                 DockSite.SetDock(splitPanel, Dock.Top);
-                DockSite.SetDockSize(splitPanel, 200);
+                DockSite.SetDockSize(splitPanel, 500);
                 this.dockSite.SplitPanels.Add(splitPanel);
                 dg.UpdateVisibility();
             }
+            //{
+            //    SplitPanel splitPanel = new SplitPanel();
+            //    DockWindowGroup dg = new DockWindowGroup();
+            //    dg.Items.Add(animWindow = new ToolWindows.Skeleton.AnimationsWindow(this.skeleton));
+            //    splitPanel.Children.Add(dg);
+            //    DockSite.SetDock(splitPanel, Dock.Right);
+            //    DockSite.SetDockSize(splitPanel, 200);
+            //    this.dockSite.SplitPanels.Add(splitPanel);
+            //    dg.UpdateVisibility();
+            //}
+            //{
+            //    SplitPanel splitPanel = new SplitPanel();
+            //    DockWindowGroup dg = new DockWindowGroup();
+            //    dg.Items.Add(propWindow = new ToolWindows.Skeleton.PropertiesWindow());
+            //    splitPanel.Children.Add(dg);
+            //    DockSite.SetDock(splitPanel, Dock.Top);
+            //    DockSite.SetDockSize(splitPanel, 200);
+            //    this.dockSite.SplitPanels.Add(splitPanel);
+            //    dg.UpdateVisibility();
+            //}
 
             bonesWindow.Closed += OnBonesWinClosed;
-            animWindow.Closed += OnAnimWinClosed;
-            propWindow.Closed += OnPropWinClosed;
+            //animWindow.Closed += OnAnimWinClosed;
+            //propWindow.Closed += OnPropWinClosed;
         }
 
         void Menu_Properties(object sender, RoutedEventArgs e)
@@ -116,7 +117,7 @@ namespace FM3D_Designer.src.WindowLayouts
             }
             else
             {
-                dockSite.FloatWindow(this.bonesWindow = new ToolWindows.Skeleton.BonesWindow());
+                dockSite.FloatWindow(this.bonesWindow = new ToolWindows.Skeleton.BonesWindow(this.skeleton));
                 bonesWindow.Closed += OnBonesWinClosed;
             }
         }

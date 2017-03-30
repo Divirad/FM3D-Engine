@@ -19,9 +19,11 @@ namespace FM3D_Designer.src.ToolWindows.Skeleton
     /// </summary>
     public partial class BonesWindow : ToolWindow
     {
-        public BonesWindow()
+        public BonesWindow(DesignerLib.Skeleton skel)
         {
             InitializeComponent();
+
+            this.grid.DataContext = skel;
         }
     }
 }
