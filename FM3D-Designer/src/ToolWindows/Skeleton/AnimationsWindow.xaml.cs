@@ -19,9 +19,11 @@ namespace FM3D_Designer.src.ToolWindows.Skeleton
     /// </summary>
     public partial class AnimationsWindow : ToolWindow
     {
-        public AnimationsWindow()
+        public AnimationsWindow(DesignerLib.Skeleton skel)
         {
             InitializeComponent();
+
+            this.list.DataContext = skel;
         }
     }
 }

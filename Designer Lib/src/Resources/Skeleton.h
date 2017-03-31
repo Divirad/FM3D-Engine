@@ -2,6 +2,7 @@
 #define NO_FM3D
 #include "ResourceRef.h"
 #include "InternSkeleton.h"
+#include "../pch.h"
 
 namespace FM3D {
 	class Skeleton;
@@ -13,8 +14,15 @@ namespace DesignerLib {
 
 	public ref class Bone {
 	public:
-		property ObservableCollection<Bone^>^ Children;
-		property System::String^ Name;
+		property System::String^ position;
+		property System::String^ rotation;
+		property System::String^ scale;
+
+		Bone(System::String^ p, System::String^ r, System::String^ s) {
+			position = p;
+			rotation = r;
+			scale = s;
+		}
 	};
 
 	public ref class Skeleton {
@@ -22,6 +30,17 @@ namespace DesignerLib {
 		InternSkeleton* m_skeleton;
 	public:
 		property bool IsSaved;
+
+		property ObservableCollection<Bone^>^ Bones {
+			ObservableCollection<Bone^>^ get() {
+				auto result = gcnew ObservableCollection<Bone^>();
+				auto bones = m_skeleton->GetBones();
+				for (const auto& b : bones) {
+					result->Add(gcnew Bone(ConvertString(b.position), ConvertString(b.rotation), ConvertString(b.scale)));
+				}
+				return result;
+			}
+		}
 
 		property unsigned int BoneCount {
 			unsigned int get() {

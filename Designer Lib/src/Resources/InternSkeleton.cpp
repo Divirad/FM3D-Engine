@@ -6,6 +6,15 @@ namespace DesignerLib {
 	InternSkeleton::InternSkeleton(FM3D::Skeleton* skeleton) : m_skeleton(skeleton) {
 	}
 
+	std::vector<InternBone> InternSkeleton::GetBones() {
+		std::vector<InternBone> result;
+		for (const auto& m : m_skeleton->GetOffsetMatrices()) {
+			auto t = FM3D::Transformation::FromMatrix(m);
+			result.push_back(InternBone{ t.position.ToString(), t.rotation.ToAngles().ToString(), t.scale.ToString() });
+		}
+		return result;
+	}
+
 	unsigned int InternSkeleton::GetBoneCount() {
 		return m_skeleton->GetOffsetMatrices().size();
 	}

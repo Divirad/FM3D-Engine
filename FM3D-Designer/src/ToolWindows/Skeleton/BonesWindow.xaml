@@ -9,12 +9,11 @@
         mc:Ignorable="d"
         Header="Bones">
     
-    <DataGrid x:Name="grid" Margin="5,5,5,5"  DataContext="" ItemsSource="{Binding skeleton.Skeleton.Bones}" CanUserReorderColumns="False" CanUserSortColumns ="False" AutoGenerateColumns="False">
+    <DataGrid x:Name="grid" Margin="5,5,5,5"  DataContext="" ItemsSource="{Binding Bones}" CanUserReorderColumns="False" CanUserSortColumns ="False" AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Name"       Binding="{Binding Name}"  />
-            <DataGridTextColumn Header="Position"   Binding="{Binding Position}"  />
-            <DataGridTextColumn Header="Rotation"   Binding="{Binding Rotation}"    />
-            <DataGridTextColumn Header="Scale"      Binding="{Binding Scale}"     />
+            <DataGridTextColumn Header="Position"   Binding="{Binding position}"  />
+            <DataGridTextColumn Header="Rotation"   Binding="{Binding rotation}"    />
+            <DataGridTextColumn Header="Scale"      Binding="{Binding scale}"     />
         </DataGrid.Columns>
     </DataGrid>
 </fm:ToolWindow>

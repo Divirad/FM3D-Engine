@@ -21,13 +21,13 @@
             <MenuItem Header="_File" >
                 <MenuItem Header="_Save"  Command="ApplicationCommands.Save"/>
             </MenuItem>
-            <MenuItem Header="_Edit" />
+            <!--<MenuItem Header="_Edit" />-->
             <MenuItem Header="_View" >
-                <MenuItem Header="_Animations" Click="Menu_Animations"/>
+                <!--<MenuItem Header="_Animations" Click="Menu_Animations"/>-->
                 <MenuItem Header="_Bones" Click="Menu_Bones"/>
-                <MenuItem Header="_Properties" Click="Menu_Properties"/>
+                <!--<MenuItem Header="_Properties" Click="Menu_Properties"/>-->
             </MenuItem>
-            <MenuItem Header="_Window" />
+            <!--<MenuItem Header="_Window" />-->
         </Menu>
         <dd:DockSite Margin="4,0,4,0" Grid.Row="1"  Name="dockSite" VisualStyle="Office2016"/>
     </Grid>

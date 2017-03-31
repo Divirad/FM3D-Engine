@@ -82,11 +82,7 @@
                     <Button x:Name="btn_load" Command="Open"   Grid.Column="1" Grid.Row="0" Content="Load" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5, 0,5,0" FontWeight="Normal" FontSize="10"></Button>
                     <Button x:Name="btn_start" Grid.Column="0" Grid.Row="1"                 Content="Start" Click="ClickLoadProject" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="150" Height="40"/>
                     <Button x:Name="btn_new"  Command="New"    Grid.Column="0" Grid.Row="2" Content="New Project" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10, 10" FontWeight="Normal" FontSize="15" Width="150" Height="40"/>
-                    <!-- TEST BUTTON-->
-                    <Rectangle Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" HorizontalAlignment="Stretch" Height="38" 
-                                Grid.Row ="1" Grid.Column="3" VerticalAlignment="Stretch"/>
-                    <Button x:Name="testButton" 
-                                Grid.Row ="1" Grid.Column="3" Content="Project 0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TestProjectPath" FontWeight="Normal"/>
+
                 </Grid>
 
             </Grid>

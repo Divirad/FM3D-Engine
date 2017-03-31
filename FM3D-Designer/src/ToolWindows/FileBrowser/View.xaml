@@ -44,10 +44,10 @@
                 <Button Height="30" ToolTip="Collapse All" Command="{Binding CommCollapseAll, Source={StaticResource logic}}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/collapseAll_icon.png" />
                 </Button>
-                <Button Height="30" ToolTip="Refresh" Command="{Binding CommRefresh, Source={StaticResource logic}}">
-                    <!--http://images.google.de/imgres?imgurl=http://www.myiconfinder.com/uploads/iconsets/256-256-60eade7f184e696a79fa2ff1e81c851d.png&imgrefurl=http://www.myiconfinder.com/icon/arrow-cycle-refresh-repeat-round-undo-update-sync-reloading/5068&h=256&w=256&tbnid=ojWfon76yfyLkM:&docid=gIEKG4XVFs8YgM&ei=ETQ_WNKKFoObsAGB2b6IDw&tbm=isch&client=firefox-b-ab&iact=rc&uact=3&page=1&start=45&ved=0ahUKEwiS1_fBptHQAhWDDSwKHYGsD_EQMwhiKC0wLQ&bih=916&biw=1920-->
+                <!--<Button Height="30" ToolTip="Refresh" Command="{Binding CommRefresh, Source={StaticResource logic}}">
+                    --><!--http://images.google.de/imgres?imgurl=http://www.myiconfinder.com/uploads/iconsets/256-256-60eade7f184e696a79fa2ff1e81c851d.png&imgrefurl=http://www.myiconfinder.com/icon/arrow-cycle-refresh-repeat-round-undo-update-sync-reloading/5068&h=256&w=256&tbnid=ojWfon76yfyLkM:&docid=gIEKG4XVFs8YgM&ei=ETQ_WNKKFoObsAGB2b6IDw&tbm=isch&client=firefox-b-ab&iact=rc&uact=3&page=1&start=45&ved=0ahUKEwiS1_fBptHQAhWDDSwKHYGsD_EQMwhiKC0wLQ&bih=916&biw=1920--><!--
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/refresh_icon.png" />
-                </Button>
+                </Button>-->
                 <Separator/>
                 <Button Style="{StaticResource ToggleStyle}" Height="30" x:Name="treeButton" Command="{Binding CommTreeMode, Source={StaticResource logic}}" CommandParameter="{x:Static local:Logic+ViewMode.TREE}">
                     <Image Source="/FM3D-Designer;component/resources/images/file browser/tree_icon.png" />

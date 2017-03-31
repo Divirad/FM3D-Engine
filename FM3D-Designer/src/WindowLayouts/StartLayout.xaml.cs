@@ -106,8 +106,6 @@ namespace FM3D_Designer.src.WindowLayouts
             mainWindow.ClearAttachedWindows();
             Project.Load(this.tb_path.Text);
             mainWindow.AttachNewWindowLayout(new MainLayout(this.mainWindow), true);
-            WindowLayout layout = new TextureLayout();
-            mainWindow.AttachNewWindowLayout(layout);
             //WindowLayout layout2 = new MeshLayout();
             //mainWindow.AttachNewWindowLayout(layout2);
             return true;
