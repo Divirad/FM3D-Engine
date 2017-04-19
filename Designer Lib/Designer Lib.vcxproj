@@ -232,8 +232,7 @@
       </CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\ExternFileLoader.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\OpenGL\Wrapper\Renderable.cpp" />
     <ClCompile Include="src\OpenGL\Wrapper\OpenGL.cpp" />
@@ -251,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="src\Resources\InternSkeleton.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </CompileAsManaged>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </CompileAsManaged>
     </ClCompile>
     <ClCompile Include="src\Resources\Mesh.cpp" />

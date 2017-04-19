@@ -204,8 +204,8 @@ namespace FM3D {
 	void GL3Renderer3D::FinalPass() {
 		m_gbuffer.BindForFinalPass();
 		m_target->BindAsTarget();
-		GLCall(glBlitFramebuffer(0, 0, m_target->GetWidth(), m_target->GetHeight(), 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
-		//m_gbuffer.DebugRendering(m_target->GetWidth(), m_target->GetHeight());
+		//GLCall(glBlitFramebuffer(0, 0, m_target->GetWidth(), m_target->GetHeight(), 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		m_gbuffer.DebugRendering(m_target->GetWidth(), m_target->GetHeight());
 
 	}
 

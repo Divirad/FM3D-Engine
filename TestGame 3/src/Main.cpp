@@ -127,6 +127,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { indices.size(), (void*)&(indices[0]), std::move(vertices), sizeof(uint), false } })), materials);
 
 	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+	EntityPtr allo = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+
+		static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
 	//2D
 	Text text0{ "", font, 0xff000000 };
@@ -143,6 +146,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderer3D->Submit(terrain.get());
 			renderer3D->Submit(island.get());
+			renderer3D->Submit(allo.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
