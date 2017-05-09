@@ -57,7 +57,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	win->Start(1600, 900, L"TestGame 3");
 
-	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), true, ((Win32Window*)win)->GetHwnd(), false)) {
+	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), false, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
 	Matrix4f projectionMatrix = Matrix4f::ProjectionFOV(70.0f, static_cast<float>(win->GetWidth()) / static_cast<float>(win->GetHeight()), 0.1f, 1000.0f);
@@ -148,12 +148,25 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderer3D->Submit(island.get());
 			renderer3D->Submit(allo.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
-			target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
+
+			renderer2D->Begin();
+
+			Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, target3D->GetTexture());
+			renderer2D->Submit(&renderedScene);
+
+			renderer2D->Submit(&textBack);
+			renderer2D->DrawString(text0, Vector3f(-0.975f, 0.5f, 0.0f));
+			renderer2D->DrawString(text1, Vector3f(-0.975f, 0.4f, 0.0f));
+			renderer2D->End();
+			renderer2D->Flush();
+			target2D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
+
+			//target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderSystem->EndRendering();
 
 			Move(camera, laptopCam);
-			renderer3D->SetForceWireFrame(Window::GetInstance()->GetInput().CheckKey(KEY_F5));
+			//renderer3D->SetForceWireFrame(Window::GetInstance()->GetInput().CheckKey(KEY_F5));
 
 			if (!resolution && Window::GetInstance()->GetInput().CheckKey(KEY_N)) {
 				std::cout << "---------------------" << std::endl;
@@ -176,6 +189,42 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			stream << std::fixed << std::setprecision(2) << 1000.0f / (float)time;
 			text0.txt = "FPS: " + stream.str();
 			text1.txt = "T: " + std::to_string(time) + "ms";
+
+			if (Window::GetInstance()->GetInput().CheckKey(KEY_F2)) {
+				Vector2i s(1920, 1080);
+				s *= 5;
+				target3D->ReSize(s);
+
+				renderSystem->BeginRendering(clearColor);
+				renderer3D->Submit(terrain.get());
+				renderer3D->Submit(island.get());
+				renderer3D->Submit(allo.get());
+				renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
+				renderSystem->EndRendering();
+
+				auto pixels = target3D->GetPixelDataReversed();
+				FIBITMAP* bitmap = FreeImage_ConvertFromRawBits(&pixels[0], s.x, s.y, s.x * 3, 24, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
+				if (!bitmap) {
+					OUTPUT_ERROR(1, "Failed to create screenshot", "");
+				}
+
+				std::string name = "Screenshot.png";
+				for (int i = 1; true; i++) {
+					std::ifstream f(name);
+					if (!f.is_open()) {
+						f.close();
+						break;
+					}
+
+					name = "Screenshot (" + std::to_string(i) + ").png";
+				}
+
+				if (!FreeImage_Save(FIF_PNG, bitmap, name.c_str(), 0)) {
+					OUTPUT_ERROR(1, "Failed to save screenshot", "");
+				}
+
+				target3D->ReSize(Vector2i(win->GetWidth(), win->GetHeight()));
+			}
 		}
 	};
 

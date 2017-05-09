@@ -47,6 +47,11 @@ namespace FM3D_Designer.src.Dialogs
 
         public static void ShowEntityEditor(this MetroWindow window, bool isnewentity, string path)
         {
+            if(!MainWindow.Instance.visualStudio.IsStarted)
+            {
+                window.ShowMessageAsync("Connection Error", "Your Visual Studio (2015) is not started.\nPlease start it from the toolbar.");
+                return;
+            }
             window.ShowMetroDialogAsync(new EntityEditor(window, path, isnewentity ));
         }
 

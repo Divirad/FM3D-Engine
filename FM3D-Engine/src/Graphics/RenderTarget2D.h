@@ -19,5 +19,6 @@ namespace FM3D {
 		int GetHeight() const;
 
 		virtual std::vector<byte> GetPixelData() = 0;
+		virtual std::vector<byte> GetPixelDataReversed() = 0;
 	};
 }

@@ -28,7 +28,7 @@ namespace FM3D {
 		m_dirLightShader.Bind();
 		m_dirLightShader.Initialize(width, height);
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
-		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.16f, 0.8f, Vector3f(1.0f, -1.0f, -1.0f) });
+		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.56f, 0.9f, Vector3f(1.0f, -1.0f, -1.0f) });
 
 	}
 
@@ -204,8 +204,8 @@ namespace FM3D {
 	void GL3Renderer3D::FinalPass() {
 		m_gbuffer.BindForFinalPass();
 		m_target->BindAsTarget();
-		//GLCall(glBlitFramebuffer(0, 0, m_target->GetWidth(), m_target->GetHeight(), 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
-		m_gbuffer.DebugRendering(m_target->GetWidth(), m_target->GetHeight());
+		GLCall(glBlitFramebuffer(0, 0, m_target->GetWidth(), m_target->GetHeight(), 0, 0, m_target->GetWidth(), m_target->GetHeight(), GL_COLOR_BUFFER_BIT, GL_LINEAR));
+		//m_gbuffer.DebugRendering(m_target->GetWidth(), m_target->GetHeight());
 
 	}
 

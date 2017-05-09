@@ -37,7 +37,7 @@ namespace FM3D_Designer.src
             {
                 while (true)
                 {
-                    lock (actionMutex)
+                    lock (readMutex)
                     {
                         if (readString.Length > 0)
                         {
@@ -133,9 +133,16 @@ namespace FM3D_Designer.src
                     }
                     else
                     {
-                        lock (readMutex)
+                        while (true)
                         {
-                            readString = s;
+                            lock (readMutex)
+                            {   if (readString.Length == 0)
+                                {
+                                    readString = s;
+                                    return;
+                                }
+                            }
+                            Thread.Sleep(2);
                         }
                     }
                 }
@@ -153,7 +160,8 @@ namespace FM3D_Designer.src
             {
                 writer.WriteLine(COMMAND + "GetComponents");
                 components = new ObservableCollection<string>();
-                int count = Convert.ToInt32(ReadString);
+                var read = ReadString;
+                int count = Convert.ToInt32(read);
                 for (int i = 0; i < count; i++)
                 {
                     components.Add(ReadString);

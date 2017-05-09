@@ -91,17 +91,17 @@ public partial class EntityEditor : DialogBase
 			List<Property> a4 = new List<Property>();
 			a4.Add(new Property() { name = "Model", m_get = true, m_set = true, type = "const FM3D::Model*" });
 			_available.Add(new Component() { name = "FM3D::RenderableComponent", _propauto = a4 });
-			
-            //ObservableCollection<string> components;
-            //if(!MainWindow.Instance.visualStudio.GetComponents(out components))
-            //{
-            //    MainWindow.Instance.ShowMessageAsync("VisualStudio Error", "Could not get components");
-            //    return;
-            //}
-            //foreach(var c in components)
-            //{
-            //    _avaiabel.Add(new Component() { name = c });
-            //}
+
+            ObservableCollection<string> components;
+            if (!MainWindow.Instance.visualStudio.GetComponents(out components))
+            {
+                MainWindow.Instance.ShowMessageAsync("VisualStudio Error", "Could not get components");
+                return;
+            }
+            foreach (var c in components)
+            {
+                _available.Add(new Component() { name = c });
+            }
         }
 		private void AddPropToComp(Component comp, Property prop) {
 			_entity._propauto.Add(prop);

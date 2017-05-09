@@ -19,6 +19,7 @@ namespace FM3D {
 		const Texture* GetTexture() override;
 
 		std::vector<byte> GetPixelData() override;
+		std::vector<byte> GetPixelDataReversed() override;	
 
 	private:
 		void Create(bool useDepth);

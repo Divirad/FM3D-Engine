@@ -26,8 +26,10 @@ namespace FM3D {
 			case MIPMAP_NEAREST:
 				return GL_NEAREST_MIPMAP_NEAREST;
 			}
+#ifdef _DEBUG
 		default:
 			assert(false); //Unknown Texture Filter!
+#endif
 		}
 	}
 
@@ -43,8 +45,10 @@ namespace FM3D {
 			return GL_CLAMP_TO_EDGE;
 		case CLAMP_TO_BORDER:
 			return GL_CLAMP_TO_BORDER;
+#ifdef _DEBUG
 		default:
 			assert(false); //Unknown Texture Wrap!
+#endif
 		}
 	}
 

@@ -52,7 +52,7 @@ void Resources::LoadResources(FM3D::RenderSystem* renderSystem) {";
 
         public ResourceFile(string path)
         {
-            this.Path_H = path + " / Resources.h";
+            this.Path_H = path + " /Resources.h";
             this.Path_CPP = path + "/Resources.cpp";
         }
 
