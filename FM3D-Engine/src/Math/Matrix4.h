@@ -345,6 +345,7 @@ namespace FM3D {
 				result.elements[3 + 2 * 4] = (near * far) / (near - far);
 
 				result.elements[2 + 3 * 4] = -1.0f;
+				result.elements[3 + 3 * 4] = 0.0f;
 
 				return result;
 			}
@@ -361,6 +362,7 @@ namespace FM3D {
 					result.elements[3 + 2 * 4] = (-2.0f * f * n) / (f - n);
 
 					result.elements[2 + 3 * 4] = -1.0f;
+					result.elements[3 + 3 * 4] = 0.0f;
 
 					return result;
 			}
@@ -373,6 +375,7 @@ namespace FM3D {
 				result.elements[3 + 2 * 4] = (-2.0f * f * n) / (f - n);
 
 				result.elements[2 + 3 * 4] = -1.0f;
+				result.elements[3 + 3 * 4] = 0.0f;
 
 				return result;
 			}

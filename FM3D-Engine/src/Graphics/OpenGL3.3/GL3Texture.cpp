@@ -54,8 +54,8 @@ namespace FM3D {
 
 	void GL3Texture::SetParameters(FilterMode& filter, WrapMode& wrap, MipMapMode mipmap) {
 		if(mipmap != NONE) GLCall(glGenerateMipmap(GL_TEXTURE_2D));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetGLFilterMode(filter, mipmap)));
 		//GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GetGLFilterMode(filter, mipmap)));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GetGLFilterMode(filter, mipmap)));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GetGLWrapMode(wrap)));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGLWrapMode(wrap)));
 	}

@@ -144,6 +144,8 @@ namespace FM3D {
 			GLCall(glBindTexture(GL_TEXTURE_2D, m_texture->GetID()));
 		}
 
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
 		GLCall(glBindVertexArray(m_vao));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
 		m_shader->Bind();
@@ -152,6 +154,7 @@ namespace FM3D {
 		m_shader->Unbind();
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 		GLCall(glBindVertexArray(0));
+		glDisable(GL_BLEND);
 
 		m_indicesCount = 0;
 	}

@@ -27,18 +27,6 @@ void VoidFunc(int x) {
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	Window::StartConsole();
 
-	Event<void(int)> e0;
-	e0 += VoidFunc;
-	e0 += VoidFunc;
-	e0(2);
-	Event<int(int)> e1;
-	e1 += IntFunc;
-	e1 += IntFunc;
-	auto rs = e1(2);
-	for (auto& r : rs) {
-		std::cout << "R: " << r << std::endl;
-	}
-
 	Output::Initialize();
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
 	Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
@@ -50,18 +38,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	std::string vert2 = FileManager::ReadShaderFile("src/Graphics/OpenGL3.3/3D/Shader/Geometry.vert", {});
 	auto char0 = vert.back();
 	auto char1 = vert2.back();
-
 	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
-
+	
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
 
-	win->Start(1600, 900, L"TestGame 3");
+	win->Start(1600, 900, L"TestGame 3", false);
 
 	if (!renderSystem->Initialize(win->GetWidth(), win->GetHeight(), false, ((Win32Window*)win)->GetHwnd(), false)) {
 		std::cout << "Rendersystem Initializing Error!" << std::endl;
 	}
-	Matrix4f projectionMatrix = Matrix4f::ProjectionFOV(70.0f, static_cast<float>(win->GetWidth()) / static_cast<float>(win->GetHeight()), 0.1f, 1000.0f);
-
+	auto ratio = static_cast<float>(win->GetWidth()) / static_cast<float>(win->GetHeight());
+	float h = 0.1f * tan(toRadians(70.0f / 2.0f));
+	Matrix4f projectionMatrix = Matrix4f::ProjectionFOV(70.0f, static_cast<float>(win->GetWidth()) / static_cast<float>(win->GetHeight()), 0.1f, 10000.0f);
 	RenderTarget2D* target2D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
 	Renderer2D* renderer2D = renderSystem->CreateRenderer2D(target2D);
 	RenderTarget2D* target3D = renderSystem->CreateRenderTarget2D(Vector2i(win->GetWidth(), win->GetHeight()), true);
@@ -74,7 +62,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	LARGE_INTEGER frequency;
 	QueryPerformanceFrequency(&frequency);
 
-	Camera camera(Vector3f(0.0f, 5.0f, 0.0f));
+	Camera camera(Vector3f(0.0f, 0.0f, 0.0f));
 	Camera laptopCam(Vector3f(0.0f, 2.0f, 0.0f));
 
 	Color4f clearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -86,6 +74,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	//Entities
 	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
+	EntityPtr sky = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(3000.0f, 3000.0f, 3000.0f), res.skyModel);
 
 	//Terrain
 	std::vector<uint> indices;
@@ -126,15 +115,22 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { indices.size(), (void*)&(indices[0]), std::move(vertices), sizeof(uint), false } })), materials);
 
-	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
-	EntityPtr allo = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+	Model* terrainMesh;
+	ExternFileManager::ReadModelFile("terrain.fbx", renderSystem, &terrainMesh, false, false);
+	terrainMesh->GetMaterials()[0] = &terrainMaterial;
 
-		static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
+	EntityPtr terrain = CreateEntity(scene, Vector3f(-600.0f, 0.0f, 600.0f), Vector3f(-90.0f, 0.0f, 0.0f), Vector3f(1000.0f, 1000.0f, 1000.0f), res.ringModel);
+	EntityPtr allo = CreateEntity(scene, Vector3f(7.0f, 1.0f, 0.0f), Vector3f(0.0f, -120.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+	EntityPtr fir = CreateEntity(scene, Vector3f(-3.0f, 1.0f, 2.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.0f, 2.0f, 2.0f), res.firModel);
+	EntityPtr fir1 = CreateEntity(scene, Vector3f(15.0f, 1.0f, -2.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.0f, 2.0f, 2.0f), res.firModel);
+	EntityPtr fir2 = CreateEntity(scene, Vector3f(4.0f, 1.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.3f, 2.3f, 2.3f), res.firModel2);
+
+	static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration() / 25);
 
 	//2D
 	Text text0{ "", font, 0xff000000 };
 	Text text1{ "", font, 0xff000000 };
-	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0xfffff00f, res.emptyTex);
+	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0x88fff00f, res.emptyTex);
 
 	bool resolution = true;
 
@@ -142,11 +138,34 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		if (!win->HasMessage()) {
 			QueryPerformanceCounter(&time1);
 
+			res.matAllo.useWireframe = res.firMat0.useWireframe = res.firMat1.useWireframe = Window::GetInstance()->GetInput().CheckKey(KEY_F5);
+			if (Window::GetInstance()->GetInput().CheckKey(KEY_F6)) {
+				res.matAllo.texture = res.redTex;
+				res.firMat0.texture = res.blueTex;
+				res.firMat1.texture = res.blueTex;
+				res.firMat2.texture = res.blueTex;
+			} else if (Window::GetInstance()->GetInput().CheckKey(KEY_F7)) {
+				res.matAllo.texture = res.redTex;
+				res.firMat0.texture = res.blue1Tex;
+				res.firMat1.texture = res.blue2Tex;
+				res.firMat2.texture = res.blue1Tex;
+			}
+			else {
+				res.matAllo.texture = res.texAllo;
+				res.firMat0.texture = res.firTex0;
+				res.firMat1.texture = res.firTex1;
+				res.firMat2.texture = res.firTex0;
+			}
+
 			renderSystem->BeginRendering(clearColor);
 
 			renderer3D->Submit(terrain.get());
-			renderer3D->Submit(island.get());
+			//renderer3D->Submit(island.get());
 			renderer3D->Submit(allo.get());
+			renderer3D->Submit(sky.get());
+			renderer3D->Submit(fir.get());
+			renderer3D->Submit(fir1.get());
+			renderer3D->Submit(fir2.get());
 			renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 
 			renderer2D->Begin();
@@ -166,6 +185,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			renderSystem->EndRendering();
 
 			Move(camera, laptopCam);
+			sky->Get<PositionComponent>()->SetPosition(camera.GetPosition());
 			//renderer3D->SetForceWireFrame(Window::GetInstance()->GetInput().CheckKey(KEY_F5));
 
 			if (!resolution && Window::GetInstance()->GetInput().CheckKey(KEY_N)) {
@@ -183,6 +203,8 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			camera.Preset(camera.FIRSTPERSON, false);
 
+			//static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime()+0.1);
+
 			QueryPerformanceCounter(&time2);
 			LONGLONG time = (1000LL * (time2.QuadPart - time1.QuadPart)) / frequency.QuadPart;
 			std::stringstream stream;
@@ -191,14 +213,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			text1.txt = "T: " + std::to_string(time) + "ms";
 
 			if (Window::GetInstance()->GetInput().CheckKey(KEY_F2)) {
-				Vector2i s(1920, 1080);
+				Vector2i s(1600, 900);
 				s *= 5;
 				target3D->ReSize(s);
 
 				renderSystem->BeginRendering(clearColor);
 				renderer3D->Submit(terrain.get());
-				renderer3D->Submit(island.get());
+				//renderer3D->Submit(island.get());
 				renderer3D->Submit(allo.get());
+				renderer3D->Submit(sky.get());
+				renderer3D->Submit(fir.get());
+				renderer3D->Submit(fir1.get());
+				renderer3D->Submit(fir2.get());
 				renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 				renderSystem->EndRendering();
 
@@ -295,6 +321,9 @@ void Move(Camera& camera, Camera& laptop) {
 		float speedSW = 0.1f;
 		if (Window::GetInstance()->GetInput().CheckKey(KEY_STRG)) {
 			speedFW = speedSW = 0.01f;
+		}
+		if (Window::GetInstance()->GetInput().CheckKey(KEY_V)) {
+			speedFW = speedSW = 1.0f;
 		}
 
 		if (forward && !backward) {

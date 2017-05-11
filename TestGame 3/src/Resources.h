@@ -13,6 +13,8 @@ struct Resources {
 	Texture* greenTex;
 	Material greenMat;
 	Texture* blueTex;
+	Texture* blue1Tex;
+	Texture* blue2Tex;
 	Material blueMat;
 	Texture* greyTex;
 	Material greyMat;
@@ -68,6 +70,24 @@ struct Resources {
 			};
 			blueTex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
 			blueMat = { 0xffffffff, blueTex };
+		}
+		{
+			float pixels[] = {
+				1.0f, 0.46f, 0.0f, 1.0f,
+				1.0f, 0.46f, 0.0f, 1.0f,
+				1.0f, 0.46f, 0.0f, 1.0f,
+				1.0f, 0.46f, 0.0f, 1.0f
+			};
+			blue1Tex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
+		}
+		{
+			float pixels[] = {
+				1.0f, 0.0f, 0.46f, 1.0f,
+				1.0f, 0.0f, 0.46f, 1.0f,
+				1.0f, 0.0f, 0.46f, 1.0f,
+				1.0f, 0.0f, 0.46f, 1.0f
+			};
+			blue2Tex = renderSystem->CreateTexture(2, 2, Texture::NEAREST, Texture::REPEAT, Texture::NONE, pixels, 32);
 		}
 		{
 			float pixels[] = {
@@ -200,6 +220,20 @@ struct Resources {
 	}
 #pragma endregion 
 
+#pragma region Ring
+	Model* ringModel;
+	Texture* texRing;
+	Texture* normalRing;
+	Material matRing;
+	void InitRing(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("Ring_Of_Doom.obj", renderSystem, &ringModel, false, true);
+		texRing = ExternFileManager::ReadTextureFile("Ring_Of_Doom_Texture.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		normalRing = ExternFileManager::ReadTextureFile("Ring_Of_Doom_Normal.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		matRing = Material(0xffffffff, texRing, 0.7f, nullptr, normalRing);
+		ringModel->GetMaterials()[0] = &matRing;
+	}
+#pragma endregion 
+
 #pragma region Shuttle
 	Model* shuttleModel;
 	Texture* shuttleBody;
@@ -263,6 +297,29 @@ struct Resources {
 	}
 #pragma endregion
 
+#pragma region Fir
+
+	Model* firModel;
+	Model* firModel2;
+	Texture* firTex0;
+	Texture* firTex1;
+	Material firMat0;
+	Material firMat1;
+	Material firMat2;
+	void InitFir(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("firtree1.3ds", renderSystem, &firModel, false, true);
+		firTex0 = ExternFileManager::ReadTextureFile("nadeln.png", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		firTex1 = ExternFileManager::ReadTextureFile("stamm2.png", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		firMat0 = Material(0xffffffff, firTex0);
+		firMat1 = Material(0xffffffff, firTex1);
+		firModel->GetMaterials()[2] = &firMat0;
+		firModel->GetMaterials()[1] = &firMat1;
+		firModel->GetMaterials()[0] = &firMat1;
+		firMat2 = Material(0xffff0000, firTex0);
+		firModel2 = new Model(firModel->GetMesh(), std::vector<const Material*> { &firMat1, &firMat1, &firMat2 });
+	}
+#pragma endregion
+
 #pragma region Laptop
 	Model* laptopModel;
 	Material desktopMat;
@@ -289,14 +346,50 @@ struct Resources {
 	}
 #pragma endregion
 
+#pragma region Skybox
+	Model* skyModel;
+	Texture* texSky0;
+	Texture* texSky1;
+	Texture* texSky2;
+	Texture* texSky3;
+	Texture* texSky4;
+	Texture* texSky5;
+	std::vector<Material> skyMaterials;
+	void InitSky(RenderSystem* renderSystem) {
+		texSky0 = ExternFileManager::ReadTextureFile("mossymountains_left.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+		texSky1 = ExternFileManager::ReadTextureFile("mossymountains_front.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+		texSky2 = ExternFileManager::ReadTextureFile("mossymountains_right.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+		texSky3 = ExternFileManager::ReadTextureFile("mossymountains_back.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+		texSky4 = ExternFileManager::ReadTextureFile("mossymountains_down.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+		texSky5 = ExternFileManager::ReadTextureFile("mossymountains_up.tif", renderSystem, Texture::LINEAR, Texture::CLAMP_TO_EDGE);
+
+		skyMaterials.emplace_back(0xffffffff, texSky0);
+		skyMaterials.emplace_back(0xffffffff, texSky1);
+		skyMaterials.emplace_back(0xffffffff, texSky2);
+		skyMaterials.emplace_back(0xffffffff, texSky3);
+		skyMaterials.emplace_back(0xffffffff, texSky4);
+		skyMaterials.emplace_back(0xffffffff, texSky5);
+
+		std::vector<const Material*> materials;
+		for (const auto& m : skyMaterials) materials.push_back(&m);
+
+		skyModel = new Model(MeshCreator::CreateCube(renderSystem, Vector3f(0.0f, 0.0f, 0.0f), 1.0f), materials);
+	}
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
+		std::cout << "Load Allosaurus..." << std::endl;
 		InitAllo(r);
-		InitIsland(r);
-		InitBoba(r);
-		InitTree(r);
-		InitShuttle(r);
-		InitLaptop(r);
+		//InitIsland(r);
+		//InitBoba(r);
+		//InitTree(r);
+		//InitShuttle(r);
+		//InitLaptop(r);
+		std::cout << "Load Ring..." << std::endl;
+		InitRing(r);
+		std::cout << "Load Skybox..." << std::endl;
+		InitSky(r);
+		std::cout << "Load Fir Tree..." << std::endl;
+		InitFir(r);
 	}
 };

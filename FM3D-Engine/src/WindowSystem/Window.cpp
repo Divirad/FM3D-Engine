@@ -30,7 +30,7 @@ namespace FM3D {
 		std::cout << "Console started!" << std::endl;
 	}
 
-	bool Window::Start(int width, int height, LPCWSTR title, bool showWindow) {
+	bool Window::Start(int width, int height, LPCWSTR title, bool fullscreen, bool showWindow) {
 		m_width = width;
 		m_height = height;
 		return true;

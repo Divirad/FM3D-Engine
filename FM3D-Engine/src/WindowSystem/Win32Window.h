@@ -14,7 +14,7 @@ namespace FM3D {
 
 		Win32Window(HINSTANCE hInstance);
 	public:
-		bool Start(int width, int height, LPCWSTR title, bool showWindow = true) override;
+		bool Start(int width, int height, LPCWSTR title, bool fullscreen, bool showWindow = true) override;
 		bool ShouldClose() const override;
 		bool HasMessage();
 		void Close() override;

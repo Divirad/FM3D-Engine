@@ -57,7 +57,11 @@ void main() {
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
 	vec3 Color = texture(gColorMap, TexCoord).xyz;
 	vec3 Normal = texture(gNormalMap, TexCoord).xyz;
-	Normal = normalize(Normal);
-
-	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal, TexCoord);
+	float p = (Normal[0] * Normal[0]) + (Normal[1] * Normal[1]) + (Normal[2] * Normal[2]);
+	if(p < 0.001 && p > -0.001) {
+		FragColor = vec4(Color, 1.0);
+	} else {
+		Normal = normalize(Normal);
+		FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal, TexCoord);
+	}
 }
