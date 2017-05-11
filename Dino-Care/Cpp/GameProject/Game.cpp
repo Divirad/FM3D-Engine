@@ -1,8 +1,21 @@
 #include "Game.h"
+#include "Logics.h"
 
 namespace Dino_Care {
 
-	void Game::Initialize(HINSTANCE hInstance) {
+	Game::~Game() {
+		delete m_renderer3D;
+		delete m_renderer2D;
+		delete m_target3D;
+		delete m_target2D;
+		delete m_renderSystem;
+
+		delete m_renderLogic;
+	}
+
+	bool Game::Initialize(HINSTANCE hInstance) {
+		Window::StartConsole();
+
 		Output::Initialize();
 		Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
 		Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
@@ -11,10 +24,35 @@ namespace Dino_Care {
 		ExternFileManager::Initialize();
 
 		m_win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
+
+		m_renderSystem = RenderSystem::Create(OpenGL3_3);
+		if (!m_renderSystem->Initialize(m_win->GetWidth(),m_win->GetHeight(), false, ((Win32Window*)m_win)->GetHwnd(), false)) {
+			std::cout << "Rendersystem Initializing Error!" << std::endl;
+			return false;
+		}
+
+		m_target2D = m_renderSystem->CreateRenderTarget2D(Vector2i(m_win->GetWidth(), m_win->GetHeight()), true);
+		m_renderer2D = m_renderSystem->CreateRenderer2D(m_target2D);
+		m_target3D = m_renderSystem->CreateRenderTarget2D(Vector2i(m_win->GetWidth(), m_win->GetHeight()), true);
+		Matrix4f projectionMatrix = Matrix4f::ProjectionFOV(70.0f, static_cast<float>(m_win->GetWidth()) / static_cast<float>(m_win->GetHeight()), 0.1f, 10000.0f);
+		m_renderer3D = m_renderSystem->CreateRenderer3D(projectionMatrix, m_win->GetWidth(), m_win->GetHeight(), m_target3D);
+
+		m_res.LoadResources(m_renderSystem);
+		m_cres.Load(m_renderSystem);
+
+		m_renderLogic = new RenderLogic(m_renderer3D, m_scene);
+
+		auto allo = m_scene.CreateEntity();
+		allo->Add<PositionComponent>(Vector3f(0.0f, 0.0f, 0.0f));
+		allo->Add<RotationComponent>(Vector3f(0.0f, 0.0f, 0.0f));
+		allo->Add<ScaleComponent>(Vector3f(1.0f, 1.0f, 1.0f));
+		Material alloMat(0xfffffff);
+		Model* alloModel = new Model(m_res.GetMesh(MESH_ALLOSAURUS), std::vector<const Material*>{ &alloMat });
+		allo->Add<RenderableComponent>(alloModel);
 	}
 
 	void Game::Start() {
-		m_win->Start(1600, 900, L"Dino-Care");
+		m_win->Start(1600, 900, L"Dino-Care", false);
 	}
 
 	void Game::Loop() {
@@ -41,6 +79,7 @@ namespace Dino_Care {
 	}
 
 	void Game::Update(double time, double timeDelta) {
+		m_renderLogic->ExecuteForAll();
 	}
 
 }
