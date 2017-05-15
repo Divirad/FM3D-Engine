@@ -68,6 +68,8 @@ namespace FM3D {
 		if (m_bits != 24 && m_bits != 32 && m_bits != 8)
 			OUTPUT_ERROR(1, "GL3 Texture failed to create", "Unsupported image bit-depth: " + std::to_string(m_bits));
 
+		
+
 		GLint internalFormat = m_bits == 32 ? GL_RGBA : m_bits == 24 ? GL_RGB : GL_RED;
 		GLenum format = m_bits == 32 ? GL_BGRA : m_bits == 24 ? GL_BGR : GL_RED;
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_FLOAT, pixels ? pixels : NULL));

@@ -4,13 +4,12 @@ namespace FM3D {
 
 	using namespace std;
 
-#define PATH "src/Graphics/OpenGL3.3/3D/Shader/"
 #define MAX_BONES 128
 
 	GL3Shader3D::GL3Shader3D(int config)
-		: GL3Shader(StringUtilities::StringWithDefines(FileManager::ReadShaderFile(PATH + string("Geometry.vert"), CreateDefines(config)),
+		: GL3Shader(StringUtilities::StringWithDefines(FileManager::ReadShaderFile("Geometry.vert", CreateDefines(config)),
 		{ StringUtilities::Define{ "MAX_BONES", std::to_string(MAX_BONES) } }).c_str(),
-			FileManager::ReadShaderFile(PATH + string("Geometry.frag"), CreateDefines(config)).c_str()),
+			FileManager::ReadShaderFile("Geometry.frag", CreateDefines(config)).c_str()),
 		m_boneBegin(0u), m_boneEnd(MAX_BONES-1) {
 		
 		m_WVPLocation = GetUniformLocation("gWVP");

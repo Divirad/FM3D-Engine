@@ -31,13 +31,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Output::SetTargetForAll(OUTPUT_TARGET_CONSOLE);
 	Output::SetOptionToAll(OUTPUT_OPTION_INFORMATION | OUTPUT_OPTION_LINE | OUTPUT_OPTION_TIME);
 
-	FileManager::Initialize("res/", "../FM3D-Engine/", "fm3d");
+	FileManager::Initialize("res/", "../FM3D-Engine/src/Graphics/OpenGL3.3/3D/Shader/", "fm3d");
 	ExternFileManager::Initialize();
 
-	std::string vert = FileManager::ReadShaderFile("src/Graphics/OpenGL3.3/3D/Shader/Light.vert", {});
-	std::string vert2 = FileManager::ReadShaderFile("src/Graphics/OpenGL3.3/3D/Shader/Geometry.vert", {});
-	auto char0 = vert.back();
-	auto char1 = vert2.back();
 	RenderSystem* renderSystem = RenderSystem::Create(OpenGL3_3);
 	
 	Window* win = Window::SetInstance(Window::Create(Platform::WINDOWS, hInstance));
@@ -130,9 +126,14 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//2D
 	Text text0{ "", font, 0xff000000 };
 	Text text1{ "", font, 0xff000000 };
-	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0x88fff00f, res.emptyTex);
+	Quad textBack(Vector3f(-1.0f, 0.3f, 0.0f), Vector2f(0.4f, 0.3f), 0x88ff0f0f, res.emptyTex);
 
 	bool resolution = true;
+
+	Terrain terr(res.terrainModel->GetMesh(), res.terrainSplat, res.terrainNormal, std::vector<std::pair<Texture*, float>>({ std::make_pair(res.terrain0, 0.05f), std::make_pair(res.terrain1, 0.01f), std::make_pair(res.terrain2, 0.01f) }), 200.0f);
+	terr.SetRotation(Vector3f(-90.0f, 0.0f, 0.0f));
+	terr.SetScale(Vector3f(1000.0f, 1000.0f, 300.0f));
+	renderer3D->Submit(&terr);
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -159,7 +160,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			renderSystem->BeginRendering(clearColor);
 
-			renderer3D->Submit(terrain.get());
+			//renderer3D->Submit(terrain.get());
 			//renderer3D->Submit(island.get());
 			renderer3D->Submit(allo.get());
 			renderer3D->Submit(sky.get());
@@ -218,13 +219,14 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				target3D->ReSize(s);
 
 				renderSystem->BeginRendering(clearColor);
-				renderer3D->Submit(terrain.get());
+				//renderer3D->Submit(terrain.get());
 				//renderer3D->Submit(island.get());
-				renderer3D->Submit(allo.get());
+
+				//renderer3D->Submit(allo.get());
 				renderer3D->Submit(sky.get());
-				renderer3D->Submit(fir.get());
-				renderer3D->Submit(fir1.get());
-				renderer3D->Submit(fir2.get());
+				//renderer3D->Submit(fir.get());
+				//renderer3D->Submit(fir1.get());
+				//renderer3D->Submit(fir2.get());
 				renderer3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
 				renderSystem->EndRendering();
 

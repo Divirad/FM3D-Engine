@@ -401,7 +401,7 @@ namespace FM3D {
 				return RotationZ(angle.z) * (RotationY(angle.y) * RotationX(angle.x));
 			}
 			static inline Matrix Transformation(const Vector3<Scalar>& translation, const Vector3<Scalar>& scale, const Vector3<Scalar>& angle) {
-				return   Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
+				return Matrix4f::Translate(translation) * (Matrix4f::Rotation(angle) * Matrix4f::Scale(scale));
 			}
 			
 			static inline Matrix RotationX(float angle) {

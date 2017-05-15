@@ -2,7 +2,6 @@
 
 namespace FM3D {
 	using namespace std;
-#define PATH "src/Graphics/OpenGL3.3/3D/Shader/"
 
 	GL3LightShader::GL3LightShader(const char * vertSrc, const char * fragSrc) : GL3Shader(vertSrc, fragSrc) {
 		m_WVPLocation = GetUniformLocation("gWVP");
@@ -32,7 +31,7 @@ namespace FM3D {
 		SetUniform2f(m_screenSizeLocation, Vector2f(width, height));
 	}
 
-	GL3PointLightShader::GL3PointLightShader() : GL3LightShader(FileManager::ReadShaderFile(PATH + string("Light.vert"), {}).c_str(), FileManager::ReadShaderFile(PATH + string("PointLight.frag"), {}).c_str()) {
+	GL3PointLightShader::GL3PointLightShader() : GL3LightShader(FileManager::ReadShaderFile("Light.vert", {}).c_str(), FileManager::ReadShaderFile("PointLight.frag", {}).c_str()) {
 		m_pointLightLocation.Color = GetUniformLocation("gPointLight.Base.Color");
 		m_pointLightLocation.AmbientIntensity = GetUniformLocation("gPointLight.Base.AmbientIntensity");
 		m_pointLightLocation.Position = GetUniformLocation("gPointLight.Position");
@@ -52,7 +51,7 @@ namespace FM3D {
 		SetUniform1f(m_pointLightLocation.Atten.Exp, light.attenuation.exp);
 	}
 
-	GL3DirectionalLightShader::GL3DirectionalLightShader() : GL3LightShader(FileManager::ReadShaderFile(PATH + string("Light.vert"), {}).c_str(), FileManager::ReadShaderFile(PATH + string("DirectionalLight.frag"), {}).c_str()) {
+	GL3DirectionalLightShader::GL3DirectionalLightShader() : GL3LightShader(FileManager::ReadShaderFile("Light.vert", {}).c_str(), FileManager::ReadShaderFile("DirectionalLight.frag", {}).c_str()) {
 		m_dirLightLocation.Color = GetUniformLocation("gDirectionalLight.Base.Color");
 		m_dirLightLocation.AmbientIntensity = GetUniformLocation("gDirectionalLight.Base.AmbientIntensity");
 		m_dirLightLocation.Direction = GetUniformLocation("gDirectionalLight.Direction");

@@ -21,6 +21,9 @@ namespace FM3D {
 		GL3Shader3D* m_shader3D;
 		std::vector<GL3Shader3D> m_shaders3D;
 
+		const Terrain* m_terrain;
+		GL3TerrainShader m_terrainShader;
+
 		std::map<const Mesh*, std::map<const Model*, std::vector<const EntitySystem::Entity*>>> m_meshModelEntityMap;
 		std::vector<PointLight*> m_pointLights;
 
@@ -34,6 +37,7 @@ namespace FM3D {
 		GL3Renderer3D(Matrix4f& projectionMatrix, uint width, uint height, GL3RenderSystem* renderSystem, RenderTarget2D* target);
 	public:
 		void Submit(const EntitySystem::Entity* e) override;
+		void Submit(const Terrain* t) override;
 		void Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) override;
 		void SetProjectionMatrix(const Matrix4f& projectionMatrix) override;
 	private:
@@ -46,5 +50,6 @@ namespace FM3D {
 		bool SetShader(int config);
 		void SetMaterial(const Material* material);
 		void Resize(uint width, uint height);
+		void RenderTerrain(Matrix4f&);
 	};
 }
