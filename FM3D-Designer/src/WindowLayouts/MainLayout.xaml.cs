@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
 using System.Collections.ObjectModel;
 using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
 namespace FM3D_Designer.src.WindowLayouts {
     /// <summary>
@@ -90,17 +91,37 @@ namespace FM3D_Designer.src.WindowLayouts {
         private void StartVSProject(object sender, RoutedEventArgs e) {
             FM3DPropertyFile fmFile = new FM3DPropertyFile();
             fmFile.Load(Project.CurrentProject.GetProjectPath() + "/Cpp/fm3d.xml");
-            MainWindow.Instance.visualStudio.Start(fmFile.PipeName, Project.CurrentProject._Directory + "/Cpp/GameProject.sln");
+            try{
+                MainWindow.Instance.visualStudio.Start(fmFile.PipeName, Project.CurrentProject._Directory + "/Cpp/GameProject.sln");
+            } catch (InvalidOperationException a)
+            {
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }
+           
 			MainWindow.Instance.StatusColor = new SolidColorBrush(Color.FromRgb(0, 122, 204));
 			MainWindow.Instance.tb_statbar.Text = "VisualStudio is Started";
 		}
 		
         private void StartVSNoDebug(object sender, RoutedEventArgs e) {
-            MainWindow.Instance.visualStudio.Start(false);
+            try{
+                MainWindow.Instance.visualStudio.Start(false);
+            } 
+            catch (InvalidOperationException a){
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }            
+            
         }
 
         private void Build(object sender, RoutedEventArgs e) {
-            MainWindow.Instance.visualStudio.Build();
+            try
+            {
+                MainWindow.Instance.visualStudio.Build();
+            }
+             catch (InvalidOperationException a)
+            {
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }
+
         }
 
         private void SaveProjectCommand(object sender, ExecutedRoutedEventArgs e) {
@@ -112,16 +133,36 @@ namespace FM3D_Designer.src.WindowLayouts {
         }
 
         private void Export(object sender, ExecutedRoutedEventArgs e) {
-            Project.TestEntityConvertTostr();
+            try
+            {
+                Project.TestEntityConvertTostr();
+            } 
+            catch (InvalidOperationException a)
+            {
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }
         }
 
         private void Compile(object sender, RoutedEventArgs e) {
-            MainWindow.Instance.visualStudio.Build();
+            try
+            {
+                MainWindow.Instance.visualStudio.Build();
+            } 
+            catch (InvalidOperationException a)
+            {
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }
          
         }
         private void StartVSDebug(object sender, RoutedEventArgs e) {
-         
-            MainWindow.Instance.visualStudio.Start(true);
+            try
+            {
+                MainWindow.Instance.visualStudio.Start(true);
+            } 
+            catch (InvalidOperationException a)
+            {
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync(a.Message, "Could not start Visual Studio!\n", MessageDialogStyle.Affirmative); }));
+            }
         }
 
 

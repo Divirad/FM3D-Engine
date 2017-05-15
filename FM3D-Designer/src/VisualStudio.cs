@@ -71,7 +71,7 @@ namespace FM3D_Designer.src
                 {
                     _IsStarting = false;
                 }
-                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync("FM3D-Designer-Error", "Could not start Visual Studio!\n" + e.Message, MessageDialogStyle.Affirmative); }));
+                MainWindow.Instance.Invoke(new Action(() => { MainWindow.Instance.ShowMessageAsync("ERROR: 0205-01", "Could not start Visual Studio!\n" + e.Message, MessageDialogStyle.Affirmative); }));
                 return;
             }
             pipeSystem.ConnectEvent += this.OnConnected;
@@ -142,7 +142,7 @@ namespace FM3D_Designer.src
             lock (mutex)
             {
                 if (!_IsStarted)
-                    throw new InvalidOperationException("Visual Studio is not started!"); 
+                    throw new InvalidOperationException("ERROR: 0205-00"); 
                 pipeSystem.SendAddClass(name, file, bases);
             }
         }
@@ -152,7 +152,7 @@ namespace FM3D_Designer.src
             lock (mutex)
             {
                 if (!_IsStarted)
-                    throw new InvalidOperationException("Visual Studio is not started!");
+                    throw new InvalidOperationException("ERROR: 0205-00");
                 return pipeSystem.GetComponents(out components);
             }
 
@@ -163,7 +163,8 @@ namespace FM3D_Designer.src
             lock (mutex)
             {
                 if (!_IsStarted)
-                    throw new InvalidOperationException("Visual Studio is not started!");
+                    throw new InvalidOperationException("ERROR: 0205-00");
+                
                 pipeSystem.SendStart(debugging);
             }
         }
@@ -173,7 +174,7 @@ namespace FM3D_Designer.src
             lock (mutex)
             {
                 if (!_IsStarted)
-                    throw new InvalidOperationException("Visual Studio is not started!");
+                    throw new InvalidOperationException("ERROR: 0205-00");
                 pipeSystem.SendBuild();
             }
         }
@@ -181,7 +182,7 @@ namespace FM3D_Designer.src
         public void SendEntities(List<string> entities) {
             lock (mutex) {
                     if (!_IsStarted)
-                        throw new InvalidOperationException("Visual Studio is not started!");
+                        throw new InvalidOperationException("ERROR: 0205-00");
                     pipeSystem.SendAllEntities(entities);
             }
         }
