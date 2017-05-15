@@ -7,7 +7,7 @@ namespace FM3D {
 		m_dirLightShader(), m_pointLightShader(), m_nullShader(), m_shader3DConfig(0), m_shader3D(nullptr), m_shaders3D(), m_pointLights(),
 		m_bsphere((GL3Mesh*)MeshCreator::CreateIcosahedron(renderSystem)),
 		m_quad((GL3Mesh*)MeshCreator::CreateRectangle(renderSystem, Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f))),
-		m_isWireFrameEnabled(true) {
+		m_isWireFrameEnabled(true), m_terrain(nullptr) {
 
 		SetWireframe(false);
 
@@ -30,6 +30,12 @@ namespace FM3D {
 		m_dirLightShader.SetWVP(Matrix4f::Transpose(Matrix4f::Identity()));
 		m_dirLightShader.SetDirectionalLight(DirectionalLight{ Vector3f(1.0f, 1.0f, 1.0f), 0.56f, 0.9f, Vector3f(1.0f, -1.0f, -1.0f) });
 
+		m_terrainShader.Bind();
+		m_terrainShader.SetSpatTextureUnit(0);
+		m_terrainShader.SetNormalTextureUnit(1);
+		m_terrainShader.SetColorTextureUnit0(2);
+		m_terrainShader.SetColorTextureUnit1(3);
+		m_terrainShader.SetColorTextureUnit2(4);
 	}
 
 	void GL3Renderer3D::SetProjectionMatrix(const Matrix4f& projectionMatrix) {
@@ -45,6 +51,12 @@ namespace FM3D {
 		std::map<const Model*, std::vector<const EntitySystem::Entity*>>& map = m_meshModelEntityMap[mesh];
 		std::vector<const EntitySystem::Entity*>& vec = map[model];
 		vec.push_back(e);
+	}
+
+	void GL3Renderer3D::Submit(const Terrain* t) {
+		m_terrain = t;
+		m_terrainShader.Bind();
+		m_terrainShader.SetTexCount(m_terrain->GetTexCount());
 	}
 
 	void GL3Renderer3D::Flush(const Matrix4f& viewMatrix, const Vector3f& cameraPos) {
@@ -79,9 +91,14 @@ namespace FM3D {
 		GLCall(glCullFace(GL_BACK));
 
 		SetWireframe(m_forceWireFrame);
-		m_shader3D->Bind();
 
 		Matrix4f viewProjectionMatrix = m_projectionMatrix * viewMatrix;
+
+		if (m_terrain) {
+			RenderTerrain(viewProjectionMatrix);
+		}
+
+		m_shader3D->Bind();
 
 		for (std::map<const Mesh*, std::map<const Model*, std::vector<const EntitySystem::Entity*>>>::iterator it = m_meshModelEntityMap.begin(); it != m_meshModelEntityMap.end(); ++it) {
 			for (uint i = 0; i < it->first->GetCountOfParts(); i++) {
@@ -245,6 +262,32 @@ namespace FM3D {
 			m_dirLightShader.Bind();
 			m_dirLightShader.Resize(width, height);
 		}
+	}
+
+	void GL3Renderer3D::RenderTerrain(Matrix4f& viewProjectionMatrix) {
+		m_terrainShader.Bind();
+
+		GLCall(glActiveTexture(GL_TEXTURE0));
+		dynamic_cast<const GL3Texture*>(m_terrain->GetSpatmap())->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE1));
+		dynamic_cast<const GL3Texture*>(m_terrain->GetNormalmap())->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE2));
+		dynamic_cast<const GL3Texture*>(m_terrain->GetMaterials()[0].first)->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE3));
+		dynamic_cast<const GL3Texture*>(m_terrain->GetMaterials()[1].first)->Bind();
+		GLCall(glActiveTexture(GL_TEXTURE4));
+		dynamic_cast<const GL3Texture*>(m_terrain->GetMaterials()[2].first)->Bind();
+
+		m_terrainShader.SetSpecular0(m_terrain->GetMaterials()[0].second);
+		m_terrainShader.SetSpecular1(m_terrain->GetMaterials()[1].second);
+		m_terrainShader.SetSpecular2(m_terrain->GetMaterials()[2].second);
+
+		auto world = m_terrain->GetMatrix();
+		m_terrainShader.SetWorldMatrix(Matrix4f::Transpose(world));
+		m_terrainShader.SetWVP(Matrix4f::Transpose(viewProjectionMatrix * world));
+
+		((const GL3Mesh*)m_terrain->GetMesh())->Bind(0);
+		((const GL3Mesh*)m_terrain->GetMesh())->Render(0);
 	}
 
 }

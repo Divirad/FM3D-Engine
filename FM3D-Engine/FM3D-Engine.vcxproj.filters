@@ -585,9 +585,6 @@
     <ClInclude Include="src\Graphics\Terrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Math\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -625,6 +622,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EntitySystem\Preset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3TerrainShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -667,6 +667,8 @@
     <None Include="ClassDiagram11.cd" />
     <None Include="ClassDiagram12.cd" />
     <None Include="ClassDiagram13.cd" />
+    <None Include="src\Graphics\OpenGL3.3\3D\Shader\Terrain.vert" />
+    <None Include="src\Graphics\OpenGL3.3\3D\Shader\Terrain.frag" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\Assimp\lib\assimp.lib" />
@@ -795,9 +797,6 @@
     <ClCompile Include="src\Graphics\Terrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Math\Transformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -817,6 +816,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\WindowSystem\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3TerrainShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

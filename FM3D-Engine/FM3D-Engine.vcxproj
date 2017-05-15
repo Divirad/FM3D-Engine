@@ -413,7 +413,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3NullShader.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Renderer3D.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.h" />
-    <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.h" />
+    <ClInclude Include="src\Graphics\OpenGL3.3\3D\GL3TerrainShader.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3Mesh.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderSystem.h" />
     <ClInclude Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.h" />
@@ -484,6 +484,8 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\Null.frag" />
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\Null.vert" />
     <None Include="src\Graphics\OpenGL3.3\3D\Shader\PointLight.frag" />
+    <None Include="src\Graphics\OpenGL3.3\3D\Shader\Terrain.frag" />
+    <None Include="src\Graphics\OpenGL3.3\3D\Shader\Terrain.vert" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Dependencies\Assimp\lib\assimp.lib" />
@@ -517,7 +519,7 @@ copy "$(SolutionDir)FM3D-Engine\Dependencies\Assimp\Assimp32.dll" "$(SolutionDir
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3NullShader.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Renderer3D.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Shader3D.cpp" />
-    <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3Terrain.cpp" />
+    <ClCompile Include="src\Graphics\OpenGL3.3\3D\GL3TerrainShader.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3Mesh.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\OpenGL3.3\GL3RenderTarget2D.cpp" />

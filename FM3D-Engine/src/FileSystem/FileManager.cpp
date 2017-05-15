@@ -100,6 +100,10 @@ namespace FM3D {
 		}
 	}
 
+	std::string FileManager::CreateShaderPath(std::string path) {
+		return enginePath + path;
+	}
+
 	std::pair<uint, Mesh*> FileManager::ReadMeshFile(std::string filepath, RenderSystem* renderSystem, const std::map<unsigned int, FM3D::Skeleton*>& map) {
 		std::ifstream file(filepath);
 		if (!file.is_open()) throw std::runtime_error("Cant open mesh file");

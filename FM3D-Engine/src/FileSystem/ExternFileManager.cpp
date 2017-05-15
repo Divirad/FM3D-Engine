@@ -29,6 +29,12 @@ namespace FM3D {
 		uint height = FreeImage_GetHeight(dib);
 		uint bits = FreeImage_GetBPP(dib);
 
+		if (bits == 48) {
+			auto c = FreeImage_GetColorsUsed(dib);
+			auto t = FreeImage_GetColorType(dib);
+			cout << "1";
+		}
+
 		int size = width * height * (bits / 8);
 		BYTE* result = new BYTE[size];
 		memcpy(result, pixels, size);

@@ -375,6 +375,24 @@ struct Resources {
 
 		skyModel = new Model(MeshCreator::CreateCube(renderSystem, Vector3f(0.0f, 0.0f, 0.0f), 1.0f), materials);
 	}
+#pragma endregion
+
+	Model* terrainModel;
+	Texture* terrainSplat;
+	Texture* terrainNormal;
+	Texture* terrain0;
+	Texture* terrain1;
+	Texture* terrain2;
+	void InitTerrain(RenderSystem* renderSystem) {
+		ExternFileManager::ReadModelFile("Terrain/mesh.obj", renderSystem, &terrainModel, false, true);
+
+		terrainSplat = ExternFileManager::ReadTextureFile("Terrain/splatmap.png", renderSystem, Texture::LINEAR, Texture::REPEAT);
+		terrainNormal = ExternFileManager::ReadTextureFile("Terrain/normalmap.png", renderSystem, Texture::LINEAR, Texture::REPEAT);
+
+		terrain0 = ExternFileManager::ReadTextureFile("Terrain/rock.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		terrain1 = ExternFileManager::ReadTextureFile("Terrain/grass.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+		terrain2 = ExternFileManager::ReadTextureFile("Terrain/dirtygrass.jpg", renderSystem, Texture::LINEAR, Texture::REPEAT, Texture::MIPMAP_LINEAR);
+	}
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
@@ -385,11 +403,12 @@ public:
 		//InitTree(r);
 		//InitShuttle(r);
 		//InitLaptop(r);
-		std::cout << "Load Ring..." << std::endl;
-		InitRing(r);
+		//std::cout << "Load Ring..." << std::endl;
+		//InitRing(r);
 		std::cout << "Load Skybox..." << std::endl;
 		InitSky(r);
 		std::cout << "Load Fir Tree..." << std::endl;
 		InitFir(r);
+		InitTerrain(r);
 	}
 };

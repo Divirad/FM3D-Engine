@@ -120,9 +120,9 @@ namespace FM3D {
 #include <src/Graphics/OpenGL3.3/3D/GL3GBuffer.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3NullShader.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3LightShader.h>
+#include <src/Graphics/OpenGL3.3/3D/GL3TerrainShader.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3Shader3D.h>
 #include <src/Graphics/OpenGL3.3/3D/GL3Renderer3D.h>
-#include <src/Graphics/OpenGL3.3/3D/GL3Terrain.h>
 
 #include <src/Graphics/OpenGL3.3/GL3RenderSystem.h>
 
