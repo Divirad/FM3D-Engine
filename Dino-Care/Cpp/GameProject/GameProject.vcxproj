@@ -88,16 +88,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Dyrax\Source\Repos\Project\FM3D-Engine;C:\Users\Dyrax\Source\Repos\Project\FM3D-Engine\Dependencies\Assimp\include;C:\Users\Dyrax\Source\Repos\Project\FM3D-Engine\Dependencies\FreeType\include;C:\Users\Dyrax\Source\Repos\Project\FM3D-Engine\Dependencies\FreeImage;C:\Users\Dyrax\Source\Repos\Project\FM3D-Engine\Dependencies\GLEW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\FM3D-Engine;..\..\..\FM3D-Engine\Dependencies\Assimp\include;..\..\..\FM3D-Engine\Dependencies\FreeType\include;..\..\..\FM3D-Engine\Dependencies\FreeImage;..\..\..\FM3D-Engine\Dependencies\GLEW\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Dyrax\Source\Repos\Project\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>FM3D-Engine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "C:\Users\Dyrax\Source\Repos\Project\Debug\FM3D-Engine.dll" "$(SolutionDir)$(Configuration)\"</Command>
+      <Command>copy "..\..\..\Debug\FM3D-Engine.dll" "$(SolutionDir)$(Configuration)\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
