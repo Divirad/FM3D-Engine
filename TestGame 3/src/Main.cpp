@@ -68,11 +68,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Resources res(renderSystem);
 
-	//Entities
-	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
 	EntityPtr sky = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(3000.0f, 3000.0f, 3000.0f), res.skyModel);
 
+	//Entities
+	EntityPtr entityLeaves = CreateEntity(scene, Vector3f(20.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.treeLeavesModel);
+	EntityPtr boba = CreateEntity(scene, Vector3f(5.0f, 3.0f, -5.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.bobaMesh);
+	EntityPtr island = CreateEntity(scene, Vector3f(-35.0f, -0.1f, -15.0f), Vector3f(0.0f, 100.0f, 0.0f), Vector3f(.1f, .1f, .1f), res.islandModel);
+	EntityPtr shuttle = CreateEntity(scene, Vector3f(-35.0f, 10.0f, 30.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.shuttleModel);
+	EntityPtr allosaurus = CreateEntity(scene, Vector3f(10.0f, 5.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+	EntityPtr laptop = CreateEntity(scene, Vector3f(10.0f, 2.0f, 5.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), res.laptopModel);
+
 	//Terrain
+	
 	std::vector<uint> indices;
 	Vertices vertices(200 * 200 * 4, Vertices::POSITION | Vertices::TEXCOORD | Vertices::NORMAL);
 	{
@@ -111,17 +118,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	Model* terrainModel = new Model(renderSystem->CreateMesh(nullptr, false, std::vector<MeshPart>({ { indices.size(), (void*)&(indices[0]), std::move(vertices), sizeof(uint), false } })), materials);
 
-	Model* terrainMesh;
-	ExternFileManager::ReadModelFile("terrain.fbx", renderSystem, &terrainMesh, false, false);
-	terrainMesh->GetMaterials()[0] = &terrainMaterial;
+	//Model* terrainMesh;
+	//ExternFileManager::ReadModelFile("terrain.fbx", renderSystem, &terrainMesh, false, false);
+	//terrainMesh->GetMaterials()[0] = &terrainMaterial;
+	
 
-	EntityPtr terrain = CreateEntity(scene, Vector3f(-600.0f, 0.0f, 600.0f), Vector3f(-90.0f, 0.0f, 0.0f), Vector3f(1000.0f, 1000.0f, 1000.0f), res.ringModel);
-	EntityPtr allo = CreateEntity(scene, Vector3f(7.0f, 1.0f, 0.0f), Vector3f(0.0f, -120.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
+	EntityPtr terrain = CreateEntity(scene, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f), terrainModel);
+	//EntityPtr allo = CreateEntity(scene, Vector3f(7.0f, 1.0f, 0.0f), Vector3f(0.0f, -120.0f, 0.0f), Vector3f(.02f, .02f, .02f), res.alloModel);
 	EntityPtr fir = CreateEntity(scene, Vector3f(-3.0f, 1.0f, 2.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.0f, 2.0f, 2.0f), res.firModel);
 	EntityPtr fir1 = CreateEntity(scene, Vector3f(15.0f, 1.0f, -2.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.0f, 2.0f, 2.0f), res.firModel);
 	EntityPtr fir2 = CreateEntity(scene, Vector3f(4.0f, 1.0f, 10.0f), Vector3f(0.0f, -90.0f, 0.0f), Vector3f(2.3f, 2.3f, 2.3f), res.firModel2);
 
-	static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration() / 25);
+	//static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration() / 25);
 
 	//2D
 	Text text0{ "", font, 0xff000000 };
@@ -130,10 +138,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	bool resolution = true;
 
-	Terrain terr(res.terrainModel->GetMesh(), res.terrainSplat, res.terrainNormal, std::vector<std::pair<Texture*, float>>({ std::make_pair(res.terrain0, 0.05f), std::make_pair(res.terrain1, 0.01f), std::make_pair(res.terrain2, 0.01f) }), 200.0f);
-	terr.SetRotation(Vector3f(-90.0f, 0.0f, 0.0f));
-	terr.SetScale(Vector3f(1000.0f, 1000.0f, 300.0f));
-	renderer3D->Submit(&terr);
+	//Terrain terr(terrainModel->GetMesh(), res.terrainSplat, res.terrainNormal, std::vector<std::pair<Texture*, float>>({std::make_pair(res.terrain0, 0.05f), std::make_pair(res.terrain1, 0.01f), std::make_pair(res.terrain2, 0.01f)}), 200.0f);
+	//terr.SetRotation(Vector3f(-90.0f, 0.0f, 0.0f));
+	//terr.SetScale(Vector3f(1000.0f, 1000.0f, 300.0f));
+	//renderer3D->Submit(&terr);
 
 	while (!win->ShouldClose()) {
 		if (!win->HasMessage()) {
@@ -159,10 +167,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			}
 
 			renderSystem->BeginRendering(clearColor);
+			RenderLaptop(laptopCam, res, terrain, allosaurus, island, boba);
 
-			//renderer3D->Submit(terrain.get());
-			//renderer3D->Submit(island.get());
-			renderer3D->Submit(allo.get());
+			//renderer3D->Submit(entityLeaves.get());
+			renderer3D->Submit(boba.get());
+			renderer3D->Submit(terrain.get());
+			renderer3D->Submit(island.get());
+			renderer3D->Submit(shuttle.get());
+			//renderer3D->Submit(allosaurus.get());
+			renderer3D->Submit(laptop.get());
+			//renderer3D->Submit(allo.get());
 			renderer3D->Submit(sky.get());
 			renderer3D->Submit(fir.get());
 			renderer3D->Submit(fir1.get());
@@ -184,6 +198,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			//target3D->PresentOnScreen(Vector2i(win->GetWidth(), win->GetHeight()));
 
 			renderSystem->EndRendering();
+
+			static_cast<AnimatedModel*>(res.bobaMesh)->AddToAnimationTime(1.0f / 600.0f);
+			if (static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.bobaMesh)->GetAnimation()->GetDuration())
+				static_cast<AnimatedModel*>(res.bobaMesh)->SetAnimationTime(0.0);
+
+			static_cast<AnimatedModel*>(res.shuttleModel)->AddToAnimationTime(1.0f / 60.0f);
+			if (static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.shuttleModel)->GetAnimation()->GetDuration())
+				static_cast<AnimatedModel*>(res.shuttleModel)->SetAnimationTime(0.0);
+
+			//static_cast<AnimatedModel*>(res.alloModel)->AddToAnimationTime(1.0f / 15.0f);
+			//if (static_cast<AnimatedModel*>(res.alloModel)->GetAnimationTime() >= static_cast<AnimatedModel*>(res.alloModel)->GetAnimation()->GetDuration())
+			//	static_cast<AnimatedModel*>(res.alloModel)->SetAnimationTime(0.0);
 
 			Move(camera, laptopCam);
 			sky->Get<PositionComponent>()->SetPosition(camera.GetPosition());
@@ -391,4 +417,18 @@ EntityPtr CreateEntity(EntityCollection& col, const Vector3f& pos, const Vector3
 const AnimatedModel* GetModel(EntityPtr& e) {
 	RenderableComponent* r = static_cast<RenderableComponent*>(e->GetComponent(RenderableComponentId));
 	return static_cast<const AnimatedModel*>(r->GetModel());
+}
+
+void RenderLaptop(Camera& camera, Resources& res, const EntityPtr& e0, const EntityPtr& e1, const EntityPtr& e2, const EntityPtr& e3) {
+	res.desktopRen3D->Submit(e0.get());
+	//res.desktopRen3D->Submit(e1.get());
+	res.desktopRen3D->Submit(e2.get());
+	res.desktopRen3D->Submit(e3.get());
+	res.desktopRen3D->Flush(camera.GetViewMatrix(), camera.GetPosition());
+
+	res.desktopRen->Begin();
+	Quad renderedScene(Vector3f(-1.0f, -1.0f, 0.0f), Vector2f(2.0f, 2.0f), 0xffffffff, res.desktop3D->GetTexture());
+	res.desktopRen->Submit(&renderedScene);
+	res.desktopRen->End();
+	res.desktopRen->Flush();
 }

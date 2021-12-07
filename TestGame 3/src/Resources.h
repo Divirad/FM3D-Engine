@@ -396,19 +396,19 @@ struct Resources {
 public:
 	Resources(RenderSystem* r) {
 		Init(r);
-		std::cout << "Load Allosaurus..." << std::endl;
-		InitAllo(r);
-		//InitIsland(r);
-		//InitBoba(r);
-		//InitTree(r);
-		//InitShuttle(r);
-		//InitLaptop(r);
+		//std::cout << "Load Allosaurus..." << std::endl;
+		//InitAllo(r);
+		InitIsland(r);
+		InitBoba(r);
+		InitTree(r);
+		InitShuttle(r);
+		InitLaptop(r);
 		//std::cout << "Load Ring..." << std::endl;
 		//InitRing(r);
 		std::cout << "Load Skybox..." << std::endl;
 		InitSky(r);
 		std::cout << "Load Fir Tree..." << std::endl;
 		InitFir(r);
-		InitTerrain(r);
+		//InitTerrain(r);
 	}
 };
